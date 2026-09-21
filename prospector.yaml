@@ -1,0 +1,13 @@
+# KISS: Start with standard strictness and inherit sane defaults
+inherits:
+  - default
+
+strictness: medium
+test-warnings: false
+doc-warnings: false
+
+# DRY: Let Ruff handle formatting/basic styling, let prospector find deep design issues
+pylint:
+  disable:
+    - line-too-long
+    - missing-docstring

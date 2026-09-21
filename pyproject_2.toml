@@ -1,0 +1,41 @@
+[project]
+name = "patient-creation"
+version = "0.1.0"
+description = "Welcome to Synagen!"
+readme = "README.md"
+authors = [
+    { name = "Nick Lehmann", email = "nick.lehmann@synagen.ai" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "pydantic>=2.13.5",
+    "pydantic-ai>=2.43.0",
+    "python-dotenv>=1.2.3",
+]
+
+[project.scripts]
+extract = "patient_creation:extract"
+report = "patient_creation:report"
+
+[build-system]
+requires = ["uv_build>=0.12.0,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.3.0",
+    "prospector[with_everything]>=1.14.0",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
