@@ -20,3 +20,4 @@ class Application(BaseModel):
     position: Position
     position_stage: PositionStage
     company: Company
+    status: ApplicationStatusEnum
