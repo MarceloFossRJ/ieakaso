@@ -32,3 +32,6 @@ filterwarnings = ["ignore:builtin type swig:DeprecationWarning", "ignore:builtin
 
 [tool.ruff]
 line-length = 120
+
+[tool.ruff.lint]
+extend-select = ["DTZ"]
