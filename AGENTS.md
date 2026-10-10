@@ -32,8 +32,11 @@ Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` s
 
 ## Commands
 
-All commands go through one skill, `ai/skills/ieakaso/` (loaded through the pointer `.claude/skills/ieakaso/SKILL.md`): `/ieakaso <mode> [args]`. Each mode is a file in `ai/skills/ieakaso/modes/`; add new modes there and to the table in `ai/skills/ieakaso/SKILL.md`. The skill description lives only in the pointer; update it there when modes change.
+All commands go through one skill, `ai/skills/ieakaso/` (loaded through the pointer `.claude/skills/ieakaso/SKILL.md`): `/ieakaso <mode> [args]`. Each mode is a file in `ai/skills/ieakaso/modes/`. The skill description lives only in the pointer; update it there when modes change.
 
+- **Mode entries** (see `CONTEXT.md`): each mode also has a pointer that routes through the skill as that mode: `/ieakaso:<mode>` in Claude Code and `/ieakaso-<mode>` in OpenCode. A new mode touches five places: its mode file, the mode table in `ai/skills/ieakaso/SKILL.md`, the skill description in the pointer, `.claude/skills/ieakaso/skills/<mode>/SKILL.md` (with `disable-model-invocation: true`, so Claude itself only routes through `/ieakaso`), and `.opencode/commands/ieakaso-<mode>.md`. Each mode entry's description is `Ieakaso <mode>: ` plus the table's "Does" text, and the Claude one's `argument-hint` is the table's "Arguments" (OpenCode commands have no argument hint field). `tests/test_mode_entries_drift.py` fails when they disagree.
+- **Claude Code plugin:** `.claude/skills/ieakaso/.claude-plugin/plugin.json` makes that folder a project-local plugin, which is what gives the `ieakaso:` prefix. It loads only in a trusted folder and only when Claude Code starts at the repo root; `claude plugin validate .claude/skills/ieakaso` checks it.
+- **OpenCode:** reads the pointer `.claude/skills/ieakaso/SKILL.md` as a skill; its `metadata: opencode/slash: "true"` is what makes `/ieakaso` a slash command there. Keep it.
 - **First run:** every mode except `init` checks `db/system_status.json` first and runs `/ieakaso init` if setup is missing or incomplete. `init` is idempotent.
 - **User data:** `config.yml` (candidate data, format in `config_example.yml`), `db/system_status.json` (setup state, starting point in `db/system_status_example.json`), `db/ieakaso_db.json`, and the contents of `input/` and `output/` are gitignored and stay on the user's machine. The only mandatory document is the CV in `input/documents/cv/`.
 
