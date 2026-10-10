@@ -11,7 +11,7 @@ import json
 import os
 import sys
 import tempfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from ieakaso.cv_parser import PARSER_VERSION, CvParseError, parse
@@ -73,7 +73,7 @@ def main(argv: list[str] | None = None) -> int:
         _write_atomic(output, new)
     cv["parsed"] = {
         **_fingerprint(source_rel, source_bytes, new),
-        "parsed_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "parsed_at": datetime.now(UTC).isoformat(timespec="seconds"),
     }
     _write_atomic(root / STATUS, (json.dumps(status, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
     print(f"Wrote {OUTPUT} from {source_rel}.")

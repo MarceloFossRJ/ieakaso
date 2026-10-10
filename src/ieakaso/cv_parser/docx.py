@@ -10,9 +10,9 @@ import zipfile
 from pathlib import Path
 
 import docx
-from docx.oxml import parse_xml
 from docx.opc.constants import RELATIONSHIP_TYPE as RT
 from docx.opc.exceptions import PackageNotFoundError
+from docx.oxml import parse_xml
 
 from ieakaso.cv_parser.errors import CvParseError
 from ieakaso.cv_parser.markdown import Footnotes, table, table_cell
