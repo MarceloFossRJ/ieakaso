@@ -1,0 +1,23 @@
+[project]
+name = "ieakaso"
+version = "0.1.0"
+description = "Ieakaso helps professionals find jobs that truly fit where they want their career to go next, not just any opening, the right one. It tracks applications, from first listing to offer, so nothing slips through, and guides you through interview prep along the way."
+readme = "README.md"
+authors = [
+    { name = "Marcelo Foss de Oliveira", email = "marcelo.foss.rj@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[build-system]
+requires = ["uv_build>=0.13.0,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests"]

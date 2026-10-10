@@ -1,0 +1,52 @@
+# Copy of the data `/ieakaso init` collects. Your real data goes in `config.yml` (gitignored).
+#
+# priority values:
+#   main      = primary priority; on a sibling or city, same weight as the main target
+#   secondary = good fit
+#   stretch   = worth considering, but a stretch (target_positions.siblings only)
+
+candidate:
+  name: "John"
+  last_name: "Doe"
+  email: "john.doe@provider.com"
+  phone: "+49 152 664 3298"
+  location: "Berlin, DE"
+  linkedin: "https://linkedin.com/in/johndoe"
+  portfolio_url: "https://john.doe"
+  github: "https://github.com/johndoe"
+  languages:
+    - name: "en"              # ISO language code
+      proficiency: "C1"       # A1, A2, B1, B2, C1, C2, native
+    - name: "pt-br"
+      proficiency: "native"
+    - name: "fr"
+      proficiency: "B1"
+
+target_positions:
+  # The positions you are aiming for
+  main:
+    - name: "Head of Engineering"
+      seniority: ""
+    - name: "Director of Engineering"
+      seniority: ""
+  # Other positions you would also consider
+  siblings:
+    - name: "Engineering Manager"
+      seniority: "Senior"
+      priority: "main"
+    - name: "Engineering Manager"
+      seniority: ""
+      priority: "secondary"
+    - name: "Team Lead"
+      seniority: "Senior"
+      priority: "stretch"
+
+search_location:
+  country: "Germany"
+  cities:
+    - name: "Berlin"          # a city name, or "Any" for the whole country
+      priority: "main"
+    - name: "Any"
+      priority: "secondary"
+  timezone: "CET"
+  visa_status: "No sponsorship needed"

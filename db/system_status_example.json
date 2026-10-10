@@ -1,0 +1,33 @@
+{
+  "init": {
+    "status": "not_started",
+    "completed_at": null,
+    "version": 1
+  },
+  "config": {
+    "path": "config.yml",
+    "validated_at": null,
+    "fields": {
+      "candidate.name": "missing",
+      "candidate.last_name": "missing",
+      "candidate.email": "missing",
+      "candidate.phone": "missing",
+      "candidate.location": "missing",
+      "candidate.linkedin": "missing",
+      "candidate.portfolio_url": "missing",
+      "candidate.github": "missing",
+      "candidate.languages": "missing",
+      "target_positions.main": "missing",
+      "target_positions.siblings": "missing",
+      "search_location.country": "missing",
+      "search_location.cities": "missing",
+      "search_location.timezone": "missing",
+      "search_location.visa_status": "missing"
+    }
+  },
+  "documents": {
+    "cv": { "status": "missing", "path": null },
+    "linkedin": { "status": "missing", "path": null },
+    "reference_letters": { "status": "missing", "paths": [] }
+  }
+}

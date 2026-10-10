@@ -1,4 +1,15 @@
-input/*
+config.yml
+db/system_status.json
+db/ieakaso_db.json
+
+# input/ and output/: track the folder structure, never the candidate's documents
+input/**
+!input/**/
+!input/**/.gitkeep
+!input/documents/README.md
+output/**
+!output/**/
+!output/**/.gitkeep
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -48,3 +59,5 @@ venv.bak/
 
 # Ruff stuff:
 .ruff_cache/
+# Personal task list
+todo.txt

@@ -51,6 +51,20 @@ On first launch it asks for your memory, in chat. Nothing to configure by hand:
 - your biggest achievements
 - a personal SWOT
 
+To set up, put your CV in `input/documents/cv/` and run:
+
+```
+/ieakaso init
+```
+
+It checks your documents, strongly recommends your LinkedIn "Save to PDF" export (`input/documents/linkedin/`), suggests reference letters (`input/documents/reference_letters/`), and asks you to confirm your details, target positions, and search location. It saves them in `config.yml`. Run it again any time to review or update them. Other commands run it for you if setup is incomplete.
+
+Then score your CV against a job ad:
+
+```
+/ieakaso job-analyzer <job-url>
+```
+
 The first runs are rough. It does not know you yet.
 Talk to it: what you want, what you refuse.
 Think of it as a recruiter's first week.
