@@ -9,9 +9,9 @@ Every other Ieakaso feature runs through the agent, but the Parsed CV (`input/cv
 - **Pandoc for DOCX and TeX.** Rejected: every candidate would need a system install outside `uv`. TeX support stays limited to common commands, and an unknown command is a hard error.
 - **OCR for scanned PDFs.** Rejected: recognition mistakes, and not reliably deterministic. The candidate is asked for a text-based file instead.
 - **pdfplumber / pdfminer.six or pypdf for PDF.** Rejected in favour of PyMuPDF, which gives text blocks in stored order, link annotations and control over ligature expansion. Its AGPL licence matches this project's. DOCX uses `python-docx` (plus `lxml` for footnotes and text boxes), and TeX uses `pylatexenc`'s `LatexWalker` for parsing only.
-- **Guessing the encoding of TXT files.** Rejected: TXT must be UTF-8.
+- **Guessing the encoding of TXT files.** Rejected: TXT and Markdown Source CVs must be UTF-8 and not empty. A Markdown Source CV that meets this is copied byte for byte; one that doesn't is refused like any other unparseable CV, since an unreadable or empty Parsed CV would only fail later.
 
 ## Consequences
 
-- Any change to the parser's output must raise `parser_version` and update the stored expected test outputs in the same commit; the setup check then parses again.
+- Any change to the parser's output must raise `PARSER_VERSION` (in `ieakaso.cv_parser`) and update the stored expected test outputs in the same commit; `tests/fixtures/update_expected.py` refuses to change an output otherwise; the setup check then parses again.
 - Odd layouts (two-column PDFs, custom TeX macros) produce awkward or failed output. The parser never "fixes" it; the candidate supplies a cleaner Source CV.

@@ -51,7 +51,7 @@ If none is found, suggest adding them: they back up achievements with a third pa
 
 ### Parsed CV
 
-Once the main CV is chosen, run `ai/skills/ieakaso/modes/cv-parser.md`. If it ends without exit 0 (the CV can't be parsed, or the candidate keeps a hand-edited `input/cv.md`), record the CV as `found` and carry on with init; the setup check runs the parser again before the next mode.
+Once the main CV is chosen (it becomes the Source CV), run `ai/skills/ieakaso/modes/cv-parser.md`. If it ends without exit 0 (the CV can't be parsed, or the candidate keeps a hand-edited `input/cv.md`), record the CV as `found` and carry on with init; the setup check runs the parser again before the next mode.
 
 Settle the LinkedIn PDF and reference letters (found or skipped) before starting Step 3, so the user never has two open questions at once and a bare "skip" or "ok" is never ambiguous.
 

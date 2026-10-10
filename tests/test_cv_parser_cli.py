@@ -83,7 +83,7 @@ def test_a_changed_source_cv_is_parsed_again(repo: Path):
     assert read_status(repo)["documents"]["cv"]["parsed"]["source_sha256"] == sha((repo / CV_PATH).read_bytes())
 
 
-def test_a_different_main_cv_is_parsed_again(repo: Path):
+def test_a_different_source_cv_is_parsed_again(repo: Path):
     run(repo)
     write_files(repo, {"input/documents/cv/other.txt": "Other CV\n"})
     data = read_status(repo)
@@ -165,7 +165,7 @@ def test_a_source_that_fails_to_parse_changes_nothing(repo: Path, capsys):
 
 
 @pytest.mark.parametrize("data", [None, "not json", status(cv_path=None)])
-def test_without_a_recorded_main_cv_it_asks_for_init(repo: Path, capsys, data):
+def test_without_a_recorded_source_cv_it_asks_for_init(repo: Path, capsys, data):
     if data is None:
         (repo / "db/system_status.json").unlink()
     else:
@@ -177,7 +177,7 @@ def test_without_a_recorded_main_cv_it_asks_for_init(repo: Path, capsys, data):
     assert "/ieakaso init" in capsys.readouterr().err
 
 
-def test_a_recorded_main_cv_that_no_longer_exists_asks_for_init(repo: Path, capsys):
+def test_a_recorded_source_cv_that_no_longer_exists_asks_for_init(repo: Path, capsys):
     (repo / CV_PATH).unlink()
 
     assert run(repo) == 2

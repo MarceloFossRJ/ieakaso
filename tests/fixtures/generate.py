@@ -91,7 +91,26 @@ def build_docx(path: Path) -> None:
     table.cell(2, 2).text = "3"
 
     box = doc.add_paragraph("Address block")
-    box._p.append(parse_xml(_textbox_run("Contact: jordan@example.com")))
+    box._p.append(parse_xml(_textbox_run("<w:p><w:r><w:t>Contact: jordan@example.com</w:t></w:r></w:p>")))
+
+    moved = doc.add_paragraph("Moved: ")
+    moved._p.append(parse_xml(
+        f'<w:moveFrom {NS} w:id="92" w:author="x" w:date="2026-01-01T00:00:00Z">'
+        '<w:r><w:t xml:space="preserve">OldPlace </w:t></w:r></w:moveFrom>'
+    ))
+    moved._p.append(parse_xml(
+        f'<w:moveTo {NS} w:id="93" w:author="x" w:date="2026-01-01T00:00:00Z">'
+        '<w:r><w:t>MovedWord</w:t></w:r></w:moveTo>'
+    ))
+    moved.add_run(" end.")
+
+    rating = doc.add_paragraph("Rating: ")
+    rating._p.append(parse_xml(f'<w:r {NS}><w:sym w:font="Wingdings" w:char="F0B7"/></w:r>'))
+    rating.add_run(" 5")
+
+    nested = doc.add_paragraph("Nested boxes")
+    inner = _textbox_run("<w:p><w:r><w:t>Inner box</w:t></w:r></w:p>").replace(f" {NS}", "", 1)
+    nested._p.append(parse_xml(_textbox_run(f"<w:p><w:r><w:t>Outer box</w:t></w:r>{inner}</w:p>")))
 
     doc.add_paragraph("Languages", style="Heading 1")
     doc.add_paragraph("English (native), German (C1)")
@@ -108,8 +127,8 @@ def _add_hyperlink(paragraph, url: str, text: str) -> None:
     ))
 
 
-def _textbox_run(text: str) -> str:
-    content = f"<w:txbxContent><w:p><w:r><w:t>{text}</w:t></w:r></w:p></w:txbxContent>"
+def _textbox_run(paragraphs: str) -> str:
+    content = f"<w:txbxContent>{paragraphs}</w:txbxContent>"
     return (
         f"<w:r {NS}><mc:AlternateContent>"
         "<mc:Choice Requires=\"wps\"><w:drawing><wp:anchor><a:graphic><a:graphicData>"
@@ -222,6 +241,28 @@ Go & Intermediate \\
 \vspace{1em}
 \noindent Languages: English, German.
 \end{document}
+"""
+
+# The text a reader sees in the compiled cv.tex, in order, typed by hand. Numbers and bullets
+# TeX generates (section numbers, list bullets) are not in the source, so they are not here.
+TEX_VISIBLE = """
+Jordan Example
+Berlin, Germany | jordan@example.com | https://jordan.example.dev
+Summary
+Senior engineer with ten years of experience in R&D teams, cutting costs by 30%.
+Café owner on weekends – and naïve about nothing.
+Experience
+Senior Engineer, Acme Corp 2019–2023
+Led a team of five engineers.
+Cut deployment time by 40% in two quarters.
+Engineer, Example GmbH
+First numbered point.
+– Labelled point.
+Skills
+Skill Level
+Python Expert
+Go Intermediate
+Languages: English, German.
 """
 
 TEX_UNKNOWN = r"""\documentclass{article}

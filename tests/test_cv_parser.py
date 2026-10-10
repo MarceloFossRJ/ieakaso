@@ -1,5 +1,7 @@
 """parse() turns a Source CV into the Parsed CV text. Expected outputs live in tests/fixtures/expected/."""
 
+import hashlib
+import json
 import re
 from collections import Counter
 from pathlib import Path
@@ -7,13 +9,15 @@ from pathlib import Path
 import docx
 import pymupdf
 import pytest
+from docx.opc.constants import RELATIONSHIP_TYPE as RT
+from fixtures.generate import TEX_VISIBLE
 from lxml import etree
 
-from ieakaso.cv_parser import CvParseError, parse
+from ieakaso.cv_parser import ACCEPTED, PARSER_VERSION, CvParseError, parse
 
 FIXTURES = Path(__file__).parent / "fixtures"
 EXPECTED = FIXTURES / "expected"
-SUPPORTED = {".pdf", ".docx", ".tex", ".txt", ".md"}
+MANIFEST = EXPECTED / "manifest.json"
 # Generated fixtures that must fail to parse, with a phrase the candidate's message must contain.
 FAILING = {
     "scanned.pdf": "text-based",
@@ -31,13 +35,21 @@ def sources() -> list[Path]:
         p
         for folder in ("pdf", "synthetic-resumes", "generated")
         for p in (FIXTURES / folder).iterdir()
-        if p.suffix in SUPPORTED and p.name not in FAILING
+        if p.suffix in ACCEPTED and p.name not in FAILING
     )
 
 
 def expected_path(source: Path) -> Path:
     rel = source.relative_to(FIXTURES)
     return EXPECTED / rel.parent / f"{rel.name}.md"
+
+
+def expected_outputs() -> dict[str, str]:
+    """Every expected output, by path relative to EXPECTED, with its sha256."""
+    return {
+        p.relative_to(EXPECTED).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+        for p in sorted(EXPECTED.rglob("*.md"))
+    }
 
 
 def words(text: str) -> Counter:
@@ -50,8 +62,13 @@ def strip_markup(md: str) -> str:
     md = re.sub(r"\[\^\d+\]:?", " ", md)  # footnote markers
     md = re.sub(r"(?m)^\| *(?:--- *\| *)+$", "", md)  # table separator rows
     md = re.sub(r"(?m)^(?:#{1,6} |- |\d+\. )", "", md)  # headings, list items
-    md = re.sub(r"(?<!\\)\|", " ", md)  # table cell borders
+    md = re.sub(r"(?m)^\|.*\|$", lambda row: re.sub(r"(?<!\\)\|", " ", row.group()), md)  # table borders
     return md.replace("\\|", "|")
+
+
+def letters(text: str) -> str:
+    """The text without any whitespace: compares content and order, not layout."""
+    return "".join(text.split())
 
 
 # --- expected outputs -------------------------------------------------------
@@ -59,6 +76,13 @@ def strip_markup(md: str) -> str:
 
 def test_every_fixture_has_an_expected_output():
     assert [s.relative_to(FIXTURES) for s in sources() if not expected_path(s).is_file()] == []
+
+
+def test_expected_outputs_belong_to_the_current_parser_version():
+    # update_expected.py refuses to change an output without a PARSER_VERSION raise.
+    manifest = json.loads(MANIFEST.read_text())
+    assert manifest["parser_version"] == PARSER_VERSION
+    assert manifest["outputs"] == expected_outputs()
 
 
 @pytest.mark.parametrize("source", sources(), ids=lambda p: str(p.relative_to(FIXTURES)))
@@ -82,21 +106,34 @@ def test_pdf_output_has_exactly_the_pdf_words():
         assert words(strip_markup(parse(source))) == words(text), source.name
 
 
-def test_docx_output_has_exactly_the_visible_docx_characters_in_order():
-    source = FIXTURES / "generated/cv.docx"
+@pytest.mark.parametrize("source", [s for s in sources() if s.suffix == ".docx"], ids=lambda p: p.name)
+def test_docx_output_has_exactly_the_visible_docx_characters_in_order(source: Path):
     ns = {
         "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
         "mc": "http://schemas.openxmlformats.org/markup-compatibility/2006",
     }
-    parts = {p.partname.split("/")[-1]: p for p in docx.Document(source).part.package.iter_parts()}
+    document = docx.Document(source).part
+    by_type = {}
+    for rel in document.rels.values():
+        if not rel.is_external:
+            by_type.setdefault(rel.reltype, []).append(rel.target_part)
+    # Reading order: page headers, body, footnotes, page footers.
+    parts = [*by_type.get(RT.HEADER, []), document, *by_type.get(RT.FOOTNOTES, []), *by_type.get(RT.FOOTER, [])]
     text = []
-    for name in ("header1.xml", "document.xml", "footnotes.xml", "footer1.xml"):  # reading order
-        element = etree.fromstring(parts[name].blob)
+    for part in parts:
+        element = etree.fromstring(part.blob)
         # Text boxes are stored twice (modern and fallback); count only the modern copy.
-        for fallback in element.xpath(".//mc:Fallback", namespaces=ns):
-            fallback.getparent().remove(fallback)
-        text += [t.text for t in element.xpath(".//w:t", namespaces=ns)]
-    assert "".join(strip_markup(parse(source)).split()) == "".join("".join(text).split())
+        # Text a tracked move took away (w:moveFrom) is no longer in the document.
+        for gone in element.xpath(".//mc:Fallback | .//w:moveFrom", namespaces=ns):
+            gone.getparent().remove(gone)
+        for node in element.xpath(".//w:t | .//w:sym", namespaces=ns):
+            sym = node.get(f"{{{ns['w']}}}char")
+            text.append(chr(int(sym, 16)) if sym else node.text)
+    assert letters(strip_markup(parse(source))) == letters("".join(text))
+
+
+def test_tex_output_has_exactly_the_visible_tex_characters_in_order():
+    assert letters(strip_markup(parse(FIXTURES / "generated/cv.tex"))) == letters(TEX_VISIBLE)
 
 
 def test_txt_output_has_exactly_the_txt_words():
@@ -148,6 +185,14 @@ def test_hyphenated_line_breaks_are_never_joined(tmp_path):
 def test_markdown_source_is_copied_byte_for_byte():
     source = FIXTURES / "generated/cv.md"
     assert parse(source).encode("utf-8") == source.read_bytes()
+
+
+@pytest.mark.parametrize("raw, message", [(b"", "empty"), ("# Jordan Exámple\n".encode("latin-1"), "UTF-8")])
+def test_markdown_source_must_be_utf8_and_not_empty(tmp_path, raw: bytes, message: str):
+    path = tmp_path / "cv.md"
+    path.write_bytes(raw)
+    with pytest.raises(CvParseError, match=message):
+        parse(path)
 
 
 def test_suffix_is_case_insensitive(tmp_path):

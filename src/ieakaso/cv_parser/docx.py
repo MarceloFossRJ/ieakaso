@@ -127,11 +127,8 @@ class _Reader:
             yield from self._block_items(box, part)
 
     def _text_boxes(self, p):
-        boxes = []
-        for content in p.iter(f"{W}txbxContent"):
-            if not _inside_fallback(content):
-                boxes.append(content)
-        return boxes
+        """The paragraph's own text boxes. Boxes nested in them are read with their box."""
+        return [box for box in p.iter(f"{W}txbxContent") if _owned_box(box, p)]
 
     # --- inline ----------------------------------------------------------
 
@@ -179,7 +176,7 @@ class _Reader:
                     n if isinstance(n, str) else self._run_child_text(n) for n in self._runs(child, part)
                 )
                 yield f"[{text}]({uri})" if uri and text.strip() else text
-            elif tag in (f"{W}ins", f"{W}smartTag", f"{W}customXml", f"{W}fldSimple", f"{W}dir", f"{W}bdo"):
+            elif tag in (f"{W}ins", f"{W}moveTo", f"{W}smartTag", f"{W}customXml", f"{W}fldSimple", f"{W}dir", f"{W}bdo"):
                 yield from self._runs(child, part)
             elif tag == f"{W}sdt":
                 content = child.find(f"{W}sdtContent")
@@ -196,6 +193,8 @@ class _Reader:
             return "\n"
         if tag == f"{W}noBreakHyphen":
             return "-"
+        if tag == f"{W}sym":
+            return chr(int(node.get(f"{W}char"), 16))
         if tag == f"{W}footnoteReference":
             self.footnote_ids.append(node.get(f"{W}id"))
             return f"[^{len(self.footnote_ids)}]"
@@ -305,14 +304,15 @@ def _field_text(field: dict) -> str:
     return text
 
 
-def _inside_fallback(element) -> bool:
-    """Text boxes are stored twice (mc:Choice and mc:Fallback); read only the Choice copy."""
-    parent = element.getparent()
-    while parent is not None:
-        if parent.tag == f"{MC}Fallback":
-            return True
+def _owned_box(box, p) -> bool:
+    """True when box belongs to p directly: not inside another box, and not the mc:Fallback
+    copy (text boxes are stored twice, as mc:Choice and mc:Fallback; only the Choice is read)."""
+    parent = box.getparent()
+    while parent is not None and parent is not p:
+        if parent.tag in (f"{MC}Fallback", f"{W}txbxContent"):
+            return False
         parent = parent.getparent()
-    return False
+    return True
 
 
 def _parent_table(element):

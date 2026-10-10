@@ -24,7 +24,7 @@ OUTPUT = Path("input/cv.md")
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="python -m ieakaso.cv_parser",
-        description="Write input/cv.md from the main CV recorded by /ieakaso init.",
+        description="Write the Parsed CV (input/cv.md) from the Source CV recorded by /ieakaso init.",
     )
     parser.add_argument("--force", action="store_true", help="overwrite input/cv.md even if it was edited by hand")
     parser.add_argument("--root", type=Path, help="repo root (default: found from the current folder)")
