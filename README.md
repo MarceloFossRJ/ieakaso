@@ -5,10 +5,10 @@ It tracks applications from first listing to offer, so nothing slips through, an
 
 ## How it works
 
-Paste a job ad URL. Is it a match for you? Would you be a top applicant?
+Paste a job ad, as a URL or as text. Is it a match for you? Would you be a top applicant?
 
-1. **You paste the URL** of the job ad in the prompt.
-2. **It tells you if you are a top applicant**, after weighing the strong and weak points of the posting against your profile.
+1. **You paste the job ad** in the prompt: its URL, or its text when the page is behind a login.
+2. **It tells you if you are a top applicant**, after weighing your CV against what the job ad asks for, and points out the job ad's own strong and weak points.
 3. **It tells you what is next**: what the application form asks for and what you need to apply.
 4. **It hands you two drafts**: a cover letter (when the form asks for one) and an application report.
 
@@ -19,7 +19,7 @@ You read them. You send them.
 Ieakaso runs two agents with opposite jobs:
 
 - **Applicant Agent** writes. It reads the job ad and the application form, drafts the cover letter, rewrites it, and prepares the application report.
-- **Seasoned Recruiter** judges. It highlights the strong and weak points of the posting, decides whether you are a top applicant, and grades every cover letter from 1 to 10.
+- **Seasoned Recruiter** judges. It highlights the strong and weak points of the job ad, decides whether you are a top applicant, and grades every cover letter from 1 to 10.
 
 A cover letter only reaches you once the Recruiter grades it at least 9/10. Below that, the Recruiter suggests changes and the Applicant rewrites.
 
@@ -75,7 +75,18 @@ Then ask whether a job ad is worth applying to. Give its URL, or paste its text:
 /ieakaso job-analyzer <job-url or job-ad text>
 ```
 
-The job analysis lands in `output/job-analysis/`: a verdict (Top applicant, Apply, Stretch, Don't apply), your strengths and weaknesses for the role, and what your CV under-sells.
+It answers in chat with a verdict, a score out of 100, the reason, and your top three strengths and weaknesses for the role. The full job analysis is saved as `output/job-analysis/<company>_<position>_<yyyymmdd>.md`.
+
+| Score | Verdict | Advice |
+|---|---|---|
+| 90-100 | Top applicant | Apply, leading with your strongest matches |
+| 80-89 | Apply | Apply, and close the gaps in your cover letter |
+| 60-79 | Stretch | Don't apply; it says why |
+| 0-59 | Don't apply | Don't apply; it names the deciding gap |
+
+The advice is yours to override. A missing must-have, like a required work permit or language, caps the score at 59.
+
+The score reads only your CV, as a recruiter would. Your other memory files never raise it: they show what your CV under-sells, with wording you can add to your CV to score higher next time. If the URL can't be read, it asks you to paste the ad. Running it again for the same company and position on the same day replaces that day's analysis.
 
 The first runs are rough. It does not know you yet.
 Talk to it: what you want, what you refuse.
@@ -106,12 +117,11 @@ Ieakaso learns from every application it follows and folds what it learns back i
 ## Roadmap
 
 - **Interview prep flow.** Guidance from first call to offer.
-- **Still open?** Check that a posting is still live, and spot reposts, before you write a word.
+- **Still open?** Check that a job ad is still live, and spot reposts, before you write a word.
 - **Richer fit score.** Score the position against your LinkedIn profile too. You can override the score.
-- **CV and form answers.** Suggest CV changes for each posting and draft answers for every field of the application form.
+- **CV and form answers.** Rewrite the CV for each job ad and draft answers for every field of the application form.
 - **Who do I talk to?** Find the hiring manager or recruiter and draft a note. It never sends it.
 - **What should I learn?** After a run of rejections, name the gap.
-- **Honest advice.** Recommend not applying when the fit is low. You can override it, and it will say so.
 - **Fabrication check.** Block any CV draft whose facts or numbers are not in your memory.
 
 ## License
