@@ -16,7 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parents[1]))
 
-from test_cv_parser import MANIFEST, expected_outputs, expected_path, sources  # noqa: E402
+from fixtures.catalog import MANIFEST, expected_outputs, expected_path, sources  # noqa: E402
 
 from ieakaso.cv_parser import PARSER_VERSION, parse  # noqa: E402
 
@@ -42,7 +42,7 @@ def main(rewrite_all: bool) -> int:
             pending[target] = output
 
     # Compare with what the manifest recorded, so hand-edited expected files count as changes too.
-    after = {rel: sha for rel, sha in expected_outputs().items()}
+    after = expected_outputs()
     after |= {_rel(t): hashlib.sha256(o).hexdigest() for t, o in pending.items()}
     recorded = manifest["outputs"]
     changed = sorted(rel for rel, sha in recorded.items() if rel in after and after[rel] != sha)

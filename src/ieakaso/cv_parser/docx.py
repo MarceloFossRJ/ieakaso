@@ -15,6 +15,7 @@ from docx.opc.constants import RELATIONSHIP_TYPE as RT
 from docx.opc.exceptions import PackageNotFoundError
 
 from ieakaso.cv_parser.errors import CvParseError
+from ieakaso.cv_parser.markdown import Footnotes, table, table_cell
 
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 R = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
@@ -39,11 +40,12 @@ class _Reader:
         self.document = document
         self.part = document.part
         self.styles = {s.style_id: s for s in document.styles}
-        self.footnote_ids: list[str] = []  # in order of first reference; [^n] is index + 1
+        self.footnotes = Footnotes()
         self.footnote_part = next(
             (rel.target_part for rel in self.part.rels.values() if rel.reltype == RT.FOOTNOTES),
             None,
         )
+        self._footnote_elements = None  # footnote id -> w:footnote, loaded on first reference
 
     def read(self) -> str:
         body = self.part.element.body
@@ -68,23 +70,19 @@ class _Reader:
                     kind.append(part)
         return headers, footers
 
-    def _footnotes(self, start: int, end: int) -> str:
-        """Definitions for footnote_ids[start:end]."""
-        if start >= end or self.footnote_part is None:
-            return ""
-        part = self.footnote_part
-        # python-docx has no footnotes part type; it loads footnotes.xml as a plain part.
-        element = getattr(part, "element", None)
-        if element is None:
-            element = parse_xml(part.blob)
-        notes = {n.get(f"{W}id"): n for n in element.iter(f"{W}footnote")}
-        lines = []
-        for number, note_id in enumerate(self.footnote_ids[start:end], start=start + 1):
-            note = notes.get(note_id)
-            if note is not None:
-                text = " ".join(self._paragraph_text(p, part) for p in note.iter(f"{W}p"))
-                lines.append(f"[^{number}]: {text.strip()}")
-        return "\n".join(lines)
+    def _footnote_text(self, note_id: str) -> str | None:
+        if self.footnote_part is None:
+            return None
+        if self._footnote_elements is None:
+            # python-docx has no footnotes part type; it loads footnotes.xml as a plain part.
+            element = getattr(self.footnote_part, "element", None)
+            if element is None:
+                element = parse_xml(self.footnote_part.blob)
+            self._footnote_elements = {n.get(f"{W}id"): n for n in element.iter(f"{W}footnote")}
+        note = self._footnote_elements.get(note_id)
+        if note is None:
+            return None
+        return " ".join(self._paragraph_text(p, self.footnote_part) for p in note.iter(f"{W}p")).strip()
 
     # --- blocks ----------------------------------------------------------
 
@@ -94,34 +92,31 @@ class _Reader:
         whole list; without (text boxes in a table cell), the enclosing block writes it."""
         parts = []
         last_list = None
-        written = len(self.footnote_ids)  # footnotes before this index have their text out
+
+        def add_notes(up_to=None):
+            text = self.footnotes.take(up_to) if notes else ""
+            if text:
+                parts.append(("\n\n" if parts else "") + text)
+
         items = self._block_items(container, part)
         while True:
-            before = len(self.footnote_ids)
-            item = next(items, None)  # reading an item records the footnotes it references
+            before = len(self.footnotes)
+            item = next(items, None)  # reading an item references its footnotes
             if item is None:
                 break
             _, text, list_id = item
             if not text.strip():
                 continue
-            if notes and last_list is not None and list_id != last_list:
-                written = self._add_notes(parts, written, before)  # the list ended
+            if last_list is not None and list_id != last_list:
+                add_notes(before)  # the list ended; this item's own notes come after it
             if parts:
                 parts.append("\n" if list_id is not None and list_id == last_list else "\n\n")
             parts.append(text)
             last_list = list_id
-            if notes and list_id is None:
-                written = self._add_notes(parts, written, len(self.footnote_ids))
-        if notes:
-            self._add_notes(parts, written, len(self.footnote_ids))
+            if list_id is None:
+                add_notes()
+        add_notes()
         return "".join(parts)
-
-    def _add_notes(self, parts: list[str], start: int, end: int) -> int:
-        """Append the text of footnotes start..end-1 as a block; returns end."""
-        text = self._footnotes(start, end)
-        if text:
-            parts.append(("\n\n" if parts else "") + text)
-        return end
 
     def _block_items(self, container, part):
         for child in container:
@@ -218,8 +213,7 @@ class _Reader:
         if tag == f"{W}sym":
             return chr(int(node.get(f"{W}char"), 16))
         if tag == f"{W}footnoteReference":
-            self.footnote_ids.append(node.get(f"{W}id"))
-            return f"[^{len(self.footnote_ids)}]"
+            return self.footnotes.reference(self._footnote_text(node.get(f"{W}id")))
         return ""
 
     # --- tables ----------------------------------------------------------
@@ -231,18 +225,11 @@ class _Reader:
                 continue
             cells = []
             for tc in tr.findall(f"{W}tc"):
-                text = " ".join(self._cell_text(tc, part).split()).replace("|", "\\|")
-                cells.append(text)
+                cells.append(table_cell(self._cell_text(tc, part)))
                 span = tc.find(f"{W}tcPr/{W}gridSpan")
                 cells += [""] * (int(span.get(f"{W}val")) - 1 if span is not None else 0)
             rows.append(cells)
-        if not rows:
-            return ""
-        width = max(len(r) for r in rows)
-        rows = [r + [""] * (width - len(r)) for r in rows]
-        lines = [_table_row(rows[0]), _table_row(["---"] * width)]
-        lines += [_table_row(r) for r in rows[1:]]
-        return "\n".join(lines)
+        return table(rows)
 
     def _cell_text(self, tc, part) -> str:
         texts = []
@@ -343,7 +330,3 @@ def _parent_table(element):
     while parent is not None and parent.tag != f"{W}tbl":
         parent = parent.getparent()
     return parent
-
-
-def _table_row(cells: list[str]) -> str:
-    return "| " + " | ".join(cells) + " |"

@@ -12,6 +12,7 @@ from pylatexenc import latexwalker as lw
 from pylatexenc.macrospec import EnvironmentSpec, MacroSpec
 
 from ieakaso.cv_parser.errors import CvParseError
+from ieakaso.cv_parser.markdown import Footnotes, table, table_cell
 
 HEADINGS = {"part": 1, "chapter": 1, "section": 1, "subsection": 2, "subsubsection": 3, "paragraph": 4, "subparagraph": 5}
 
@@ -74,7 +75,7 @@ LIST_ENVS = {"itemize": "-", "enumerate": "1.", "description": "-"}
 TABLE_ENVS = {"tabular": "[{", "tabular*": "{[{", "tabularx": "{[{", "tabulary": "{[{", "longtable": "[{"}
 # A forced line break (\\); the source newline that usually follows it must not split the paragraph.
 LINE_BREAK = "\x01"
-FOOTNOTE_MARK = re.compile(r"\[\^(\d+)\]")
+PARAGRAPH_BREAK = re.compile(r"\n[ \t]*\n\s*")
 INCLUDES = {"input", "include", "import", "subfile", "subimport", "includeonly"}
 
 
@@ -117,8 +118,7 @@ class _Unsupported(Exception):
 class _Renderer:
     def __init__(self, name: str, text: str):
         self.name, self.text = name, text
-        self.footnotes: list[str] = []  # [^n] is index + 1
-        self.noted = 0  # footnotes whose text is already written
+        self.footnotes = Footnotes()
         self.depth = 0  # nesting of blocks(); only the document body (depth 1) writes footnote text
 
     def render(self) -> str:
@@ -165,30 +165,35 @@ class _Renderer:
 
         def flush():
             text = _tidy_paragraph("".join(paragraph))
-            for part in text.split("\n\n") if text else []:
-                out.append(part)
-                referenced = [int(n) for n in FOOTNOTE_MARK.findall(part)]
-                self.add_notes(out, max(referenced, default=0))
+            if text:
+                out.append(text)
+                self.add_notes(out)
             paragraph.clear()
 
         for node in nodes:
             block = self.block(node)
-            if block is None:
-                paragraph.append(self.inline([node], keep_newlines=True))
-            else:
+            if block is not None:
                 flush()
                 if block:
                     out.append(block)
-                    self.add_notes(out, len(self.footnotes))
+                    self.add_notes(out)
+            elif isinstance(node, lw.LatexCharsNode):
+                # A blank line ends the paragraph here, so its footnotes follow it.
+                first, *rest = PARAGRAPH_BREAK.split(node.chars)
+                paragraph.append(first)
+                for piece in rest:
+                    flush()
+                    paragraph.append(piece)
+            else:
+                paragraph.append(self.inline([node], keep_newlines=True))
         flush()
         return "\n\n".join(out)
 
-    def add_notes(self, out: list[str], up_to: int) -> None:
-        """Append the text of footnotes not yet written, up to number up_to."""
-        if self.depth == 1 and up_to > self.noted:
-            notes = self.footnotes[self.noted:up_to]
-            out.append("\n".join(f"[^{n}]: {t}" for n, t in enumerate(notes, start=self.noted + 1)))
-            self.noted = up_to
+    def add_notes(self, out: list[str]) -> None:
+        """Append the text of footnotes not yet written; only the document body writes it."""
+        notes = self.footnotes.take() if self.depth == 1 else ""
+        if notes:
+            out.append(notes)
 
     def block(self, node):
         """Markdown for a block-level node, '' for a block that shows nothing, None for inline."""
@@ -240,7 +245,7 @@ class _Renderer:
 
         def end_cell():
             nonlocal pad
-            row.append(_squash("".join(cell)).replace("|", "\\|"))
+            row.append(table_cell("".join(cell).replace(LINE_BREAK, " ")))
             row.extend([""] * pad)
             cell.clear()
             pad = 0
@@ -260,13 +265,7 @@ class _Renderer:
         if "".join(cell).strip() or row:
             end_cell()
             rows.append(row)
-        rows = [r for r in rows if any(r)]
-        if not rows:
-            return ""
-        width = max(len(r) for r in rows)
-        rows = [r + [""] * (width - len(r)) for r in rows]
-        lines = [_row(rows[0]), _row(["---"] * width)] + [_row(r) for r in rows[1:]]
-        return "\n".join(lines)
+        return table([r for r in rows if any(r)])
 
     # --- inline ------------------------------------------------------------
 
@@ -320,10 +319,7 @@ class _Renderer:
             url = _squash(self.text_arg(node, -1))
             return f"[{url}]({url})"
         if name == "footnote":
-            self.footnotes.append(self.inline_arg(node, -1))
-            return f"[^{len(self.footnotes)}]"
-        if name in INCLUDES:
-            raise _Unsupported(f"\\{name}", node.pos)
+            return self.footnotes.reference(self.inline_arg(node, -1))
         raise _Unsupported(f"\\{name}", node.pos)
 
     def text_arg(self, node, index: int) -> str:
@@ -360,7 +356,7 @@ def _squash(text: str) -> str:
 
 def _tidy_paragraph(text: str) -> str:
     """Source line breaks inside a paragraph stay; runs of spaces become one; blank lines split."""
-    parts = re.split(r"\n[ \t]*\n\s*", text)
+    parts = PARAGRAPH_BREAK.split(text)
     tidy = []
     for part in parts:
         part = re.sub(LINE_BREAK + r"[ \t]*\n?", "\n", part)
@@ -373,7 +369,3 @@ def _tidy_paragraph(text: str) -> str:
 
 def _indent(block: str) -> str:
     return "\n".join(("  " + line) if line else line for line in block.split("\n"))
-
-
-def _row(cells: list[str]) -> str:
-    return "| " + " | ".join(cells) + " |"

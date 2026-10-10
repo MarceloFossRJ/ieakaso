@@ -1,6 +1,5 @@
 """parse() turns a Source CV into the Parsed CV text. Expected outputs live in tests/fixtures/expected/."""
 
-import hashlib
 import json
 import re
 from collections import Counter
@@ -10,47 +9,16 @@ import docx
 import pymupdf
 import pytest
 from docx.opc.constants import RELATIONSHIP_TYPE as RT
+from fixtures.catalog import FAILING, FIXTURES, MANIFEST, expected_outputs, expected_path, sources
 from fixtures.generate import TEX_VISIBLE
 from lxml import etree
 
-from ieakaso.cv_parser import ACCEPTED, PARSER_VERSION, CvParseError, parse
+from ieakaso.cv_parser import PARSER_VERSION, CvParseError, parse
 
-FIXTURES = Path(__file__).parent / "fixtures"
-EXPECTED = FIXTURES / "expected"
-MANIFEST = EXPECTED / "manifest.json"
-# Generated fixtures that must fail to parse, with a phrase the candidate's message must contain.
-FAILING = {
-    "scanned.pdf": "text-based",
-    "corrupt.pdf": "could not be read",
-    "corrupt.docx": "could not be read",
-    "unknown-command.tex": r"\cventry",
-    "latin1.txt": "UTF-8",
-    "empty.txt": "empty",
-    "cv.rtf": ".pdf, .docx, .tex, .txt",
+DOCX_NS = {
+    "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
+    "mc": "http://schemas.openxmlformats.org/markup-compatibility/2006",
 }
-
-
-def sources() -> list[Path]:
-    return sorted(
-        p
-        for folder in ("pdf", "synthetic-resumes", "generated")
-        for p in (FIXTURES / folder).iterdir()
-        if p.suffix in ACCEPTED and p.name not in FAILING
-    )
-
-
-def expected_path(source: Path) -> Path:
-    rel = source.relative_to(FIXTURES)
-    return EXPECTED / rel.parent / f"{rel.name}.md"
-
-
-def expected_outputs() -> dict[str, str]:
-    """Every expected output, by path relative to EXPECTED, with its sha256."""
-    return {
-        p.relative_to(EXPECTED).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
-        for p in sorted(EXPECTED.rglob("*.md"))
-    }
-
 
 def words(text: str) -> Counter:
     return Counter(text.split())
@@ -69,6 +37,18 @@ def strip_markup(md: str) -> str:
 def letters(text: str) -> str:
     """The text without any whitespace: compares content and order, not layout."""
     return "".join(text.split())
+
+
+def visible_docx_text(element) -> str:
+    # Text boxes are stored twice (modern and fallback); count only the modern copy.
+    # Text a tracked move took away (w:moveFrom) is no longer in the document.
+    for gone in element.xpath(".//mc:Fallback | .//w:moveFrom", namespaces=DOCX_NS):
+        gone.getparent().remove(gone)
+    text = []
+    for node in element.xpath(".//w:t | .//w:sym", namespaces=DOCX_NS):
+        sym = node.get(f"{{{DOCX_NS['w']}}}char")
+        text.append(chr(int(sym, 16)) if sym else node.text)
+    return "".join(text)
 
 
 # --- expected outputs -------------------------------------------------------
@@ -116,35 +96,22 @@ def test_docx_output_has_exactly_the_visible_docx_characters_in_order(source: Pa
     # Reading order: page headers, body, page footers. Footnote text follows the block that
     # references it, numbered by first reference, so it is checked note by note.
     parts = [*by_type.get(RT.HEADER, []), document, *by_type.get(RT.FOOTER, [])]
-    notes = [
-        letters(_visible_docx_text(note))
+    notes = {
+        note.get(f"{{{DOCX_NS['w']}}}id"): letters(visible_docx_text(note))
         for part in by_type.get(RT.FOOTNOTES, [])
         for note in etree.fromstring(part.blob).xpath("w:footnote[not(@w:type)]", namespaces=DOCX_NS)
-    ]
+    }
+    body_xml = etree.fromstring(document.blob)
+    for gone in body_xml.xpath(".//mc:Fallback | .//w:moveFrom", namespaces=DOCX_NS):
+        gone.getparent().remove(gone)
+    referenced = body_xml.xpath(".//w:footnoteReference/@w:id", namespaces=DOCX_NS)
+    in_reference_order = [notes[i] for i in dict.fromkeys(referenced)]
 
     output = parse(source)
     definitions = re.findall(r"(?m)^\[\^\d+\]: (.*)$", output)
     body = re.sub(r"(?m)^\[\^\d+\]: .*$", "", output)
-    assert letters(strip_markup(body)) == letters("".join(_visible_docx_text(etree.fromstring(p.blob)) for p in parts))
-    assert sorted(letters(d) for d in definitions) == sorted(notes)
-
-
-DOCX_NS = {
-    "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
-    "mc": "http://schemas.openxmlformats.org/markup-compatibility/2006",
-}
-
-
-def _visible_docx_text(element) -> str:
-    # Text boxes are stored twice (modern and fallback); count only the modern copy.
-    # Text a tracked move took away (w:moveFrom) is no longer in the document.
-    for gone in element.xpath(".//mc:Fallback | .//w:moveFrom", namespaces=DOCX_NS):
-        gone.getparent().remove(gone)
-    text = []
-    for node in element.xpath(".//w:t | .//w:sym", namespaces=DOCX_NS):
-        sym = node.get(f"{{{DOCX_NS['w']}}}char")
-        text.append(chr(int(sym, 16)) if sym else node.text)
-    return "".join(text)
+    assert letters(strip_markup(body)) == letters("".join(visible_docx_text(etree.fromstring(p.blob)) for p in parts))
+    assert [letters(d) for d in definitions] == in_reference_order
 
 
 def test_tex_output_has_exactly_the_visible_tex_characters_in_order():
@@ -230,6 +197,15 @@ def test_unparseable_source_raises_a_message_for_the_candidate(name: str):
 def test_unknown_tex_command_names_its_line():
     with pytest.raises(CvParseError, match="line 4"):
         parse(FIXTURES / "generated/unknown-command.tex")
+
+
+def test_tex_footnote_follows_its_own_paragraph(tmp_path):
+    path = tmp_path / "cv.tex"
+    path.write_text(
+        "\\documentclass{article}\n\\begin{document}\n"
+        "First.\\footnote{Note one.}\n\nSecond.\n\\end{document}\n"
+    )
+    assert parse(path) == "First.[^1]\n\n[^1]: Note one.\n\nSecond.\n"
 
 
 def test_tex_input_is_refused(tmp_path):
