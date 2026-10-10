@@ -29,7 +29,7 @@ _Avoid_: original CV, uploaded CV, main document
 _Avoid_: CV markdown, transcribed CV, living CV
 
 **Job ad**:
-The posting for one position, as the candidate supplies it: a URL Ieakaso can read, or the ad's text pasted in.
+The ad for one position, as the candidate supplies it: a URL Ieakaso can read, or the ad's text pasted in.
 _Avoid_: job description, JD, posting
 
 **Job analysis**:
