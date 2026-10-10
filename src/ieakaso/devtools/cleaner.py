@@ -20,7 +20,7 @@ USER_FOLDERS = ("input", "output")
 KEEP_NAMES = (".gitkeep",)
 KEEP_FILES = ("input/documents/README.md",)
 DEFAULT_BACKUP_DIR = Path.home() / ".ieakaso-backups"
-BACKUP_NAME = re.compile(r"\d{8}-\d{6}(-\d+)?")
+BACKUP_NAME = re.compile(r"(\d{8}-\d{6})(?:-(\d+))?")  # <stamp>[-n], n from 2 up
 
 
 @dataclass
@@ -28,6 +28,13 @@ class CleanReport:
     deleted: list[Path] = field(default_factory=list)
     removed_dirs: list[Path] = field(default_factory=list)
     backup: Path | None = None
+
+
+@dataclass
+class RestoreReport:
+    cleaned: CleanReport
+    backup: Path
+    restored: list[Path] = field(default_factory=list)
 
 
 def user_data(root: Path) -> list[Path]:
@@ -47,8 +54,8 @@ def clean(root: Path, backup_dir: Path | None = None, dry_run: bool = False) -> 
     report = CleanReport(deleted=deleted, removed_dirs=_dirs_left_empty(root, deleted))
     if dry_run:
         return report
-    if backup_dir is not None and deleted:
-        report.backup = _backup(root, deleted, backup_dir)
+    if backup_dir is not None and (deleted or report.removed_dirs):
+        report.backup = _backup(root, report, backup_dir)
     for rel in deleted:
         (root / rel).unlink()
     # Deepest first, so a parent is empty by the time it is removed.
@@ -57,14 +64,18 @@ def clean(root: Path, backup_dir: Path | None = None, dry_run: bool = False) -> 
     return report
 
 
-def restore(root: Path, backup: Path, backup_dir: Path) -> CleanReport:
-    """Clean root (backing up its current user data), then copy the backup back in."""
-    report = clean(root, backup_dir=backup_dir)
-    for path in backup.rglob("*"):
-        if path.is_file():
-            target = root / path.relative_to(backup)
-            target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(path, target)
+def restore(root: Path, backup: Path, backup_dir: Path, dry_run: bool = False) -> RestoreReport:
+    """Clean root (backing up its current user data), then copy the backup back in, folders included."""
+    contents = sorted(p.relative_to(backup) for p in backup.rglob("*"))
+    files = [rel for rel in contents if (backup / rel).is_file()]
+    report = RestoreReport(clean(root, backup_dir=backup_dir, dry_run=dry_run), backup, files)
+    if dry_run:
+        return report
+    for rel in contents:
+        if (backup / rel).is_dir():
+            (root / rel).mkdir(parents=True, exist_ok=True)
+        else:
+            _copy(backup, root, rel)
     return report
 
 
@@ -91,26 +102,31 @@ def _now() -> datetime:
     return datetime.now()
 
 
-def _backup(root: Path, files: list[Path], backup_dir: Path) -> Path:
-    """Copy files into a new timestamped folder in backup_dir and check every copy."""
+def _backup(root: Path, report: CleanReport, backup_dir: Path) -> Path:
+    """Copy what report will delete into a new timestamped folder in backup_dir, checking every copy."""
     stamp = _now().strftime("%Y%m%d-%H%M%S")
     target, n = backup_dir / stamp, 1
     while target.exists():
         n += 1
         target = backup_dir / f"{stamp}-{n}"
-    for rel in files:
-        (target / rel).parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(root / rel, target / rel)
+    for rel in report.removed_dirs:
+        (target / rel).mkdir(parents=True, exist_ok=True)
+    for rel in report.deleted:
+        _copy(root, target, rel)
         if not filecmp.cmp(root / rel, target / rel, shallow=False):
             raise OSError(f"backup of {rel} does not match the original; nothing was deleted")
     return target
 
 
-def _backup_order(path: Path) -> tuple[str, int]:
-    """Sort key for `<date>-<time>[-n]`, so `-10` comes after `-2`."""
-    date, time, *n = path.name.split("-")
-    return f"{date}-{time}", int(n[0]) if n else 1
+def _copy(src_root: Path, dst_root: Path, rel: Path) -> None:
+    (dst_root / rel).parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(src_root / rel, dst_root / rel)
 
+
+def _backup_order(path: Path) -> tuple[str, int]:
+    """Sort key, so `-10` comes after `-2`."""
+    stamp, n = BACKUP_NAME.fullmatch(path.name).groups()
+    return stamp, int(n or 1)
 
 
 def is_ieakaso_repo(path: Path) -> bool:
@@ -140,6 +156,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--backup-dir", type=Path, default=DEFAULT_BACKUP_DIR)
     parser.add_argument("--dry-run", action="store_true", help="clean, restore: show what would happen, change nothing")
     args = parser.parse_args(argv)
+    if args.dry_run and args.command == "list":
+        parser.error("--dry-run applies to clean and restore only")
+    if args.backup and args.command != "restore":
+        parser.error("a backup name applies to restore only")
 
     root = (args.root or find_root(Path.cwd()) or Path.cwd()).resolve()
     if not is_ieakaso_repo(root):
@@ -163,13 +183,12 @@ def main(argv: list[str] | None = None) -> int:
         wanted = f"backup {args.backup}" if args.backup else "backups"
         print(f"error: no {wanted} in {args.backup_dir}; nothing changed", file=sys.stderr)
         return 1
-    if args.dry_run:
-        _print_report(clean(root, dry_run=True), dry_run=True)
-        print(f"would restore {backups[-1].name}")
-        return 0
-    report = restore(root, backups[-1], backup_dir=args.backup_dir)
-    _print_report(report)
-    print(f"restored {backups[-1].name}")
+    report = restore(root, backups[-1], backup_dir=args.backup_dir, dry_run=args.dry_run)
+    _print_report(report.cleaned, dry_run=args.dry_run)
+    verb = "would restore" if args.dry_run else "restored"
+    for rel in report.restored:
+        print(f"{verb} {rel}")
+    print(f"{verb} from backup {report.backup.name}")
     return 0
 
 

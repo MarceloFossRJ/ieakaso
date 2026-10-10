@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import pytest
 from conftest import TRACKED, USER_DATA, snapshot, write_files
 
 from ieakaso.devtools.cleaner import find_root, list_backups, main
@@ -83,4 +84,16 @@ def test_cli_restore_dry_run_changes_nothing(repo: Path, backups: Path, capsys):
     assert len(list_backups(backups)) == count
     out = capsys.readouterr().out
     assert "would delete config.yml" in out
-    assert f"would restore {list_backups(backups)[-1].name}" in out
+    assert "would restore input/cv.md" in out
+    assert list_backups(backups)[-1].name in out
+
+
+@pytest.mark.parametrize("args", [["list", "--dry-run"], ["clean", "20261010-143005"], ["list", "20261010-143005"]])
+def test_cli_rejects_options_the_command_does_not_use(repo: Path, backups: Path, args: list[str]):
+    before = snapshot(repo)
+
+    with pytest.raises(SystemExit) as exit:
+        run(repo, backups, *args)
+
+    assert exit.value.code == 2
+    assert snapshot(repo) == before

@@ -1,7 +1,8 @@
 from datetime import datetime
 from pathlib import Path
 
-from conftest import TRACKED, snapshot
+import pytest
+from conftest import TRACKED, folders, snapshot
 
 from ieakaso.devtools import cleaner
 from ieakaso.devtools.cleaner import clean, list_backups, restore
@@ -41,10 +42,10 @@ def test_clean_empties_output_but_keeps_gitkeep(repo: Path):
 def test_clean_removes_leftover_folders_without_gitkeep(repo: Path):
     report = clean(repo)
 
-    assert not (repo / "input/documents/xing").exists()
+    assert not (repo / "input/documents/xing/nested").exists()
     assert not (repo / "output/acme").exists()
-    assert (repo / "input/documents/cv").is_dir()
-    assert Path("input/documents/xing") in report.removed_dirs
+    assert (repo / "input/documents/xing").is_dir()
+    assert Path("input/documents/xing/nested") in report.removed_dirs
 
 
 def test_clean_leaves_a_fresh_repo_as_a_fresh_clone(repo: Path):
@@ -89,13 +90,16 @@ def test_clean_skips_the_backup_when_there_is_nothing_to_delete(repo: Path, back
 
 
 def test_backup_round_trip_restores_the_repo_byte_for_byte(repo: Path, backups: Path):
-    before = snapshot(repo)
+    (repo / "input/documents/empty_by_hand").mkdir()
+    before, before_folders = snapshot(repo), folders(repo)
     first = clean(repo, backup_dir=backups)
     (repo / "config.yml").write_text("from a test init\n")
 
-    restore(repo, first.backup, backup_dir=backups)
+    report = restore(repo, first.backup, backup_dir=backups)
 
-    assert snapshot(repo) == before
+    assert (snapshot(repo), folders(repo)) == (before, before_folders)
+    assert report.backup == first.backup
+    assert Path("config.yml") in report.cleaned.deleted
     newest = list_backups(backups)[-1]
     assert newest != first.backup
     assert (newest / "config.yml").read_text() == "from a test init\n"
@@ -118,3 +122,35 @@ def test_list_backups_ignores_folders_that_are_not_backups(repo: Path, backups: 
     report = clean(repo, backup_dir=backups)
 
     assert list_backups(backups) == [report.backup]
+
+
+def test_clean_backs_up_a_repo_whose_only_user_data_is_an_empty_folder(repo: Path, backups: Path):
+    clean(repo)
+    (repo / "output/empty").mkdir()
+
+    report = clean(repo, backup_dir=backups)
+
+    assert report.backup is not None and (report.backup / "output/empty").is_dir()
+
+
+def test_restore_dry_run_reports_what_it_would_restore_and_changes_nothing(repo: Path, backups: Path):
+    first = clean(repo, backup_dir=backups)
+    before, count = snapshot(repo), len(list_backups(backups))
+
+    report = restore(repo, first.backup, backup_dir=backups, dry_run=True)
+
+    assert snapshot(repo) == before
+    assert len(list_backups(backups)) == count
+    assert report.restored == first.deleted
+
+
+def test_list_backups_orders_suffixes_numerically(backups: Path):
+    for name in ["20261010-143005-10", "20261010-143005", "20261010-143005-2", "20261009-090000"]:
+        (backups / name).mkdir(parents=True)
+
+    assert [p.name for p in list_backups(backups)] == [
+        "20261009-090000",
+        "20261010-143005",
+        "20261010-143005-2",
+        "20261010-143005-10",
+    ]

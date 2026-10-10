@@ -14,7 +14,10 @@ TRACKED = {
     "input/documents/README.md": "# documents\n",
     "input/documents/cv/.gitkeep": "",
     "input/documents/linkedin/.gitkeep": "",
+    "input/documents/peerlist/.gitkeep": "",
     "input/documents/reference_letters/.gitkeep": "",
+    "input/documents/wellfound/.gitkeep": "",
+    "input/documents/xing/.gitkeep": "",
     "output/.gitkeep": "",
 }
 
@@ -47,6 +50,11 @@ def snapshot(root: Path) -> dict[str, bytes]:
         for p in sorted(root.rglob("*"))
         if p.is_file()
     }
+
+
+def folders(root: Path) -> set[str]:
+    """Every folder under root, by relative path."""
+    return {p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_dir()}
 
 
 @pytest.fixture

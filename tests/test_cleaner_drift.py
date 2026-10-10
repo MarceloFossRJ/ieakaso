@@ -3,6 +3,8 @@
 import subprocess
 from pathlib import Path
 
+from conftest import TRACKED
+
 from ieakaso.devtools.cleaner import USER_FILES, USER_FOLDERS, user_data
 
 REPO = Path(__file__).resolve().parents[1]
@@ -28,3 +30,9 @@ def test_the_cleaner_never_deletes_a_tracked_file():
     tracked = set(git("ls-files").stdout.split())
 
     assert {rel.as_posix() for rel in user_data(REPO)} & tracked == set()
+
+
+def test_the_fake_repo_tracks_the_same_placeholders_as_the_real_one():
+    real = set(git("ls-files", *USER_FOLDERS).stdout.split())
+
+    assert {p for p in TRACKED if p.split("/")[0] in USER_FOLDERS} == real
