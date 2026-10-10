@@ -10,8 +10,10 @@ Café owner on weekends – and naïve about nothing.
 
 ## Senior Engineer, Acme Corp 2019–2023
 
-- Led a team of five engineers.
+- Led a team of five engineers.[^1]
 - Cut deployment time by 40% in two quarters.
+
+[^1]: Across two countries.
 
 ## Engineer, Example GmbH
 
@@ -22,7 +24,11 @@ Café owner on weekends – and naïve about nothing.
 
 | Skill | Level |
 | --- | --- |
-| Python | Expert |
+| Python | Expert[^2] |
 | Go | Intermediate |
 
-Languages: English, German.
+[^2]: Daily use since 2016.
+
+Languages: English, German.[^3]
+
+[^3]: Both used at work.

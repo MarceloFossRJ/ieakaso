@@ -74,6 +74,7 @@ LIST_ENVS = {"itemize": "-", "enumerate": "1.", "description": "-"}
 TABLE_ENVS = {"tabular": "[{", "tabular*": "{[{", "tabularx": "{[{", "tabulary": "{[{", "longtable": "[{"}
 # A forced line break (\\); the source newline that usually follows it must not split the paragraph.
 LINE_BREAK = "\x01"
+FOOTNOTE_MARK = re.compile(r"\[\^(\d+)\]")
 INCLUDES = {"input", "include", "import", "subfile", "subimport", "includeonly"}
 
 
@@ -116,7 +117,8 @@ class _Unsupported(Exception):
 class _Renderer:
     def __init__(self, name: str, text: str):
         self.name, self.text = name, text
-        self.footnotes: list[str] = []
+        self.footnotes: list[str] = []  # [^n] is index + 1
+        self.noted = 0  # footnotes whose text is already written
 
     def render(self) -> str:
         walker = lw.LatexWalker(self.text, latex_context=CONTEXT, tolerant_parsing=False)
@@ -144,19 +146,20 @@ class _Renderer:
             else:
                 hint = "Ieakaso reads only common TeX commands. Export your CV as PDF or DOCX instead."
             raise CvParseError(f"{self.name} uses {error.what} on line {line}, which Ieakaso can't read. {hint}") from None
-        if self.footnotes:
-            md += "\n\n" + "\n".join(f"[^{i}]: {t}" for i, t in enumerate(self.footnotes, start=1))
         return md
 
     # --- blocks: paragraphs split on blank lines; headings, lists and tables stand alone ---
 
     def blocks(self, nodes) -> str:
+        """Footnote text follows the paragraph, list or table that references it."""
         out, paragraph = [], []
 
         def flush():
             text = _tidy_paragraph("".join(paragraph))
-            if text:
-                out.append(text)
+            for part in text.split("\n\n") if text else []:
+                out.append(part)
+                referenced = [int(n) for n in FOOTNOTE_MARK.findall(part)]
+                self.add_notes(out, max(referenced, default=0))
             paragraph.clear()
 
         for node in nodes:
@@ -167,8 +170,16 @@ class _Renderer:
                 flush()
                 if block:
                     out.append(block)
+                    self.add_notes(out, len(self.footnotes))
         flush()
         return "\n\n".join(out)
+
+    def add_notes(self, out: list[str], up_to: int) -> None:
+        """Append the text of footnotes not yet written, up to number up_to."""
+        if up_to > self.noted:
+            notes = self.footnotes[self.noted:up_to]
+            out.append("\n".join(f"[^{n}]: {t}" for n, t in enumerate(notes, start=self.noted + 1)))
+            self.noted = up_to
 
     def block(self, node):
         """Markdown for a block-level node, '' for a block that shows nothing, None for inline."""

@@ -15,6 +15,8 @@ Acme Corp	2019–2023
 - Led a team of five engineers.
 - Cut deployment time by 40%.[^1]
 
+[^1]: Measured over 2023.
+
 1. First numbered point.
 1. Second numbered point.
 
@@ -22,8 +24,10 @@ Worked with inserted words daily.
 
 | Skill | Level | Years |
 | --- | --- | --- |
-| Python | Expert \| daily | 8 |
+| Python | Expert \| daily | 8[^2] |
 | Spanning cell |  | 3 |
+
+[^2]: Since 2016.
 
 Address block
 
@@ -41,8 +45,8 @@ Inner box
 
 # Languages
 
-English (native), German (C1)
+English (native), German (C1)[^3]
 
-[^1]: Measured over 2023.
+[^3]: Certified in 2024.
 
 jordan@example.com

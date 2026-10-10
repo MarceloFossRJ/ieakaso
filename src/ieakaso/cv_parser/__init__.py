@@ -10,7 +10,7 @@ from ieakaso.cv_parser.errors import CvParseError
 from ieakaso.cv_parser.normalize import normalize
 
 # Raise whenever the output for the same Source CV changes; the setup check then parses again.
-PARSER_VERSION = 2
+PARSER_VERSION = 3
 
 ACCEPTED = (".pdf", ".docx", ".tex", ".txt", ".md")
 

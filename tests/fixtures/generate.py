@@ -63,10 +63,7 @@ def build_docx(path: Path) -> None:
     dates.add_run("\t2019–2023")
     doc.add_paragraph("Led a team of five engineers.", style="List Bullet")
     impact = doc.add_paragraph("Cut deployment time by 40%.", style="List Bullet")
-    impact._p.append(parse_xml(
-        f'<w:r {NS}><w:rPr><w:rStyle w:val="FootnoteReference"/></w:rPr>'
-        '<w:footnoteReference w:id="1"/></w:r>'
-    ))
+    impact._p.append(parse_xml(_footnote_run(1)))
     doc.add_paragraph("First numbered point.", style="List Number")
     doc.add_paragraph("Second numbered point.", style="List Number")
 
@@ -89,6 +86,7 @@ def build_docx(path: Path) -> None:
     merged = table.cell(2, 0).merge(table.cell(2, 1))
     merged.text = "Spanning cell"
     table.cell(2, 2).text = "3"
+    table.cell(1, 2).paragraphs[0]._p.append(parse_xml(_footnote_run(3)))
 
     box = doc.add_paragraph("Address block")
     box._p.append(parse_xml(_textbox_run("<w:p><w:r><w:t>Contact: jordan@example.com</w:t></w:r></w:p>")))
@@ -113,9 +111,10 @@ def build_docx(path: Path) -> None:
     nested._p.append(parse_xml(_textbox_run(f"<w:p><w:r><w:t>Outer box</w:t></w:r>{inner}</w:p>")))
 
     doc.add_paragraph("Languages", style="Heading 1")
-    doc.add_paragraph("English (native), German (C1)")
+    languages = doc.add_paragraph("English (native), German (C1)")
+    languages._p.append(parse_xml(_footnote_run(2)))
 
-    _add_footnotes(doc, {1: "Measured over 2023."})
+    _add_footnotes(doc, {1: "Measured over 2023.", 2: "Certified in 2024.", 3: "Since 2016."})
     doc.core_properties.author = "Jordan Example"
     doc.save(path)
 
@@ -136,6 +135,13 @@ def _textbox_run(paragraphs: str) -> str:
         "</a:graphicData></a:graphic></wp:anchor></w:drawing></mc:Choice>"
         f"<mc:Fallback><w:pict><v:shape><v:textbox>{content}</v:textbox></v:shape></w:pict></mc:Fallback>"
         "</mc:AlternateContent></w:r>"
+    )
+
+
+def _footnote_run(note_id: int) -> str:
+    return (
+        f'<w:r {NS}><w:rPr><w:rStyle w:val="FootnoteReference"/></w:rPr>'
+        f'<w:footnoteReference w:id="{note_id}"/></w:r>'
     )
 
 
@@ -218,7 +224,7 @@ Caf\'e owner on weekends -- and na\"ive about nothing.
 \section{Experience}
 \subsection{Senior Engineer, Acme Corp \hfill 2019--2023}
 \begin{itemize}
-  \item Led a team of \emph{five} engineers.
+  \item Led a team of \emph{five} engineers.\footnote{Across two countries.}
   \item Cut deployment time by 40\%~in two quarters.
 \end{itemize}
 
@@ -233,18 +239,19 @@ Caf\'e owner on weekends -- and na\"ive about nothing.
 \hline
 Skill & Level \\
 \hline
-Python & Expert \\
+Python & Expert\footnote{Daily use since 2016.} \\
 Go & Intermediate \\
 \hline
 \end{tabular}
 
 \vspace{1em}
-\noindent Languages: English, German.
+\noindent Languages: English, German.\footnote{Both used at work.}
 \end{document}
 """
 
 # The text a reader sees in the compiled cv.tex, in order, typed by hand. Numbers and bullets
 # TeX generates (section numbers, list bullets) are not in the source, so they are not here.
+# Footnote text sits after the paragraph, list or table that references it, as in the Parsed CV.
 TEX_VISIBLE = """
 Jordan Example
 Berlin, Germany | jordan@example.com | https://jordan.example.dev
@@ -255,6 +262,7 @@ Experience
 Senior Engineer, Acme Corp 2019–2023
 Led a team of five engineers.
 Cut deployment time by 40% in two quarters.
+Across two countries.
 Engineer, Example GmbH
 First numbered point.
 – Labelled point.
@@ -262,7 +270,9 @@ Skills
 Skill Level
 Python Expert
 Go Intermediate
+Daily use since 2016.
 Languages: English, German.
+Both used at work.
 """
 
 TEX_UNKNOWN = r"""\documentclass{article}

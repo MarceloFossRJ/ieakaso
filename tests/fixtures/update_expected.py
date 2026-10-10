@@ -9,6 +9,7 @@ src/ieakaso/cv_parser/__init__.py), so the setup check parses every candidate's 
 this script refuses otherwise and writes nothing.
 """
 
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -21,8 +22,7 @@ from ieakaso.cv_parser import PARSER_VERSION, parse  # noqa: E402
 
 
 def main(rewrite_all: bool) -> int:
-    manifest = json.loads(MANIFEST.read_text()) if MANIFEST.exists() else {"parser_version": None}
-    same_version = manifest["parser_version"] == PARSER_VERSION
+    manifest = json.loads(MANIFEST.read_text()) if MANIFEST.exists() else {"parser_version": None, "outputs": {}}
 
     pending = {}
     for source in sources():
@@ -33,10 +33,14 @@ def main(rewrite_all: bool) -> int:
         if not target.exists() or target.read_bytes() != output:
             pending[target] = output
 
-    changed = [t for t in pending if t.exists()]
-    if changed and same_version:
-        for target in changed:
-            print(f"changed {target.relative_to(MANIFEST.parent)}")
+    # Compare with what the manifest recorded, so hand-edited expected files count as changes too.
+    after = {rel: sha for rel, sha in expected_outputs().items()}
+    after |= {_rel(t): hashlib.sha256(o).hexdigest() for t, o in pending.items()}
+    recorded = manifest["outputs"]
+    changed = sorted(rel for rel, sha in recorded.items() if rel in after and after[rel] != sha)
+    if changed and manifest["parser_version"] == PARSER_VERSION:
+        for rel in changed:
+            print(f"changed {rel}")
         print(
             f"error: these outputs changed but PARSER_VERSION is still {PARSER_VERSION}. "
             "Raise it in src/ieakaso/cv_parser/__init__.py and run again; nothing was written.",
@@ -47,10 +51,14 @@ def main(rewrite_all: bool) -> int:
     for target, output in pending.items():
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(output)
-        print(f"wrote {target.relative_to(MANIFEST.parent)}")
+        print(f"wrote {_rel(target)}")
     manifest = {"parser_version": PARSER_VERSION, "outputs": expected_outputs()}
     MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n")
     return 0
+
+
+def _rel(target: Path) -> str:
+    return target.relative_to(MANIFEST.parent).as_posix()
 
 
 if __name__ == "__main__":

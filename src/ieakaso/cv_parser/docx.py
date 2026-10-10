@@ -1,7 +1,8 @@
 """DOCX: walks the document XML in order. Structure comes only from what the file declares:
 heading and list styles, hyperlinks, tables and footnotes. Bold and italic are dropped.
 
-Order: page headers, body (text boxes after the paragraph that holds them), footnotes, page footers.
+Order: page headers, body, page footers. Text boxes follow the paragraph that holds them;
+footnote text follows the paragraph or table that references it, or the whole list.
 """
 
 import re
@@ -38,14 +39,17 @@ class _Reader:
         self.document = document
         self.part = document.part
         self.styles = {s.style_id: s for s in document.styles}
-        self.footnote_ids: list[str] = []
+        self.footnote_ids: list[str] = []  # in order of first reference; [^n] is index + 1
+        self.footnote_part = next(
+            (rel.target_part for rel in self.part.rels.values() if rel.reltype == RT.FOOTNOTES),
+            None,
+        )
 
     def read(self) -> str:
         body = self.part.element.body
         headers, footers = self._page_parts(body)
         sections = [self._blocks(part.element, part) for part in headers]
         sections.append(self._blocks(body, self.part))
-        sections.append(self._footnotes())
         sections += [self._blocks(part.element, part) for part in footers]
         return "\n\n".join(s for s in sections if s)
 
@@ -64,22 +68,18 @@ class _Reader:
                     kind.append(part)
         return headers, footers
 
-    def _footnotes(self) -> str:
-        if not self.footnote_ids:
+    def _footnotes(self, start: int) -> str:
+        """Definitions for the footnotes referenced since footnote_ids[start]."""
+        if start >= len(self.footnote_ids) or self.footnote_part is None:
             return ""
-        part = next(
-            (rel.target_part for rel in self.part.rels.values() if rel.reltype == RT.FOOTNOTES),
-            None,
-        )
-        if part is None:
-            return ""
+        part = self.footnote_part
         # python-docx has no footnotes part type; it loads footnotes.xml as a plain part.
         element = getattr(part, "element", None)
         if element is None:
             element = parse_xml(part.blob)
         notes = {n.get(f"{W}id"): n for n in element.iter(f"{W}footnote")}
         lines = []
-        for number, note_id in enumerate(self.footnote_ids, start=1):
+        for number, note_id in enumerate(self.footnote_ids[start:], start=start + 1):
             note = notes.get(note_id)
             if note is not None:
                 text = " ".join(self._paragraph_text(p, part) for p in note.iter(f"{W}p"))
@@ -89,17 +89,32 @@ class _Reader:
     # --- blocks ----------------------------------------------------------
 
     def _blocks(self, container, part) -> str:
-        """Paragraphs and tables, separated by blank lines; items of one list stay together."""
+        """Paragraphs and tables, separated by blank lines; items of one list stay together.
+        Footnote text follows the paragraph or table that references it, or the whole list."""
         out = []
         last_list = None
+        noted = len(self.footnote_ids)
+
+        def add_notes():
+            nonlocal noted
+            notes = self._footnotes(noted)
+            noted = len(self.footnote_ids)
+            if notes:
+                out.append("\n\n" + notes)
+
         for kind, text, list_id in self._block_items(container, part):
             if not text.strip():
                 continue
+            if last_list is not None and list_id != last_list:
+                add_notes()
             if out:
                 out.append("\n" if list_id is not None and list_id == last_list else "\n\n")
             out.append(text)
             last_list = list_id
-        return "".join(out)
+            if list_id is None:
+                add_notes()
+        add_notes()
+        return "".join(out).lstrip("\n")
 
     def _block_items(self, container, part):
         for child in container:

@@ -108,28 +108,43 @@ def test_pdf_output_has_exactly_the_pdf_words():
 
 @pytest.mark.parametrize("source", [s for s in sources() if s.suffix == ".docx"], ids=lambda p: p.name)
 def test_docx_output_has_exactly_the_visible_docx_characters_in_order(source: Path):
-    ns = {
-        "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
-        "mc": "http://schemas.openxmlformats.org/markup-compatibility/2006",
-    }
     document = docx.Document(source).part
     by_type = {}
     for rel in document.rels.values():
         if not rel.is_external:
             by_type.setdefault(rel.reltype, []).append(rel.target_part)
-    # Reading order: page headers, body, footnotes, page footers.
-    parts = [*by_type.get(RT.HEADER, []), document, *by_type.get(RT.FOOTNOTES, []), *by_type.get(RT.FOOTER, [])]
+    # Reading order: page headers, body, page footers. Footnote text follows the block that
+    # references it, numbered by first reference, so it is checked note by note.
+    parts = [*by_type.get(RT.HEADER, []), document, *by_type.get(RT.FOOTER, [])]
+    notes = [
+        letters(_visible_docx_text(note))
+        for part in by_type.get(RT.FOOTNOTES, [])
+        for note in etree.fromstring(part.blob).xpath("w:footnote[not(@w:type)]", namespaces=DOCX_NS)
+    ]
+
+    output = parse(source)
+    definitions = re.findall(r"(?m)^\[\^\d+\]: (.*)$", output)
+    body = re.sub(r"(?m)^\[\^\d+\]: .*$", "", output)
+    assert letters(strip_markup(body)) == letters("".join(_visible_docx_text(etree.fromstring(p.blob)) for p in parts))
+    assert sorted(letters(d) for d in definitions) == sorted(notes)
+
+
+DOCX_NS = {
+    "w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
+    "mc": "http://schemas.openxmlformats.org/markup-compatibility/2006",
+}
+
+
+def _visible_docx_text(element) -> str:
+    # Text boxes are stored twice (modern and fallback); count only the modern copy.
+    # Text a tracked move took away (w:moveFrom) is no longer in the document.
+    for gone in element.xpath(".//mc:Fallback | .//w:moveFrom", namespaces=DOCX_NS):
+        gone.getparent().remove(gone)
     text = []
-    for part in parts:
-        element = etree.fromstring(part.blob)
-        # Text boxes are stored twice (modern and fallback); count only the modern copy.
-        # Text a tracked move took away (w:moveFrom) is no longer in the document.
-        for gone in element.xpath(".//mc:Fallback | .//w:moveFrom", namespaces=ns):
-            gone.getparent().remove(gone)
-        for node in element.xpath(".//w:t | .//w:sym", namespaces=ns):
-            sym = node.get(f"{{{ns['w']}}}char")
-            text.append(chr(int(sym, 16)) if sym else node.text)
-    assert letters(strip_markup(parse(source))) == letters("".join(text))
+    for node in element.xpath(".//w:t | .//w:sym", namespaces=DOCX_NS):
+        sym = node.get(f"{{{DOCX_NS['w']}}}char")
+        text.append(chr(int(sym, 16)) if sym else node.text)
+    return "".join(text)
 
 
 def test_tex_output_has_exactly_the_visible_tex_characters_in_order():

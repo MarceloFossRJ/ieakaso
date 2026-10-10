@@ -17,5 +17,5 @@ The candidate's main CV file in `input/documents/cv/`, as chosen during init. It
 _Avoid_: original CV, uploaded CV, main document
 
 **Parsed CV**:
-`input/cv.md`, generated from the Source CV by the CV parser with the same words in the same order. It is never edited by hand; to change it, change the Source CV and parse again. Other modes read the Parsed CV, never the Source CV.
+`input/cv.md`, generated from the Source CV by the CV parser with the same words in the same order (footnote text moves to just after the passage that references it). It is never edited by hand; to change it, change the Source CV and parse again. Other modes read the Parsed CV, never the Source CV.
 _Avoid_: CV markdown, transcribed CV, living CV
