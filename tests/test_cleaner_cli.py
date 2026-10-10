@@ -69,3 +69,18 @@ def test_cli_list_shows_backups(repo: Path, backups: Path, capsys):
 
     assert run(repo, backups, "list") == 0
     assert list_backups(backups)[0].name in capsys.readouterr().out
+
+
+def test_cli_restore_dry_run_changes_nothing(repo: Path, backups: Path, capsys):
+    run(repo, backups, "clean")
+    (repo / "config.yml").write_text("from a test init\n")
+    before = snapshot(repo)
+    count = len(list_backups(backups))
+    capsys.readouterr()
+
+    assert run(repo, backups, "restore", "--dry-run") == 0
+    assert snapshot(repo) == before
+    assert len(list_backups(backups)) == count
+    out = capsys.readouterr().out
+    assert "would delete config.yml" in out
+    assert f"would restore {list_backups(backups)[-1].name}" in out

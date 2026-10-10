@@ -5,6 +5,7 @@ Never exposed to the candidate: not an `ieakaso` command, not a `/ieakaso` mode.
 
 import argparse
 import filecmp
+import re
 import shutil
 import sys
 import tomllib
@@ -19,6 +20,7 @@ USER_FOLDERS = ("input", "output")
 KEEP_NAMES = (".gitkeep",)
 KEEP_FILES = ("input/documents/README.md",)
 DEFAULT_BACKUP_DIR = Path.home() / ".ieakaso-backups"
+BACKUP_NAME = re.compile(r"\d{8}-\d{6}(-\d+)?")
 
 
 @dataclass
@@ -67,10 +69,11 @@ def restore(root: Path, backup: Path, backup_dir: Path) -> CleanReport:
 
 
 def list_backups(backup_dir: Path) -> list[Path]:
-    """The backups in backup_dir, oldest first."""
+    """The backups in backup_dir, oldest first. Other folders and files there are ignored."""
     if not backup_dir.is_dir():
         return []
-    return sorted((p for p in backup_dir.iterdir() if p.is_dir()), key=_backup_order)
+    backups = (p for p in backup_dir.iterdir() if p.is_dir() and BACKUP_NAME.fullmatch(p.name))
+    return sorted(backups, key=_backup_order)
 
 
 def _dirs_left_empty(root: Path, deleted: list[Path]) -> list[Path]:
@@ -135,7 +138,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("backup", nargs="?", help="restore: backup name (default: newest)")
     parser.add_argument("--root", type=Path, help="repo root (default: found from the current folder)")
     parser.add_argument("--backup-dir", type=Path, default=DEFAULT_BACKUP_DIR)
-    parser.add_argument("--dry-run", action="store_true", help="clean: list what would go, change nothing")
+    parser.add_argument("--dry-run", action="store_true", help="clean, restore: show what would happen, change nothing")
     args = parser.parse_args(argv)
 
     root = (args.root or find_root(Path.cwd()) or Path.cwd()).resolve()
@@ -160,6 +163,10 @@ def main(argv: list[str] | None = None) -> int:
         wanted = f"backup {args.backup}" if args.backup else "backups"
         print(f"error: no {wanted} in {args.backup_dir}; nothing changed", file=sys.stderr)
         return 1
+    if args.dry_run:
+        _print_report(clean(root, dry_run=True), dry_run=True)
+        print(f"would restore {backups[-1].name}")
+        return 0
     report = restore(root, backups[-1], backup_dir=args.backup_dir)
     _print_report(report)
     print(f"restored {backups[-1].name}")

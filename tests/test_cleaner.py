@@ -110,3 +110,11 @@ def test_two_backups_in_the_same_second_get_a_suffix(repo: Path, backups: Path, 
     assert first.backup.name == "20261010-143005"
     assert second.backup.name == "20261010-143005-2"
     assert list_backups(backups) == [first.backup, second.backup]
+
+
+def test_list_backups_ignores_folders_that_are_not_backups(repo: Path, backups: Path):
+    (backups / "old").mkdir(parents=True)
+    (backups / "notes.txt").write_text("x")
+    report = clean(repo, backup_dir=backups)
+
+    assert list_backups(backups) == [report.backup]
