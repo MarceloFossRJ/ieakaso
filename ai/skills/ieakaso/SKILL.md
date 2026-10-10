@@ -4,6 +4,8 @@ Route `/ieakaso <mode> [args]` to the matching mode file, after the setup check.
 
 Loaded through the pointer `.claude/skills/ieakaso/SKILL.md`, which holds the skill's name and description. All paths here and in the mode files are relative to the repository root.
 
+Each mode also has a mode entry, so the candidate can pick it from the `/` menu instead of typing it: `/ieakaso:<mode>` in Claude Code (`.claude/skills/ieakaso/skills/<mode>/SKILL.md`) and `/ieakaso-<mode>` in OpenCode (`.opencode/commands/ieakaso-<mode>.md`). A mode entry names the mode for you; all the arguments it passes on belong to that mode.
+
 ## Modes
 
 | Mode | Arguments | File | Does |
@@ -12,7 +14,7 @@ Loaded through the pointer `.claude/skills/ieakaso/SKILL.md`, which holds the sk
 | `cv-parser` | — | `ai/skills/ieakaso/modes/cv-parser.md` | Writes `input/cv.md` from the candidate's CV, word for word |
 | `job-analyzer` | `<job-url>` | `ai/skills/ieakaso/modes/job-analyzer.md` | Scores the CV against one job ad, 0-100 |
 
-If the mode is missing or not in the table, show this table and stop.
+If the mode is missing, ask the user which mode to run, with a choice question listing the modes in the table if your tool has one; otherwise show this table and stop. If the mode is not in the table, show this table and stop.
 
 If the user asks for something a mode covers without naming it (e.g. pastes a job ad URL), pick that mode and say which one you are running.
 

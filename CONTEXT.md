@@ -12,6 +12,14 @@ _Avoid_: personal data, private files
 The repo with no user data, exactly as after a clone and before the first `/ieakaso init`. The development cleaner (`ieakaso.devtools.cleaner`) returns a repo to it.
 _Avoid_: clean install, reset state, empty repo
 
+**Mode**:
+One candidate-facing action of the `/ieakaso` skill, such as init, cv-parser or job-analyzer. Development tools are never modes.
+_Avoid_: command, subcommand, sub-skill
+
+**Mode entry**:
+A Mode's own item in the coding assistant's `/` menu, so the candidate can pick the mode instead of typing it. It always runs the mode through `/ieakaso`, so it behaves exactly like `/ieakaso <mode>`.
+_Avoid_: menu entry, thin entry, shortcut
+
 **Source CV**:
 The candidate's main CV file in `input/documents/cv/`, as chosen during init. It is the only source of truth for CV content.
 _Avoid_: original CV, uploaded CV, main document

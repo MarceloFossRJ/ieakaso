@@ -51,15 +51,17 @@ On first launch it asks for your memory, in chat. Nothing to configure by hand:
 - your biggest achievements
 - a personal SWOT
 
+You run Ieakaso as `/ieakaso <mode>`. You can also pick the mode from the `/` menu: type `/ieakaso:` in Claude Code or `/ieakaso-` in OpenCode. In Claude Code, start it from the repo root. Plain `/ieakaso` asks which mode to run.
+
 To set up, put your CV in `input/documents/cv/` and run:
 
 ```
 /ieakaso init
 ```
 
-It checks your documents, strongly recommends your LinkedIn "Save to PDF" export (`input/documents/linkedin/`), suggests reference letters (`input/documents/reference_letters/`), and asks you to confirm your details, target positions, and search location. It saves them in `config.yml`. Run it again any time to review or update them. Other commands run it for you if setup is incomplete.
+It checks your documents, strongly recommends your LinkedIn "Save to PDF" export (`input/documents/linkedin/`), suggests reference letters (`input/documents/reference_letters/`), and asks you to confirm your details, target positions, and search location. It saves them in `config.yml`. Run it again any time to review or update them. Other modes run it for you if setup is incomplete.
 
-Init also turns your CV into `input/cv.md`, word for word: nothing reworded, added, or left out. When you change your CV, the next command updates `input/cv.md` for you, or run it yourself:
+Init also turns your CV into `input/cv.md`, word for word: nothing reworded, added, or left out. When you change your CV, the next mode you run updates `input/cv.md` for you, or run it yourself:
 
 ```
 /ieakaso cv-parser
