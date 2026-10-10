@@ -24,6 +24,14 @@ from ieakaso.cv_parser import PARSER_VERSION, parse  # noqa: E402
 def main(rewrite_all: bool) -> int:
     manifest = json.loads(MANIFEST.read_text()) if MANIFEST.exists() else {"parser_version": None, "outputs": {}}
 
+    if (manifest["parser_version"] or 0) > PARSER_VERSION:
+        print(
+            f"error: PARSER_VERSION {PARSER_VERSION} is lower than the recorded {manifest['parser_version']}; "
+            "versions only go up. Nothing was written.",
+            file=sys.stderr,
+        )
+        return 1
+
     pending = {}
     for source in sources():
         target = expected_path(source)

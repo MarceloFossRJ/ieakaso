@@ -68,9 +68,9 @@ class _Reader:
                     kind.append(part)
         return headers, footers
 
-    def _footnotes(self, start: int) -> str:
-        """Definitions for the footnotes referenced since footnote_ids[start]."""
-        if start >= len(self.footnote_ids) or self.footnote_part is None:
+    def _footnotes(self, start: int, end: int) -> str:
+        """Definitions for footnote_ids[start:end]."""
+        if start >= end or self.footnote_part is None:
             return ""
         part = self.footnote_part
         # python-docx has no footnotes part type; it loads footnotes.xml as a plain part.
@@ -79,7 +79,7 @@ class _Reader:
             element = parse_xml(part.blob)
         notes = {n.get(f"{W}id"): n for n in element.iter(f"{W}footnote")}
         lines = []
-        for number, note_id in enumerate(self.footnote_ids[start:], start=start + 1):
+        for number, note_id in enumerate(self.footnote_ids[start:end], start=start + 1):
             note = notes.get(note_id)
             if note is not None:
                 text = " ".join(self._paragraph_text(p, part) for p in note.iter(f"{W}p"))
@@ -88,33 +88,40 @@ class _Reader:
 
     # --- blocks ----------------------------------------------------------
 
-    def _blocks(self, container, part) -> str:
+    def _blocks(self, container, part, notes: bool = True) -> str:
         """Paragraphs and tables, separated by blank lines; items of one list stay together.
-        Footnote text follows the paragraph or table that references it, or the whole list."""
-        out = []
+        With notes, footnote text follows the paragraph or table that references it, or the
+        whole list; without (text boxes in a table cell), the enclosing block writes it."""
+        parts = []
         last_list = None
-        noted = len(self.footnote_ids)
-
-        def add_notes():
-            nonlocal noted
-            notes = self._footnotes(noted)
-            noted = len(self.footnote_ids)
-            if notes:
-                out.append("\n\n" + notes)
-
-        for kind, text, list_id in self._block_items(container, part):
+        written = len(self.footnote_ids)  # footnotes before this index have their text out
+        items = self._block_items(container, part)
+        while True:
+            before = len(self.footnote_ids)
+            item = next(items, None)  # reading an item records the footnotes it references
+            if item is None:
+                break
+            _, text, list_id = item
             if not text.strip():
                 continue
-            if last_list is not None and list_id != last_list:
-                add_notes()
-            if out:
-                out.append("\n" if list_id is not None and list_id == last_list else "\n\n")
-            out.append(text)
+            if notes and last_list is not None and list_id != last_list:
+                written = self._add_notes(parts, written, before)  # the list ended
+            if parts:
+                parts.append("\n" if list_id is not None and list_id == last_list else "\n\n")
+            parts.append(text)
             last_list = list_id
-            if list_id is None:
-                add_notes()
-        add_notes()
-        return "".join(out).lstrip("\n")
+            if notes and list_id is None:
+                written = self._add_notes(parts, written, len(self.footnote_ids))
+        if notes:
+            self._add_notes(parts, written, len(self.footnote_ids))
+        return "".join(parts)
+
+    def _add_notes(self, parts: list[str], start: int, end: int) -> int:
+        """Append the text of footnotes start..end-1 as a block; returns end."""
+        text = self._footnotes(start, end)
+        if text:
+            parts.append(("\n\n" if parts else "") + text)
+        return end
 
     def _block_items(self, container, part):
         for child in container:
@@ -242,9 +249,10 @@ class _Reader:
         for child in tc:
             if child.tag == f"{W}p":
                 texts.append(self._paragraph_text(child, part))
-                texts += [self._blocks(box, part) for box in self._text_boxes(child)]
+                texts += [self._blocks(box, part, notes=False) for box in self._text_boxes(child)]
             elif child.tag == f"{W}tbl":
-                texts.append(" ".join(self._cell_text(inner, part) for inner in child.iter(f"{W}tc")))
+                cells = [tc for tr in child.findall(f"{W}tr") for tc in tr.findall(f"{W}tc")]
+                texts.append(" ".join(self._cell_text(inner, part) for inner in cells))
         return " ".join(texts)
 
     # --- styles ----------------------------------------------------------

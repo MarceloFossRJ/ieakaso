@@ -119,6 +119,7 @@ class _Renderer:
         self.name, self.text = name, text
         self.footnotes: list[str] = []  # [^n] is index + 1
         self.noted = 0  # footnotes whose text is already written
+        self.depth = 0  # nesting of blocks(); only the document body (depth 1) writes footnote text
 
     def render(self) -> str:
         walker = lw.LatexWalker(self.text, latex_context=CONTEXT, tolerant_parsing=False)
@@ -151,7 +152,15 @@ class _Renderer:
     # --- blocks: paragraphs split on blank lines; headings, lists and tables stand alone ---
 
     def blocks(self, nodes) -> str:
-        """Footnote text follows the paragraph, list or table that references it."""
+        """Footnote text follows the paragraph, list or table that references it. Blocks nested in
+        an environment, list item or table cell leave it to the enclosing top-level block."""
+        self.depth += 1
+        try:
+            return self._blocks(nodes)
+        finally:
+            self.depth -= 1
+
+    def _blocks(self, nodes) -> str:
         out, paragraph = [], []
 
         def flush():
@@ -176,7 +185,7 @@ class _Renderer:
 
     def add_notes(self, out: list[str], up_to: int) -> None:
         """Append the text of footnotes not yet written, up to number up_to."""
-        if up_to > self.noted:
+        if self.depth == 1 and up_to > self.noted:
             notes = self.footnotes[self.noted:up_to]
             out.append("\n".join(f"[^{n}]: {t}" for n, t in enumerate(notes, start=self.noted + 1)))
             self.noted = up_to
@@ -220,8 +229,9 @@ class _Renderer:
         for item in items:
             text = "".join(item)
             first, _, rest = text.strip().partition("\n")
-            line = f"{marker} {_squash(first)}"
-            lines.append(line + ("\n" + rest.rstrip() if rest.strip() else ""))
+            # Lines after the first continue the item: nested blocks keep their indent, text gets it.
+            rest = [r if r.startswith("  ") or not r.strip() else "  " + r.strip() for r in rest.rstrip().split("\n")]
+            lines.append("\n".join([f"{marker} {_squash(first)}", *rest]).rstrip())
         return "\n".join(lines)
 
     def table(self, env) -> str:

@@ -1,10 +1,12 @@
 {
-  "parser_version": 3,
+  "parser_version": 4,
   "outputs": {
     "generated/cv.docx.md": "e79bb0b52712379d405a6d8c0fd2e1825d4c088d548ddb322b59de24343ce56e",
     "generated/cv.md.md": "76a902897f073a07d4c37e2d42ae0fbabc75ff21c8a05d0b98e502931b6b317f",
     "generated/cv.pdf.md": "f3449bea467382c4c86682c680dd05a34c7bb400b0729aa8d2affe47e11fdd95",
     "generated/cv.tex.md": "593bb3004938417eb2ee44b953a76860bcfc36b6f00cd6bbdcda2e6bdb1f42a8",
+    "generated/layouts.docx.md": "ff7277f4edba8a6b5fb2a0dfca354bd314a966f7b45ab71864f06c6b25382122",
+    "generated/layouts.tex.md": "52872552b671f52790c725269c6f6d04144b61ccaa502fb9951fee911693485d",
     "generated/two-column.pdf.md": "939f8d0203359603856c787811ba80d652d9507da35175984e52f6ffabbe9c7f",
     "pdf/10089434.pdf.md": "2a8189efa53d151ed5d604ad4b470d3790b3d2eddbc265802badbaa6cfb67ae5",
     "pdf/10247517.pdf.md": "d766a6e2a22c193d8b687f88d8f1b23a57d1300d539d2811b9509863d20fabb3",

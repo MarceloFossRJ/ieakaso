@@ -1,7 +1,8 @@
 """Turns the Source CV into the Parsed CV (`input/cv.md`), deterministically.
 
 Same words in the same order; only structure the file declares (headings, lists, links,
-tables) is added. See docs/adr/0001-deterministic-cv-parser.md.
+tables, footnotes) is added. The one exception to the order: footnote text follows the
+paragraph or table that references it, or the whole list. See docs/adr/0001-deterministic-cv-parser.md.
 """
 
 from pathlib import Path
@@ -10,7 +11,7 @@ from ieakaso.cv_parser.errors import CvParseError
 from ieakaso.cv_parser.normalize import normalize
 
 # Raise whenever the output for the same Source CV changes; the setup check then parses again.
-PARSER_VERSION = 3
+PARSER_VERSION = 4
 
 ACCEPTED = (".pdf", ".docx", ".tex", ".txt", ".md")
 

@@ -119,6 +119,36 @@ def build_docx(path: Path) -> None:
     doc.save(path)
 
 
+def build_layouts_docx(path: Path) -> None:
+    """Layouts that once broke footnote placement or repeated text."""
+    doc = docx.Document()
+    doc.add_paragraph("Item A", style="List Bullet")
+    doc.add_paragraph("Item B", style="List Bullet")
+    after = doc.add_paragraph("After list.")  # a note in the block right after a list
+    after._p.append(parse_xml(_footnote_run(1)))
+
+    doc.add_paragraph("Item C", style="List Bullet")
+    noted = doc.add_table(rows=1, cols=2)  # a note in a table right after a list
+    noted.cell(0, 0).text = "Cell"
+    noted.cell(0, 1).text = "Value"
+    noted.cell(0, 1).paragraphs[0]._p.append(parse_xml(_footnote_run(2)))
+
+    boxed = doc.add_table(rows=1, cols=2)  # a note inside a text box inside a table cell
+    boxed.cell(0, 0).text = "x"
+    cell = boxed.cell(0, 1)
+    cell.text = "boxed"
+    in_box = f'<w:p><w:r><w:t>in box</w:t></w:r>{_footnote_run(3).replace(f" {NS}", "", 1)}</w:p>'
+    cell.paragraphs[0]._p.append(parse_xml(_textbox_run(in_box)))
+
+    nested = doc.add_table(rows=1, cols=2)  # a table two levels deep
+    nested.cell(0, 0).text = "outer"
+    middle = nested.cell(0, 1).add_table(rows=1, cols=1)
+    middle.cell(0, 0).add_table(rows=1, cols=1).cell(0, 0).text = "deep"
+
+    _add_footnotes(doc, {1: "Note one.", 2: "Note two.", 3: "Note three."})
+    doc.save(path)
+
+
 def _add_hyperlink(paragraph, url: str, text: str) -> None:
     r_id = paragraph.part.relate_to(url, RT.HYPERLINK, is_external=True)
     paragraph._p.append(parse_xml(
@@ -275,6 +305,21 @@ Languages: English, German.
 Both used at work.
 """
 
+# Environments inside a list item and a table cell, each holding a footnote.
+TEX_LAYOUTS = r"""\documentclass{article}
+\begin{document}
+\begin{itemize}
+  \item One
+  \item Two \begin{center}Mid\footnote{Note A.}\end{center} tail
+\end{itemize}
+After.
+
+\begin{tabular}{ll}
+A & \begin{minipage}{3cm}Box\footnote{Note B.}\end{minipage} \\
+\end{tabular}
+\end{document}
+"""
+
 TEX_UNKNOWN = r"""\documentclass{article}
 \begin{document}
 \section{Experience}
@@ -288,10 +333,12 @@ MD = "# Jordan Example\r\n\r\nAlready **markdown**, copied as it is.  \r\n"
 def main() -> None:
     OUT.mkdir(exist_ok=True)
     build_docx(OUT / "cv.docx")
+    build_layouts_docx(OUT / "layouts.docx")
     build_pdf(OUT / "cv.pdf")
     build_two_column_pdf(OUT / "two-column.pdf")
     build_scanned_pdf(OUT / "scanned.pdf")
     (OUT / "cv.tex").write_text(TEX, encoding="utf-8")
+    (OUT / "layouts.tex").write_text(TEX_LAYOUTS, encoding="utf-8")
     (OUT / "unknown-command.tex").write_text(TEX_UNKNOWN, encoding="utf-8")
     (OUT / "cv.md").write_bytes(MD.encode("utf-8"))
     (OUT / "latin1.txt").write_bytes("Jordan Exámple\n".encode("latin-1"))
