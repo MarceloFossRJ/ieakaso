@@ -11,7 +11,7 @@ REPO = Path(__file__).resolve().parents[1]
 
 
 def git(*args: str) -> subprocess.CompletedProcess:
-    return subprocess.run(["git", *args], cwd=REPO, capture_output=True, text=True)
+    return subprocess.run(["git", *args], cwd=REPO, capture_output=True, text=True, check=False)
 
 
 def ignored(paths: list[str]) -> set[str]:

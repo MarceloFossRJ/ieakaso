@@ -21,6 +21,7 @@ build-backend = "uv_build"
 dev = [
     "pytest>=9.1.1",
     "pyyaml>=6.0.3",
+    "ruff>=0.17.0",
 ]
 
 [tool.pytest.ini_options]
@@ -28,3 +29,6 @@ testpaths = ["tests"]
 pythonpath = ["tests"]
 # PyMuPDF's SWIG bindings trip a Python 3.14 deprecation on import; not ours to fix.
 filterwarnings = ["ignore:builtin type swig:DeprecationWarning", "ignore:builtin type Swig:DeprecationWarning"]
+
+[tool.ruff]
+line-length = 120
