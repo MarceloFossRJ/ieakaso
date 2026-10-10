@@ -1,0 +1,61 @@
+**Javier Nguyen-Smith**
+(555) 123-4567 | j.nguyen.smith@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly accomplished and results-oriented Data Scientist with 16 years of experience architecting, developing, and deploying scalable and robust data-driven solutions. Expertise in C#, .NET Core, SQL Server, RabbitMQ, Azure, and Docker. Proven ability to lead teams, optimize infrastructure, and drive significant improvements in system performance and cost efficiency. Seeking a challenging leadership role where I can leverage my skills and experience to contribute to the success of a dynamic organization.
+
+**Experience**
+
+**Meta, Menlo Park, CA**
+**Principal Data Scientist** | 2018 – Present
+
+*   Led a team of 8 data scientists in the development and deployment of machine learning models for fraud detection and user behavior analysis, resulting in a 15% reduction in fraudulent activity.
+*   Architected and implemented a real-time data pipeline using RabbitMQ and Azure Stream Analytics, enabling faster data processing and improved decision-making.
+*   Optimized SQL Server database performance by 30% through query optimization and index tuning.
+*   Spearheaded the migration of legacy systems to Azure cloud, resulting in improved scalability and resilience.
+*   Achieved 47% uptime improvement for critical production systems by implementing proactive monitoring and automated failover procedures.
+
+**Amazon, Seattle, WA**
+**Senior Data Scientist** | 2014 – 2018
+
+*   Developed and deployed predictive models for inventory management, resulting in a 10% reduction in inventory holding costs.
+*   Designed and implemented a CI/CD pipeline using Docker and Jenkins, reducing release time by 69%.
+*   Engineered a data warehousing solution using SQL Server, enabling efficient storage and retrieval of large datasets.
+*   Mentored junior data scientists on best practices for data analysis, modeling, and visualization.
+
+**Microsoft, Redmond, WA**
+**Data Scientist** | 2010 – 2014
+
+*   Developed and maintained data models and reports for various business units using C# and .NET Core.
+*   Analyzed large datasets to identify trends and patterns, providing actionable insights to business stakeholders.
+*   Automated data extraction and transformation processes, improving data quality and reducing manual effort.
+
+**Education**
+
+**University of California, Los Angeles (UCLA)**
+**Bachelor of Science in Computer Science** | 2010
+
+**Certifications**
+
+*   AWS Certified Machine Learning – Specialty
+*   Microsoft Certified: Azure Data Scientist Associate
+*   Google Cloud Professional Data Engineer
+
+**Projects**
+
+*   **Fraud Detection System:** Developed a machine learning model using C# and Azure Machine Learning to detect fraudulent transactions in real-time.
+*   **Customer Churn Prediction:** Built a predictive model using .NET Core and SQL Server to identify customers at risk of churn.
+*   **Inventory Optimization:** Created a simulation model using C# to optimize inventory levels and reduce holding costs.
+*   **Real-time Anomaly Detection:** Implemented a system using RabbitMQ and Azure Stream Analytics to detect anomalies in real-time sensor data.
+*   **Automated Data Pipeline:** Engineered an automated data pipeline using Azure Data Factory to extract, transform, and load data from various sources into a data warehouse.
+
+**Skills**
+
+*   **Programming Languages:** C#, .NET Core, SQL, Python
+*   **Databases:** SQL Server, Azure SQL Database, MySQL, PostgreSQL
+*   **Cloud Technologies:** Azure (Data Factory, Stream Analytics, Machine Learning, Kubernetes), AWS, GCP
+*   **Tools:** Docker, Kubernetes, RabbitMQ, Jenkins, Git
+*   **Machine Learning:** Regression, Classification, Clustering, Deep Learning
+*   **Data Visualization:** Power BI, Tableau
+*   **Data Warehousing:** ETL, Data Modeling

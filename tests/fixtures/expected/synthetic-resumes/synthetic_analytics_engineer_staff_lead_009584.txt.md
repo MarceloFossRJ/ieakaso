@@ -1,0 +1,55 @@
+**Aaliyah Chen-O’Connell**
+(555) 123-4567 | aaliyah.chen.oconnell@email.com | LinkedIn Profile URL (Replace with Actual URL) | GitHub Profile URL (Replace with Actual URL)
+
+**Summary**
+
+Highly accomplished and results-oriented Analytics Engineer with 9 years of experience in developing, deploying, and maintaining scalable and reliable data solutions. Proven ability to translate business requirements into technical specifications, build robust data pipelines, and deliver actionable insights. Expertise in Flutter, Dart, Firebase, and a passion for building high-performance applications. Seeking a challenging leadership role to leverage expertise and drive impactful data-driven decisions.
+
+**Skills**
+
+**Languages:** Dart, SQL, Python
+**Frameworks/Libraries:** Flutter, Provider, BLoC, pandas, scikit-learn
+**Databases:** Snowflake, PostgreSQL, MySQL
+**Cloud Platforms:** AWS (EC2, S3, Lambda), GCP (BigQuery, Cloud Functions)
+**Tools:** Git, Docker, Kubernetes, Jenkins, Jira, Confluence
+**Methodologies:** Agile, Scrum, DevOps
+
+**Experience**
+
+**Snowflake, Data Engineer (Analytics)  | San Mateo, CA | 2021 – Present**
+
+*   Led a team of 3 engineers in the development and maintenance of data pipelines for internal analytics dashboards, processing over 2TB of data daily.
+*   Architected a new data ingestion pipeline using Snowflake Snowpipe and Python, reducing data latency by 45%.
+*   Optimized query performance in Snowflake by implementing data partitioning and clustering strategies, resulting in a 30% reduction in average query execution time.
+*   Increased test coverage for critical data pipelines from 50% to 94% by implementing automated testing frameworks using pytest.
+
+**Acme Corp, Senior Mobile Engineer | Mountain View, CA | 2018 – 2021**
+
+*   Developed and maintained key features for Acme's flagship mobile application using Flutter and Dart.
+*   Engineered a new state management architecture using BLoC pattern, improving code maintainability and testability.
+*   Reduced page load time by 68% by optimizing image loading and data fetching strategies in the Flutter application.
+*   Integrated Firebase Cloud Messaging (FCM) for push notifications, resulting in a 20% increase in user engagement.
+
+**Beta Inc, Software Engineer | San Francisco, CA | 2015 – 2018**
+
+*   Built and maintained backend APIs using Python and Flask to support the company's web and mobile applications.
+*   Designed and implemented a machine learning model to predict customer churn, achieving 59% accuracy in production.
+*   Achieved 80% uptime for critical production systems by implementing robust monitoring and alerting systems using Datadog.
+*   Developed and maintained CI/CD pipelines using Jenkins, automating the build, test, and deployment process.
+
+**Projects**
+
+*   **Personal Finance Tracker (Flutter):** Developed a personal finance tracking application using Flutter, Firebase, and Provider for state management.  Allows users to track income, expenses, and budgets.
+*   **E-commerce Mobile App (Flutter):** Developed a cross-platform e-commerce mobile application for iOS and Android using Flutter and Dart.
+*   **Sentiment Analysis Model (Python):** Built a sentiment analysis model using Python and scikit-learn to classify customer reviews based on sentiment.
+
+**Education**
+
+**Carnegie Mellon University, Pittsburgh, PA**
+Bachelor of Science in Computer Science | May 2015
+
+**Certifications**
+
+*   AWS Certified Cloud Practitioner
+*   Google Cloud Professional Data Engineer
+*   Certified Kubernetes Application Developer (CKAD)

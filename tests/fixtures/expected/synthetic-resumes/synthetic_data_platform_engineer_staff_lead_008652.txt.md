@@ -1,0 +1,54 @@
+**Anya Sharma-Rodriguez**
+(555) 123-4567 | anya.sharma.rodriguez@email.com | LinkedIn Profile URL
+
+**Summary**
+
+Highly accomplished and results-driven Data Platform Engineer with 9 years of experience designing, building, and optimizing data infrastructure and analytics solutions. Proven ability to leverage cutting-edge technologies like Python, Spark, Airflow, Snowflake, dbt, Kafka, and Databricks to deliver impactful business outcomes. Expertise in building scalable real-time data pipelines, implementing CI/CD practices, and driving cost optimization initiatives. Passionate about leveraging data to solve complex business challenges and improve customer experience. AWS Certified Cloud Practitioner.
+
+**Experience**
+
+**DoorDash, San Francisco, CA**
+**Senior Data Platform Engineer** | 2020 – Present
+
+*   Led the development and maintenance of a real-time analytics pipeline processing 500 million events per day, enabling data-driven decision-making across the organization.
+*   Architected and implemented a predictive analytics model using Python and Spark, resulting in a 63% reduction in customer churn.
+*   Spearheaded the implementation of CI/CD pipelines using Airflow and dbt, reducing release time by 16%.
+*   Optimized Snowflake data warehouse performance, resulting in a 20% improvement in query execution time.
+*   Reduced infrastructure costs by $50,000 annually through the implementation of cost-effective data storage and processing strategies.
+
+**Lyft, San Francisco, CA**
+**Data Engineer** | 2017 – 2020
+
+*   Designed and built a scalable data ingestion pipeline using Kafka and Spark Streaming to process and analyze ride-sharing data.
+*   Developed ETL processes using Python and SQL to transform and load data into a Snowflake data warehouse.
+*   Built real-time analytics pipeline processing 100M events/day, providing insights into driver and rider behavior.
+*   Collaborated with data scientists to develop machine learning models for fraud detection and pricing optimization.
+*   Automated data quality checks and alerts using Airflow, ensuring data accuracy and reliability.
+
+**Education**
+
+**University of Illinois at Urbana-Champaign, Urbana, IL**
+**Bachelor of Science in Computer Science** | 2013 – 2017
+
+**Certifications**
+
+*   AWS Certified Cloud Practitioner
+
+**Projects**
+
+*   **Real-Time Fraud Detection System:** Developed a real-time fraud detection system using Kafka Streams and machine learning to identify and prevent fraudulent transactions.
+*   **Customer Churn Prediction Model:** Built a customer churn prediction model using Python, Spark, and machine learning to identify customers at risk of churn and recommend targeted interventions.
+*   **Automated Data Quality Monitoring:** Created an automated data quality monitoring system using Airflow and SQL to identify and resolve data quality issues.
+*   **Personalized Recommendation Engine:** Implemented a personalized recommendation engine using collaborative filtering and content-based filtering to recommend relevant products to users.
+
+**Skills**
+
+*   **Programming Languages:** Python, SQL, Java
+*   **Big Data Technologies:** Spark, Hadoop, Kafka, Hive
+*   **Cloud Platforms:** AWS (Amazon Web Services), Databricks
+*   **Data Warehousing:** Snowflake
+*   **ETL Tools:** Airflow, dbt
+*   **Databases:** PostgreSQL, MySQL
+*   **Machine Learning:** Scikit-learn, TensorFlow
+*   **CI/CD:** Jenkins, Git
+*   **Data Modeling:** Star Schema, Snowflake Schema

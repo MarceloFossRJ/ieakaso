@@ -1,0 +1,60 @@
+```
+Aisha Rodriguez
+(555) 555-5555 | aisha.rodriguez@email.com | linkedin.com/in/aisharodriguez | github.com/aisharodriguez
+
+SUMMARY
+
+Highly accomplished and results-oriented AI Engineer with 16 years of experience in designing, developing, and deploying scalable and high-performance applications. Proven ability to lead teams, architect innovative solutions, and optimize existing systems for maximum efficiency. Expertise in React Native, TypeScript, Redux, Expo, and related technologies. Passionate about leveraging AI/ML to solve complex business problems and drive significant impact.
+
+EXPERIENCE
+
+Uber, Principal AI Engineer                                                                                    2018 – Present
+* Spearheaded the development of a real-time analytics pipeline processing 5 million events per day, enabling data-driven decision-making across multiple teams.
+* Led a team of 5 engineers in refactoring a critical React Native module, resulting in a 71% reduction in page load time and improved user engagement.
+* Architected and implemented a new testing framework that increased test coverage from 31% to 87%, significantly reducing bugs and improving code quality.
+* Championed the adoption of CI/CD best practices, improving deployment frequency from monthly to 50 times daily.
+* Reduced infrastructure costs by $15,000 annually by optimizing resource utilization and migrating to more cost-effective cloud services.
+
+Lyft, Senior Software Engineer                                                                                2015 – 2018
+* Designed and implemented key features for Lyft's driver onboarding platform using React Native, TypeScript, and Redux.
+* Collaborated with product managers and designers to define and refine product requirements, ensuring alignment with business goals.
+* Optimized page load time by 65% by improving image compression and implementing lazy loading techniques.
+* Mentored junior engineers on best practices in software development and testing.
+
+Amazon, Software Development Engineer                                                                          2012 – 2015
+* Developed and maintained backend services for Amazon's customer review platform using Java and AWS technologies.
+* Contributed to the design and implementation of a new data pipeline for processing customer reviews, improving data accuracy and availability.
+* Implemented automated testing frameworks to ensure the quality and reliability of backend services.
+
+Microsoft, Software Engineer                                                                                         2008 – 2012
+* Worked on the development of core features for Microsoft Office using C++ and .NET.
+* Participated in code reviews and testing to ensure the quality and stability of the software.
+
+PROJECTS
+
+Mobile App for Local Farmers Market: Developed a React Native app connecting local farmers with consumers.  Implemented features for browsing products, ordering online, and scheduling deliveries.
+
+AI-Powered Image Recognition System: Built a system using Python and TensorFlow for identifying different types of fruits and vegetables from images.
+
+Personal Finance Tracker: Created a web application using React and Node.js for tracking personal expenses and budgeting.
+
+E-commerce Platform for Small Business: Designed and implemented an e-commerce platform using React, Redux, and Node.js, enabling small businesses to sell their products online.
+
+SKILLS
+
+Languages: TypeScript, JavaScript, Java, C++, Python
+Frameworks/Libraries: React Native, React, Redux, Expo, Node.js, TensorFlow
+Databases: PostgreSQL, MySQL, MongoDB
+Cloud Platforms: AWS (Amazon Web Services), GCP (Google Cloud Platform)
+Tools: Git, Docker, Kubernetes, Jest, Jenkins, Jira, Confluence
+
+CERTIFICATIONS
+
+AWS Certified Solutions Architect – Associate
+Google Cloud Certified Professional Cloud Architect
+Certified Kubernetes Administrator (CKA)
+
+EDUCATION
+
+Indian Institute of Technology (IIT) Kanpur, Bachelor of Technology in Computer Science
+```

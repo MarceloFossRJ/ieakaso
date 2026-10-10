@@ -1,0 +1,52 @@
+**Li Wei Ramirez**
+(555) 123-4567 | li.ramirez@email.com | linkedin.com/in/liweiramirez | github.com/liweiramirez
+
+**Summary**
+
+Senior Cloud Architect with 7+ years of experience in designing, developing, and deploying scalable and resilient cloud-native applications. Proven ability to optimize infrastructure, implement CI/CD pipelines, and drive significant improvements in system uptime and cost efficiency. Expertise in React Native, TypeScript, Redux, and modern cloud technologies. Seeking a challenging role to leverage expertise in cloud architecture and contribute to the success of a forward-thinking organization.
+
+**Skills**
+
+*   **Languages:** TypeScript, JavaScript, Python, Go
+*   **Frameworks/Libraries:** React Native, React, Redux, Expo, Node.js, Express.js
+*   **Cloud Platforms:** AWS (Amazon Web Services), GCP (Google Cloud Platform), Azure
+*   **Databases:** PostgreSQL, MySQL, MongoDB, DynamoDB, Redis
+*   **DevOps:** Docker, Kubernetes, Terraform, Ansible, Jenkins, Git, CI/CD
+*   **Testing:** Jest, Mocha, Cypress
+*   **Monitoring/Logging:** Prometheus, Grafana, ELK Stack (Elasticsearch, Logstash, Kibana), CloudWatch
+*   **Architecture:** Microservices, Serverless, Event-Driven Architecture
+*   **Operating Systems:** Linux, Windows, macOS
+
+**Experience**
+
+**Adobe | Senior Cloud Architect | San Jose, CA | 2020 – Present**
+
+*   Architected and implemented a real-time analytics pipeline processing 15M events per day using Kafka, Spark, and AWS Kinesis, enabling data-driven decision-making for product teams.
+*   Spearheaded the implementation of a CI/CD pipeline using Jenkins and Terraform, reducing release time by 44% and improving deployment frequency.
+*   Led the migration of legacy applications to a microservices architecture on AWS, improving scalability and resilience.
+*   Improved critical production system uptime by 15% through infrastructure optimization and proactive monitoring.
+*   Increased test coverage from 50% to 93% by implementing comprehensive unit, integration, and end-to-end testing strategies, reducing bug incidence and improving software quality.
+
+**Acme Corporation | Cloud Engineer | San Francisco, CA | 2017 – 2020**
+
+*   Designed and implemented a scalable and resilient infrastructure on AWS using Terraform and Kubernetes, supporting the company's growing user base.
+*   Optimized infrastructure costs by $15K annually through resource right-sizing and automation of scaling policies.
+*   Developed and maintained cloud-native applications using React Native, TypeScript, and Node.js.
+*   Engineered monitoring and alerting systems using Prometheus and Grafana, enabling proactive identification and resolution of issues.
+*   Improved critical production system uptime by 46% through the automation of disaster recovery procedures and the implementation of robust monitoring systems.
+
+**Projects**
+
+*   **Personal Finance Tracker (React Native):** Developed a mobile application for tracking personal finances, including budgeting, expense tracking, and investment management. Utilized React Native, Redux, and Firebase.
+*   **E-commerce Platform (TypeScript, Node.js):** Built a serverless e-commerce platform with product catalog, shopping cart, and payment processing capabilities, using AWS Lambda, API Gateway, and DynamoDB.
+*   **Data Pipeline (Python, Spark):** Designed and implemented a data pipeline for processing and analyzing large datasets, using Python, Spark, and AWS EMR.
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Administrator (CKA)
+
+**Education**
+
+**Cornell University | Ithaca, NY | Bachelor of Science in Computer Science | 2017**

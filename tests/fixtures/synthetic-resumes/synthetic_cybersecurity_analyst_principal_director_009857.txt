@@ -1,0 +1,82 @@
+Jamal Ito-Garcia
+(555) 123-4567 | jamal.ito-garcia@email.com | LinkedIn Profile URL (Replace with actual URL) | GitHub Profile URL (Replace with actual URL)
+
+Summary
+
+Highly accomplished and results-oriented Cybersecurity Analyst with 15 years of experience designing, implementing, and managing security solutions for high-growth technology companies. Proven ability to reduce risk, improve system uptime, and optimize infrastructure costs. Expertise in React Native, TypeScript, Redux, and cloud security. Seeking a challenging and impactful leadership role.
+
+Experience
+
+Security Director, SecureCo (YC Backed Startup)   2020 – Present
+* Spearheaded the development and implementation of a comprehensive security strategy to protect sensitive data and infrastructure for a rapidly growing fintech company.
+* Designed and implemented a microservices architecture handling 15,000 requests per minute (RPM), enhancing scalability and resilience.
+* Led the incident response team, mitigating security breaches and minimizing downtime.
+* Achieved a 73% uptime for critical production systems through proactive monitoring, automation, and rapid incident resolution.
+* Reduced annual infrastructure costs by $20,000 through cloud optimization and resource management.
+
+Principal Security Engineer, CloudGuard Solutions   2015 – 2020
+* Led the design and implementation of secure cloud architectures on AWS and GCP.
+* Conducted regular security audits and penetration testing to identify vulnerabilities and recommend remediation strategies.
+* Developed and maintained security policies, procedures, and standards.
+* Improved uptime for critical production systems to 64% by implementing robust monitoring and failover mechanisms.
+* Mentored junior security engineers, fostering a culture of security awareness and best practices.
+
+Senior Security Consultant, CyberSafe Technologies  2011 – 2015
+* Provided security consulting services to a wide range of clients across various industries.
+* Conducted security risk assessments, vulnerability assessments, and penetration testing.
+* Developed and delivered security awareness training programs.
+* Assisted clients with the implementation of security controls to meet regulatory compliance requirements (e.g., HIPAA, PCI DSS).
+
+Software Engineer, DataSecure Inc. 2008 – 2011
+* Developed and maintained secure web applications using Java and related technologies.
+* Implemented security features such as authentication, authorization, and encryption.
+* Participated in code reviews and security testing.
+
+Projects
+
+Secure Mobile App Development (React Native, TypeScript, Redux, Expo)
+* Developed a secure mobile application prototype for a healthcare client, incorporating end-to-end encryption and multi-factor authentication.
+
+Cloud Security Automation (Terraform, AWS)
+* Created an automated infrastructure-as-code (IaC) pipeline using Terraform to provision secure cloud environments on AWS.
+
+Vulnerability Management Platform (Python, Django)
+* Developed a vulnerability management platform that automates the process of identifying, tracking, and remediating vulnerabilities.
+
+Security Incident Response System (SIEM, Python)
+* Built a custom Security Incident Response System that integrates with a SIEM solution for automated threat detection and response.
+
+Skills
+
+* Security Architecture
+* Threat Modeling
+* Vulnerability Management
+* Penetration Testing
+* Incident Response
+* Cloud Security (AWS, GCP)
+* React Native
+* TypeScript
+* Redux
+* Expo
+* Jest
+* Python
+* Java
+* Terraform
+* SIEM
+* Cryptography
+* Network Security
+* Application Security
+* DevSecOps
+
+Certifications
+
+* AWS Certified Security – Specialty
+* Google Cloud Certified Professional Cloud Security Engineer
+* Certified Information Systems Security Professional (CISSP)
+* Certified Ethical Hacker (CEH)
+* Kubernetes Security Specialist (CKS)
+
+Education
+
+University of Toronto, Toronto, ON
+Bachelor of Science in Computer Science

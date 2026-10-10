@@ -1,0 +1,61 @@
+Aisha Tanaka-Rodriguez
+(555) 123-4567 | aisha.t.rodriguez@email.com | linkedin.com/in/aishatanakarodriguez | github.com/atr
+
+SUMMARY
+
+Highly accomplished and results-driven Principal Backend Engineer with 16 years of experience designing, developing, and deploying scalable and high-performance backend systems. Proven ability to lead teams, mentor engineers, and deliver innovative solutions that drive business impact. Expertise in Node.js, TypeScript, MongoDB, GraphQL, Docker, and Azure. Passionate about leveraging data and machine learning to solve complex business challenges. Seeking a challenging leadership role where I can contribute to the growth and success of a forward-thinking organization.
+
+EXPERIENCE
+
+Google, Mountain View, CA
+Principal Software Engineer                                                                         2018 – Present
+
+* Led a team of 6 engineers in the design and implementation of a microservices architecture for a critical internal tool, serving 100,000 requests per minute (RPM).
+* Spearheaded the development of a real-time analytics pipeline processing 2 million events per day, providing actionable insights for business stakeholders.
+* Reduced customer churn by 19% by developing and deploying a predictive analytics model using machine learning techniques.
+* Built and deployed an ML model for personalized recommendations, achieving 51% accuracy in production, significantly improving user engagement.
+* Mentored junior engineers, providing technical guidance and fostering a collaborative environment.
+
+Amazon, Seattle, WA
+Senior Software Development Engineer                                                            2014 – 2018
+
+* Architected and developed key features for a high-traffic e-commerce platform using Node.js, Express, and MongoDB.
+* Optimized API performance, resulting in a 16% reduction in latency, improving the user experience and overall system efficiency.
+* Designed and implemented RESTful APIs for mobile and web applications, ensuring scalability and maintainability.
+* Contributed to the development of a CI/CD pipeline using Docker and Azure DevOps, enabling faster and more reliable deployments.
+* Reduced page load time by 19% through code optimization and caching strategies.
+
+Microsoft, Redmond, WA
+Software Development Engineer                                                                        2010 – 2014
+
+* Developed and maintained backend services for a cloud-based productivity suite using C# and SQL Server.
+* Collaborated with cross-functional teams to gather requirements and translate them into technical specifications.
+* Implemented unit and integration tests to ensure code quality and prevent regressions.
+* Contributed to the migration of legacy applications to the Azure cloud platform.
+
+EDUCATION
+
+Tsinghua University, Beijing, China
+Bachelor of Science in Computer Science
+
+PROJECTS
+
+* **Personal Finance Tracker:** Developed a Node.js application with a GraphQL API for tracking income and expenses, utilizing MongoDB for data storage.
+* **Real-time Chat Application:** Built a real-time chat application using Socket.IO and Node.js, showcasing proficiency in real-time communication technologies.
+* **Machine Learning-Powered Recommendation Engine:** Created a recommendation engine using Python and machine learning algorithms, demonstrating expertise in data science.
+* **Serverless Image Resizer:** Implemented a serverless image resizer using AWS Lambda and S3, highlighting experience with cloud-native technologies.
+
+CERTIFICATIONS
+
+* AWS Certified Solutions Architect – Associate
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Application Developer (CKAD)
+
+TECHNICAL SKILLS
+
+Languages: Node.js, TypeScript, JavaScript, C#, Python
+Frameworks/Libraries: Express, React, GraphQL, Socket.IO, TensorFlow, PyTorch
+Databases: MongoDB, SQL Server, PostgreSQL, Redis
+Cloud Platforms: Azure, AWS, GCP
+Tools: Docker, Kubernetes, Git, Jenkins, Azure DevOps, Terraform
+Methodologies: Agile, Scrum

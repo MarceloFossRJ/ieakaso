@@ -1,0 +1,49 @@
+**Omar Chen**
+(555) 123-4567 | omar.chen@email.com | linkedin.com/in/omarchen | github.com/omarchen
+
+**Summary**
+
+Highly motivated and results-driven Senior Angular Developer with 7 years of experience designing, developing, and optimizing high-performance web applications. Proven ability to lead technical projects, mentor junior engineers, and deliver significant improvements in application performance. Expertise in Angular, R, Python, SQL, and data visualization tools. Seeking a challenging role where I can leverage my skills to contribute to a dynamic and innovative team.
+
+**Skills**
+
+*   **Languages:** Angular (12+), TypeScript, JavaScript (ES6+), HTML5, CSS3, R, Python, SQL
+*   **Frameworks/Libraries:** RxJS, NgRx, Redux, Bootstrap, Material UI, D3.js, Node.js
+*   **Databases:** PostgreSQL, MySQL, Snowflake, MongoDB
+*   **Tools:** Git, Docker, Kubernetes, AWS (EC2, S3, Lambda), GCP (Compute Engine, Cloud Storage), Jenkins, Jira, Confluence, Webpack, Jest, Cypress
+*   **Data Visualization:** Tableau, Power BI, Looker
+*   **Methodologies:** Agile, Scrum, Waterfall
+
+**Experience**
+
+**Snowflake | Senior Angular Developer | 2020 – Present**
+
+*   Led the development of key features for Snowflake's data governance platform, resulting in a 20% increase in user engagement.
+*   Architected and implemented a new API caching strategy, reducing API latency by 71% and saving an estimated $50,000 annually in infrastructure costs.
+*   Optimized Angular application performance, reducing page load time by 42% through code splitting and lazy loading.
+*   Mentored 5 junior engineers, providing guidance on Angular best practices and code reviews.
+*   Developed and maintained automated testing suites using Jest and Cypress, ensuring high code quality and reducing bug reports by 30%.
+
+**Acme Corporation | Angular Developer | 2017 – 2020**
+
+*   Developed and maintained a complex Angular application for financial data analysis.
+*   Engineered a data pipeline using Python and SQL to ingest and process large datasets from multiple sources.
+*   Implemented performance improvements, reducing API latency by 39% through database query optimization and code refactoring.
+*   Collaborated with cross-functional teams to define project requirements and deliver high-quality solutions on time and within budget.
+
+**Projects**
+
+*   **Personal Portfolio Website (Angular):** Developed a responsive portfolio website showcasing my skills and projects (omarchen.com).
+*   **Data Analysis Dashboard (Angular, Python, Tableau):** Created a dashboard to visualize and analyze publicly available COVID-19 data using Python for data processing and Tableau for interactive visualizations.
+*   **E-commerce Platform (Angular, Node.js, MongoDB):** Developed a full-stack e-commerce platform with features such as product catalog, shopping cart, and order management.
+*   **Machine Learning Model Deployment (Python, Flask, AWS):** Built and deployed a machine learning model for image classification using Python, Flask, and AWS Lambda.
+
+**Certifications**
+
+*   AWS Certified Developer – Associate
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Application Developer (CKAD)
+
+**Education**
+
+**University of Michigan | Bachelor of Science in Computer Science | 2013 – 2017**

@@ -1,0 +1,62 @@
+Aminah Singh
+(555) 123-4567 | aminah.singh@email.com | linkedin.com/in/aminahsingh
+
+SUMMARY
+
+Data Science leader with 16 years of experience designing, developing, and implementing scalable and high-performance solutions. Proven ability to lead cross-functional teams and drive significant improvements in system performance and efficiency. Expertise in building real-time analytics pipelines, optimizing API performance, and designing microservices architectures. Passionate about leveraging data to solve complex business problems and improve user experience.
+
+EXPERIENCE
+
+Google, Mountain View, CA
+Principal Data Scientist, August 2018 – Present
+
+*   Led a team of 6 data scientists and engineers to develop and maintain critical data infrastructure for Google Search.
+*   Architected and implemented a real-time analytics pipeline processing 500 million events per day, providing critical insights into user behavior and system performance, resulting in a 15% improvement in key performance indicators.
+*   Optimized critical APIs, reducing latency by 24% and improving user satisfaction.
+*   Spearheaded the adoption of new machine learning techniques, resulting in a 10% increase in the accuracy of search results.
+*   Mentored junior data scientists and engineers, fostering a culture of innovation and collaboration.
+
+Amazon, Seattle, WA
+Senior Data Scientist, January 2014 – August 2018
+
+*   Designed and implemented a microservices architecture serving 500,000 requests per minute (RPM) with 99.99% availability for Amazon Prime Video.
+*   Reduced page load time by 78% by optimizing front-end performance using Angular, TypeScript, and RxJS.
+*   Built a real-time fraud detection system that reduced fraudulent transactions by 18%, saving the company $2M annually.
+*   Developed and maintained a comprehensive suite of data dashboards and reports providing actionable insights to stakeholders across the organization.
+*   Collaborated with product managers and engineers to define and prioritize new features and improvements.
+
+Microsoft, Redmond, WA
+Data Scientist, June 2010 – January 2014
+
+*   Developed machine learning models to predict customer churn, resulting in a 12% reduction in churn rate.
+*   Designed and implemented A/B testing frameworks to optimize website content and user experience.
+*   Performed statistical analysis on large datasets to identify trends and patterns.
+*   Presented findings and recommendations to senior management.
+
+EDUCATION
+
+National University of Singapore, Singapore
+Bachelor of Science in Computer Science, 2010
+
+SKILLS
+
+Programming Languages: Python, Java, JavaScript, TypeScript, SQL
+Frameworks/Libraries: Angular, React, RxJS, NgRx, Material UI, TensorFlow, PyTorch, Scikit-learn, Pandas, NumPy
+Databases: SQL Server, MySQL, PostgreSQL, MongoDB
+Cloud Platforms: AWS (Amazon Web Services), GCP (Google Cloud Platform), Azure
+Tools: Git, Docker, Kubernetes, Jenkins, Hadoop, Spark, Kafka
+Methodologies: Agile, Scrum
+
+CERTIFICATIONS
+
+*   AWS Certified Machine Learning – Specialty
+*   Google Professional Data Engineer
+*   Certified Kubernetes Administrator (CKA)
+
+PROJECTS
+
+*   **Customer Churn Prediction:** Developed a machine learning model to predict customer churn using Python and Scikit-learn, achieving an accuracy of 85%.
+*   **Real-Time Fraud Detection:** Designed and implemented a real-time fraud detection system using Kafka and Spark Streaming to identify and prevent fraudulent transactions.
+*   **Website Performance Optimization:** Optimized website performance using Angular, TypeScript, and RxJS, reducing page load time by 78%.
+*   **Product Recommendation Engine:** Developed a product recommendation engine using collaborative filtering and matrix factorization techniques, increasing sales by 10%.
+*   **Sentiment Analysis of Social Media Data:** Built a sentiment analysis model using Python and NLTK to analyze social media data and identify customer opinions.

@@ -1,0 +1,60 @@
+Anya Sharma-Rodriguez
+(555) 123-4567 | anya.sharma.rodriguez@email.com | linkedin.com/in/anyasharmarodriguez
+
+**Summary**
+
+Principal Cloud Architect with 15+ years of experience in designing, implementing, and managing scalable, resilient, and cost-effective cloud solutions. Proven ability to lead cross-functional teams, drive innovation, and deliver impactful results. Expertise in Python, Django, FastAPI, PostgreSQL, Redis, Docker, and AWS. Passionate about leveraging data-driven insights to optimize performance and improve customer experience.
+
+**Experience**
+
+**Databricks, San Francisco, CA**
+**Principal Cloud Architect** | 2019 – Present
+
+*   Led the design and implementation of a microservices architecture for a critical data processing pipeline, increasing throughput by 45% and handling 15K RPM with 99.99% uptime.
+*   Spearheaded the development and deployment of a predictive analytics platform using Python and machine learning algorithms, resulting in a 62% reduction in customer churn.
+*   Architected and implemented a CI/CD pipeline using Jenkins, Docker, and Kubernetes, reducing release time by 53% and improving deployment frequency.
+*   Optimized cloud infrastructure costs by 28% through efficient resource allocation and automation using AWS CloudFormation and Terraform.
+*   Mentored and guided a team of 8 cloud engineers, fostering a culture of innovation and continuous improvement.
+
+**Acme Corporation, New York, NY**
+**Senior Cloud Architect** | 2015 – 2019
+
+*   Designed and implemented a multi-cloud infrastructure strategy leveraging AWS and GCP, improving disaster recovery capabilities and reducing vendor lock-in.
+*   Led the migration of on-premise applications to AWS, resulting in a 40% reduction in infrastructure costs and improved scalability.
+*   Developed and maintained RESTful APIs using Python (Django and FastAPI) for internal and external consumption.
+*   Engineered and implemented a data lake solution using AWS S3, Glue, and Athena, enabling data-driven decision-making across the organization.
+
+**Tech Solutions Inc., Chicago, IL**
+**Cloud Engineer** | 2011 – 2015
+
+*   Built and maintained cloud infrastructure using AWS services such as EC2, S3, RDS, and Lambda.
+*   Developed automation scripts using Python and Bash to streamline deployment and configuration management processes.
+*   Monitored and troubleshooted cloud infrastructure issues, ensuring high availability and performance.
+
+**Projects**
+
+*   **Personal Portfolio Website:** Designed and developed a personal portfolio website using Python (Django), PostgreSQL, and Docker, showcasing my skills and experience.
+*   **Machine Learning Model for Fraud Detection:** Developed a machine learning model using Python (Scikit-learn) to detect fraudulent transactions, achieving 95% accuracy.
+*   **Infrastructure-as-Code Automation:** Created reusable Terraform modules for deploying and managing AWS infrastructure, reducing deployment time by 70%.
+
+**Education**
+
+**Indian Institute of Technology (IIT) Bombay, Mumbai, India**
+Bachelor of Technology in Computer Science
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Professional
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Administrator (CKA)
+*   AWS Certified DevOps Engineer – Professional
+
+**Skills**
+
+**Programming Languages:** Python, Bash, SQL
+**Frameworks/Libraries:** Django, FastAPI, Scikit-learn, Pandas, NumPy
+**Databases:** PostgreSQL, Redis, MySQL
+**Cloud Platforms:** AWS (EC2, S3, RDS, Lambda, CloudFormation, CloudWatch), GCP
+**DevOps Tools:** Docker, Kubernetes, Jenkins, Terraform, Ansible
+**Operating Systems:** Linux, Windows
+**Other:** Microservices Architecture, RESTful APIs, CI/CD, Agile Methodologies

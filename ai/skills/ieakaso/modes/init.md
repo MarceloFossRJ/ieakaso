@@ -49,6 +49,10 @@ If none is found, suggest adding them: they back up achievements with a third pa
 
 "Skip" is recorded as `"skipped"` and stays until the next `/ieakaso init`, which asks again.
 
+### Parsed CV
+
+Once the main CV is chosen, run `ai/skills/ieakaso/modes/cv-parser.md`. If it ends without exit 0 (the CV can't be parsed, or the candidate keeps a hand-edited `input/cv.md`), record the CV as `found` and carry on with init; the setup check runs the parser again before the next mode.
+
 Settle the LinkedIn PDF and reference letters (found or skipped) before starting Step 3, so the user never has two open questions at once and a bare "skip" or "ok" is never ambiguous.
 
 ## Step 3: Config
@@ -128,6 +132,7 @@ Write `db/system_status.json` (create `db/` if missing), then show a short summa
   - `skipped`: optional, and the user chose not to provide it; omitted from `config.yml`. Mandatory fields can never be `skipped`.
   - `missing`: not answered yet
 - `documents.cv` and `documents.linkedin`: `status` and `path` (`null` when not found)
+- `documents.cv.parsed`: written only by the CV parser (`ai/skills/ieakaso/modes/cv-parser.md`), never by hand: the source path and fingerprints, `parser_version` and `parsed_at` of the last parse. Missing means `input/cv.md` has not been parsed yet. Keep it when you rewrite the status file.
 - `documents.reference_letters`: `status` and `paths` (a list, empty when not found)
 - `documents.*.status`: `found`, `skipped` (LinkedIn PDF and reference letters only), or `missing`
 

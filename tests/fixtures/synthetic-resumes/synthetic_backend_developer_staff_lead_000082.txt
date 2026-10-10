@@ -1,0 +1,53 @@
+**Ayana Rodriguez-Chen**
+(555) 123-4567 | ayana.rodriguez.chen@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly accomplished and results-oriented Staff Backend Engineer with 9 years of experience designing, developing, and deploying scalable and robust data pipelines and backend systems. Expertise in Python, Spark, Airflow, Snowflake, dbt, Kafka, and Databricks. Proven ability to lead teams, optimize performance, and drive significant improvements in software development lifecycle. Passionate about building high-quality, data-driven solutions.
+
+**Skills**
+
+*   **Languages:** Python, SQL, Java
+*   **Data Engineering:** Spark, Airflow, Kafka, Snowflake, dbt, Databricks, Hadoop, Hive, Delta Lake, AWS Glue, GCP Dataflow
+*   **Cloud:** AWS (EC2, S3, Lambda, IAM, RDS, SQS, SNS), GCP (Compute Engine, Cloud Storage, Cloud Functions, Cloud SQL, Pub/Sub)
+*   **Databases:** PostgreSQL, MySQL, MongoDB, Redis
+*   **DevOps:** Docker, Kubernetes, Terraform, CI/CD (Jenkins, GitLab CI, CircleCI), AWS CloudFormation, GCP Deployment Manager
+*   **Testing:** Pytest, Unit Testing, Integration Testing, End-to-End Testing
+*   **Other:** REST APIs, Microservices, Agile Methodologies, Version Control (Git)
+
+**Experience**
+
+**Senior Backend Engineer / Engineering Lead** | DataBloom (YC W20) | San Francisco, CA | 2020 – Present
+
+*   Led a team of 4 engineers in the development and maintenance of DataBloom's core data pipeline, processing over 50 TB of data daily.
+*   Architected and implemented a new data ingestion pipeline using Kafka and Spark, resulting in a 40% reduction in data latency.
+*   Spearheaded the migration of DataBloom's data warehouse to Snowflake, improving query performance by 60% and reducing data storage costs by 25%.
+*   Implemented a robust CI/CD pipeline using GitLab CI, reducing release time by 78% and increasing deployment frequency.
+*   Increased test coverage from 24% to 93% by implementing comprehensive unit and integration testing frameworks.
+*   Mentored junior engineers, fostering a collaborative and high-performing team environment.
+
+**Backend Engineer** | CloudMetrics Inc. | New York, NY | 2016 – 2020
+
+*   Designed and developed REST APIs using Python and Flask for data retrieval and processing.
+*   Optimized database queries and indexing strategies, reducing page load time by 67% and improving overall application performance.
+*   Developed and maintained Airflow DAGs for data ETL processes, ensuring data quality and reliability.
+*   Contributed to the development of a real-time data analytics dashboard using Databricks and Delta Lake.
+*   Worked with cross-functional teams to define requirements and deliver high-quality software solutions.
+
+**Projects**
+
+*   **Real-time Fraud Detection System:** Developed a real-time fraud detection system using Kafka Streams and machine learning models to identify fraudulent transactions.
+*   **Recommendation Engine:** Built a recommendation engine using collaborative filtering and content-based filtering techniques to personalize user recommendations.
+*   **Data Pipeline Orchestration Tool:** Created a custom data pipeline orchestration tool using Airflow to automate data ingestion, processing, and transformation tasks.
+*   **Sentiment Analysis API:** Developed a sentiment analysis API using Python and NLP libraries to analyze customer reviews and provide sentiment scores.
+*   **Personal Portfolio Website:** Developed using React and deployed using AWS Amplify.
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   GCP Professional Cloud Architect
+*   Certified Kubernetes Administrator (CKA)
+
+**Education**
+
+**Cornell University** | Ithaca, NY | Bachelor of Science in Computer Science | 2012 - 2016

@@ -1,0 +1,53 @@
+ALEJANDRO CHEN
+(512) 555-1212 | alejandro.chen@email.com | linkedin.com/in/alejandrochen
+
+SUMMARY
+
+Highly accomplished and results-driven Cloud Architect with 7+ years of experience designing, implementing, and managing scalable, secure, and cost-effective cloud solutions. Expertise in Azure cloud services, infrastructure automation, and DevOps practices. Proven ability to drive significant business impact through innovative cloud technologies and data-driven insights.
+
+EXPERIENCE
+
+DoorDash | Senior Cloud Architect | San Francisco, CA | 2020 – Present
+
+* Led the architecture and implementation of highly scalable and resilient cloud infrastructure on Azure to support over 500M+ daily active users.
+* Architected and deployed Infrastructure-as-Code (IaC) solutions using ARM Templates and Bicep, reducing infrastructure provisioning time by 40%.
+* Engineered CI/CD pipelines using GitHub Actions for automated deployment and testing of applications, improving deployment frequency by 60%.
+* Implemented and maintained a centralized logging and monitoring solution using Splunk, enabling proactive identification and resolution of system issues, achieving 84% uptime for critical production systems.
+* Developed and deployed a machine learning model to predict customer churn with 32% accuracy, resulting in a 35% reduction in customer churn.
+* Optimized Azure infrastructure costs by identifying and eliminating inefficiencies, resulting in $20K in annual cost savings.
+
+Acme Corp | Cloud Engineer | Austin, TX | 2018 – 2020
+
+* Designed and implemented cloud infrastructure solutions on Azure to support various business applications.
+* Automated infrastructure provisioning and configuration using Terraform and Ansible.
+* Monitored system performance and availability using cloud-native monitoring tools.
+* Collaborated with development teams to migrate applications to the cloud.
+* Resolved production issues and provided on-call support.
+
+EDUCATION
+
+University of Texas at Austin | Bachelor of Science in Computer Science | Austin, TX | 2014 – 2018
+
+SKILLS
+
+Cloud Computing: Azure (Expert), AWS (Proficient), Google Cloud Platform (GCP) (Familiar)
+Infrastructure-as-Code: ARM Templates, Bicep, Terraform, CloudFormation
+Containerization: Kubernetes (AKS), Docker, Docker Compose
+CI/CD: GitHub Actions, Azure DevOps, Jenkins
+Programming Languages: Python, Java, Bash
+Operating Systems: Linux, Windows
+Monitoring: Splunk, Azure Monitor, Prometheus, Grafana
+Databases: SQL, NoSQL
+
+CERTIFICATIONS
+
+* Microsoft Certified: Azure Solutions Architect Expert
+* AWS Certified Solutions Architect - Associate
+* Certified Kubernetes Administrator (CKA)
+
+PROJECTS
+
+* **Automated Infrastructure Deployment Pipeline:** Developed a fully automated CI/CD pipeline using GitHub Actions and ARM templates for deploying and managing Azure resources.
+* **Machine Learning-Based Churn Prediction System:** Designed and implemented a machine learning model to predict customer churn using historical data, improving customer retention.
+* **Kubernetes Cluster Deployment Automation:** Created scripts and templates to automate the deployment and management of Kubernetes clusters on Azure (AKS).
+* **Centralized Logging and Monitoring Platform:** Implemented a centralized logging and monitoring platform using Splunk to collect and analyze logs from various sources, improving system visibility.

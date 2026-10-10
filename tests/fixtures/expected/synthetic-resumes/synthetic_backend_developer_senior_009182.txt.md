@@ -1,0 +1,63 @@
+Aisha Rodriguez-Nguyen
+(512) 555-1212 | aisha.r.nguyen@email.com | linkedin.com/in/aisharodrigueznguyen | github.com/arnguyen
+
+Summary
+
+Highly motivated and results-oriented Senior Backend Developer with 7+ years of experience designing, developing, and deploying scalable and high-performance applications. Proven ability to architect robust microservices architectures, optimize application performance, and mentor junior engineers. Expertise in Node.js, TypeScript, MongoDB, GraphQL, Docker, and Azure cloud technologies. Seeking a challenging role where I can leverage my skills and experience to contribute to the success of a dynamic and innovative organization.
+
+Skills
+
+Languages: TypeScript, JavaScript (ES6+), Python
+Backend: Node.js, Express, GraphQL, REST APIs, Serverless Functions (Azure Functions)
+Databases: MongoDB, SQL (PostgreSQL, MySQL)
+Cloud: Azure (App Service, Cosmos DB, Azure Functions, Azure DevOps), Docker, Kubernetes
+Tools: Git, Jenkins, CI/CD, Terraform, Jest, Mocha, Postman, Swagger, AWS CLI
+Methodologies: Agile (Scrum, Kanban), Microservices Architecture
+
+Experience
+
+Cisco Systems, Austin, TX
+Senior Backend Developer | June 2020 – Present
+
+* Led the design and implementation of a microservices architecture for a new customer onboarding platform, serving 500,000 requests per minute (RPM).
+* Engineered a GraphQL API layer to aggregate data from multiple backend services, resulting in a 30% reduction in data transfer overhead.
+* Optimized backend code and database queries, reducing average page load time by 77% and improving overall system performance.
+* Mentored 10 junior engineers, providing guidance on best practices in software development, testing, and code review.
+* Spearheaded the migration of legacy monolithic application to a containerized deployment on Azure Kubernetes Service (AKS), improving scalability and resilience.
+* Contributed to the development and maintenance of CI/CD pipelines using Azure DevOps.
+
+Tech Solutions Inc., Dallas, TX
+Backend Developer | August 2017 – June 2020
+
+* Developed and maintained RESTful APIs using Node.js and Express for a SaaS platform.
+* Implemented data models and database schemas in MongoDB.
+* Contributed to the design and development of new features, working closely with frontend developers and product managers.
+* Wrote unit and integration tests using Jest and Mocha to ensure code quality.
+* Improved API performance by implementing caching strategies, resulting in a 20% reduction in latency.
+
+Education
+
+University of Texas at Austin, Austin, TX
+Bachelor of Science in Computer Science | May 2017
+
+Certifications
+
+* Azure Solutions Architect Expert (AZ-305)
+* Certified Kubernetes Application Developer (CKAD)
+* AWS Certified Developer – Associate
+
+Projects
+
+E-commerce Platform API (Personal Project)
+* Developed a RESTful API using Node.js, Express, and MongoDB for an e-commerce platform. Implemented user authentication, product management, and order processing functionalities.
+
+Real-time Chat Application (Personal Project)
+* Built a real-time chat application using Node.js, Socket.IO, and React. Enabled users to create chat rooms, send messages, and receive notifications.
+
+Task Management System (Personal Project)
+* Created a task management system using TypeScript, Node.js, and PostgreSQL. Implemented user authentication, task creation, assignment, and tracking functionalities. Designed with clean architecture principles for maintainability and scalability.
+
+Awards
+
+* Employee of the Month, Cisco Systems (March 2022)
+* Innovation Award, Tech Solutions Inc. (December 2019)

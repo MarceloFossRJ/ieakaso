@@ -1,0 +1,50 @@
+**Aisha Ramirez**
+(555) 123-4567 | aisha.ramirez@email.com | linkedin.com/in/aisharamirez | github.com/aisharamirez
+
+**Summary**
+
+Highly motivated and results-oriented Backend Developer with 4 years of experience in designing, developing, and scaling high-performance applications. Proven ability to architect robust and efficient backend systems using Flutter, Dart, Firebase, and microservices architectures. Expertise in optimizing performance, ensuring reliability, and building scalable solutions that meet demanding business needs. Passionate about leveraging technology to solve complex problems and drive innovation.
+
+**Skills**
+
+* **Languages:** Dart, Java, Python, SQL
+* **Frameworks/Libraries:** Flutter, Provider, BLoC, Firebase SDK, REST APIs, gRPC
+* **Databases:** Firebase Realtime Database, Firestore, PostgreSQL, MongoDB
+* **Cloud Platforms:** Google Cloud Platform (GCP), Amazon Web Services (AWS)
+* **Tools:** Docker, Kubernetes, Git, CI/CD, Jira, Confluence, Prometheus, Grafana
+* **Methodologies:** Agile, Scrum, Microservices Architecture
+
+**Experience**
+
+**Notion | Backend Developer | San Francisco, CA | 2022 – Present**
+
+* Spearheaded the design and implementation of a microservices architecture for user authentication and authorization, serving 10,000 requests per minute (RPM) with 99.99% uptime.
+* Architected and developed a real-time analytics pipeline processing 500 million events per day using Firebase Realtime Database and GCP Dataflow.
+* Reduced average page load time by 16% by optimizing database queries and implementing caching strategies.
+* Scaled the existing backend infrastructure to support 20 million+ daily active users by migrating to a horizontally scalable microservices architecture.
+* Mentored junior engineers on best practices in Dart, Flutter, and backend development.
+
+**Acme Corp | Software Engineer | Mountain View, CA | 2020 – 2022**
+
+* Engineered and deployed RESTful APIs using Dart and Firebase Cloud Functions for a mobile application with over 500,000 users.
+* Optimized backend code, resulting in an 81% reduction in page load time for critical user flows.
+* Developed and maintained automated testing pipelines, improving code quality and reducing the number of production incidents by 30%.
+* Contributed to the design and implementation of a new feature that increased user engagement by 25%.
+
+**Certifications**
+
+* Google Cloud Certified Professional Cloud Architect
+* AWS Certified Developer – Associate
+
+**Projects**
+
+* **Personal Finance Tracker (Flutter/Firebase):** Developed a mobile application for tracking personal expenses and budgeting using Flutter for the frontend and Firebase for the backend. Implemented authentication, data persistence, and real-time updates.
+* **E-commerce API (Dart/gRPC):** Designed and implemented a high-performance gRPC-based API for an e-commerce platform, handling product catalog management, order processing, and payment integration.
+* **Machine Learning Model Deployment (Python/GCP):** Built and deployed a machine learning model on Google Cloud Platform using TensorFlow and Kubeflow for predicting customer churn.
+
+**Education**
+
+**Purdue University | Bachelor of Science in Computer Science | West Lafayette, IN | 2016 – 2020**
+
+* GPA: 3.8/4.0
+* Relevant Coursework: Data Structures and Algorithms, Database Systems, Operating Systems, Software Engineering, Machine Learning

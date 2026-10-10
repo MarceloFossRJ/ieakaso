@@ -1,0 +1,61 @@
+Anya Sharma-O'Connell
+(123) 456-7890 | anya.sharma.oconnell@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+Summary
+
+Highly motivated and results-driven Staff Backend Engineer with 9 years of experience in designing, developing, and deploying scalable and robust backend systems. Proven ability to lead teams, mentor junior engineers, and drive significant improvements in infrastructure efficiency and customer retention. Expertise in Python, Django, FastAPI, PostgreSQL, Redis, Docker, and AWS. Seeking a challenging role where I can leverage my skills and experience to contribute to the success of a forward-thinking organization.
+
+Experience
+
+Cisco Systems, San Jose, CA
+Staff Backend Engineer | 2020 – Present
+
+* Led a team of 4 engineers in the development and maintenance of a critical data pipeline processing over 10TB of data daily.
+* Architected and implemented a predictive analytics system using Python, Django, and machine learning models, resulting in a 53% reduction in customer churn.
+* Spearheaded the migration of legacy systems to a microservices architecture on AWS, utilizing Docker and Kubernetes.
+* Optimized database queries and server configurations, reducing infrastructure costs by $100,000 annually.
+* Mentored 7 junior engineers, providing guidance on coding best practices, software design principles, and career development.
+* Increased test coverage from 29% to 72% by implementing robust unit and integration testing strategies.
+
+Amazon Web Services (AWS), Seattle, WA
+Backend Engineer II | 2017 – 2020
+
+* Designed and developed RESTful APIs using Python and FastAPI for AWS services, ensuring high availability and scalability.
+* Implemented efficient data caching strategies using Redis, improving API response times by 40%.
+* Collaborated with front-end engineers to integrate backend services with user interfaces.
+* Contributed to the development of automated deployment pipelines using Jenkins and Docker, streamlining the release process.
+* Troubleshooted and resolved complex production issues, ensuring minimal downtime.
+
+Oracle, Redwood Shores, CA
+Software Engineer I | 2014 – 2017
+
+* Developed and maintained Java-based enterprise applications.
+* Wrote and executed SQL queries against Oracle databases.
+* Participated in code reviews and contributed to the improvement of code quality.
+* Assisted in the development of unit and integration tests.
+
+Projects
+
+* Real-time Data Analytics Platform: Developed a real-time data analytics platform using Kafka, Spark Streaming, and Cassandra for processing and analyzing large volumes of data. (Python, Kafka, Spark, Cassandra)
+* E-commerce Recommendation Engine: Built a recommendation engine using collaborative filtering and machine learning techniques to provide personalized product recommendations to users. (Python, Django, Machine Learning)
+* Automated Infrastructure Provisioning: Developed an automated infrastructure provisioning tool using Terraform and Ansible to streamline the deployment of AWS resources. (Terraform, Ansible, AWS)
+* Open-Source Contribution: Contributed to the Django REST Framework project, adding new features and fixing bugs. (Python, Django REST Framework)
+
+Education
+
+Stanford University, Stanford, CA
+Bachelor of Science in Computer Science | 2010 – 2014
+
+Skills
+
+* Languages: Python, Java, SQL
+* Frameworks: Django, FastAPI, Spring Boot
+* Databases: PostgreSQL, MySQL, Redis, Cassandra
+* Cloud Technologies: AWS (EC2, S3, Lambda, ECS, RDS), Docker, Kubernetes
+* Tools: Git, Jenkins, Terraform, Ansible, Jira, Confluence
+
+Certifications
+
+* AWS Certified Solutions Architect – Associate
+* Certified Kubernetes Administrator (CKA)
+* Google Cloud Professional Cloud Architect

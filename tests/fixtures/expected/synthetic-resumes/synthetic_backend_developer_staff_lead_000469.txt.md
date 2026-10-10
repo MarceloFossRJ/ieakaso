@@ -1,0 +1,55 @@
+**Javier Ito**
+(512) 555-1212 | javier.ito@email.com | linkedin.com/in/javierito | github.com/javierito
+
+**Summary**
+
+Highly motivated and results-oriented Backend Developer with 9+ years of experience in designing, developing, and deploying scalable and robust applications. Proven ability to lead teams, mentor junior engineers, and drive significant improvements in system performance and reliability. Expertise in Flutter, Dart, Provider, Firebase, and BLoC architecture. Passionate about leveraging cutting-edge technologies to solve complex challenges. AWS Certified Developer – Associate.
+
+**Skills**
+
+*   **Languages:** Dart, Python, Java, JavaScript
+*   **Frameworks/Libraries:** Flutter, Provider, BLoC, Firebase, Node.js, React
+*   **Databases:** PostgreSQL, MongoDB, Redis
+*   **Cloud Platforms:** AWS (EC2, S3, Lambda, DynamoDB), Google Cloud Platform (GCP)
+*   **Tools:** Docker, Kubernetes, Git, Jenkins, CircleCI, Terraform, Prometheus, Grafana
+*   **Methodologies:** Agile, Scrum, Microservices Architecture
+
+**Experience**
+
+**DoorDash | Senior Backend Engineer | San Francisco, CA | 2020 – Present**
+
+*   Led the development and implementation of a new microservices architecture for order processing, serving 100K requests per minute and reducing latency by 25%.
+*   Engineered critical backend systems, achieving a 58% improvement in uptime through proactive monitoring and automated failover mechanisms.
+*   Increased test coverage from 44% to 92% by implementing comprehensive unit and integration testing strategies, resulting in a 15% reduction in production incidents.
+*   Mentored 2 junior engineers, providing guidance on best practices for software development and code quality, improving their overall performance by 30%.
+*   Designed and implemented a real-time fraud detection system using machine learning techniques, resulting in a 42% accuracy in identifying fraudulent transactions and saving the company an estimated $250,000 annually.
+
+**Lyft | Backend Engineer | San Francisco, CA | 2017 – 2020**
+
+*   Developed and maintained RESTful APIs for ride-hailing services, ensuring scalability and reliability for millions of users.
+*   Optimized database queries and caching mechanisms, resulting in a 30% improvement in API response times.
+*   Contributed to the migration of legacy systems to a microservices architecture, improving system maintainability and scalability.
+*   Participated in on-call rotations, troubleshooting production issues and implementing preventative measures to minimize downtime.
+
+**Amazon | Software Development Engineer | Seattle, WA | 2015 – 2017**
+
+*   Developed and maintained backend services for Amazon's e-commerce platform, focusing on order management and fulfillment.
+*   Collaborated with cross-functional teams to design and implement new features, ensuring alignment with business requirements.
+*   Wrote unit and integration tests to ensure code quality and reliability.
+*   Participated in code reviews, providing feedback to peers and ensuring adherence to coding standards.
+
+**Projects**
+
+*   **Personal Finance Tracker (Flutter/Firebase):** Developed a mobile application for tracking personal finances, utilizing Flutter for the front-end and Firebase for backend services. Implemented features for budgeting, expense tracking, and financial goal setting.
+*   **Real-time Chat Application (Dart/Provider/WebSocket):** Architected a real-time chat application using Dart, Provider for state management, and WebSockets for real-time communication.
+*   **E-commerce Platform (Flutter/Node.js/MongoDB):** Engineered an e-commerce platform with Flutter for the front-end, Node.js for the backend, and MongoDB for the database. Implemented features for product browsing, shopping cart management, and order processing.
+*   **Machine Learning Model for Image Classification (Python/TensorFlow):** Built a machine learning model for image classification using Python and TensorFlow, achieving 85% accuracy on a benchmark dataset.
+
+**Education**
+
+**University of Texas at Austin | Bachelor of Science in Computer Science | Austin, TX | 2011 – 2015**
+
+**Certifications**
+
+*   AWS Certified Developer – Associate
+*   Google Cloud Certified Professional Cloud Architect

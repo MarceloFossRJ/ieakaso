@@ -1,0 +1,59 @@
+**Javier Ito-Garcia**
+(555) 123-4567 | javier.ito.garcia@email.com | linkedin.com/in/javieritogarcia | github.com/javieritogarcia
+
+**Summary**
+
+Highly accomplished and results-oriented Principal Backend Engineer with 16 years of experience designing, developing, and scaling high-performance, distributed systems. Expertise in Node.js, TypeScript, MongoDB, GraphQL, and cloud-native technologies on Azure and Kubernetes. Proven ability to lead teams, drive innovation, and deliver impactful solutions in fast-paced environments. Passionate about building robust, scalable, and maintainable software.
+
+**Experience**
+
+**DoorDash, San Francisco, CA**
+**Principal Backend Engineer** | 2018 – Present
+
+* Led a team of 8 engineers in the development and maintenance of critical backend services for order processing, delivery logistics, and marketplace management.
+* Spearheaded the migration of 500+ microservices from legacy infrastructure to a Kubernetes-based platform on Azure, resulting in a 20% reduction in infrastructure costs.
+* Improved deployment frequency from monthly to 10x daily by implementing a CI/CD pipeline with automated testing and rollback capabilities using Azure DevOps.
+* Optimized database queries and indexing strategies for MongoDB, resulting in a 43% improvement in read performance and reducing database latency by 15ms.
+* Collaborated with data scientists to build and deploy a machine learning model to predict delivery times, achieving 37% accuracy in production, improving customer satisfaction scores by 5%.
+
+**Airbnb, San Francisco, CA**
+**Senior Backend Engineer** | 2014 – 2018
+
+* Designed and implemented RESTful APIs using Node.js and Express for managing user profiles, booking requests, and payment processing.
+* Architected a scalable data pipeline using Kafka and Spark to process and analyze user behavior data, enabling personalized recommendations and targeted marketing campaigns.
+* Developed and maintained GraphQL APIs for internal and external partners, improving data accessibility and reducing frontend development time by 25%.
+* Collaborated with security engineers to implement robust authentication and authorization mechanisms, protecting sensitive user data and preventing fraudulent activities.
+
+**Google, Mountain View, CA**
+**Software Engineer** | 2008 – 2014
+
+* Contributed to the development of Google Maps' backend infrastructure, focusing on geocoding, routing, and traffic prediction algorithms.
+* Implemented performance optimizations that reduced the average response time for geocoding requests by 18%, improving user experience.
+* Developed and maintained internal tools for monitoring and debugging distributed systems, improving team productivity and reducing incident response time.
+
+**Projects**
+
+* **Real-Time Chat Application:** Developed a real-time chat application using Node.js, Socket.IO, and MongoDB, demonstrating proficiency in building scalable and interactive web applications.
+* **E-commerce Platform:** Built a full-stack e-commerce platform with user authentication, product catalog, shopping cart, and payment processing using React, Node.js, and PostgreSQL.
+* **Serverless API with Azure Functions:** Created a serverless API for image recognition using Azure Functions and Cognitive Services, showcasing experience with cloud-native development and AI integration.
+* **GraphQL API for a Movie Database:** Developed a GraphQL API for querying and manipulating movie data using Node.js, Apollo Server, and a relational database.
+
+**Skills**
+
+**Languages:** TypeScript, JavaScript (ES6+), Python, Java
+**Frameworks/Libraries:** Node.js, Express, React, GraphQL, Apollo, Socket.IO
+**Databases:** MongoDB, PostgreSQL, MySQL, Redis
+**Cloud Platforms:** Azure (primary), AWS, GCP
+**Tools:** Docker, Kubernetes, Kafka, Spark, Git, Jenkins, Terraform, Prometheus, Grafana
+**Methodologies:** Agile, Scrum, DevOps
+
+**Certifications**
+
+* AWS Certified Developer – Associate
+* Microsoft Certified: Azure Developer Associate
+* Certified Kubernetes Administrator (CKA)
+
+**Education**
+
+**University of California, Los Angeles (UCLA)**
+Bachelor of Science in Computer Science | 2004 – 2008

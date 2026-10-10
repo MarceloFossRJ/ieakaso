@@ -1,0 +1,57 @@
+**Li Wei-O'Connell**
+(555) 123-4567 | li.wei.oconnell@email.com | LinkedIn Profile URL (Replace with actual URL) | GitHub Profile URL (Replace with actual URL)
+
+**Summary**
+
+Highly motivated and results-oriented Cybersecurity Analyst with 7 years of experience in securing cloud-based applications and infrastructure. Proven ability to identify and mitigate vulnerabilities, optimize performance, and reduce costs. Expertise in Node.js, TypeScript, MongoDB, Docker, Azure, and machine learning. Strong advocate for security best practices and continuous improvement.
+
+**Skills**
+
+*   **Languages:** Node.js, TypeScript, JavaScript, Python, SQL
+*   **Frameworks/Libraries:** Express.js, GraphQL, React, Jest, Mocha
+*   **Databases:** MongoDB, PostgreSQL, MySQL
+*   **Cloud Platforms:** Azure (Expert), AWS (Proficient), Google Cloud Platform (GCP)
+*   **Security:** Vulnerability Assessment, Penetration Testing, Security Audits, SIEM, Intrusion Detection/Prevention, OWASP, NIST
+*   **Tools:** Docker, Kubernetes, Terraform, Azure DevOps, Jenkins, Git, Wireshark, Nmap, Burp Suite, Metasploit
+*   **Operating Systems:** Linux (Ubuntu, CentOS), Windows, macOS
+*   **Machine Learning:** Scikit-learn, TensorFlow, Keras
+
+**Experience**
+
+**Citadel, New York, NY**
+**Senior Cybersecurity Analyst** | June 2020 – Present
+
+*   Led security initiatives for Azure cloud infrastructure, resulting in a 40% reduction in security incidents.
+*   Architected and implemented a machine learning model for anomaly detection, achieving 75% accuracy in identifying malicious activity in production.
+*   Developed and automated vulnerability scanning processes, reducing remediation time by 60%.
+*   Reduced annual infrastructure costs by $50,000 through optimization of cloud resource utilization and decommissioning of redundant services.
+*   Conducted regular security audits and penetration tests to identify and address vulnerabilities in web applications and APIs.
+
+**Goldman Sachs, New York, NY**
+**Cybersecurity Analyst** | July 2017 – May 2020
+
+*   Engineered and maintained security monitoring tools using SIEM to detect and respond to security threats.
+*   Developed and delivered security awareness training to employees, improving security posture across the organization.
+*   Reduced page load time for a critical web application by 77% by optimizing database queries and caching strategies.
+*   Collaborated with development teams to ensure secure coding practices and adherence to security policies.
+*   Automated security incident response workflows, reducing incident resolution time by 30%.
+
+**Education**
+
+**Indian Institute of Technology (IIT) Kanpur, India**
+**Bachelor of Technology in Computer Science** | August 2013 – June 2017
+
+**Certifications**
+
+*   AWS Certified Security – Specialty
+*   Certified Information Systems Security Professional (CISSP)
+*   Certified Ethical Hacker (CEH)
+*   Microsoft Certified: Azure Security Engineer Associate
+
+**Projects**
+
+*   **Automated Vulnerability Scanner:** Developed a Python-based tool to automate vulnerability scanning of web applications using OWASP ZAP and Nessus.
+*   **Machine Learning-Based Intrusion Detection System:** Built a machine learning model using TensorFlow to detect anomalous network traffic and potential intrusions.
+*   **Secure API Gateway:** Designed and implemented a secure API gateway using Node.js, Express.js, and Azure API Management to protect backend APIs.
+*   **Docker Security Hardening:** Developed a set of best practices and automation scripts to harden Docker containers and improve security posture.
+*   **Cloud Security Automation:** Created Terraform scripts to automate the deployment and configuration of secure cloud infrastructure on Azure.

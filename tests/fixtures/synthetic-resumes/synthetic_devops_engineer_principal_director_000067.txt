@@ -1,0 +1,69 @@
+Aisha Rodriguez-Chen
+(512) 555-1212 | aisha.rodriguez.chen@email.com | LinkedIn Profile URL (Replace with actual URL)
+
+SUMMARY
+
+Highly accomplished and results-driven DevOps Engineer with 16 years of experience in designing, implementing, and managing scalable and resilient infrastructure solutions. Proven ability to lead teams, drive innovation, and optimize operational efficiency. Expertise in cloud technologies, automation, and CI/CD pipelines. Adept at leveraging data analytics to improve customer experience and reduce costs.
+
+EXPERIENCE
+
+Instacart, San Francisco, CA
+Principal DevOps Engineer                                                                 2018 – Present
+
+* Led a team of 6 engineers to design and implement a fully automated CI/CD pipeline, increasing deployment frequency from monthly to 10x daily.
+* Architected and implemented a predictive analytics system using Kotlin and Firebase to identify and mitigate potential customer churn, resulting in a 43% reduction in churn rate.
+* Spearheaded the migration of on-premise infrastructure to AWS, resulting in $100K annual cost savings by optimizing resource utilization and leveraging cloud-native services.
+* Mentored 5 junior engineers, providing guidance on best practices in DevOps, cloud computing, and software development.
+* Developed and maintained Infrastructure-as-Code (IaC) using Terraform and Ansible, ensuring consistency and repeatability across environments.
+* Optimized application performance through proactive monitoring and alerting using Prometheus and Grafana.
+
+Lyft, San Francisco, CA
+Senior DevOps Engineer                                                                   2015 – 2018
+
+* Engineered and maintained highly available and scalable infrastructure on AWS, supporting millions of rides per day.
+* Implemented automated testing and deployment processes, reducing release cycle time by 25%.
+* Collaborated with development teams to integrate security best practices into the CI/CD pipeline.
+* Led the design and implementation of a container orchestration platform using Kubernetes, improving resource utilization by 30%.
+* Contributed to the development of internal tools to automate common operational tasks.
+
+Amazon Web Services, Seattle, WA
+DevOps Engineer                                                                    2012 – 2015
+
+* Managed and maintained AWS infrastructure for internal development teams.
+* Developed and implemented automation tools to streamline deployment and monitoring processes.
+* Contributed to the development of internal documentation and training materials.
+* Provided technical support to internal users on AWS services.
+
+EDUCATION
+
+University of Texas at Austin, Austin, TX
+Bachelor of Science in Computer Science
+
+CERTIFICATIONS
+
+* AWS Certified DevOps Engineer – Professional
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Administrator (CKA)
+
+PROJECTS
+
+* **Real-Time Anomaly Detection:** Developed a real-time anomaly detection system using Kotlin and Apache Kafka to identify and alert on suspicious activity.
+* **Automated Infrastructure Provisioning:** Created a self-service portal for provisioning AWS resources using Terraform and Ansible.
+* **CI/CD Pipeline Optimization:** Optimized a Jenkins-based CI/CD pipeline, reducing build and deployment times by 40%.
+* **Cost Optimization Dashboard:** Developed a dashboard to visualize AWS costs and identify opportunities for optimization.
+
+SKILLS
+
+Languages: Kotlin, Java, Python, Bash
+Frameworks/Libraries: Jetpack Compose, Room, Retrofit, Dagger
+Cloud Platforms: AWS (EC2, S3, Lambda, ECS, EKS, RDS), Google Cloud Platform (GCE, GCS, Cloud Functions, GKE), Azure
+Databases: PostgreSQL, MySQL, MongoDB
+Containerization: Docker, Kubernetes
+Automation: Terraform, Ansible, Chef, Puppet
+CI/CD: Jenkins, GitLab CI, CircleCI
+Monitoring: Prometheus, Grafana, ELK Stack (Elasticsearch, Logstash, Kibana)
+Operating Systems: Linux (Ubuntu, CentOS), Windows
+Version Control: Git
+Agile Methodologies: Scrum, Kanban
+
+Keywords: DevOps, Cloud, AWS, GCP, Azure, Kubernetes, Docker, Terraform, Ansible, CI/CD, Jenkins, Kotlin, Java, Python, Automation, Infrastructure as Code, IaC, Monitoring, Prometheus, Grafana, Elasticsearch, Linux, Git, Agile, Scrum, Kanban, SRE, Site Reliability Engineering, Microservices, Serverless, Predictive Analytics, Machine Learning.

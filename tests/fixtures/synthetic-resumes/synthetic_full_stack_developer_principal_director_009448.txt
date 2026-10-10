@@ -1,0 +1,60 @@
+```
+**Aaliyah Chen-Rodriguez**
+(555) 123-4567 | aaliyah.chenrodriguez@email.com | LinkedIn Profile URL (replace with actual URL) | GitHub Profile URL (replace with actual URL)
+
+**Summary**
+
+Highly accomplished and results-oriented Full Stack Developer with 15+ years of experience architecting, developing, and optimizing high-performance web and mobile applications. Proven ability to lead teams, drive innovation, and deliver significant business impact in fast-paced environments, particularly within Series A startup settings. Expertise in React Native, TypeScript, Redux, Expo, Jest, and cloud infrastructure management. Seeking a challenging leadership role where I can leverage my skills to contribute to the success of a forward-thinking organization.
+
+**Skills**
+
+* **Languages:** TypeScript, JavaScript, HTML, CSS, Python, Java (basic)
+* **Frameworks/Libraries:** React Native, React, Redux, Expo, Node.js, Express.js, Jest, Enzyme, Styled Components, Material UI
+* **Mobile Development:** iOS (basic understanding), Android (basic understanding), Mobile UI/UX Design Principles
+* **Backend:** Node.js, Express.js, RESTful APIs, GraphQL
+* **Databases:** PostgreSQL, MongoDB, MySQL
+* **Cloud:** AWS (Amazon Web Services), GCP (Google Cloud Platform), Serverless Architecture (Lambda, Cloud Functions)
+* **DevOps:** Docker, Kubernetes, CI/CD (Continuous Integration/Continuous Deployment), Jenkins, Git, Gitflow
+* **Tools:**  Jira, Confluence, Slack, VS Code,  Debugging Tools (e.g., Reactotron)
+* **Other:** Agile Methodologies, Predictive Analytics, Performance Optimization, Cross-Platform Development
+
+**Experience**
+
+**Lead Mobile Engineer | Innovate Mobile (Series A Startup) | San Francisco, CA | 2018 – Present**
+
+* Led the development and maintenance of the company's flagship React Native mobile application, serving over 100,000 active users.
+* Spearheaded the migration from JavaScript to TypeScript, resulting in a 20% reduction in bug reports.
+* Implemented predictive analytics models using Python and deployed on AWS Lambda, contributing to a 55% reduction in customer churn within the first six months.
+* Reduced page load time by 70% through code optimization, image compression, and content delivery network (CDN) implementation.
+* Mentored and coached a team of 5 junior and mid-level mobile developers.
+
+**Senior Software Engineer | Tech Solutions Inc. | Chicago, IL | 2014 – 2018**
+
+* Designed and developed scalable RESTful APIs using Node.js and Express.js to support various client applications.
+* Collaborated with cross-functional teams to gather requirements, design solutions, and deliver high-quality software.
+* Engineered and maintained CI/CD pipelines using Jenkins and Docker, enabling faster and more reliable deployments.
+* Reduced infrastructure costs by $2,000 annually by optimizing server configurations and utilizing AWS Reserved Instances.
+
+**Software Engineer | Global Technologies Corp. | New York, NY | 2011 – 2014**
+
+* Developed and maintained web applications using Java and Spring framework.
+* Contributed to the design and implementation of a new database schema for improved performance and scalability.
+* Achieved 51% uptime for critical production systems through proactive monitoring and incident response.
+
+**Projects**
+
+* **Personal Finance Tracker (React Native, TypeScript, Redux):** Developed a mobile application to track personal expenses and manage budgets.
+* **E-commerce Platform (React, Node.js, PostgreSQL):** Built a full-stack e-commerce platform with user authentication, product catalog, and shopping cart functionality.
+* **Machine Learning API (Python, Flask, AWS Lambda):** Created an API to provide predictive analytics services using machine learning models.
+* **Open Source Library (TypeScript, Jest):** Developed a reusable UI component library for React Native applications.
+
+**Certifications**
+
+* AWS Certified Solutions Architect – Associate
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Administrator (CKA)
+
+**Education**
+
+**University of Illinois at Urbana-Champaign | Urbana, IL | Bachelor of Science in Computer Science | 2011**
+```

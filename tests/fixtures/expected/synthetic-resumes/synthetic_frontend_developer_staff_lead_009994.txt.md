@@ -1,0 +1,58 @@
+**Ayana Ramirez**
+(123) 456-7890 | ayana.ramirez@email.com | LinkedIn Profile URL (Replace with actual URL) | GitHub Profile URL (Replace with actual URL)
+
+**Summary**
+
+Highly accomplished and results-driven Frontend Developer with 9 years of experience specializing in Vue.js ecosystems, microservices architecture, and performance optimization. Proven ability to lead development teams, architect scalable solutions, and deliver significant improvements in user experience and business outcomes. Expertise in leveraging data analytics to drive strategic decision-making and reduce customer churn.
+
+**Skills**
+
+* **Languages:** JavaScript (ES6+), HTML5, CSS3, SCSS
+* **Frameworks/Libraries:** Vue.js, Vuex, Nuxt.js, React (Proficient), Node.js (Basic)
+* **Build Tools:** Webpack, Vite, Babel, ESLint, Prettier
+* **Testing:** Vitest, Jest, Cypress
+* **Microservices:** Architecture, REST APIs, gRPC
+* **Cloud Technologies:** AWS (Certified Solutions Architect - Associate), Docker, Kubernetes
+* **Databases:** MongoDB (Basic), PostgreSQL (Basic)
+* **Analytics:** Google Analytics, Amplitude
+* **DevOps:** CI/CD, Jenkins, Git
+* **Agile Methodologies:** Scrum, Kanban
+
+**Experience**
+
+**Intel Corporation, Santa Clara, CA**
+**Senior Frontend Engineer** | 2019 – Present
+
+* Led the development and implementation of a microservices architecture for Intel's customer support portal, handling 15,000 requests per minute (RPM).
+* Spearheaded a performance optimization initiative that reduced API latency by 42%, resulting in a 15% increase in user engagement.
+* Engineered a real-time analytics pipeline processing 5 million events per day to provide actionable insights into user behavior and application performance.
+* Mentored junior developers and provided technical guidance on best practices and coding standards.
+* Collaborated with cross-functional teams to define product requirements and develop innovative solutions.
+
+**Amazon, Seattle, WA**
+**Frontend Developer** | 2015 – 2019
+
+* Developed and maintained key features for Amazon's retail website using Vue.js, contributing to a 20% increase in website performance.
+* Implemented A/B testing frameworks to optimize user experience and improve conversion rates.
+* Contributed to the development of a new UI component library, improving code reusability and reducing development time by 25%.
+* Worked with backend engineers to design and implement RESTful APIs.
+
+**Certifications**
+
+* AWS Certified Solutions Architect – Associate
+
+**Projects**
+
+* **Personal Portfolio Website (Vue.js/Nuxt.js):** Developed a fully responsive and dynamic portfolio website showcasing projects and skills.
+* **Real-time Chat Application (Vue.js/Node.js/Socket.io):** Built a real-time chat application with features such as user authentication, private messaging, and group chat.
+* **E-commerce Platform (Vue.js/Vuex/Nuxt.js):** Created an e-commerce platform with features such as product browsing, shopping cart, checkout, and order management.
+* **Data Visualization Dashboard (Vue.js/D3.js):** Designed and implemented a data visualization dashboard displaying key metrics and trends using D3.js.
+
+**Education**
+
+**Cornell University, Ithaca, NY**
+Bachelor of Science in Computer Science | 2011 - 2015
+
+**Awards and Recognition**
+
+* Intel Spotlight Award (2022) - For outstanding contributions to the customer support portal project.

@@ -61,3 +61,6 @@ venv.bak/
 .ruff_cache/
 # Personal task list
 todo.txt
+
+# macOS folder metadata
+.DS_Store

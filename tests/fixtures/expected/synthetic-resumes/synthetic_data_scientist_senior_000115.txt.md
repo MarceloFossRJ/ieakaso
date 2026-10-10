@@ -1,0 +1,60 @@
+```
+Aisha Patel-O'Connell
+(555) 123-4567 | aisha.patel.oconnell@email.com | linkedin.com/in/aishapateloconnell | github.com/aisha-poc
+
+SUMMARY
+
+Data Scientist with 7 years of experience in developing and deploying machine learning models and real-time analytics solutions. Proven ability to translate business requirements into actionable insights, resulting in significant improvements in customer retention and operational efficiency. Expertise in building scalable and reliable data pipelines, implementing CI/CD practices, and utilizing advanced statistical techniques. Proficient in Angular, TypeScript, RxJS, NgRx, and Material UI for building data visualization dashboards.
+
+EXPERIENCE
+
+Goldman Sachs, New York, NY
+Senior Data Scientist | 2019 – Present
+
+*   Led the development and deployment of a real-time analytics pipeline processing 15 million events per day, enabling proactive risk management and improved decision-making.
+*   Engineered predictive models that reduced customer churn by 64%, contributing to a $2.5 million increase in annual revenue retention.
+*   Spearheaded the implementation of a CI/CD pipeline, reducing release time by 49% and improving the speed of feature delivery.
+*   Mentored junior data scientists, providing guidance on model development, data analysis, and best practices for software engineering.
+*   Optimized existing machine learning algorithms, resulting in a 15% reduction in prediction error and improved model performance.
+
+JP Morgan Chase & Co, Columbus, OH
+Data Scientist | 2017 – 2019
+
+*   Developed and deployed machine learning models to predict fraudulent transactions, resulting in a 20% reduction in fraud losses.
+*   Collaborated with business stakeholders to identify key areas for data-driven improvement, leading to the development of new analytics dashboards.
+*   Designed and implemented A/B testing frameworks to evaluate the effectiveness of new product features and marketing campaigns.
+*   Built ETL pipelines to extract, transform, and load data from various sources, ensuring data quality and consistency.
+
+EDUCATION
+
+Indian Institute of Technology (IIT) Delhi, Delhi, India
+Bachelor of Technology in Computer Science | 2013 – 2017
+
+CERTIFICATIONS
+
+*   AWS Certified Machine Learning – Specialty
+*   Google Cloud Certified Professional Data Engineer
+
+PROJECTS
+
+Customer Churn Prediction Platform
+*   Developed an end-to-end customer churn prediction platform using Angular, TypeScript, and Material UI for data visualization, integrated with a Python-based machine learning backend.
+
+Fraud Detection System
+*   Built a real-time fraud detection system utilizing anomaly detection algorithms and a Kafka-based streaming pipeline to identify and prevent fraudulent transactions.
+
+Sales Forecasting Model
+*   Created a sales forecasting model using time series analysis and regression techniques to predict future sales trends and optimize inventory management, resulting in a 10% reduction in inventory holding costs.
+
+Personal Finance Tracker
+*   Developed a personal finance tracking application with Angular frontend and Node.js backend to help users track their income, expenses, and investments.
+
+SKILLS
+
+Languages: Python, TypeScript, JavaScript, SQL
+Frameworks/Libraries: Angular, RxJS, NgRx, Material UI, Pandas, Scikit-learn, TensorFlow, PyTorch
+Databases: PostgreSQL, MySQL, MongoDB
+Cloud Platforms: AWS (S3, EC2, Lambda, SageMaker), Google Cloud Platform (BigQuery, Cloud Functions, Cloud Storage)
+Tools: Git, Docker, Kubernetes, Jenkins, Kafka
+Statistical Techniques: Regression, Classification, Clustering, Time Series Analysis, A/B Testing
+```

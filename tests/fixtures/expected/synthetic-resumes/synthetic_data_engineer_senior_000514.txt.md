@@ -1,0 +1,56 @@
+Aariz Tan Li Wei
+(65) 8123 4567 | aariz.tan@email.com | linkedin.com/in/aariztanliwei | github.com/aariztan
+
+SUMMARY
+
+Senior Data Engineer with 7+ years of experience designing, developing, and deploying scalable and reliable data solutions. Proven ability to translate business requirements into robust technical architectures and deliver impactful results. Expertise in building data pipelines, implementing predictive analytics models, and optimizing system performance. Proficient in Node.js, TypeScript, MongoDB, GraphQL, Docker, and Azure cloud services.
+
+EXPERIENCE
+
+Salesforce, Singapore
+Senior Data Engineer | 2020 – Present
+
+*   Architected and implemented a microservices architecture using Node.js, Express, TypeScript, and MongoDB, serving 15,000 requests per minute (RPM) with 99.9% uptime.
+*   Led the development of a predictive analytics model using machine learning techniques to identify at-risk customers, resulting in a 58% reduction in customer churn.
+*   Optimized data pipelines for real-time data ingestion and processing, improving data accuracy by 20% and reducing latency by 30%.
+*   Spearheaded the migration of on-premise data infrastructure to Azure cloud, resulting in a 40% reduction in infrastructure costs.
+*   Mentored junior engineers on best practices for software development, data modeling, and cloud computing.
+
+Grab, Singapore
+Data Engineer | 2017 – 2020
+
+*   Designed and implemented ETL processes for integrating data from various sources, including relational databases, NoSQL databases, and streaming data platforms.
+*   Developed and maintained data warehouse solutions using cloud-based data warehousing technologies.
+*   Built dashboards and reports to provide insights into key business metrics, enabling data-driven decision-making.
+*   Improved page load time by 15% by optimizing database queries and caching strategies.
+*   Collaborated with cross-functional teams to define data requirements and ensure data quality.
+
+TECHNICAL SKILLS
+
+Languages: Node.js, TypeScript, JavaScript, Python, SQL
+Frameworks/Libraries: Express, React, GraphQL, Pandas, NumPy
+Databases: MongoDB, PostgreSQL, MySQL
+Cloud Platforms: Azure (Certified Azure Data Engineer Associate), AWS (Basic Familiarity)
+Tools: Docker, Kubernetes, Terraform, Git, Jenkins, Apache Kafka
+
+PROJECTS
+
+E-commerce Recommendation Engine: Developed a recommendation engine using collaborative filtering techniques to provide personalized product recommendations, increasing click-through rates by 10%. (Node.js, Python, MongoDB)
+Real-Time Fraud Detection System: Built a real-time fraud detection system using machine learning algorithms to identify and prevent fraudulent transactions, reducing fraud losses by 12%. (Python, Kafka, Spark)
+Customer Churn Prediction Model: Created a customer churn prediction model using machine learning techniques to identify customers at risk of churning, enabling proactive intervention strategies. (Python, Scikit-learn)
+Data Pipeline for Social Media Analytics: Designed and implemented a data pipeline to collect and analyze social media data to gain insights into customer sentiment and brand perception. (Python, Kafka, Spark, MongoDB)
+
+EDUCATION
+
+National University of Singapore (NUS), Singapore
+Bachelor of Science in Computer Science | 2013 – 2017
+
+CERTIFICATIONS
+
+Microsoft Certified: Azure Data Engineer Associate
+AWS Certified Cloud Practitioner (Foundational)
+
+AWARDS AND RECOGNITION
+
+Employee of the Month, Salesforce (October 2022)
+Innovation Award, Grab (December 2019)

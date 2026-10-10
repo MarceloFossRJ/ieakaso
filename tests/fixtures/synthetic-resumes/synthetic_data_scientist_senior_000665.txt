@@ -1,0 +1,53 @@
+**Aisha Rodriguez-Chen**
+(555) 123-4567 | aisha.rodriguezchen@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Data Scientist with 7 years of experience in developing and deploying scalable data solutions, specializing in real-time analytics, cloud infrastructure, and database optimization. Proficient in Azure cloud technologies including AKS, ARM Templates, and Bicep. Proven ability to lead technical projects, mentor junior engineers, and drive significant performance improvements. Passionate about leveraging data to solve complex business problems and improve customer experiences.
+
+**Skills**
+
+**Cloud:** Azure (AKS, ARM Templates, Bicep, Azure Functions, Azure Data Factory), AWS (Certified Cloud Practitioner), Google Cloud Platform (BigQuery)
+**Programming:** Python (Pandas, NumPy, Scikit-learn), SQL, R
+**Big Data:** Spark, Hadoop, Kafka
+**DevOps:** Docker, Kubernetes, GitHub Actions, CI/CD
+**Databases:** PostgreSQL, MySQL, MongoDB
+**Monitoring & Logging:** Splunk
+**Other:** Machine Learning, Deep Learning, Data Visualization, Statistical Modeling, A/B Testing
+
+**Experience**
+
+**DoorDash, San Francisco, CA**
+**Senior Data Scientist** | 2020 – Present
+
+*   Led the migration of 5 critical microservices to Kubernetes on Azure AKS, resulting in a 20% reduction in infrastructure costs.
+*   Engineered a real-time analytics pipeline using Kafka and Spark, processing 2 million events per day for fraud detection and anomaly analysis.
+*   Optimized database queries for a core service, leading to a 45% improvement in read speeds and a 15% reduction in database load.
+*   Mentored a team of 10 junior data scientists, providing guidance on technical best practices and career development.
+*   Developed and deployed machine learning models for restaurant recommendation, improving order conversion rates by 8%.
+
+**Acme Analytics, New York, NY**
+**Data Scientist** | 2017 – 2020
+
+*   Designed and implemented a data warehouse solution using Google BigQuery to support business intelligence reporting and analysis.
+*   Developed statistical models to predict customer churn, resulting in a 12% reduction in churn rate.
+*   Automated data ingestion and transformation processes using Python and Airflow.
+*   Collaborated with cross-functional teams to define key performance indicators (KPIs) and develop dashboards.
+
+**Education**
+
+**Stanford University, Stanford, CA**
+**Bachelor of Science in Computer Science** | 2017
+GPA: 3.8
+
+**Certifications**
+
+*   AWS Certified Cloud Practitioner
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **Real-Time Fraud Detection System:** Developed a real-time fraud detection system using Kafka, Spark Streaming, and a custom machine learning model.
+*   **Customer Churn Prediction Model:** Built a machine learning model to predict customer churn, incorporating features from customer demographics, purchase history, and online activity.
+*   **Restaurant Recommendation Engine:** Designed and implemented a restaurant recommendation engine using collaborative filtering and content-based filtering techniques. Leveraged user review data and restaurant features.
+*   **Automated Infrastructure Deployment:** Created reusable ARM templates and Bicep modules for deploying Azure infrastructure (AKS clusters, databases, etc.), significantly reducing deployment time.

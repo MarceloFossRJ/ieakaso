@@ -1,0 +1,55 @@
+**Jia Rodriguez**
+(555) 123-4567 | jia.rodriguez@email.com | linkedin.com/in/jiarodriguez | github.com/jiarodriguez
+
+**Summary**
+
+Highly motivated and results-driven Senior Angular Developer with 7 years of experience architecting, developing, and scaling high-performance web applications in cloud-native environments. Proven ability to lead technical initiatives, optimize performance, and drive innovation. Expertise in AWS, Terraform, Ansible, Docker, Kubernetes, Jenkins, Prometheus, and Agile methodologies. Seeking a challenging role where I can leverage my skills and experience to contribute to the success of a dynamic organization.
+
+**Skills**
+
+*   **Languages:** TypeScript, JavaScript, HTML, CSS, Python
+*   **Frameworks/Libraries:** Angular (v10+), RxJS, NgRx, React, Node.js
+*   **Cloud Technologies:** AWS (EC2, S3, Lambda, ECS, EKS, CloudFormation, CloudWatch), GCP (Compute Engine, Cloud Storage, Cloud Functions, GKE)
+*   **DevOps:** Terraform, Ansible, Docker, Kubernetes, Jenkins, Prometheus, Grafana, ELK Stack
+*   **Databases:** PostgreSQL, MySQL, MongoDB, DynamoDB
+*   **Testing:** Jest, Jasmine, Cypress, Selenium
+*   **Methodologies:** Agile, Scrum, Kanban
+
+**Experience**
+
+**Amazon, Seattle, WA**
+**Senior Front-End Engineer** | June 2019 – Present
+
+*   Led a team of 4 engineers in the design and development of a scalable and performant Angular application for managing AWS infrastructure.
+*   Architected and implemented a new state management solution using NgRx, resulting in a **44% reduction in page load time**.
+*   Optimized database queries, leading to **49% faster read times** and a **15% reduction in database costs**.
+*   Improved deployment frequency from monthly to **2x daily** by implementing a robust CI/CD pipeline using Jenkins and Terraform.
+*   Scaled the system to handle **20M+ daily active users** by leveraging AWS ECS and Kubernetes for container orchestration.
+*   Implemented monitoring and alerting solutions using Prometheus and Grafana to proactively identify and resolve performance bottlenecks.
+
+**Acme Corporation, New York, NY**
+**Software Engineer** | August 2016 – June 2019
+
+*   Developed and maintained Angular web applications for a large e-commerce platform.
+*   Collaborated with backend engineers to design and implement RESTful APIs.
+*   Improved application performance by optimizing front-end code and reducing network requests.
+*   Participated in code reviews and provided constructive feedback to other team members.
+*   Contributed to the development of unit and integration tests to ensure code quality.
+
+**Projects**
+
+*   **Personal Portfolio Website (Angular):** Developed a responsive personal portfolio website using Angular, showcasing my skills and experience. (github.com/jiarodriguez/portfolio)
+*   **E-commerce Application (React):** Built a full-stack e-commerce application using React, Node.js, and MongoDB.
+*   **Kubernetes Cluster Deployment (Terraform):** Automated the deployment of a Kubernetes cluster on AWS using Terraform and Ansible.
+*   **CI/CD Pipeline (Jenkins):** Implemented a CI/CD pipeline using Jenkins to automate the build, test, and deployment of Angular applications.
+
+**Certifications**
+
+*   AWS Certified Developer – Associate
+*   Certified Kubernetes Application Developer (CKAD)
+*   Google Cloud Certified Professional Cloud Architect
+
+**Education**
+
+**Cornell University, Ithaca, NY**
+Bachelor of Science in Computer Science | May 2016

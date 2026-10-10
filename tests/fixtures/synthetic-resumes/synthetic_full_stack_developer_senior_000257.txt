@@ -1,0 +1,57 @@
+**Javier Tanaka**
+(123) 456-7890 | javier.tanaka@email.com | linkedin.com/in/javiertanaka | github.com/javiertanaka
+
+**Summary**
+
+Highly motivated and results-oriented Senior Full Stack Developer with 7 years of experience in designing, developing, and deploying scalable and high-performance applications. Proven ability to lead projects, architect robust solutions, and optimize existing systems using cutting-edge technologies. Expertise in AWS, Terraform, Ansible, Docker, Kubernetes, Jenkins, and Prometheus. Passionate about leveraging data and machine learning to drive impactful business outcomes.
+
+**Skills**
+
+*   **Cloud:** AWS (EC2, S3, Lambda, ECS, EKS, IAM, RDS, CloudWatch, CloudFormation), GCP (Compute Engine, Cloud Storage, Cloud Functions, GKE)
+*   **Infrastructure as Code:** Terraform, Ansible, CloudFormation
+*   **Containerization:** Docker, Kubernetes, Docker Compose
+*   **CI/CD:** Jenkins, GitLab CI, CircleCI
+*   **Monitoring:** Prometheus, Grafana, ELK Stack (Elasticsearch, Logstash, Kibana)
+*   **Programming Languages:** Python, Java, JavaScript (React, Node.js), Go
+*   **Databases:** PostgreSQL, MySQL, MongoDB, Redis
+*   **Operating Systems:** Linux, Windows, macOS
+*   **Machine Learning:** scikit-learn, TensorFlow, PyTorch
+*   **Agile Methodologies:** Scrum, Kanban
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Certified Kubernetes Administrator (CKA)
+
+**Experience**
+
+**Salesforce** | Senior Software Engineer | San Francisco, CA | 2020 – Present
+
+*   Architected and implemented a microservices architecture utilizing Kubernetes and Docker, resulting in a 35% reduction in infrastructure costs and increased system availability by 20%.
+*   Led a team of 4 engineers in building a real-time analytics pipeline processing 15 million events per day using Kafka, Spark Streaming, and Elasticsearch.
+*   Optimized database queries and caching strategies, reducing page load time by 49% and improving user experience.
+*   Engineered CI/CD pipelines with Jenkins and Terraform, automating infrastructure provisioning and application deployment processes.
+
+**Amazon** | Software Development Engineer | Seattle, WA | 2018 – 2020
+
+*   Developed and deployed RESTful APIs using Node.js and Express.js, serving 100,000 requests per minute with 99.9% uptime.
+*   Designed and implemented scalable data storage solutions using AWS S3 and DynamoDB for high-volume data processing.
+*   Contributed to the development of a machine learning model for fraud detection, achieving 44% accuracy in production using Python and scikit-learn.
+*   Automated infrastructure management tasks using Ansible and CloudFormation, streamlining operations and reducing manual effort by 60%.
+
+**Microsoft** | Software Engineer | Redmond, WA | 2016 – 2018
+
+*   Developed and maintained web applications using Java, Spring Boot, and React, collaborating with cross-functional teams to deliver high-quality software.
+*   Improved the performance of existing applications by identifying and resolving bottlenecks, resulting in a 25% reduction in response time.
+*   Implemented unit and integration tests to ensure code quality and prevent regressions, improving overall application stability.
+
+**Projects**
+
+*   **Personal Portfolio Website:** Developed a personal portfolio website using React and Node.js to showcase skills and projects.
+*   **Machine Learning Stock Predictor:** Built a machine learning model to predict stock prices using historical data and TensorFlow.
+*   **Infrastructure Automation Script:** Developed a Python script to automate the provisioning of AWS resources using Terraform.
+*   **Kubernetes Deployment Tool:** Created a command-line tool to simplify the deployment of applications to Kubernetes clusters.
+
+**Education**
+
+**Tsinghua University** | Bachelor of Science in Computer Science | Beijing, China | 2012 – 2016

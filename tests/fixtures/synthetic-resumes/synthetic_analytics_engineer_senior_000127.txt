@@ -1,0 +1,69 @@
+Aisha Ramirez
+(555) 123-4567 | aisha.ramirez@email.com | linkedin.com/in/aisharamirez | github.com/aisharamirez
+
+Summary
+
+Highly analytical and results-oriented Senior Analytics Engineer with 7+ years of experience designing, building, and maintaining data pipelines and infrastructure in cloud environments. Proven ability to leverage data-driven insights to improve business outcomes, reduce costs, and optimize performance. Expertise in AWS, Terraform, Kubernetes, and related technologies. Seeking a challenging role where I can contribute to a data-driven culture and drive significant impact.
+
+Skills
+
+Cloud Computing: AWS (EC2, S3, RDS, Lambda, IAM, CloudWatch, CloudFormation), GCP (Basic Familiarity)
+Infrastructure as Code: Terraform, Ansible
+Containerization: Docker, Kubernetes
+CI/CD: Jenkins, Git
+Monitoring: Prometheus, Grafana, Datadog
+Databases: PostgreSQL, MySQL, MongoDB
+Data Warehousing: Snowflake, Redshift
+Programming Languages: Python, SQL, Bash
+Data Analysis: Pandas, NumPy
+Operating Systems: Linux, Windows
+Other: Agile methodologies, Data Modeling, ETL processes, REST APIs
+
+Experience
+
+IBM, Senior Analytics Engineer, New York, NY (2019 – Present)
+
+* Led the design and implementation of a scalable data pipeline using AWS services (S3, Lambda, Glue, Redshift) that ingested and processed over 10 TB of data daily.
+* Architected and implemented infrastructure-as-code solutions using Terraform, resulting in a $100K annual reduction in infrastructure costs by automating resource provisioning and management.
+* Engineered and deployed a predictive analytics model using Python and machine learning libraries, resulting in a 48% reduction in customer churn.
+* Optimized database queries resulting in 26% faster read times.
+* Increased test coverage from 50% to 74% through the implementation of automated testing pipelines using Jenkins.
+
+Acme Corporation, Data Engineer, Chicago, IL (2016 – 2019)
+
+* Developed and maintained ETL pipelines using Python and SQL to extract, transform, and load data from various sources into a data warehouse.
+* Automated infrastructure provisioning and configuration using Ansible, reducing manual effort by 70%.
+* Reduced page load time by 20% by optimizing database performance and caching strategies.
+* Implemented monitoring and alerting systems using Prometheus and Grafana to proactively identify and resolve issues.
+
+Education
+
+University of Toronto, Toronto, ON
+Bachelor of Science in Computer Science, 2016
+
+Certifications
+
+* AWS Certified Solutions Architect – Associate
+* Certified Kubernetes Administrator (CKA)
+
+Projects
+
+Data Pipeline Automation
+
+* Developed a fully automated CI/CD pipeline for data pipelines using Jenkins, Docker, and Kubernetes.
+
+Infrastructure Cost Optimization
+
+* Implemented a cost optimization strategy for AWS resources, resulting in a $2K annual reduction in costs.
+
+Predictive Churn Analysis
+
+* Built a predictive model to identify customers at risk of churn using machine learning algorithms.
+
+Real-time Data Streaming
+
+* Designed and implemented a real-time data streaming pipeline using Kafka and Spark Streaming.
+
+Personal Website & Blog
+
+* Built a personal website and blog using React and AWS Amplify to showcase my skills and share my knowledge.

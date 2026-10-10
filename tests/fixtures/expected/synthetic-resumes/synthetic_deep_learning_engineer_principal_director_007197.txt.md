@@ -1,0 +1,57 @@
+Jamal Dubois
+(555) 123-4567 | jamal.dubois@email.com | linkedin.com/in/jamaldubois
+
+Summary
+
+Principal Deep Learning Engineer with 15 years of experience architecting, developing, and deploying high-performance, scalable machine learning solutions. Proven ability to lead teams, optimize infrastructure, and improve system reliability. Expertise in Go, gRPC, PostgreSQL, Redis, Kubernetes, Prometheus, and AWS. Passionate about leveraging deep learning to solve complex problems and drive business impact.
+
+Experience
+
+Figma | Principal Deep Learning Engineer | San Francisco, CA | 2020 – Present
+
+* Led a team of 5 engineers in developing and deploying a real-time analytics pipeline processing 50M events/day, enabling data-driven decision-making across the organization.
+* Engineered and maintained core infrastructure using Go, gRPC, Kubernetes, and Prometheus on AWS.
+* Reduced infrastructure costs by $15K annually through optimization of resource allocation and utilization.
+* Spearheaded the development of a novel deep learning model for image recognition, improving accuracy by 18% compared to previous models.
+
+Pinterest | Senior Machine Learning Engineer | San Francisco, CA | 2016 – 2020
+
+* Designed and implemented a recommendation engine using collaborative filtering and deep learning techniques, resulting in a 12% increase in user engagement.
+* Optimized API latency by 39% through code profiling, caching strategies, and database query optimization.
+* Improved the reliability of critical production systems, achieving 99.82% uptime through proactive monitoring and automated recovery mechanisms.
+* Increased test coverage from 36% to 92% by implementing comprehensive unit and integration testing strategies.
+
+Google | Software Engineer | Mountain View, CA | 2012 – 2016
+
+* Developed and maintained core components of Google Search infrastructure using C++ and Python.
+* Contributed to the development of a distributed data processing pipeline using MapReduce and BigTable.
+* Collaborated with a team of engineers to improve the scalability and performance of the search engine.
+
+Education
+
+Stanford University | Stanford, CA | Master of Science in Computer Science | 2012
+Stanford University | Stanford, CA | Bachelor of Science in Computer Science | 2010
+
+Certifications
+
+* AWS Certified Machine Learning – Specialty
+* Kubernetes Certified Application Developer (CKAD)
+* Google Cloud Professional Data Engineer
+
+Projects
+
+* Real-Time Fraud Detection System: Developed a real-time fraud detection system using machine learning algorithms and anomaly detection techniques.
+* Image Classification Model: Trained a convolutional neural network (CNN) for image classification using TensorFlow and Keras.
+* Chatbot with NLP: Built a chatbot using natural language processing (NLP) techniques and a deep learning model for intent recognition.
+* Kubernetes Cluster Automation: Created a set of Ansible playbooks for automating the deployment and management of Kubernetes clusters.
+* Go-Based Microservice: Designed and implemented a microservice using Go and gRPC for handling user authentication and authorization.
+
+Skills
+
+Languages: Go, Python, C++, Java, SQL
+Databases: PostgreSQL, Redis, MySQL, MongoDB
+Cloud: AWS (EC2, S3, Lambda, ECS, EKS), Google Cloud Platform (GCP)
+Tools: Kubernetes, Docker, Prometheus, Grafana, Terraform, Ansible, Git, Jenkins
+Machine Learning: TensorFlow, Keras, PyTorch, Scikit-learn, NLP
+Operating Systems: Linux, macOS
+Architectures: Microservices, REST APIs, Distributed Systems, Event-Driven Architecture

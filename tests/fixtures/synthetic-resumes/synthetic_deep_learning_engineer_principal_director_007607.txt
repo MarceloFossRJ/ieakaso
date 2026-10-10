@@ -1,0 +1,64 @@
+```
+**Aisha Tanaka**
+(555) 123-4567 | aisha.tanaka@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Principal Deep Learning Engineer with 16 years of experience in designing, developing, and deploying scalable and high-performance machine learning solutions. Proven ability to lead engineering teams, optimize infrastructure costs, and improve system reliability. Expertise in React, TypeScript, Redux, Next.js, and cloud-based deployment using AWS and GCP. Passionate about building innovative products that leverage cutting-edge deep learning technologies.
+
+**Skills**
+
+* **Languages:** Python, TypeScript, JavaScript, SQL
+* **Frameworks/Libraries:** React, Redux, Next.js, Tailwind CSS, Node.js, TensorFlow, PyTorch, Scikit-learn, Pandas, NumPy
+* **Databases:** PostgreSQL, MySQL, MongoDB, Redis
+* **Cloud Platforms:** AWS (EC2, S3, Lambda, ECS, SageMaker), GCP (Compute Engine, Cloud Storage, Cloud Functions, GKE, Vertex AI)
+* **DevOps:** Docker, Kubernetes, CI/CD (Jenkins, GitLab CI), Terraform, Ansible
+* **Testing:** Jest, Cypress, JUnit
+* **Deep Learning:** CNNs, RNNs, Transformers, Generative Models, Recommender Systems, Natural Language Processing (NLP), Computer Vision
+* **Other:** Git, Agile Methodologies, Data Visualization
+
+**Experience**
+
+**Netflix, Los Gatos, CA**
+**Principal Deep Learning Engineer** | 2018 – Present
+
+* Led a team of 8 engineers in developing and deploying deep learning models for personalized recommendations, resulting in a 15% increase in user engagement.
+* Architected and implemented a scalable inference pipeline using TensorFlow Serving and Kubernetes, achieving 24/7 uptime for critical production systems.
+* Optimized database queries, resulting in 77% faster read times and improved overall system performance.
+* Reduced infrastructure costs by $100K annually by migrating legacy systems to a serverless architecture using AWS Lambda and API Gateway.
+* Implemented a CI/CD pipeline using Jenkins, reducing release time by 47%.
+
+**Google, Mountain View, CA**
+**Senior Machine Learning Engineer** | 2014 – 2018
+
+* Developed and deployed machine learning models for Google Search ranking, improving search relevance by 12%.
+* Designed and implemented a distributed training pipeline using TensorFlow on Google Cloud Platform (GCP).
+* Collaborated with product managers and researchers to define and implement new features.
+* Mentored junior engineers and provided technical guidance on best practices.
+
+**Amazon, Seattle, WA**
+**Software Development Engineer** | 2010 – 2014
+
+* Developed and maintained backend services for Amazon's e-commerce platform.
+* Optimized code performance and reduced latency by 20%.
+* Contributed to the design and implementation of new features.
+* Worked with a team of engineers to deliver high-quality software on time and within budget.
+
+**Projects**
+
+* **Personalized Movie Recommender:** Developed a deep learning-based movie recommender system using collaborative filtering and content-based filtering techniques with React front-end.
+* **Image Classification Model:** Trained a convolutional neural network (CNN) for image classification using TensorFlow and Keras, achieving 95% accuracy on a benchmark dataset.
+* **Sentiment Analysis Tool:** Built a sentiment analysis tool using natural language processing (NLP) techniques to analyze customer reviews.
+* **Fraud Detection System:** Developed a machine learning model to detect fraudulent transactions using logistic regression and random forests.
+
+**Certifications**
+
+* AWS Certified Machine Learning – Specialty
+* Google Cloud Certified Professional Machine Learning Engineer
+* Certified Kubernetes Administrator (CKA)
+
+**Education**
+
+**National University of Singapore (NUS), Singapore**
+Bachelor of Science in Computer Science, 2010
+```

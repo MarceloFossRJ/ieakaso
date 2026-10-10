@@ -1,0 +1,63 @@
+**Anya Rodriguez-Chen**
+(123) 456-7890 | anya.rodriguez.chen@email.com | LinkedIn Profile URL
+
+**Summary**
+
+Highly accomplished and results-driven Cloud Architect with 15+ years of experience designing, implementing, and managing scalable and resilient cloud infrastructure. Proven ability to lead complex projects, mentor engineers, and drive innovation using cutting-edge technologies. Expertise in Google Cloud Platform (GCP), Infrastructure as Code (IaC) using Terraform, and Kubernetes orchestration. Passionate about automation, optimization, and delivering exceptional business value.
+
+**Experience**
+
+**JPMorgan Chase & Co., New York, NY**
+**Principal Cloud Architect** | 2018 – Present
+
+*   Led the design and implementation of a cloud-native platform on GCP, supporting over 20 million daily active users with 99.99% uptime.
+*   Architected and implemented a fully automated CI/CD pipeline using ArgoCD, reducing software release time by 82% and deployment failures by 35%.
+*   Spearheaded the adoption of Istio service mesh to improve application security and observability across 150+ microservices.
+*   Reduced infrastructure costs by 25% by implementing right-sizing strategies and leveraging GCP committed use discounts.
+*   Mentored 2 junior engineers, providing technical guidance and fostering their professional growth in cloud technologies.
+
+**Capital One, McLean, VA**
+**Senior Cloud Engineer** | 2015 – 2018
+
+*   Engineered and maintained cloud infrastructure on AWS, utilizing Terraform for IaC to ensure consistent and repeatable deployments.
+*   Developed and implemented a comprehensive monitoring solution using Datadog, providing real-time insights into application performance and infrastructure health.
+*   Collaborated with development teams to migrate legacy applications to a containerized environment, improving scalability and resource utilization by 40%.
+*   Automated security compliance checks using AWS Config and CloudTrail, ensuring adherence to industry best practices and regulatory requirements.
+
+**Accenture, Chicago, IL**
+**Cloud Consultant** | 2012 – 2015
+
+*   Advised clients on cloud adoption strategies, including cloud readiness assessments, migration planning, and cost optimization.
+*   Designed and implemented cloud solutions for various industries, including finance, healthcare, and retail, leveraging AWS and Azure.
+*   Developed and delivered training programs on cloud computing concepts and technologies to clients.
+
+**Skills**
+
+*   **Cloud Platforms:** Google Cloud Platform (GCP), Amazon Web Services (AWS), Microsoft Azure
+*   **Infrastructure as Code (IaC):** Terraform, Helm, CloudFormation
+*   **Containerization:** Docker, Kubernetes (K8s)
+*   **CI/CD:** ArgoCD, Jenkins, GitLab CI
+*   **Service Mesh:** Istio
+*   **Monitoring & Logging:** Grafana, Datadog, Prometheus, ELK Stack
+*   **Programming Languages:** Python, Go, Bash
+*   **Operating Systems:** Linux (Ubuntu, CentOS), Windows Server
+*   **Databases:** PostgreSQL, MySQL, MongoDB
+
+**Projects**
+
+*   **Automated Infrastructure Provisioning:** Developed a Terraform module for automated provisioning of GCP resources, reducing deployment time by 70%.
+*   **Kubernetes Cluster Management:** Implemented a robust Kubernetes cluster management solution using Helm charts and ArgoCD for continuous delivery.
+*   **Cost Optimization Dashboard:** Created a Grafana dashboard to track and visualize cloud spending, enabling proactive cost management and optimization.
+*   **Serverless Application Deployment:** Designed and deployed a serverless application on GCP using Cloud Functions and API Gateway, improving scalability and reducing operational overhead.
+
+**Certifications**
+
+*   Google Cloud Certified Professional Cloud Architect
+*   AWS Certified Solutions Architect – Professional
+*   Certified Kubernetes Administrator (CKA)
+*   Terraform Associate
+
+**Education**
+
+**University of Washington, Seattle, WA**
+Bachelor of Science in Computer Science, 2012

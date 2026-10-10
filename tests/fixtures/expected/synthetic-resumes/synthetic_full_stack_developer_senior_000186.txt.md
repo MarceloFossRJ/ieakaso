@@ -1,0 +1,58 @@
+Amara Singh-Rodriguez
+(123) 456-7890 | amara.sr@email.com | linkedin.com/in/amarasinghrodriguez | github.com/amarasinghrodriguez
+
+SUMMARY
+
+Highly motivated and results-oriented Senior Full Stack Developer with 7+ years of experience designing, developing, and deploying scalable and robust applications. Proven ability to lead teams, mentor junior engineers, and drive significant improvements in code quality and system performance. Expertise in Swift, SwiftUI, Combine, Core Data, Firebase, Kubernetes, and cloud-native architectures. Passionate about building innovative and user-centric solutions.
+
+EXPERIENCE
+
+Figma | Senior iOS Engineer | San Francisco, CA | June 2021 – Present
+
+* Led the migration of 10 microservices from legacy infrastructure to Kubernetes, resulting in a 30% reduction in operational costs and a 20% improvement in system performance.
+* Spearheaded the development of new features for the core Figma iOS application using Swift, SwiftUI, and Combine, directly contributing to a 15% increase in user engagement.
+* Implemented comprehensive unit and integration testing strategies, increasing test coverage from 45% to 88% and reducing bug reports by 25%.
+* Mentored 10 junior engineers, providing guidance on best practices in iOS development, architecture, and testing.
+* Collaborated with cross-functional teams (product, design, backend) to define and implement new product features and enhancements.
+
+Pinterest | iOS Engineer | San Francisco, CA | August 2018 – June 2021
+
+* Engineered and scaled the Pinterest iOS application to handle 5M+ daily active users, ensuring high availability and optimal performance.
+* Developed and maintained key features of the application using Swift and Core Data, including the home feed, search functionality, and user profile management.
+* Optimized network requests and data caching strategies, reducing network latency by 18% and improving app responsiveness.
+* Integrated Firebase Cloud Messaging (FCM) for push notifications, enabling targeted user engagement and driving a 10% increase in click-through rates.
+
+Goldman Sachs | Software Engineer | New York, NY | June 2016 – August 2018
+
+* Developed and maintained internal tools and applications using Java and SQL, supporting critical business operations.
+* Collaborated with stakeholders to gather requirements, design solutions, and deliver high-quality software products.
+* Contributed to the development of a new trading platform, resulting in a 12% increase in trading efficiency.
+
+PROJECTS
+
+* **Personal Finance Tracker (Swift, SwiftUI, Core Data):** Developed a personal finance tracking application for iOS with features for budgeting, expense tracking, and financial analysis.
+* **Recipe App (Swift, Firebase):** Created a recipe sharing application for iOS using Firebase for data storage and authentication. Enabled user authentication, recipe creation, and social sharing features.
+* **Task Management App (React Native):** Built a cross-platform task management application using React Native, demonstrating proficiency in JavaScript and mobile development.
+
+CERTIFICATIONS
+
+* AWS Certified Developer – Associate
+* Kubernetes Certified Application Developer (CKAD)
+
+EDUCATION
+
+Indian Institute of Technology (IIT) Kanpur | Bachelor of Technology in Computer Science | Kanpur, India | 2016
+
+SKILLS
+
+Languages: Swift, Java, JavaScript, SQL
+Frameworks/Libraries: SwiftUI, Combine, Core Data, Firebase, React Native, Spring Boot
+Tools: Xcode, Android Studio, Git, Kubernetes, Docker, Jenkins, AWS, GCP, TestFlight, JIRA, Confluence
+Databases: MySQL, PostgreSQL, MongoDB
+Operating Systems: macOS, iOS, Linux
+Methodologies: Agile, Scrum
+
+AWARDS & RECOGNITION
+
+* Figma Employee of the Month – Q4 2022
+* Pinterest Hackathon Winner – 2019

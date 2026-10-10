@@ -1,0 +1,53 @@
+```text
+**Aisha Rodriguez**
+(512) 555-1212 | aisha.rodriguez@email.com | LinkedIn Profile URL (Replace with actual URL) | GitHub Profile URL (Replace with actual URL)
+
+**Summary**
+
+Highly motivated and results-oriented Cloud Architect with 4+ years of experience in designing, developing, and deploying scalable and resilient cloud-based applications. Proven ability to leverage cutting-edge technologies to optimize performance, reduce costs, and enhance user experience. Expertise in React, TypeScript, Next.js, and cloud infrastructure management. Passionate about building innovative solutions and driving impactful change within dynamic environments.
+
+**Skills**
+
+* **Languages:** TypeScript, JavaScript, Python
+* **Frameworks/Libraries:** React, Redux, Next.js, Tailwind CSS, Node.js, Express.js, Jest, Cypress
+* **Cloud Platforms:** AWS (Amazon Web Services), GCP (Google Cloud Platform)
+* **Databases:** PostgreSQL, MongoDB, Redis
+* **DevOps:** Docker, Kubernetes, Terraform, CI/CD (CircleCI, Jenkins), Serverless (AWS Lambda, Google Cloud Functions)
+* **Monitoring/Logging:** Prometheus, Grafana, ELK Stack (Elasticsearch, Logstash, Kibana)
+* **Other:** REST APIs, GraphQL, Microservices Architecture, Agile Development, Git
+
+**Experience**
+
+**Cloud Architect** | EdTech Startup | Austin, TX | June 2020 – Present
+
+* Spearheaded the design and implementation of a real-time analytics pipeline processing 50 million events per day, enabling data-driven decision-making and personalized learning experiences.
+* Architected and deployed a microservices-based platform using Kubernetes on AWS, improving scalability and resilience.
+* Led the effort to improve test coverage from 20% to 94% using Jest and Cypress, significantly reducing production bugs and improving code quality.
+* Implemented infrastructure-as-code using Terraform, automating deployment processes and reducing infrastructure costs by $10,000 annually.
+* Improved deployment frequency from monthly to 50 times daily by implementing a robust CI/CD pipeline with CircleCI.
+* Mentored junior developers in best practices for cloud architecture, software development, and DevOps.
+
+**Software Engineer** | Innovate Solutions Inc. | Dallas, TX | August 2018 – June 2020
+
+* Developed and maintained front-end components for a web application using React, Redux, and TypeScript.
+* Contributed to the development of RESTful APIs using Node.js and Express.js.
+* Collaborated with cross-functional teams to deliver high-quality software solutions on time and within budget.
+* Participated in code reviews and provided constructive feedback to improve code quality and maintainability.
+
+**Projects**
+
+* **Personal Portfolio Website:** Developed a personal portfolio website using Next.js and Tailwind CSS to showcase projects and skills. (GitHub Link Available Upon Request)
+* **E-commerce Platform (Side Project):** Designed and implemented a serverless e-commerce platform using AWS Lambda, API Gateway, and DynamoDB.
+* **Data Visualization Dashboard:** Built a data visualization dashboard using React, Redux, and Chart.js to display key metrics and insights from a real-time data stream. (GitHub Link Available Upon Request)
+* **Kubernetes Cluster Automation:** Created a Terraform script to automate the creation and configuration of a Kubernetes cluster on AWS.
+
+**Education**
+
+**University of Texas at Austin** | Austin, TX | Bachelor of Science in Computer Science | May 2018
+
+**Certifications**
+
+* AWS Certified Solutions Architect – Associate
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Administrator (CKA)
+```

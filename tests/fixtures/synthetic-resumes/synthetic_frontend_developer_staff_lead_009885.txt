@@ -1,0 +1,56 @@
+```text
+**Aaliyah Chen-Rodriguez**
+(555) 555-5555 | aaliyah.chen.rodriguez@email.com | linkedin.com/in/aaliyahchenrodriguez | github.com/achenrodriguez
+
+**Summary**
+
+Highly accomplished and results-driven Staff Frontend Engineer with 9 years of experience specializing in React Native mobile development, TypeScript, Redux, and related technologies. Proven ability to lead technical initiatives, improve development processes, and deliver high-quality, scalable, and maintainable code. Passionate about building exceptional user experiences and driving positive business outcomes. AWS Certified Developer – Associate.
+
+**Skills**
+
+* **Languages:** TypeScript, JavaScript (ES6+), HTML, CSS
+* **Frameworks/Libraries:** React Native, React, Redux, Redux Toolkit, Expo, Styled Components, Jest, React Testing Library, Node.js
+* **Mobile Development:** iOS (Xcode), Android Studio
+* **Testing:** Jest, React Testing Library, Detox, Cypress, E2E Testing, Unit Testing, Integration Testing
+* **CI/CD:** Jenkins, CircleCI, GitHub Actions, Fastlane
+* **DevOps:** AWS (S3, Lambda, EC2), Docker, Kubernetes
+* **Tools:** Git, NPM, Yarn, Webpack, Babel, ESLint, Prettier, Firebase
+* **Agile Methodologies:** Scrum, Kanban
+
+**Experience**
+
+**Notion** | Senior Frontend Engineer | San Francisco, CA | 2021 – Present
+
+* Led the development of key features for the Notion mobile app using React Native, TypeScript, and Redux, impacting over 1 million active users.
+* Architected and implemented a new testing strategy, increasing test coverage from 48% to 91% across critical modules, resulting in a 25% reduction in bug reports.
+* Spearheaded the implementation of a new CI/CD pipeline using GitHub Actions and Fastlane, reducing release time by 15%.
+* Mentored junior engineers on best practices in React Native development and testing.
+
+**Lyft** | Frontend Engineer | San Francisco, CA | 2018 – 2021
+
+* Developed and maintained React Native components for the Lyft driver and rider mobile applications.
+* Collaborated with product managers and designers to translate user stories into functional and visually appealing features.
+* Improved deployment frequency from monthly to 5x daily by implementing automated testing and release processes.
+* Optimized the performance of key application screens, resulting in a 10% improvement in app loading times.
+
+**Airbnb** | Associate Frontend Engineer | San Francisco, CA | 2016 – 2018
+
+* Contributed to the development of new features for the Airbnb website using React, Redux, and JavaScript.
+* Increased test coverage from 21% to 71% by writing comprehensive unit and integration tests using Jest and Enzyme.
+* Assisted in the migration of legacy code to React, improving the maintainability and scalability of the codebase.
+
+**Education**
+
+**University of Michigan** | Bachelor of Science in Computer Science | Ann Arbor, MI | 2012 – 2016
+
+**Certifications**
+
+* AWS Certified Developer – Associate
+
+**Projects**
+
+* **Personal Finance Tracker (React Native):** Developed a mobile application for tracking personal finances, including budgeting, expense tracking, and investment analysis.
+* **E-commerce Storefront (React/Node.js):** Built a full-stack e-commerce application with user authentication, product catalog, shopping cart, and checkout functionality.
+* **Open Source Contribution (React Library):** Contributed bug fixes and new features to an open-source React UI library on GitHub.
+* **Mobile Game (React Native/Expo):** Developed a simple mobile game using React Native and Expo, focusing on performance optimization and user experience.
+```

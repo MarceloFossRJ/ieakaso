@@ -1,0 +1,62 @@
+**Aisha Patel-O'Connell**
+(555) 123-4567 | aisha.patel.oconnell@email.com | linkedin.com/in/aishapateloconnell | github.com/aishapoconnell
+
+**Summary**
+
+Results-oriented Full Stack Developer with 15+ years of experience designing, developing, and deploying high-performance, scalable applications. Proven ability to lead engineering teams, optimize system performance, and drive significant business impact. Expertise in Python, Django, FastAPI, PostgreSQL, Redis, Docker, and AWS. Passionate about leveraging technology to solve complex problems and improve user experience. Seeking a challenging leadership role where I can leverage my skills and experience to contribute to the success of a dynamic organization.
+
+**Skills**
+
+*   **Languages:** Python, JavaScript, HTML, CSS, SQL
+*   **Frameworks/Libraries:** Django, FastAPI, React, Node.js, jQuery, Bootstrap
+*   **Databases:** PostgreSQL, MySQL, Redis, MongoDB
+*   **Cloud Technologies:** AWS (EC2, S3, Lambda, RDS, ECS, CloudWatch), Docker, Kubernetes
+*   **Tools:** Git, Jenkins, CI/CD, Jira, Confluence, Linux
+*   **Machine Learning:** scikit-learn, TensorFlow, Pandas, NumPy
+*   **Other:** REST APIs, Microservices, Agile Development, Data Analysis, System Architecture, Performance Tuning
+
+**Experience**
+
+**Bloomberg LP, New York, NY**
+**Senior Software Engineer** | 2018 – Present
+
+*   Led a team of 5 engineers in the design and development of a new data analytics platform used by financial analysts, resulting in a 25% increase in user engagement.
+*   Architected and implemented a microservices architecture using Docker and Kubernetes on AWS, improving system scalability and reducing deployment time by 40%.
+*   Optimized database queries for critical financial reporting applications, resulting in a 52% faster read time and a 30% reduction in database server costs.
+*   Developed and deployed a machine learning model using Python and scikit-learn to predict customer churn, reducing churn by 44%.
+*   Mentored junior developers and provided technical guidance on best practices and emerging technologies.
+
+**JPMorgan Chase & Co., New York, NY**
+**Software Engineer** | 2014 – 2018
+
+*   Developed and maintained key features for a high-volume trading platform using Python, Django, and PostgreSQL.
+*   Implemented CI/CD pipelines using Jenkins, reducing release time by 67% and improving code quality.
+*   Led the migration of legacy systems to a modern cloud-based infrastructure on AWS, resulting in a 35% reduction in infrastructure costs.
+*   Improved page load time by 84% by optimizing front-end code and implementing caching strategies with Redis.
+*   Collaborated with cross-functional teams to define requirements and deliver high-quality software solutions.
+
+**Goldman Sachs, New York, NY**
+**Associate Software Engineer** | 2010 – 2014
+
+*   Designed and developed REST APIs for internal applications using Python, Flask and PostgreSQL.
+*   Contributed to the development of a new risk management system, ensuring compliance with regulatory requirements.
+*   Worked on a front-end UI using Javascript and React.
+*   Performed code reviews and unit testing to ensure code quality and maintainability.
+
+**Education**
+
+**Georgia Institute of Technology, Atlanta, GA**
+**Bachelor of Science in Computer Science** | 2010
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Docker Certified Associate (DCA)
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **Personal Portfolio Website:** Developed a personal portfolio website using React and Node.js to showcase my skills and projects.
+*   **Machine Learning Recommendation Engine:** Built a recommendation engine using Python, scikit-learn, and collaborative filtering techniques. Achieved 40% accuracy in production.
+*   **REST API for E-commerce Platform:** Designed and implemented a REST API for an e-commerce platform using Django REST Framework and PostgreSQL.
+*   **Real-Time Chat Application:** Created a real-time chat application using Node.js, Socket.IO, and MongoDB.

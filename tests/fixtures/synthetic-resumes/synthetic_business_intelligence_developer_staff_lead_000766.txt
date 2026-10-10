@@ -1,0 +1,65 @@
+**Aaliyah Chen-Dubois**
+(555) 123-4567 | aaliyah.chendubois@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly accomplished and results-oriented Business Intelligence Developer with 9 years of experience in designing, developing, and deploying scalable and efficient data-driven solutions. Proven ability to leverage advanced machine learning techniques and cloud technologies to solve complex business problems. Expertise in optimizing system performance, improving data quality, and driving actionable insights. Passionate about building high-performing teams and fostering a culture of innovation.
+
+**Skills**
+
+* **Programming Languages:** Python, SQL
+* **Machine Learning:** TensorFlow, PyTorch, Scikit-learn, Keras, XGBoost, NLP
+* **Data Analysis:** Pandas, NumPy, SciPy, Matplotlib, Seaborn
+* **Cloud Computing:** AWS (SageMaker, EC2, S3, Lambda, IAM, CloudWatch), Google Cloud Platform (GCP)
+* **Big Data:** Spark, Hadoop, Hive, Kafka
+* **Databases:** PostgreSQL, MySQL, MongoDB, Snowflake
+* **DevOps:** Docker, Kubernetes, Jenkins, CI/CD
+* **Other:** REST APIs, Microservices, Agile Development, Git, Data Visualization
+
+**Experience**
+
+**Intel Corporation, Santa Clara, CA**
+**Staff Business Intelligence Engineer** | 2018 – Present
+
+* Led the design and implementation of a microservices architecture using Python and Kubernetes, serving 20,000 requests per minute (RPM) with 99.99% uptime.
+* Architected and scaled machine learning pipelines using AWS SageMaker to handle data processing for over 50 million daily active users.
+* Optimized API latency by 43% through code profiling and algorithm improvements, resulting in significant cost savings.
+* Spearheaded initiatives to improve test coverage from 47% to 74%, significantly reducing production defects.
+* Drove the adoption of CI/CD practices, resulting in an improvement in deployment frequency from monthly to 10x daily.
+* Mentored junior engineers and provided technical guidance on best practices in software development and data science.
+
+**Amazon, Seattle, WA**
+**Business Intelligence Engineer** | 2016 – 2018
+
+* Developed and maintained ETL pipelines using Python, Spark, and AWS Glue to process large datasets from various sources.
+* Built interactive dashboards using Tableau and Power BI to visualize key performance indicators (KPIs) and provide actionable insights to stakeholders.
+* Collaborated with cross-functional teams to identify business opportunities and develop data-driven solutions to address their needs.
+* Conducted A/B testing to evaluate the effectiveness of new features and optimize the user experience.
+* Reduced data processing time by 30% by optimizing SQL queries and data storage strategies.
+
+**Microsoft, Redmond, WA**
+**Software Development Engineer** | 2014 – 2016
+
+* Designed and implemented new features for a data analytics platform using C# and SQL Server.
+* Wrote unit and integration tests to ensure the quality and reliability of the software.
+* Participated in code reviews and provided constructive feedback to other developers.
+* Contributed to the development of technical documentation and training materials.
+* Improved system performance by 15% through code optimization and performance tuning.
+
+**Projects**
+
+* **Customer Churn Prediction:** Developed a machine learning model using Python and Scikit-learn to predict customer churn with 85% accuracy.
+* **Sales Forecasting:** Built a time series forecasting model using TensorFlow and Keras to predict future sales with 90% accuracy.
+* **Fraud Detection:** Created a fraud detection system using Python and anomaly detection techniques to identify fraudulent transactions in real-time.
+* **Sentiment Analysis:** Developed a natural language processing (NLP) model using PyTorch to analyze customer sentiment from social media data.
+
+**Education**
+
+**Indian Institute of Technology (IIT) Kanpur**
+Bachelor of Technology in Computer Science | 2010 - 2014
+
+**Certifications**
+
+* AWS Certified Machine Learning – Specialty
+* Google Cloud Professional Data Engineer
+* Certified Kubernetes Application Developer (CKAD)

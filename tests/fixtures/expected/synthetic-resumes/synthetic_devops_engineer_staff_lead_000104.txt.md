@@ -1,0 +1,56 @@
+Aisha Ramirez
+(555) 123-4567 | aisha.ramirez@email.com | linkedin.com/in/aisharamirez | github.com/aisharamirez
+
+Summary
+
+Highly accomplished and results-oriented DevOps Engineer with 9+ years of experience in designing, implementing, and managing scalable and reliable infrastructure. Proven ability to optimize application performance, automate deployments, and build effective monitoring solutions. Expertise in Kotlin, Jetpack Compose, CI/CD pipelines, and cloud technologies. Passionate about leveraging machine learning to drive business value and improve customer experience. Seeking a challenging Staff/Lead DevOps Engineer role where I can leverage my skills and experience to contribute to the success of a dynamic organization.
+
+Skills
+
+Languages: Kotlin, Python, Java, Bash, SQL
+Frameworks/Libraries: Jetpack Compose, Room, Retrofit, Dagger, JUnit, Mockito, TensorFlow, Pandas, Scikit-learn
+Databases: PostgreSQL, MySQL, MongoDB, Redis
+Cloud Platforms: AWS (EC2, S3, Lambda, IAM, CloudWatch, CloudFormation), Google Cloud Platform (GCP)
+DevOps Tools: Docker, Kubernetes, Terraform, Jenkins, CircleCI, GitLab CI, Prometheus, Grafana, Ansible
+Operating Systems: Linux (Ubuntu, CentOS), macOS
+ML Technologies: TensorFlow, Scikit-learn, Pandas, PyTorch
+
+Experience
+
+Notion (Recent Company) | DevOps Engineer | San Francisco, CA | 2021 – Present
+
+*   Led the design and implementation of a new CI/CD pipeline using Jenkins and Docker, resulting in a 25% reduction in release time and a 15% decrease in deployment failures.
+*   Architected and implemented a centralized logging and monitoring solution using Prometheus and Grafana, providing real-time visibility into application performance and infrastructure health.
+*   Built and deployed a machine learning model using TensorFlow and Python to predict customer churn, leading to a 79% reduction in churn rate through targeted interventions.
+*   Collaborated with development teams to optimize application performance, resulting in a 53% reduction in API latency and a 20% increase in throughput.
+*   Managed and maintained AWS infrastructure, ensuring high availability, scalability, and security.
+
+Lyft | Senior DevOps Engineer | San Francisco, CA | 2018 – 2021
+
+*   Engineered and maintained infrastructure-as-code using Terraform, automating the provisioning and management of cloud resources.
+*   Optimized the performance of the company's PostgreSQL database by 30% through query optimization and index tuning.
+*   Developed and implemented a comprehensive security strategy for cloud infrastructure, mitigating potential vulnerabilities and ensuring compliance with industry standards.
+*   Mentored junior DevOps engineers, providing technical guidance and fostering a collaborative team environment.
+
+Square | DevOps Engineer | San Francisco, CA | 2016 – 2018
+
+*   Developed and maintained CI/CD pipelines using CircleCI, automating the build, test, and deployment process for multiple applications.
+*   Built and deployed microservices using Docker and Kubernetes, improving application scalability and resilience.
+*   Implemented monitoring and alerting solutions using CloudWatch, enabling proactive identification and resolution of performance issues.
+
+Education
+
+University of California, Berkeley | Bachelor of Science in Computer Science | Berkeley, CA | 2016
+
+Projects
+
+*   **Fraud Detection Model:** Developed a machine learning model using Scikit-learn and Python to detect fraudulent transactions, achieving 63% accuracy in production.
+*   **Real-Time Analytics Dashboard:** Built a real-time analytics dashboard using Kafka, Spark, and Grafana to visualize key business metrics and identify trends.
+*   **Automated Infrastructure Provisioning:** Created a Terraform module to automate the provisioning of AWS infrastructure, reducing provisioning time by 80%.
+*   **Personal Portfolio Website:** Designed and developed a personal portfolio website using Jetpack Compose and Kotlin Multiplatform.
+
+Certifications
+
+*   AWS Certified DevOps Engineer – Professional
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Administrator (CKA)

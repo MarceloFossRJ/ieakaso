@@ -1,0 +1,68 @@
+Aaliyah Ramirez
+(555) 123-4567 | aaliyah.ramirez@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+Summary
+
+Highly accomplished and results-driven Embedded Systems Engineer with 9 years of experience in designing, developing, and optimizing high-performance, scalable systems. Proven ability to lead cross-functional teams and deliver innovative solutions that drive significant business impact. Expertise in Kotlin, Jetpack Compose, and cloud technologies. Seeking a challenging and rewarding role where I can leverage my skills and experience to contribute to the success of a forward-thinking organization.
+
+Skills
+
+Languages: Kotlin, Java, C, C++, Python
+Frameworks/Libraries: Jetpack Compose, Room, Retrofit, Dagger, Firebase, RxJava, Coroutines
+Databases: SQLite, PostgreSQL, MongoDB
+Cloud Platforms: AWS (Certified AWS Developer), Google Cloud Platform (GCP)
+Embedded Systems: ARM Cortex-M, Real-Time Operating Systems (RTOS), Bluetooth Low Energy (BLE)
+Tools: Android Studio, Git, Jenkins, Docker, Kubernetes, JIRA, Confluence
+Testing: JUnit, Mockito, Espresso, UI Automator, SonarQube
+
+Experience
+
+Senior Embedded Systems Engineer | HealthTech Startup | Seattle, WA | 2020 – Present
+
+* Led the design and development of embedded software for a novel wearable health monitoring device using Kotlin and Jetpack Compose, scaling the system to handle 20M+ daily active users.
+* Architected and implemented a predictive analytics engine using Firebase, reducing customer churn by 60% through personalized interventions.
+* Spearheaded efforts to improve code quality and test coverage, increasing test coverage from 45% to 86% and significantly reducing bug reports.
+* Optimized cloud infrastructure on AWS, reducing annual infrastructure costs by $15K through efficient resource utilization and automation.
+* Mentored junior engineers and fostered a collaborative and innovative team environment.
+
+Embedded Systems Engineer | Tech Solutions Inc. | San Francisco, CA | 2016 – 2020
+
+* Developed and maintained embedded software for a line of IoT devices using C++ and RTOS.
+* Implemented Bluetooth Low Energy (BLE) communication protocols for data transmission and device control.
+* Collaborated with hardware engineers to debug and resolve hardware-software integration issues.
+* Reduced annual infrastructure costs by $2K by identifying and implementing more cost-effective solutions.
+* Contributed to the development of automated testing frameworks using Python, improving software reliability.
+
+Software Engineer Intern | Innovation Labs | Redmond, WA | Summer 2015
+
+* Assisted in the development of a prototype mobile application using Java and Android SDK.
+* Gained experience in software development lifecycle, including requirements gathering, design, coding, and testing.
+
+Projects
+
+Smart Home Automation System | Personal Project
+
+* Developed a smart home automation system using Raspberry Pi, Python, and IoT sensors.
+* Implemented features such as remote control of appliances, automated lighting, and security monitoring.
+
+Mobile Health Application | University Project
+
+* Designed and developed a mobile health application using Kotlin and Android SDK.
+* Implemented features such as tracking physical activity, monitoring sleep patterns, and providing personalized health recommendations.
+
+Embedded Sensor Platform | University Project
+
+* Created an embedded sensor platform for environmental monitoring using ARM Cortex-M microcontroller.
+* Collected and analyzed sensor data to identify trends and anomalies.
+
+Certifications
+
+* AWS Certified Developer – Associate
+* Google Cloud Certified Professional Cloud Architect
+
+Education
+
+University of Washington | Seattle, WA
+Bachelor of Science in Computer Science | June 2016
+GPA: 3.8
+Relevant Coursework: Embedded Systems, Operating Systems, Data Structures and Algorithms, Software Engineering, Artificial Intelligence

@@ -1,0 +1,58 @@
+**Anya Sharma-Rodriguez**
+(555) 123-4567 | anya.sharma.rodriguez@email.com | LinkedIn Profile URL (Replace with actual URL) | GitHub Profile URL (Replace with actual URL)
+
+**Summary**
+
+Highly accomplished and results-driven Principal Flutter Engineer with 18 years of experience architecting, developing, and scaling high-performance, cloud-native applications. Proven ability to lead teams, drive innovation, and optimize infrastructure for cost efficiency. Expertise in Flutter, AWS, Terraform, Kubernetes, and CI/CD pipelines. Passionate about building impactful products and delivering exceptional user experiences.
+
+**Experience**
+
+**FinTech Startup, Lead Flutter Engineer, San Francisco, CA** (2018 – Present)
+
+* Led a team of 8 engineers in developing and maintaining the company's flagship mobile application using Flutter, serving over 100 million daily active users.
+* Architected and implemented a scalable microservices architecture on AWS, resulting in a 35% reduction in average page load time.
+* Spearheaded the implementation of Infrastructure as Code (IaC) using Terraform and Ansible, automating infrastructure provisioning and reducing costs by $50,000 annually.
+* Built and deployed an ML model for fraud detection with 60% accuracy in production, significantly reducing fraudulent transactions.
+* Optimized the CI/CD pipeline using Jenkins, Docker, and Kubernetes, increasing deployment frequency from monthly to 100 times daily.
+
+**Tech Innovations Inc., Senior Software Engineer, Seattle, WA** (2012 – 2018)
+
+* Developed and maintained key features for a high-volume e-commerce platform using Java, Spring Boot, and REST APIs.
+* Designed and implemented a recommendation engine using machine learning algorithms, resulting in a 15% increase in sales conversion rates.
+* Collaborated with DevOps engineers to improve system monitoring and alerting using Prometheus and Grafana.
+* Contributed to the migration of the platform to AWS, leveraging services such as EC2, S3, and RDS.
+
+**Global Solutions Corp., Software Engineer, New York, NY** (2006 – 2012)
+
+* Developed and maintained enterprise applications using C# and .NET framework.
+* Implemented automated testing frameworks, improving code quality and reducing bug resolution time by 20%.
+* Worked with cross-functional teams to gather requirements and design solutions for complex business problems.
+
+**Projects**
+
+* **Personal Finance Tracker (Flutter):** Developed a mobile application for tracking personal finances, including budgeting, expense tracking, and investment portfolio management.
+* **AI-Powered News Aggregator (Python, TensorFlow):** Built an application that uses machine learning to aggregate news articles from various sources and personalize the content based on user preferences. Achieved 38% accuracy on testing data.
+* **Serverless URL Shortener (AWS Lambda, API Gateway):** Created a serverless URL shortener using AWS Lambda and API Gateway, demonstrating proficiency in cloud-native development.
+* **Kubernetes Dashboard (React, Go):** Developed a custom Kubernetes dashboard for monitoring and managing cluster resources.
+
+**Skills**
+
+* **Languages:** Flutter, Dart, Java, Python, C#, Go
+* **Cloud Platforms:** AWS (EC2, S3, RDS, Lambda, API Gateway), GCP (Basic Knowledge)
+* **Infrastructure:** Terraform, Ansible, Docker, Kubernetes
+* **CI/CD:** Jenkins, Git, GitHub Actions
+* **Databases:** MySQL, PostgreSQL, MongoDB
+* **Monitoring:** Prometheus, Grafana
+* **Operating Systems:** Linux, Windows
+* **Agile Methodologies:** Scrum, Kanban
+
+**Certifications**
+
+* AWS Certified Solutions Architect – Associate
+* Certified Kubernetes Administrator (CKA)
+* Google Cloud Certified Professional Cloud Architect (Basic Knowledge)
+
+**Education**
+
+**Tsinghua University, Beijing, China**
+Bachelor of Science in Computer Science

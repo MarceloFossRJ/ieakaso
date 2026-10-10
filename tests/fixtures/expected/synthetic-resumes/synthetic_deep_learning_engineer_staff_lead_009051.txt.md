@@ -1,0 +1,56 @@
+```text
+**Javier Ito-Garcia**
+(555) 123-4567 | j.ito-garcia@email.com | linkedin.com/in/javieritogarcia | github.com/javieritogarcia
+
+**Summary**
+
+Highly accomplished and results-oriented Deep Learning Engineer with 9 years of experience designing, developing, and deploying scalable and robust AI/ML solutions. Proven ability to lead teams, optimize performance, and improve system reliability. Expertise in AWS cloud infrastructure, DevOps automation, and microservices architecture. Passionate about mentoring junior engineers and driving innovation within organizations.
+
+**Experience**
+
+**Adobe, San Jose, CA**
+**Staff Deep Learning Engineer** | 2020 – Present
+
+* Led the design and implementation of a microservices architecture for a real-time image processing pipeline, serving 50,000 requests per minute (RPM) with 99.9% availability.
+* Engineered and maintained CI/CD pipelines using Jenkins, Terraform, and Ansible to automate infrastructure provisioning and application deployments, resulting in a 35% reduction in deployment time.
+* Optimized deep learning models for inference on edge devices, reducing API latency by 82% and improving user experience.
+* Mentored 10 junior engineers, providing technical guidance and support to accelerate their professional growth.
+* Achieved 79% uptime for critical production systems by implementing proactive monitoring and automated recovery procedures.
+
+**DataRobot, Boston, MA**
+**Senior Machine Learning Engineer** | 2016 – 2020
+
+* Developed and deployed machine learning models for automated feature engineering and model selection, improving model accuracy by 15% on average.
+* Architected and implemented a data pipeline for ingesting and processing large datasets from various sources, ensuring data quality and consistency.
+* Collaborated with cross-functional teams to integrate machine learning models into existing products and services.
+* Spearheaded the adoption of Docker and Kubernetes for containerizing and orchestrating machine learning applications, improving scalability and resource utilization.
+* Reduced infrastructure costs by 20% through the implementation of cost-optimization strategies on AWS.
+
+**Skills**
+
+* **Cloud Computing:** AWS (EC2, S3, Lambda, ECS, EKS, CloudWatch, IAM), GCP
+* **DevOps:** Terraform, Ansible, Docker, Kubernetes, Jenkins, Prometheus, Git
+* **Programming Languages:** Python, Java, Scala, C++
+* **Deep Learning Frameworks:** TensorFlow, PyTorch, Keras
+* **Databases:** SQL (PostgreSQL, MySQL), NoSQL (MongoDB, Cassandra)
+* **Machine Learning:** Regression, Classification, Clustering, NLP, Computer Vision
+* **Operating Systems:** Linux, Windows
+
+**Certifications**
+
+* AWS Certified Solutions Architect – Professional
+* Certified Kubernetes Administrator (CKA)
+* TensorFlow Developer Certificate
+
+**Projects**
+
+* **Real-time Object Detection System:** Developed a real-time object detection system using YOLOv5 and TensorFlow, deployed on AWS Lambda with API Gateway.
+* **Fraud Detection Model:** Built a fraud detection model using machine learning techniques to identify fraudulent transactions, resulting in a 10% reduction in fraudulent activities.
+* **Customer Churn Prediction:** Developed a customer churn prediction model using logistic regression and random forests, helping the company to proactively retain at-risk customers.
+* **Automated Image Captioning:** Implemented an image captioning model using convolutional neural networks and recurrent neural networks.
+
+**Education**
+
+**University of Washington, Seattle, WA**
+Bachelor of Science in Computer Science | 2016
+```

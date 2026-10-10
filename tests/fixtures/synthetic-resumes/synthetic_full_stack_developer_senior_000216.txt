@@ -1,0 +1,70 @@
+Aisha Rodriguez-Chen
+(555) 123-4567 | a.rodriguez.chen@email.com | linkedin.com/in/aisharodriguezchen | github.com/arodriguezchen
+
+SUMMARY
+
+Highly accomplished and results-driven Full Stack Developer with 7 years of experience designing, developing, and deploying scalable and resilient applications in cloud-native environments. Expertise in GCP, Terraform, Helm, ArgoCD, Istio, Grafana, and Datadog. Proven ability to lead and mentor teams, optimize performance, and drive significant improvements in system architecture and deployment processes. Passionate about building innovative solutions that solve complex challenges.
+
+EXPERIENCE
+
+Stripe, San Francisco, CA
+Senior Software Engineer | 2020 – Present
+
+* Architected and implemented a real-time analytics pipeline using GCP Dataflow and BigQuery, processing 2 million events per day with 99.99% uptime.
+* Led the migration of two critical microservices to Kubernetes, resulting in a 20% reduction in infrastructure costs.
+* Implemented a comprehensive CI/CD pipeline utilizing ArgoCD, reducing release time by 16%.
+* Increased test coverage from 48% to 78% through the implementation of automated testing frameworks and code review processes.
+* Mentored junior engineers in best practices for cloud-native development and deployment.
+
+Google, Mountain View, CA
+Software Engineer | 2017 – 2020
+
+* Engineered a highly scalable system to handle 100 million+ daily active users using Java, Go, and Kubernetes.
+* Developed and maintained RESTful APIs for internal and external clients.
+* Collaborated with cross-functional teams to define and implement new features and improvements.
+* Optimized database performance by 30% through query optimization and index tuning.
+* Contributed to the development of internal tooling for monitoring and managing infrastructure.
+
+EDUCATION
+
+Massachusetts Institute of Technology (MIT), Cambridge, MA
+Bachelor of Science in Computer Science | 2017
+GPA: 3.8/4.0
+
+CERTIFICATIONS
+
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Application Developer (CKAD)
+* AWS Certified Developer – Associate
+
+PROJECTS
+
+* **Personal Finance Tracker:** Developed a full-stack application using React, Node.js, and PostgreSQL to track personal finances and generate reports.
+* **Cloud Automation Tool:** Created a Terraform module to automate the deployment of GCP resources, significantly reducing manual effort and errors.
+* **Machine Learning Model Deployment:** Deployed a machine learning model using Kubeflow on GCP, enabling real-time predictions for a customer churn prediction project.
+* **Open Source Contribution:** Contributed to the Kubernetes project by fixing bugs and adding new features.
+
+SKILLS
+
+Languages: Java, Go, Python, JavaScript, SQL
+Cloud: Google Cloud Platform (GCP), Amazon Web Services (AWS)
+Infrastructure as Code: Terraform, Helm
+CI/CD: ArgoCD, Jenkins, GitLab CI
+Containerization: Docker, Kubernetes, Istio
+Monitoring & Logging: Grafana, Datadog, Prometheus, ELK Stack
+Databases: PostgreSQL, MySQL, MongoDB, BigQuery
+Operating Systems: Linux, macOS
+Version Control: Git
+Agile Methodologies: Scrum, Kanban
+APIs: REST, GraphQL
+Frameworks/Libraries: React, Node.js, Spring Boot
+Testing: JUnit, Jest, Selenium
+Configuration Management: Ansible
+Messaging Queues: Kafka, Pub/Sub
+Event Streaming: Apache Kafka, Google Cloud Dataflow
+Security: OAuth, TLS/SSL
+
+AWARDS & RECOGNITION
+
+* Google Founders' Award, 2019
+* MIT Dean's List, 2015, 2016, 2017

@@ -1,0 +1,57 @@
+```
+**Aisha Rodriguez-Lee**
+(555) 123-4567 | aisha.rodriguez.lee@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly motivated and results-oriented Senior Flutter Developer with 7 years of experience in designing, developing, and deploying scalable and high-performance mobile applications and backend systems. Proven ability to lead and contribute to complex projects, leveraging Python, Django, FastAPI, PostgreSQL, Redis, Docker, and AWS. Passionate about creating efficient and user-friendly solutions while optimizing infrastructure and reducing costs.
+
+**Skills**
+
+*   **Languages:** Python, Dart, JavaScript, HTML, CSS
+*   **Frameworks/Libraries:** Flutter, Django, FastAPI, React Native, TensorFlow, Keras
+*   **Databases:** PostgreSQL, Redis, MySQL, MongoDB
+*   **Cloud:** AWS (EC2, S3, Lambda, RDS, ECS), Docker, Kubernetes
+*   **Tools:** Git, Jira, Confluence, CI/CD (Jenkins, GitLab CI), Terraform
+*   **Machine Learning:** Model building, training, and deployment.
+
+**Experience**
+
+**Figma** | Senior Flutter Developer | San Francisco, CA | 2021 – Present
+
+*   Led a team of 3 developers in the design and implementation of a microservices architecture using Python, FastAPI, and PostgreSQL, handling 50,000 requests per minute (RPM).
+*   Engineered key features for Figma's mobile application using Flutter, resulting in a 30% increase in user engagement.
+*   Optimized application performance by refactoring existing code and implementing caching strategies, reducing page load time by 66%.
+*   Developed and deployed an ML model using Python and TensorFlow for user behavior analysis, achieving 54% accuracy in predicting user churn in production.
+
+**Codecademy** | Flutter Developer | New York, NY | 2018 – 2021
+
+*   Spearheaded the development of a new mobile application feature using Flutter and Dart, leading to a 20% increase in mobile user registrations within the first quarter.
+*   Collaborated with backend engineers to integrate RESTful APIs built with Django, ensuring seamless data flow between the mobile application and the backend.
+*   Built an ML model using Python and scikit-learn for personalized learning recommendations, achieving 49% accuracy in A/B testing.
+*   Automated deployment processes using Docker and Jenkins, reducing deployment time by 40%.
+
+**AlphaTech Solutions** | Junior Software Engineer | Austin, TX | 2016 – 2018
+
+*   Contributed to the development of web applications using Python, Django, and PostgreSQL.
+*   Assisted in the design and implementation of RESTful APIs.
+*   Developed unit and integration tests to ensure code quality.
+*   Participated in code reviews and learned best practices for software development.
+
+**Projects**
+
+*   **Personal Finance Tracker (Flutter):** Developed a mobile application using Flutter for tracking personal finances, including budgeting, expense tracking, and reporting.
+*   **E-commerce API (FastAPI):** Designed and implemented a RESTful API for an e-commerce platform using Python and FastAPI.
+*   **Machine Learning Recommendation System (Python):** Built a recommendation system using Python and collaborative filtering techniques to provide personalized product recommendations.
+*   **Data Pipeline on AWS (Python, AWS Lambda, S3):** Automated the processing and analysis of large datasets using Python, AWS Lambda, and S3, resulting in a cost savings of $50,000 annually by optimizing server usage.
+
+**Certifications**
+
+*   AWS Certified Developer – Associate
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Application Developer (CKAD)
+
+**Education**
+
+**University of California, Berkeley** | Bachelor of Science in Computer Science | Berkeley, CA | 2016
+```

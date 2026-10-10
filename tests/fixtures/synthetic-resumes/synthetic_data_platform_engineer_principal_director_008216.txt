@@ -1,0 +1,61 @@
+Aisha Tanaka-Rodriguez
+(555) 123-4567 | aisha.tanaka@email.com | linkedin.com/in/aishatanakarodriguez | github.com/atanakarodriguez
+
+SUMMARY
+
+Principal Data Platform Engineer with 15+ years of experience designing, building, and scaling data infrastructure for high-growth companies. Proven ability to architect robust and efficient data pipelines, leveraging cutting-edge technologies to drive data-informed decision-making. Expertise in Rust, Actix, PostgreSQL, Redis, Docker, and AWS cloud environments. Passionate about building high-performing teams and delivering impactful solutions.
+
+EXPERIENCE
+
+Lead Data Engineer, [YC Backed Startup Name], San Francisco, CA (2019 – Present)
+
+* Led the development and maintenance of the core data platform, supporting real-time analytics and machine learning initiatives.
+* Architected and implemented a real-time analytics pipeline processing 10 million events per day with sub-second latency using Rust, Actix, Kafka (internal replacement), and PostgreSQL.
+* Designed and built a CI/CD pipeline utilizing Docker, Kubernetes, and AWS CodePipeline, reducing release time by 60%.
+* Spearheaded the migration of the data warehouse from Redshift to Snowflake, resulting in a 30% reduction in data warehousing costs.
+* Built and deployed an ML model for fraud detection with 60% accuracy in production, preventing an estimated $500,000 in fraudulent transactions annually.
+* Mentored and guided a team of 5 data engineers, fostering a collaborative and innovative environment.
+
+Senior Data Engineer, DataSolutions Inc., Chicago, IL (2015 – 2019)
+
+* Developed and maintained data pipelines for ingesting, transforming, and loading data from various sources into the data warehouse.
+* Optimized existing ETL processes, resulting in a 40% improvement in data processing speed.
+* Built an ML model to predict customer churn with 83% accuracy in production, enabling proactive customer retention strategies.
+* Implemented data quality monitoring and alerting systems, improving data accuracy and reliability.
+* Collaborated with data scientists to provide them with the data infrastructure and tools they needed to build and deploy machine learning models.
+
+Data Engineer, Analytics Corp., New York, NY (2011 – 2015)
+
+* Designed and implemented scalable data solutions for various clients across different industries.
+* Developed ETL processes using Python, SQL, and various data integration tools.
+* Built and maintained data warehouses and data marts.
+* Provided technical support to clients on data-related issues.
+
+EDUCATION
+
+University of Illinois, Urbana-Champaign, IL
+Bachelor of Science in Computer Science, May 2011
+
+CERTIFICATIONS
+
+* AWS Certified Data Analytics – Specialty
+* AWS Certified Solutions Architect – Associate
+* Google Cloud Professional Data Engineer
+* Certified Kubernetes Administrator (CKA)
+
+PROJECTS
+
+* Rust-Based Data Pipeline: Developed a high-performance data pipeline using Rust and Actix for ingesting and processing real-time data streams.
+* Distributed Key-Value Store: Built a distributed key-value store using Redis and Raft consensus algorithm for high availability and fault tolerance.
+* Machine Learning Model Deployment Platform: Created a platform for deploying and managing machine learning models using Docker, Kubernetes, and TensorFlow Serving.
+* Data Visualization Dashboard: Designed and implemented interactive data visualization dashboards using Python, Flask, and D3.js.
+* Open Source Contribution: Contributed to an open-source project focused on data stream processing with Apache Flink.
+
+SKILLS
+
+Languages: Rust, Python, SQL, Go
+Databases: PostgreSQL, Redis, Snowflake, MySQL
+Cloud Platforms: AWS (EC2, S3, Lambda, DynamoDB, Kinesis, EMR, Glue), Google Cloud Platform (BigQuery, Dataflow)
+Tools: Docker, Kubernetes, Kafka, Spark, Airflow, Terraform, Git, Jenkins
+Operating Systems: Linux, macOS
+Machine Learning: TensorFlow, scikit-learn, PyTorch

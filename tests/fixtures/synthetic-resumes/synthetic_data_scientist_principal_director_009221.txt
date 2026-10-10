@@ -1,0 +1,59 @@
+**Anya Sharma-Olsen**
+(123) 456-7890 | anya.sharma.olsen@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly accomplished and results-driven Data Scientist with 15+ years of experience architecting, developing, and deploying innovative AI-powered solutions in fast-paced startup environments. Proven ability to lead and mentor teams, drive significant improvements in system performance, and build scalable and resilient microservices architectures. Expertise in Node.js, TypeScript, MongoDB, GraphQL, Docker, and Azure cloud technologies. Passionate about leveraging data to solve complex business problems and deliver tangible value.
+
+**Experience**
+
+**Principal Data Scientist** | AI Startup | Singapore | 2018 – Present
+
+*   Led a team of 5 data scientists and engineers in the development and deployment of AI-driven predictive models for [Specific AI startup industry/product].
+*   Spearheaded the migration from a monolithic application to a microservices architecture, resulting in a 10x increase in deployment frequency from monthly to 10x daily.
+*   Architected and implemented a CI/CD pipeline using Docker and Azure DevOps, improving code quality and reducing deployment errors.
+*   Increased unit test coverage from 42% to 93% by implementing robust testing strategies and mentoring team members.
+*   Designed and implemented a GraphQL API layer to optimize data retrieval and improve the performance of client-facing applications.
+*   Reduced infrastructure costs by 15% through optimizing Azure resource utilization and implementing cost-effective cloud solutions.
+*   Designed and implemented a scalable data pipeline using Azure Data Factory and Azure Databricks to process and analyze large datasets.
+
+**Senior Data Scientist** | Tech Company | London, UK | 2014 – 2018
+
+*   Developed and deployed machine learning models to predict customer churn, resulting in a 10% reduction in churn rate and a $500K increase in annual revenue.
+*   Led the design and implementation of a real-time recommendation engine using Node.js and MongoDB, serving personalized recommendations to 15K requests per minute (RPM).
+*   Collaborated with cross-functional teams to define project requirements and deliver high-quality solutions within budget and on schedule.
+*   Mentored junior data scientists and engineers, providing technical guidance and support.
+
+**Data Scientist** | Fintech Company | New York, NY | 2011 – 2014
+
+*   Built and deployed fraud detection models using statistical analysis and machine learning techniques, resulting in a 20% reduction in fraudulent transactions.
+*   Developed data visualizations and dashboards to communicate key insights to stakeholders and support data-driven decision-making.
+*   Contributed to the development of a data warehouse using ETL processes and database technologies.
+
+**Education**
+
+**National University of Singapore (NUS)** | Singapore | Bachelor of Science in Computer Science
+
+**Certifications**
+
+*   AWS Certified Machine Learning – Specialty
+*   Microsoft Certified: Azure Data Scientist Associate
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **Personalized Recommendation System:** Built a recommendation engine using Node.js, Express, and MongoDB to provide personalized recommendations to users based on their preferences and browsing history.
+*   **Fraud Detection Model:** Developed a fraud detection model using machine learning algorithms to identify and prevent fraudulent transactions.
+*   **Data Visualization Dashboard:** Created an interactive data visualization dashboard using Tableau to provide stakeholders with insights into key business metrics.
+*   **Sentiment Analysis Tool:** Designed and implemented a sentiment analysis tool using Python and natural language processing techniques to analyze customer feedback.
+
+**Skills**
+
+**Languages:** TypeScript, Node.js, JavaScript, Python
+**Frameworks/Libraries:** Express, GraphQL, React
+**Databases:** MongoDB, SQL
+**Cloud Platforms:** Azure (primary), AWS (familiar)
+**Tools:** Docker, Kubernetes, Azure DevOps, Git
+**Machine Learning:** Regression, Classification, Clustering, Deep Learning
+**Data Analysis:** Statistical Analysis, Data Visualization
+**Other:** Microservices Architecture, CI/CD, Agile Development

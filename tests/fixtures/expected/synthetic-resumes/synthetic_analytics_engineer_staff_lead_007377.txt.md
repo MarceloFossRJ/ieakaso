@@ -1,0 +1,64 @@
+```
+**Jamal Rodriguez**
+(123) 456-7890 | jamal.rodriguez@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Results-oriented Analytics Engineer with 9+ years of experience in architecting, developing, and maintaining robust and scalable data pipelines and analytical solutions. Proven ability to translate complex business requirements into actionable insights, drive data-informed decision-making, and optimize data infrastructure for performance and cost-efficiency. Expertise in R, Python, SQL, and data visualization tools (Tableau, Power BI, Looker).
+
+**Skills**
+
+*   **Programming Languages:** Python, R, SQL, Bash
+*   **Data Warehousing:** Snowflake, BigQuery, Redshift
+*   **Data Visualization:** Tableau, Power BI, Looker
+*   **Data Pipelines:** Airflow, Apache Kafka, Apache Spark
+*   **Databases:** PostgreSQL, MySQL, MongoDB
+*   **Cloud Computing:** AWS (EC2, S3, Lambda, RDS), GCP (Compute Engine, Cloud Storage, Cloud Functions, Cloud SQL)
+*   **Testing:** Unit Testing, Integration Testing, Regression Testing
+*   **ETL:** DataStage, Informatica
+*   **Version Control:** Git
+*   **Operating Systems:** Linux, Windows
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Google Cloud Certified Professional Data Engineer
+
+**Experience**
+
+**Adobe, San Jose, CA**
+**Lead Analytics Engineer** | 2018 – Present
+
+*   Led a team of 4 analytics engineers in designing, developing, and maintaining data pipelines for Adobe Marketing Cloud products.
+*   Engineered a real-time analytics pipeline processing 20 million events per day, enabling near real-time insights for product teams.
+*   Optimized database queries, resulting in an **81%** reduction in read times and a **23%** reduction in write times, enhancing system performance.
+*   Increased test coverage from **37% to 72%**, improving code quality and reducing production incidents.
+*   Achieved **99.62%** uptime for critical production systems by implementing robust monitoring and alerting mechanisms.
+
+**Netflix, Los Gatos, CA**
+**Senior Analytics Engineer** | 2015 – 2018
+
+*   Designed and implemented data models for A/B testing, enabling data-driven decisions on content recommendations and user interface improvements.
+*   Developed interactive dashboards using Tableau to visualize key performance indicators (KPIs) related to user engagement and content consumption.
+*   Automated data extraction, transformation, and loading (ETL) processes, reducing manual effort by **40%**.
+*   Reduced infrastructure costs by **$100,000** annually by optimizing cloud resource utilization.
+
+**Accenture, Chicago, IL**
+**Data Engineer** | 2013 – 2015
+
+*   Developed and maintained data pipelines for various clients in the financial services and healthcare industries.
+*   Built scalable data solutions using Hadoop, Spark, and other big data technologies.
+*   Collaborated with cross-functional teams to gather requirements and deliver data-driven insights.
+
+**Education**
+
+**Indian Institute of Technology Delhi, Delhi, India**
+**Bachelor of Technology in Computer Science** | 2009 – 2013
+
+**Projects**
+
+*   **Customer Churn Prediction:** Developed a machine learning model using Python and scikit-learn to predict customer churn with **85%** accuracy.
+*   **E-commerce Recommendation System:** Built a collaborative filtering-based recommendation system to suggest products to users based on their past purchase history.
+*   **Real-time Stock Price Analysis:** Created a real-time stock price analysis dashboard using R Shiny to visualize market trends and identify investment opportunities.
+*   **Fraud Detection System:** Implemented a rule-based fraud detection system to identify fraudulent transactions in real-time.
+```

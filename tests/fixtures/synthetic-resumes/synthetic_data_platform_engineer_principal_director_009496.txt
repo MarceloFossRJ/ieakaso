@@ -1,0 +1,48 @@
+Jamal Ito-Garcia
+(555) 123-4567 | jamal.ito-garcia@email.com | linkedin.com/in/jamalitogarcia | github.com/jito-garcia
+
+Summary
+
+Highly accomplished and results-driven Data Platform Engineer with 16 years of experience in designing, building, and optimizing scalable data solutions. Proven ability to leverage cutting-edge technologies and data-driven insights to reduce customer churn, drive revenue growth, and optimize infrastructure costs. Expertise in cloud platforms (AWS, GCP), data warehousing, data pipelines, and front-end technologies. Passionate about building high-performing teams and delivering impactful business outcomes.
+
+Experience
+
+Notion | Principal Data Platform Engineer | San Francisco, CA | 2019 – Present
+
+*   Led the design and implementation of a real-time customer churn prediction platform using advanced machine learning techniques, resulting in a **59% reduction in customer churn**.
+*   Architected and implemented a scalable data pipeline using Apache Kafka and Spark, improving data processing latency by **45%**.
+*   Spearheaded the migration of the data warehouse from on-premise to Google BigQuery, resulting in a **$20K annual reduction in infrastructure costs**.
+*   Mentored and coached a team of 5 junior engineers, fostering a culture of collaboration and innovation.
+*   Technologies: Angular, TypeScript, RxJS, NgRx, Material UI, Jasmine, Python, Spark, Kafka, BigQuery, AWS.
+
+Lyft | Senior Data Engineer | San Francisco, CA | 2015 – 2019
+
+*   Developed and maintained data pipelines for processing ride data, enabling real-time insights into driver availability and passenger demand.
+*   Implemented A/B testing frameworks to evaluate the effectiveness of new features and algorithms, leading to a **42% reduction in customer churn** in specific user segments.
+*   Optimized database queries and data structures, improving query performance by **30%**.
+*   Collaborated with product managers and data scientists to define and implement key performance indicators (KPIs).
+*   Technologies: Python, Java, SQL, Hadoop, Hive, Spark, AWS (EC2, S3, Lambda).
+
+Airbnb | Data Engineer | San Francisco, CA | 2012 – 2015
+
+*   Built and maintained data infrastructure for processing user reviews and ratings, enabling the development of personalized recommendations.
+*   Developed ETL pipelines to ingest data from various sources into the data warehouse.
+*   Contributed to the development of data visualization dashboards for monitoring key business metrics.
+*   Technologies: Python, Ruby, SQL, Hadoop, Hive, AWS (EC2, S3, RDS).
+
+Education
+
+Carnegie Mellon University | Pittsburgh, PA | Bachelor of Science in Computer Science
+
+Certifications
+
+*   AWS Certified Solutions Architect – Associate
+*   Google Cloud Certified Professional Data Engineer
+*   Certified Kubernetes Administrator (CKA)
+
+Projects
+
+*   **Predictive Maintenance System:** Developed a machine learning model to predict equipment failures, reducing downtime by 15%. (Python, Scikit-learn)
+*   **Real-time Fraud Detection:** Built a system to detect fraudulent transactions in real-time using stream processing techniques. (Kafka, Spark Streaming)
+*   **Customer Segmentation Analysis:** Performed customer segmentation analysis to identify key customer segments and tailor marketing campaigns. (Python, Pandas, Scikit-learn)
+*   **Open Source Contribution:** Contributed to the development of a data visualization library. (JavaScript, D3.js)

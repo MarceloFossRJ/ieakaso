@@ -1,0 +1,57 @@
+Adeline Park-Gonzalez
+(555) 123-4567 | adeline.parkgonzalez@email.com | linkedin.com/in/adelineparkgonzalez | github.com/aparkgonzalez
+
+SUMMARY
+
+Highly accomplished and results-driven Analytics Engineer with 9 years of experience architecting, developing, and optimizing data pipelines and analytics solutions. Proven ability to lead technical teams, drive innovation, and deliver impactful results. Expertise in React Native, TypeScript, Redux, and modern data technologies. Passionate about building scalable and reliable systems that empower data-driven decision-making.
+
+EXPERIENCE
+
+DoorDash | Staff Analytics Engineer | San Francisco, CA | 2020 – Present
+
+* Led a team of 4 engineers in the development and maintenance of real-time analytics pipelines for mobile application performance and user behavior, processing over 2 million events per day.
+* Architected and implemented a new data aggregation layer using TypeScript and Redux, resulting in a 21% reduction in average page load time for critical user flows.
+* Spearheaded the migration of existing data infrastructure to a cloud-native architecture on AWS, improving system uptime to 99.68%.
+* Mentored junior engineers and provided technical guidance on best practices for data modeling, ETL processes, and data visualization.
+* Collaborated with product managers, data scientists, and stakeholders to define key performance indicators (KPIs) and develop actionable insights.
+
+Airbnb | Senior Software Engineer | San Francisco, CA | 2017 – 2020
+
+* Designed and developed React Native components and features for the Airbnb mobile application, focusing on performance optimization and user experience.
+* Implemented a new A/B testing framework using Redux Saga and TypeScript, enabling faster iteration and data-driven product improvements.
+* Contributed to the development of a scalable data ingestion pipeline for collecting and processing user interaction data from the Airbnb mobile app.
+* Collaborated with cross-functional teams to define and implement data-driven solutions for improving user engagement and conversion rates.
+* Proactively identified and resolved performance bottlenecks, contributing to a 15% improvement in overall application responsiveness.
+
+Lyft | Software Engineer | San Francisco, CA | 2015 – 2017
+
+* Developed and maintained React Native features for the Lyft driver application.
+* Built and deployed RESTful APIs using Node.js and Express.js for data access and manipulation.
+* Contributed to the development of automated testing suites using Jest and Enzyme.
+* Worked closely with product managers and designers to implement new features and improve the user experience.
+
+EDUCATION
+
+Stanford University | Stanford, CA | Bachelor of Science in Computer Science | 2015
+
+PROJECTS
+
+* Real-Time Dashboard: Developed a real-time dashboard using React Native and WebSockets to visualize key performance indicators (KPIs) for a simulated e-commerce platform.
+* Data Pipeline Automation: Created an automated data pipeline using Apache Airflow and Python to extract, transform, and load data from various sources into a data warehouse.
+* Mobile App Performance Monitor: Built a React Native application to monitor device performance and identify areas for optimization.
+* Serverless API with AWS Lambda: Built a serverless REST API using AWS Lambda and API Gateway to expose data from a database.
+
+CERTIFICATIONS
+
+* AWS Certified Solutions Architect – Associate
+* Google Cloud Professional Data Engineer
+
+SKILLS
+
+Languages: TypeScript, JavaScript (ES6+), Python, SQL
+Frameworks/Libraries: React Native, Redux, React, Node.js, Express.js
+Testing: Jest, Enzyme, React Testing Library
+Databases: PostgreSQL, MongoDB, MySQL
+Cloud Technologies: AWS (Lambda, S3, EC2, CloudWatch), GCP
+Tools: Git, Docker, Kubernetes, Jenkins, Apache Airflow, Expo, REST APIs
+Data Visualization: Tableau, Grafana

@@ -1,0 +1,55 @@
+**Anya Ramirez**
+(555) 123-4567 | anya.ramirez@email.com | linkedin.com/in/anyaramirez | github.com/anyaramirez
+
+**Summary**
+
+Senior Big Data Engineer with 7+ years of experience in designing, developing, and deploying scalable and robust data solutions. Proven ability to leverage cutting-edge technologies to optimize data pipelines, enhance data quality, and drive data-informed decision-making. Expertise in building and deploying machine learning models in production environments. Adept at collaborating with cross-functional teams to deliver high-impact results.
+
+**Skills**
+
+**Languages:** Python, SQL, Java, JavaScript, TypeScript
+**Frameworks/Libraries:** React, Redux, Next.js, Tailwind CSS, Jest, Cypress, Spark, Pandas, Scikit-learn, TensorFlow, PyTorch
+**Databases:** Snowflake, PostgreSQL, MySQL, MongoDB
+**Cloud Technologies:** AWS (S3, EC2, Lambda, Glue, Athena, Redshift), GCP (BigQuery, Cloud Storage, Compute Engine)
+**DevOps:** Docker, Kubernetes, Terraform, CI/CD (Jenkins, GitHub Actions)
+**Big Data Technologies:** Hadoop, Hive, Kafka, Spark
+**Operating Systems:** Linux, macOS, Windows
+
+**Experience**
+
+**Snowflake, San Mateo, CA**
+**Senior Data Engineer** | 2020 – Present
+
+*   Led the development and implementation of a real-time data ingestion pipeline using Kafka and Spark Streaming, reducing data latency by 40% and improving data freshness for critical business metrics.
+*   Architected and implemented a data warehousing solution on Snowflake, resulting in a 25% reduction in data storage costs and a 30% improvement in query performance.
+*   Spearheaded the development of a machine learning model for fraud detection using Python and TensorFlow, achieving 79% accuracy in production and preventing $500,000 in fraudulent transactions annually.
+*   Improved deployment frequency from monthly to 100x daily by implementing a fully automated CI/CD pipeline using Jenkins and Terraform.
+*   Mentored junior engineers and provided technical guidance on best practices for data engineering and software development.
+
+**Acme Corporation, Chicago, IL**
+**Data Engineer** | 2017 – 2020
+
+*   Developed and maintained ETL pipelines using Python and Apache Spark to process large datasets from various sources, ensuring data quality and consistency.
+*   Optimized existing data pipelines, resulting in a 50% reduction in processing time and a significant improvement in overall system performance.
+*   Improved deployment frequency from monthly to 15x daily by implementing more robust testing and automation into the development process.
+*   Collaborated with data scientists to build and deploy machine learning models for customer segmentation and churn prediction.
+*   Designed and implemented a data governance framework to ensure compliance with data privacy regulations.
+
+**Education**
+
+**University of Illinois at Urbana-Champaign, Champaign, IL**
+Bachelor of Science in Computer Science | 2013 – 2017
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Google Cloud Certified Professional Data Engineer
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **Real-time Stock Price Predictor:** Developed a real-time stock price prediction model using Python, TensorFlow, and Kafka to stream live stock data.
+*   **Customer Churn Prediction:** Built a customer churn prediction model using Python and Scikit-learn, achieving 85% accuracy in identifying customers at risk of churn.
+*   **Sentiment Analysis of Social Media Data:** Implemented a sentiment analysis pipeline using Python and Natural Language Processing (NLP) techniques to analyze social media data and identify trends.
+*   **E-commerce Recommendation Engine:** Developed a personalized recommendation engine for an e-commerce platform using collaborative filtering techniques and Python.
+*   **Data Pipeline Optimization Framework:** Created a framework using Python, Spark, and Airflow to automate the process of optimizing data pipelines for efficiency and cost effectiveness.

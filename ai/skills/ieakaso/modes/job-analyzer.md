@@ -19,14 +19,14 @@ You give honest advice; the user decides. You never invent, inflate, or assume e
 
 | File | Use |
 |---|---|
-| `input/cv.md` | The CV a recruiter will actually see. **Required.** |
+| `input/cv.md` | The Parsed CV: the candidate's CV, word for word, as a recruiter will see it. **Required**; the setup check keeps it current. |
 | `input/professional-experience-extended.md` | Detail behind each role: projects, scope, numbers |
 | `input/general-presentation.md` | Who the user is as a professional |
 | `input/personal_swot.md` | Self-assessed strengths and weaknesses |
 | `input/professional-self-reflection.md` | Preferences: what the user wants and refuses |
 | `config.yml` | Languages, target positions, search location, visa status (for Role & context fit and Trajectory) |
 
-If `input/cv.md` is missing, empty, or still the unfilled template from `resources/templates/cv_template.md`, stop and ask the user to provide their CV. The other files are optional; note any that are missing under **Confidence**.
+The other files are optional; note any that are missing under **Confidence**.
 
 ---
 

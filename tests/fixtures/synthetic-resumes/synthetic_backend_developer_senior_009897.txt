@@ -1,0 +1,56 @@
+**Riya Sharma-O'Connell**
+(123) 456-7890 | riya.s.oconnell@email.com | LinkedIn Profile URL (replace with actual URL) | GitHub Profile URL (replace with actual URL)
+
+**Summary**
+
+Results-driven and highly motivated Senior Backend Developer with 7+ years of experience in designing, developing, and deploying scalable and reliable backend systems. Proven ability to leverage data analytics and machine learning to drive business insights and optimize performance. Expertise in R, Python, SQL, and cloud technologies. Led successful migration projects and consistently delivered high-quality solutions that exceed expectations.
+
+**Skills**
+
+*   **Programming Languages:** Python, R, SQL, Bash
+*   **Data Analytics & Visualization:** Tableau, Power BI, Looker, Pandas, NumPy, Scikit-learn
+*   **Databases:** PostgreSQL, MySQL, MongoDB, Redis
+*   **Cloud Technologies:** AWS (EC2, S3, Lambda, ECS, EKS), Google Cloud Platform (GCP)
+*   **Containerization & Orchestration:** Docker, Kubernetes, Helm
+*   **DevOps:** CI/CD, Jenkins, Git, Terraform
+*   **Microservices Architecture:** REST APIs, gRPC
+*   **Operating Systems:** Linux, Windows
+*   **Agile Development:** Scrum, Kanban
+
+**Experience**
+
+**Bloomberg, New York, NY**
+**Senior Backend Developer** | 2020 – Present
+
+*   Led the migration of 10+ microservices from monolithic architecture to Kubernetes, resulting in a 30% reduction in infrastructure costs and a 20% improvement in application deployment speed.
+*   Engineered and implemented a scalable data pipeline using Python and Spark to process large datasets, increasing data processing throughput by 45%.
+*   Developed and deployed a machine learning model using R to predict user churn, achieving 74% accuracy and reducing churn rate by 15%, saving the company $500,000 annually.
+*   Optimized database queries and improved system performance, enabling the platform to handle over 2 million daily active users with minimal latency.
+*   Mentored junior developers, providing guidance and support on best practices and software development methodologies.
+
+**Acme Corporation, Chicago, IL**
+**Backend Developer** | 2017 – 2020
+
+*   Designed and implemented RESTful APIs using Python and Flask to integrate with various third-party services.
+*   Built data visualizations and dashboards using Tableau and Power BI to provide insights into key business metrics.
+*   Developed and maintained SQL databases, ensuring data integrity and performance.
+*   Collaborated with cross-functional teams to gather requirements and deliver high-quality software solutions.
+*   Improved the efficiency of existing data processing scripts, resulting in a 25% reduction in processing time.
+
+**Education**
+
+**Carnegie Mellon University, Pittsburgh, PA**
+**Bachelor of Science in Computer Science** | 2017
+
+**Certifications**
+
+*   AWS Certified Developer – Associate
+*   Google Cloud Professional Data Engineer
+*   Certified Kubernetes Application Developer (CKAD)
+
+**Projects**
+
+*   **E-commerce Recommendation Engine:** Developed a collaborative filtering-based recommendation engine using Python and Scikit-learn to provide personalized product recommendations to users.
+*   **Real-Time Stock Market Analysis:** Built a real-time stock market analysis dashboard using R and Shiny to visualize stock trends and patterns.
+*   **Automated Data Pipeline:** Created an automated data pipeline using Apache Airflow to extract, transform, and load data from various sources into a data warehouse.
+*   **Personal Finance Tracker:** Developed a personal finance tracking application using Python and Flask to track income, expenses, and investments.

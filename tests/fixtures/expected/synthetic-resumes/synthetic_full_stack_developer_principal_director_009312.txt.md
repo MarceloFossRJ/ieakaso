@@ -1,0 +1,56 @@
+**Aisha Nguyen-Rodriguez**
+(123) 456-7890 | aisha.nr@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly accomplished and results-oriented Full Stack Developer with 18 years of experience in designing, developing, and deploying scalable and high-performance web applications. Expertise in Angular, TypeScript, RxJS, NgRx, and Material UI. Proven ability to lead teams, optimize performance, and reduce infrastructure costs. Passionate about building innovative solutions and driving technical excellence. Certified AWS Cloud Practitioner and Kubernetes Application Developer.
+
+**Skills**
+
+*   **Languages:** TypeScript, JavaScript, HTML, CSS, SQL
+*   **Frameworks/Libraries:** Angular, RxJS, NgRx, Material UI, Node.js, Express.js
+*   **Databases:** PostgreSQL, MySQL, MongoDB
+*   **Cloud Platforms:** AWS (Amazon Web Services), GCP (Google Cloud Platform)
+*   **Tools:** Git, Docker, Kubernetes, Jenkins, Jira, Confluence, REST APIs, GraphQL
+*   **Testing:** Jasmine, Jest, Cypress
+*   **Methodologies:** Agile, Scrum
+
+**Experience**
+
+**Netflix, Senior Software Engineer (Full Stack) | Los Gatos, CA | 2018 – Present**
+
+*   Led the development and maintenance of core features for Netflix's content personalization platform using Angular, TypeScript, RxJS, and NgRx.
+*   Architected and implemented a new data caching strategy that **optimized database queries resulting in 45% faster read times**, significantly improving user experience.
+*   **Optimized database queries resulting in 64% faster read times** within the account management module, leading to improved responsiveness and reduced server load.
+*   Collaborated with cross-functional teams (product, design, and QA) to deliver high-quality software solutions on time and within budget.
+*   Mentored junior developers and provided technical guidance on best practices for Angular development.
+
+**Google, Software Engineer | Mountain View, CA | 2014 – 2018**
+
+*   Developed and maintained key components of Google's advertising platform using Java and JavaScript.
+*   Engineered a new microservice architecture for handling ad targeting requests, resulting in a 30% reduction in latency.
+*   Contributed to the development of automated testing frameworks, improving code quality and reducing the number of production defects.
+*   Participated in code reviews and provided constructive feedback to improve the overall quality of the codebase.
+
+**Amazon, Software Development Engineer | Seattle, WA | 2009 – 2014**
+
+*   Designed and implemented features for Amazon's e-commerce platform using Java and various AWS services.
+*   Spearheaded the migration of a legacy system to a cloud-based architecture, **reducing infrastructure costs by $20K annually**.
+*   Developed and maintained RESTful APIs for integrating with other Amazon services.
+*   Collaborated with product managers to define and prioritize new features.
+
+**Education**
+
+**University of Toronto, Toronto, ON | Bachelor of Science in Computer Science | 2005 – 2009**
+
+**Certifications**
+
+*   AWS Certified Cloud Practitioner
+*   Certified Kubernetes Application Developer (CKAD)
+
+**Projects**
+
+*   **Personal Portfolio Website (Angular, TypeScript, Material UI):** Developed a responsive personal portfolio website to showcase my skills and projects.
+*   **Real-time Chat Application (Angular, Node.js, Socket.IO):** Built a real-time chat application with features like user authentication and private messaging.
+*   **E-commerce Platform (Angular, Spring Boot, PostgreSQL):** Designed and developed a fully functional e-commerce platform with features like product management, shopping cart, and checkout.
+*   **Data Visualization Dashboard (Angular, D3.js):** Created an interactive data visualization dashboard to analyze and display data from various sources.

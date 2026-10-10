@@ -1,0 +1,65 @@
+Aisha Patel-O'Connell
+(555) 123-4567 | aisha.patel.oconnell@email.com | linkedin.com/in/aishapateloconnell | github.com/aisha-poc
+
+Summary
+
+Highly motivated and results-oriented Senior Full Stack Developer with 7 years of experience designing, developing, and deploying scalable and robust web applications. Proven ability to lead technical initiatives, mentor junior engineers, and significantly improve software development lifecycle efficiency. Expertise in Angular, TypeScript, RxJS, NgRx, Material UI, and Jasmine. Passionate about building innovative solutions and driving positive impact in fast-paced environments.
+
+Skills
+
+Languages: TypeScript, JavaScript, HTML, CSS, Python
+Frameworks/Libraries: Angular (10+), RxJS, NgRx, Material UI, Bootstrap, React (basic)
+Testing: Jasmine, Jest, Cypress, Karma, Protractor
+Backend: Node.js, Express.js, REST APIs, GraphQL
+Databases: MongoDB, PostgreSQL, MySQL
+Cloud: AWS (EC2, S3, Lambda), GCP (Compute Engine, Cloud Storage, Cloud Functions)
+DevOps: Docker, Kubernetes, Jenkins, CI/CD, Git, Terraform
+Tools: VS Code, IntelliJ IDEA, Jira, Confluence
+
+Experience
+
+Senior Full Stack Developer | AI Innovators Inc. | Atlanta, GA | 2020 - Present
+
+*   Led the front-end development of a novel AI-powered platform, resulting in a 30% increase in user engagement.
+*   Architected and implemented a new CI/CD pipeline using Jenkins and Docker, improving deployment frequency from monthly to 10x daily.
+*   Spearheaded the adoption of NgRx for state management, simplifying the application architecture and improving maintainability.
+*   Mentored 500 junior engineers through online training programs and one-on-one mentorship, fostering a culture of learning and growth.
+*   Increased unit test coverage from 46% to 92% by implementing rigorous testing strategies, reducing bug count by 25%.
+
+Full Stack Developer | Tech Solutions Group | Atlanta, GA | 2017 - 2020
+
+*   Developed and maintained key features for a large-scale e-commerce platform using Angular, TypeScript, and RESTful APIs.
+*   Optimized database queries and server-side code, resulting in a 15% improvement in application performance.
+*   Collaborated with cross-functional teams to gather requirements, design solutions, and deliver high-quality software.
+*   Played a key role in migrating the application to AWS, leveraging services such as EC2, S3, and Lambda.
+
+Projects
+
+AI-Powered Recommendation Engine | Personal Project
+
+*   Developed a recommendation engine using Python and machine learning algorithms to suggest relevant products to users based on their browsing history.
+*   Implemented a REST API using Flask to serve recommendations to the front-end application.
+
+Real-Time Chat Application | Personal Project
+
+*   Built a real-time chat application using Node.js, Socket.IO, and Angular.
+*   Implemented features such as user authentication, private messaging, and group chats.
+
+Task Management Application | Personal Project
+
+*   Developed a task management application using Angular, TypeScript, and Material UI.
+*   Implemented features such as task creation, assignment, prioritization, and progress tracking.
+
+E-commerce Platform | Open Source Contribution
+
+* Contributed to an open-source e-commerce platform by adding a new feature that allowed customers to leave product reviews.
+
+Education
+
+Georgia Institute of Technology | Atlanta, GA | Bachelor of Science in Computer Science | 2017
+
+Certifications
+
+*   AWS Certified Developer – Associate
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Application Developer (CKAD)

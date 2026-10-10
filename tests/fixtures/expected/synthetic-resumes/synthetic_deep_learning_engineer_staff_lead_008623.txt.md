@@ -1,0 +1,59 @@
+```text
+**Aaliyah Sharma-Olsen**
+(555) 123-4567 | aaliyah.sharma.olsen@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly accomplished and results-oriented Deep Learning Engineer with 9 years of experience in designing, developing, and deploying scalable and robust AI/ML solutions. Proven ability to lead teams, optimize performance, and drive significant improvements in system efficiency and cost-effectiveness. Expertise in cloud-native technologies, particularly GCP, and DevOps practices. Seeking a challenging Staff or Lead role where I can leverage my skills to contribute to the success of a forward-thinking organization.
+
+**Skills**
+
+*   **Cloud Computing:** Google Cloud Platform (GCP), AWS (Amazon Web Services)
+*   **Deep Learning:** TensorFlow, PyTorch, Keras, Scikit-learn, Natural Language Processing (NLP), Computer Vision, Model Optimization, Transfer Learning
+*   **DevOps:** Terraform, Helm, ArgoCD, Istio, Kubernetes, Docker, CI/CD
+*   **Monitoring & Observability:** Grafana, Datadog, Prometheus
+*   **Databases:** PostgreSQL, MySQL, NoSQL (MongoDB, Cassandra)
+*   **Programming Languages:** Python, Java, Go
+*   **Data Engineering:** Apache Spark, Apache Kafka, Dataflow
+*   **Operating Systems:** Linux, Windows
+*   **Version Control:** Git
+
+**Experience**
+
+**Senior Deep Learning Engineer | HealthTech Startup | San Francisco, CA | 2020 – Present**
+
+*   Led a team of 4 engineers in designing and implementing a scalable deep learning platform for processing medical imaging data, reducing diagnosis time by 15%.
+*   Architected and deployed a cloud-native infrastructure on GCP using Terraform, Helm, and ArgoCD for automated deployments and infrastructure management, resulting in a 20% reduction in operational costs.
+*   Scaled the system to handle over 100 million daily active users, ensuring high availability and performance.
+*   Optimized database queries for medical record retrieval, resulting in a 35% faster read time and improved user experience.
+*   Developed and implemented a real-time anomaly detection system for identifying fraudulent claims, saving the company an estimated $500,000 annually.
+
+**Deep Learning Engineer | Fintech Company | New York, NY | 2016 – 2020**
+
+*   Developed and deployed machine learning models for fraud detection, risk assessment, and personalized recommendations.
+*   Optimized database queries for transaction processing, resulting in a 24% faster read time.
+*   Improved model accuracy by 10% through feature engineering and hyperparameter tuning.
+*   Collaborated with cross-functional teams to integrate machine learning models into production systems.
+
+**Software Engineer | Tech Company | Bangalore, India | 2014 – 2016**
+
+*   Designed and developed RESTful APIs using Java and Spring framework.
+*   Contributed to the development of a large-scale data processing pipeline using Apache Spark.
+
+**Projects**
+
+*   **Medical Image Segmentation:** Developed a deep learning model for segmenting tumors in medical images using TensorFlow and Keras, achieving a Dice score of 0.85.
+*   **Sentiment Analysis:** Built a sentiment analysis model for analyzing customer reviews using NLP techniques and PyTorch.
+*   **Recommendation System:** Developed a personalized recommendation system for e-commerce platform using collaborative filtering and matrix factorization.
+*   **Fraud Detection:** Implemented a fraud detection system using machine learning algorithms and anomaly detection techniques.
+
+**Certifications**
+
+*   Google Cloud Certified Professional Cloud Architect
+*   AWS Certified Machine Learning – Specialty
+*   Certified Kubernetes Administrator (CKA)
+
+**Education**
+
+**Indian Institute of Technology (IIT) Kanpur | Bachelor of Technology in Computer Science | 2010 – 2014**
+```

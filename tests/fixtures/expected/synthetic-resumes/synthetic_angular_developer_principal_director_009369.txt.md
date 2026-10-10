@@ -1,0 +1,61 @@
+**Javier Singh-O'Connell**
+(123) 456-7890 | javier.singhoconnell@email.com | linkedin.com/in/javiersinghoconnell
+
+**Summary**
+
+Highly accomplished and results-oriented Principal Software Engineer with 16 years of experience architecting, developing, and optimizing high-performance web applications using Angular, Python, and machine learning technologies. Proven ability to lead teams, drive innovation, and deliver significant improvements in performance, scalability, and efficiency. Expertise in full-stack development, cloud infrastructure, and CI/CD pipelines. Passionate about building cutting-edge solutions that solve complex business challenges.
+
+**Skills**
+
+*   **Languages:** Python, TypeScript, JavaScript, HTML, CSS
+*   **Frameworks/Libraries:** Angular (2+), React, Node.js, Express.js, TensorFlow, PyTorch, Scikit-learn, Pandas, NumPy
+*   **Databases:** PostgreSQL, MySQL, MongoDB, Redis, DynamoDB
+*   **Cloud Platforms:** AWS (EC2, S3, Lambda, SageMaker, DynamoDB), Google Cloud Platform (GCP)
+*   **DevOps:** Docker, Kubernetes, Jenkins, Git, CI/CD Pipelines, Terraform
+*   **Methodologies:** Agile, Scrum, Waterfall
+*   **Other:** REST APIs, GraphQL, Microservices, Machine Learning, Deep Learning, Data Analysis, Performance Optimization
+
+**Experience**
+
+**Figma, San Francisco, CA**
+**Principal Software Engineer** | 2020 – Present
+
+*   Led a team of 6 engineers in the design and development of new features for Figma's web application using Angular and TypeScript.
+*   Architected and implemented a new CI/CD pipeline using Jenkins and Docker, reducing release time by 78%.
+*   Optimized database queries for user profile data, resulting in a 34% faster read performance.
+*   Mentored junior engineers, providing guidance and support to improve their technical skills.
+*   Spearheaded the adoption of TypeScript throughout the codebase, improving code maintainability and reducing bugs by 15%.
+
+**Netflix, Los Gatos, CA**
+**Senior Software Engineer** | 2016 – 2020
+
+*   Developed and maintained microservices for the Netflix recommendation engine using Python, TensorFlow, and AWS SageMaker.
+*   Reduced API latency by 35% through code optimization and caching strategies.
+*   Engineered a new data pipeline for processing user viewing history, improving data accuracy and reliability by 20%.
+*   Collaborated with data scientists to develop and deploy machine learning models for personalized recommendations.
+
+**Amazon, Seattle, WA**
+**Software Engineer** | 2012 – 2016
+
+*   Developed features for the Amazon e-commerce platform using Java and Spring.
+*   Reduced page load time by 81% through front-end optimization techniques and image compression.
+*   Implemented A/B testing frameworks to optimize user experience and increase conversion rates.
+*   Contributed to the development of RESTful APIs for internal and external use.
+
+**Education**
+
+**Tsinghua University, Beijing, China**
+**Bachelor of Science in Computer Science** | 2012
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **Personal Portfolio Website:** Developed a personal website using Angular, Node.js, and MongoDB to showcase skills and projects.
+*   **Machine Learning Image Classifier:** Built an image classifier using Python, TensorFlow, and Keras to identify different types of objects. Achieved 95% accuracy on a test dataset.
+*   **Real-time Chat Application:** Created a real-time chat application using Socket.IO, Node.js, and React.
+*   **E-commerce Platform:** Developed a full-stack e-commerce platform with features such as product browsing, shopping cart, and checkout.

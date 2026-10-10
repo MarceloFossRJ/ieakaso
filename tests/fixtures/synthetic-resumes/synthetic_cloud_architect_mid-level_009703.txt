@@ -1,0 +1,54 @@
+**Aisha Rodriguez-Lee**
+(555) 123-4567 | aisha.rodriguezlee@email.com | linkedin.com/in/aisharodriguezlee | github.com/arlee
+
+**Summary**
+
+Highly motivated and results-oriented Cloud Architect with 4 years of experience designing, implementing, and maintaining scalable and resilient cloud-based solutions. Proficient in Vue.js ecosystem (Vuex, Nuxt.js), SCSS, Webpack, and Vitest. Proven ability to optimize system performance, reduce costs, and ensure high availability. Seeking a challenging role where I can leverage my skills and experience to drive innovation and achieve organizational goals. AWS Certified Solutions Architect – Associate.
+
+**Skills**
+
+* **Cloud Computing:** AWS (EC2, S3, Lambda, RDS, VPC, IAM), GCP (Compute Engine, Cloud Storage, Cloud Functions, Cloud SQL, VPC), Azure (Basic Familiarity)
+* **Frontend:** Vue.js, Vuex, Nuxt.js, JavaScript (ES6+), HTML5, CSS3, SCSS, Webpack, Vitest, Jest, Cypress
+* **Backend:** Node.js, Python, RESTful APIs, GraphQL
+* **Databases:** PostgreSQL, MySQL, MongoDB, Redis
+* **DevOps:** Docker, Kubernetes, Terraform, CI/CD (Jenkins, GitLab CI), Git
+* **Operating Systems:** Linux (Ubuntu, CentOS), Windows
+* **Methodologies:** Agile (Scrum, Kanban)
+
+**Experience**
+
+**IBM | Cloud Architect | 2020 – Present**
+
+* Architected and implemented a highly scalable microservices architecture on AWS using EC2, S3, Lambda, and RDS, resulting in a 30% reduction in infrastructure costs.
+* Led a team of 4 engineers in the migration of a legacy application to a containerized environment using Docker and Kubernetes, improving deployment frequency by 60%.
+* Optimized database queries, resulting in 54% faster read times and reduced database server load by 40%.
+* Scaled the system to handle 15M+ daily active users by implementing horizontal scaling strategies and optimizing caching mechanisms.
+* Developed and maintained CI/CD pipelines using Jenkins and GitLab CI, ensuring automated build, testing, and deployment processes.
+* Collaborated with cross-functional teams (product, engineering, operations) to define requirements, design solutions, and deliver high-quality software.
+
+**Acme Corp | Frontend Developer | 2018 – 2020**
+
+* Developed and maintained a single-page application using Vue.js, Vuex, and Nuxt.js.
+* Implemented responsive designs and ensured cross-browser compatibility.
+* Wrote unit and integration tests using Vitest and Jest.
+* Improved website performance by optimizing image sizes and leveraging browser caching.
+* Contributed to the development of a new design system, resulting in a more consistent and user-friendly experience.
+
+**Projects**
+
+* **Personal Portfolio Website (Vue.js, Nuxt.js, SCSS):** Developed a personal portfolio website showcasing my skills and experience. Implemented a blog using Markdown and a custom content management system.
+* **E-commerce Platform (Vue.js, Vuex, Node.js, PostgreSQL):** Built a full-stack e-commerce platform with features such as product catalog, shopping cart, and checkout process.
+* **Task Management Application (Vue.js, Firebase):** Created a real-time task management application using Vue.js and Firebase. Implemented features such as task creation, assignment, and tracking.
+* **Data Visualization Dashboard (Vue.js, D3.js):** Designed and developed a data visualization dashboard displaying key metrics and insights. Used D3.js to create interactive charts and graphs.
+
+**Education**
+
+**Cornell University | Bachelor of Science in Computer Science | 2014 – 2018**
+
+* GPA: 3.8/4.0
+* Relevant Coursework: Data Structures and Algorithms, Database Systems, Operating Systems, Computer Networks, Software Engineering
+
+**Certifications**
+
+* AWS Certified Solutions Architect – Associate
+* Certified Kubernetes Administrator (CKA) - Expired (Plan to renew)

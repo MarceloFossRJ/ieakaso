@@ -1,0 +1,61 @@
+Aisha Rodriguez
+(555) 123-4567 | aisha.rodriguez@email.com | linkedin.com/in/aisharodriguez | github.com/aisharodriguez
+
+SUMMARY
+
+Highly accomplished and results-driven Embedded Systems Engineer with 9 years of experience in designing, developing, and deploying scalable data solutions. Proven ability to leverage data analytics and machine learning to improve customer experience, optimize infrastructure, and drive significant cost savings. Expertise in Python, Spark, Airflow, Snowflake, dbt, Kafka, and Databricks.
+
+EXPERIENCE
+
+Stripe | Staff Data Engineer | San Francisco, CA | 2020 – Present
+
+*   Architected and implemented a real-time churn prediction system using Spark and Kafka, reducing customer churn by 58% through targeted interventions.
+*   Engineered data pipelines using Airflow and Databricks to process and transform large datasets for machine learning models.
+*   Optimized Snowflake database queries, resulting in 40% faster read times and improved overall system performance.
+*   Led a team of 3 engineers in the development of a new data governance framework, ensuring data quality and compliance.
+*   Reduced infrastructure costs by $500K annually by identifying and eliminating redundant data storage and processing.
+
+Lyft | Senior Data Engineer | San Francisco, CA | 2017 – 2020
+
+*   Spearheaded the development of a CI/CD pipeline using Jenkins and Docker, reducing release time by 40% and improving deployment frequency.
+*   Developed and maintained data pipelines for real-time ride tracking and pricing using Kafka and Spark Streaming.
+*   Optimized PostgreSQL database queries, improving read times by 81%.
+*   Increased test coverage from 37% to 78% by implementing a comprehensive testing strategy using Pytest.
+*   Collaborated with product managers and data scientists to define key performance indicators (KPIs) and develop dashboards for monitoring business performance.
+
+Intel Corporation | Embedded Systems Engineer | Santa Clara, CA | 2015 – 2017
+
+*   Designed and implemented embedded software for Intel's next-generation processors.
+*   Developed and tested device drivers for various peripherals.
+*   Collaborated with hardware engineers to debug and resolve hardware-software integration issues.
+
+EDUCATION
+
+Georgia Institute of Technology | Atlanta, GA | Bachelor of Science in Computer Science | 2015
+
+CERTIFICATIONS
+
+*   AWS Certified Data Analytics – Specialty
+*   Google Cloud Certified Professional Data Engineer
+*   Kubernetes Certified Application Developer (CKAD)
+
+PROJECTS
+
+*   Customer Churn Prediction: Developed a machine learning model to predict customer churn using Python, scikit-learn, and Spark.
+*   Real-time Ride Tracking: Implemented a real-time ride tracking system using Kafka, Spark Streaming, and GeoJSON.
+*   Data Pipeline Optimization: Optimized a data pipeline using Airflow and Databricks, reducing processing time by 30%.
+*   Automated Data Validation: Built a tool for automatically validating data quality using Python and Great Expectations.
+*   Anomaly Detection: Created an anomaly detection system using time-series analysis techniques to identify unusual patterns in data.
+
+SKILLS
+
+Programming Languages: Python, Java, C++, SQL
+Data Engineering: Spark, Airflow, Kafka, Snowflake, Databricks, dbt, Hadoop, Hive
+Cloud Technologies: AWS (S3, EC2, Lambda, EMR), GCP (BigQuery, Dataflow, Cloud Functions)
+Databases: PostgreSQL, MySQL, MongoDB
+DevOps: Docker, Kubernetes, Jenkins, Git
+Machine Learning: scikit-learn, TensorFlow, PyTorch
+Operating Systems: Linux, Windows
+Embedded Systems: RTOS, Device Drivers, Firmware Development
+Version Control: Git, GitHub, GitLab
+Agile Methodologies: Scrum, Kanban

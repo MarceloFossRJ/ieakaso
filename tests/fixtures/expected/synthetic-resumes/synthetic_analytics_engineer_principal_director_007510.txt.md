@@ -1,0 +1,66 @@
+Naomi Singh-O'Connell
+(555) 123-4567 | naomi.singh.oconnell@email.com | linkedin.com/in/naomisinghoconnell | github.com/naomisinghoconnell
+
+SUMMARY
+
+Highly accomplished and results-oriented Analytics Engineer with 16 years of experience in designing, developing, and deploying robust and scalable data solutions. Proven ability to lead cross-functional teams, drive innovation, and deliver impactful results within fast-paced environments. Expertise in data warehousing, ETL processes, machine learning, and cloud technologies. Adept at transforming complex business requirements into actionable insights and data-driven strategies. Passionate about leveraging technology to solve real-world problems.
+
+EXPERIENCE
+
+Airbnb | Principal Analytics Engineer | San Francisco, CA | 2018 – Present
+
+* Led a team of 8 engineers in developing and maintaining critical data pipelines, achieving a 42% improvement in uptime for core production systems.
+* Spearheaded the migration of 50 microservices to Kubernetes, resulting in improved scalability and resource utilization.
+* Drove the implementation of CI/CD pipelines, reducing release time by 42% and increasing deployment frequency from monthly to 100x daily.
+* Architected and developed a real-time data ingestion pipeline using Kafka and Spark Streaming, processing over 1 billion events per day.
+* Built and deployed a machine learning model to predict user churn, achieving 24% accuracy in A/B testing within the production environment.
+* Mentored junior engineers and fostered a collaborative and innovative team environment.
+
+Lyft | Senior Data Engineer | San Francisco, CA | 2014 – 2018
+
+* Designed and implemented scalable ETL processes for ingesting and transforming large datasets from various sources, including ride data, driver information, and pricing data.
+* Optimized existing data pipelines, resulting in a 30% reduction in processing time and improved data quality.
+* Developed and maintained data warehouses using Snowflake and Redshift, ensuring data accessibility and integrity for business stakeholders.
+* Collaborated with product managers and data scientists to define key performance indicators (KPIs) and build dashboards for monitoring business performance.
+* Contributed to the development of a fraud detection system that identified and prevented $1 million in fraudulent transactions annually.
+
+Google | Software Engineer | Mountain View, CA | 2010 – 2014
+
+* Developed and maintained large-scale distributed systems for data processing and analysis.
+* Contributed to the development of internal tools and frameworks for improving developer productivity.
+* Worked on a team responsible for improving the performance and scalability of Google's search infrastructure.
+* Wrote clean, efficient, and well-documented code in Java and Python.
+
+PROJECTS
+
+Real-Time Fraud Detection System (Airbnb)
+* Designed and implemented a real-time fraud detection system using machine learning techniques to identify and prevent fraudulent bookings.
+
+Personalized Recommendation Engine (Lyft)
+* Built a personalized recommendation engine that suggests rides and services based on user preferences and historical data.
+
+Customer Churn Prediction Model (Airbnb)
+* Developed a machine learning model to predict customer churn, enabling proactive interventions to retain customers.
+
+Open-Source Data Pipeline Library
+* Created an open-source data pipeline library for simplifying data ingestion and transformation processes. (github.com/naomisinghoconnell/datapipe)
+
+SKILLS
+
+Programming Languages: Python, Java, SQL, Dart, Flutter
+Cloud Technologies: AWS (EC2, S3, Lambda, EMR), GCP (Compute Engine, Cloud Storage, Cloud Functions), Kubernetes
+Databases: Snowflake, Redshift, PostgreSQL, MySQL
+Data Processing: Spark, Kafka, Hadoop, Flink
+Machine Learning: scikit-learn, TensorFlow, PyTorch
+CI/CD: Jenkins, GitLab CI, CircleCI
+Data Visualization: Tableau, Looker
+
+CERTIFICATIONS
+
+* AWS Certified Solutions Architect – Professional
+* Google Cloud Certified Professional Data Engineer
+* Certified Kubernetes Administrator (CKA)
+
+EDUCATION
+
+Purdue University | Bachelor of Science in Computer Science | West Lafayette, IN | 2010

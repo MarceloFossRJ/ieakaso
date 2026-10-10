@@ -1,0 +1,55 @@
+```
+**Aisha Ramirez**
+(512) 555-1212 | aisha.ramirez@email.com | linkedin.com/in/aisharamirez | github.com/aisharamirez
+
+**Summary**
+
+Highly motivated and results-oriented Cloud Architect with 9+ years of experience designing, implementing, and managing scalable and resilient cloud-based solutions. Expertise in Node.js, TypeScript, Docker, Azure, and Kubernetes. Proven ability to optimize infrastructure, reduce costs, and lead technical teams to deliver impactful results. Passionate about mentoring junior engineers and fostering a collaborative environment.
+
+**Skills**
+
+*   **Languages:** Node.js, TypeScript, JavaScript, Python
+*   **Frameworks/Libraries:** Express, GraphQL, React
+*   **Databases:** MongoDB, PostgreSQL, MySQL
+*   **Cloud Platforms:** Microsoft Azure (Expert), AWS (Proficient)
+*   **Containerization/Orchestration:** Docker, Kubernetes (CKA Certified)
+*   **Infrastructure as Code:** Terraform, Azure Resource Manager (ARM) Templates
+*   **CI/CD:** Azure DevOps, Jenkins, GitHub Actions
+*   **Monitoring/Logging:** Prometheus, Grafana, ELK Stack
+*   **Operating Systems:** Linux (Ubuntu, CentOS), Windows Server
+*   **Other:** Microservices Architecture, REST APIs, Agile Methodologies
+
+**Experience**
+
+**Notion** | **Senior Cloud Architect** | Austin, TX | 2021 – Present
+
+*   Led the migration of 50+ microservices from legacy infrastructure to a Kubernetes-based platform on Azure, resulting in a 30% improvement in application deployment velocity.
+*   Architected and implemented a cost-optimization strategy leveraging Azure Reserved Instances and auto-scaling policies, reducing annual infrastructure costs by $20,000.
+*   Developed and maintained Infrastructure as Code (IaC) using Terraform, ensuring consistent and repeatable deployments across multiple environments.
+*   Mentored 15 junior engineers on cloud best practices, software design principles, and Azure services, enhancing their technical skills and career development.
+*   Collaborated with cross-functional teams to define and implement cloud security policies and compliance standards.
+
+**Acme Corporation** | **Cloud Engineer** | San Francisco, CA | 2017 – 2021
+
+*   Designed and implemented a highly available and scalable API gateway using Node.js, Express, and GraphQL, improving API response times by 15%.
+*   Optimized database queries in MongoDB, resulting in a 24% reduction in read latency and improved application performance.
+*   Developed and maintained CI/CD pipelines using Azure DevOps, automating the build, test, and deployment processes.
+*   Contributed to the design and implementation of a new microservices architecture, improving system scalability and resilience.
+
+**Education**
+
+**University of Texas at Austin** | Bachelor of Science in Computer Science | Austin, TX | 2013 - 2017
+
+**Certifications**
+
+*   Certified Kubernetes Administrator (CKA)
+*   Microsoft Certified: Azure Solutions Architect Expert
+*   AWS Certified Solutions Architect – Associate
+
+**Projects**
+
+*   **Personal Portfolio Website:** Developed a personal portfolio website using React, Node.js, and deployed on Azure App Service.
+*   **Serverless URL Shortener:** Built a serverless URL shortener using Azure Functions, Azure Cosmos DB, and Node.js.
+*   **Kubernetes Cluster on Azure:** Automated the deployment of a Kubernetes cluster on Azure using Terraform and Azure DevOps.
+*   **Real-time Chat Application:** Created a real-time chat application using Node.js, Socket.IO, and MongoDB, deployed using Docker containers.
+```

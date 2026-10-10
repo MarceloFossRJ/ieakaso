@@ -1,0 +1,66 @@
+Aisha Rodriguez-Kumar
+(555) 123-4567 | a.rodriguez.kumar@email.com | linkedin.com/in/aisharkumar
+
+Summary
+
+Highly accomplished and results-oriented Deep Learning Engineer with 9 years of experience in architecting, developing, and deploying machine learning models at scale. Proven ability to lead teams, optimize performance, and reduce infrastructure costs. Expertise in Python, R, SQL, and cloud technologies. Passionate about mentoring junior engineers and driving innovation.
+
+Experience
+
+Meta, Menlo Park, CA
+Lead Deep Learning Engineer | 2020 – Present
+
+* Led the migration of 500+ microservices to Kubernetes, resulting in improved scalability and resilience.
+* Mentored 100+ junior engineers on machine learning best practices, code optimization, and software development methodologies.
+* Architected and deployed a novel machine learning model for fraud detection, achieving 41% accuracy in production and reducing fraudulent transactions.
+* Optimized database queries, resulting in a 63% improvement in read speeds and enhanced application performance.
+* Reduced annual infrastructure costs by $15K by identifying and eliminating redundant resources and implementing cost-effective cloud solutions.
+
+Amazon Web Services (AWS), Seattle, WA
+Senior Data Scientist | 2017 – 2020
+
+* Engineered scalable data pipelines using AWS services (EMR, S3, Redshift) for real-time data processing and analysis.
+* Developed and deployed machine learning models for personalized product recommendations, increasing click-through rates by 15%.
+* Collaborated with cross-functional teams to define business requirements and translate them into technical specifications.
+* Conducted A/B testing to evaluate the performance of different models and algorithms, ensuring optimal results.
+* Spearheaded the development of a new feature extraction technique that improved model accuracy by 10%.
+
+Tata Consultancy Services (TCS), Mumbai, India
+Data Scientist | 2015 – 2017
+
+* Designed and implemented data mining algorithms to extract valuable insights from large datasets.
+* Built predictive models for customer churn analysis, enabling targeted retention efforts.
+* Created interactive dashboards using Tableau and Power BI to visualize key performance indicators (KPIs).
+* Developed and maintained SQL databases for data storage and retrieval.
+
+Education
+
+Indian Institute of Technology (IIT) Delhi, India
+Bachelor of Technology in Computer Science | 2011 – 2015
+
+Certifications
+
+* AWS Certified Machine Learning – Specialty
+* Google Cloud Certified Professional Data Engineer
+* Certified Kubernetes Administrator (CKA)
+
+Projects
+
+* Customer Churn Prediction: Developed a machine learning model using Python and scikit-learn to predict customer churn with 80% accuracy.
+* Sales Forecasting: Built a time series model using R and ARIMA to forecast future sales based on historical data.
+* Fraud Detection System: Created a real-time fraud detection system using anomaly detection techniques and machine learning algorithms.
+* Sentiment Analysis: Implemented a sentiment analysis model to analyze customer reviews and identify areas for improvement.
+* Image Recognition: Developed an image recognition model using TensorFlow and CNNs to classify images with high accuracy.
+
+Skills
+
+Programming Languages: Python, R, SQL
+Data Visualization: Tableau, Power BI, Looker
+Cloud Computing: AWS (EMR, S3, Redshift), Google Cloud Platform (GCP)
+Machine Learning: scikit-learn, TensorFlow, PyTorch
+Databases: MySQL, PostgreSQL
+Big Data: Hadoop, Spark
+Tools: Git, Docker, Kubernetes
+Operating Systems: Linux, Windows
+
+Keywords: Deep Learning, Machine Learning, Data Science, Python, R, SQL, AWS, GCP, Kubernetes, TensorFlow, PyTorch, Tableau, Power BI, Looker, Data Mining, Predictive Modeling, Data Visualization, Regression, Classification, Clustering, Natural Language Processing (NLP), Time Series Analysis, A/B Testing, Data Engineering, Big Data, Hadoop, Spark, Docker, Git, Linux.

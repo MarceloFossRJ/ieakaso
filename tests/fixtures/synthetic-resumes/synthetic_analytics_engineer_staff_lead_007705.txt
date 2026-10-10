@@ -1,0 +1,57 @@
+**Anika Sharma-Nguyen**
+(123) 456-7890 | anika.sharma.nguyen@email.com | LinkedIn Profile URL
+
+**Summary**
+
+Highly accomplished and results-oriented Analytics Engineer with 9+ years of experience in designing, building, and optimizing data pipelines and microservices architectures. Proven ability to leverage cloud technologies (AWS, GCP) and automation tools (Terraform, Ansible, Kubernetes) to improve system performance, scalability, and reliability. Passionate about driving data-driven decision-making and contributing to impactful business outcomes. Seeking a challenging and rewarding Lead Analytics Engineer role where I can leverage my expertise to build innovative solutions.
+
+**Experience**
+
+**Meta | Staff Analytics Engineer | Menlo Park, CA | 2019 – Present**
+
+*   Led the design and implementation of a microservices architecture for a critical data ingestion pipeline, serving 5,000 requests per minute and reducing operational costs by 18%.
+*   Engineered and optimized critical API endpoints, resulting in a 53% reduction in average latency and improved user experience for millions of users.
+*   Spearheaded the migration of legacy data infrastructure to a modern, cloud-native architecture on AWS, leveraging Terraform and Kubernetes for infrastructure as code and container orchestration.
+*   Mentored and guided a team of 4 junior engineers, fostering a collaborative and high-performing environment.
+*   Developed and maintained CI/CD pipelines using Jenkins, ensuring automated testing and deployment of data engineering solutions.
+
+**DataSolutions Inc. | Senior Analytics Engineer | San Francisco, CA | 2016 – 2019**
+
+*   Architected and implemented scalable data pipelines using Apache Spark and Kafka to process and analyze large datasets from diverse sources.
+*   Optimized data warehousing processes, reducing query execution time by 41% through efficient data modeling and indexing techniques.
+*   Developed and maintained data quality monitoring dashboards using Prometheus and Grafana, ensuring data accuracy and reliability.
+*   Collaborated with data scientists and business analysts to understand their data needs and deliver actionable insights.
+
+**Acme Corporation | Data Engineer | Toronto, Canada | 2014 – 2016**
+
+*   Built and maintained ETL pipelines using Python and SQL to extract, transform, and load data into a relational database.
+*   Developed and implemented data validation rules to ensure data integrity and consistency.
+*   Assisted in the design and implementation of a new data warehouse to support business intelligence reporting.
+
+**Projects**
+
+*   **Real-time Data Streaming Platform:** Designed and implemented a real-time data streaming platform using Kafka and Apache Flink to process and analyze sensor data from IoT devices.
+*   **Fraud Detection System:** Developed a machine learning-based fraud detection system using Python and Scikit-learn to identify fraudulent transactions in real-time.
+*   **Customer Churn Prediction Model:** Built a customer churn prediction model using Python and machine learning techniques to identify customers at risk of churn.
+*   **Automated Infrastructure Deployment:** Created an automated infrastructure deployment pipeline using Terraform and Ansible to provision and configure AWS resources.
+
+**Skills**
+
+*   **Cloud Computing:** AWS (EC2, S3, Lambda, IAM, RDS, EMR, ECS, CloudWatch), GCP (Compute Engine, Cloud Storage, Cloud Functions, IAM, Cloud SQL, Cloud Dataproc, GKE)
+*   **Data Engineering:** Apache Spark, Kafka, Flink, Hadoop, Hive, SQL, NoSQL (MongoDB, Cassandra)
+*   **Programming Languages:** Python, Java, Scala
+*   **Infrastructure as Code:** Terraform, Ansible, CloudFormation
+*   **Containerization:** Docker, Kubernetes
+*   **CI/CD:** Jenkins, GitLab CI
+*   **Monitoring & Alerting:** Prometheus, Grafana, CloudWatch
+*   **Data Warehousing:** Snowflake, Redshift
+
+**Education**
+
+**University of Toronto | Bachelor of Science in Computer Science | Toronto, Canada**
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Administrator (CKA)

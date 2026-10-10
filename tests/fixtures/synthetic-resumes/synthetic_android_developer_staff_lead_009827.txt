@@ -1,0 +1,62 @@
+Aaliyah Chen-Rodriguez
+(555) 123-4567 | a.chenrodriguez@email.com | linkedin.com/in/aaliyahchenrodriguez
+
+SUMMARY
+
+Highly motivated and results-driven Android Developer with 9 years of experience designing, developing, and implementing innovative mobile solutions. Expertise in C#, .NET Core, SQL Server, RabbitMQ, Azure, and Docker. Proven ability to leverage data analytics to improve user experience and drive business growth. Passionate about mentoring and fostering a collaborative team environment.
+
+EXPERIENCE
+
+Canva | Sydney, Australia | Senior Android Engineer | 2021 – Present
+
+* Led the development and implementation of new features for the Canva Android application, resulting in a 20% increase in user engagement.
+* Spearheaded the migration of the backend infrastructure to Azure, improving system scalability by 35% and reducing operational costs by 15%.
+* Reduced customer churn by 45% by developing and implementing predictive analytics models to identify at-risk users and proactively address their needs.
+* Mentored 3 junior engineers, providing guidance on best practices and code quality standards.
+
+Netflix | Los Gatos, CA | Android Developer | 2018 – 2021
+
+* Architected and engineered a new recommendation engine for the Netflix Android app, utilizing machine learning algorithms to personalize user content suggestions, leading to a 12% increase in content discovery.
+* Optimized the performance of the Android video player, reducing buffering times by 25% and improving overall user experience.
+* Integrated the Android application with RabbitMQ for real-time data processing, improving application responsiveness and data accuracy.
+* Collaborated with cross-functional teams to design and implement A/B tests to optimize user interface elements and improve conversion rates, resulting in a 10% increase in subscription sign-ups.
+
+Microsoft | Redmond, WA | Software Engineer | 2015 – 2018
+
+* Developed and maintained core components of the Microsoft Outlook Android application using C# and .NET Core.
+* Engineered a new synchronization mechanism for email and calendar data, improving data consistency and reducing synchronization errors by 30%.
+* Contributed to the design and implementation of a new user interface for the Android application, improving user satisfaction and engagement.
+
+PROJECTS
+
+Predictive Churn Model | Personal Project | 2023
+
+* Developed a machine learning model using Python and scikit-learn to predict customer churn based on user behavior data, achieving 85% accuracy.
+* Integrated the model with a real-time dashboard using Flask and Azure to visualize churn risk and identify key drivers.
+
+Mobile Banking Application | Personal Project | 2022
+
+* Designed and developed a mobile banking application using Kotlin and Android Jetpack components, including Room, ViewModel, and LiveData.
+* Implemented features such as account management, transaction history, and mobile check deposit.
+
+E-commerce Platform | Personal Project | 2021
+
+* Built a RESTful API using .NET Core and SQL Server to support an e-commerce platform.
+* Implemented features such as user authentication, product management, and order processing.
+
+SKILLS
+
+Languages: C#, Kotlin, Java, SQL, Python
+Frameworks/Technologies: .NET Core, Android SDK, Android Jetpack, SQL Server, RabbitMQ, Azure, Docker, Kubernetes, REST APIs, Git
+Cloud: Azure (Azure Functions, Azure Storage, Azure DevOps), AWS (Basic Knowledge)
+Databases: SQL Server, SQLite, NoSQL (Basic Knowledge)
+Tools: Android Studio, Visual Studio, IntelliJ IDEA, Git, Jira, Confluence
+
+CERTIFICATIONS
+
+* Azure Developer Associate
+* AWS Certified Cloud Practitioner
+
+EDUCATION
+
+Purdue University | West Lafayette, IN | Bachelor of Science in Computer Science | 2015

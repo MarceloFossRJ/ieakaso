@@ -1,0 +1,62 @@
+**Jamal Rodriguez**
+(555) 123-4567 | jamal.rodriguez@email.com | linkedin.com/in/jamalrodriguez | github.com/jamalrodriguez
+
+**Summary**
+
+Highly accomplished and results-driven Principal Backend Engineer with 16+ years of experience in designing, developing, and deploying scalable and high-performance data-driven applications. Proven ability to lead teams, drive innovation, and deliver significant business impact through data science and machine learning solutions. Expertise in Python, TensorFlow, PyTorch, and AWS SageMaker. Passionate about building and optimizing systems that scale to millions of users.
+
+**Experience**
+
+**Instacart, San Francisco, CA**
+**Principal Engineer** | 2018 – Present
+
+*   Led the development and implementation of a predictive analytics platform that reduced customer churn by 53% within the first quarter of launch, resulting in $2M+ annual savings.
+*   Architected a real-time analytics pipeline capable of processing 500 million events per day, providing critical insights into user behavior and platform performance.
+*   Spearheaded the initiative to improve test coverage across core services, increasing from 26% to 79% and significantly reducing production incidents.
+*   Mentored a team of 8 engineers, fostering a culture of innovation and continuous improvement.
+*   Drove the adoption of new technologies and best practices, resulting in a 30% improvement in team velocity.
+
+**Netflix, Los Gatos, CA**
+**Senior Software Engineer** | 2014 – 2018
+
+*   Developed and deployed machine learning models to personalize content recommendations, resulting in a 12% increase in user engagement.
+*   Built and maintained large-scale data pipelines using Spark and Kafka to support real-time personalization and analytics.
+*   Improved the performance of key recommendation algorithms, reducing latency by 40% and improving user experience.
+*   Collaborated with data scientists and product managers to identify opportunities for data-driven innovation.
+*   Optimized the performance of existing code base, resulting in a 25% reduction in processing time and infrastructure costs.
+
+**Amazon, Seattle, WA**
+**Software Development Engineer** | 2010 – 2014
+
+*   Designed and implemented a scalable system for processing and analyzing customer reviews, enabling more effective fraud detection and improved product quality.
+*   Developed a machine learning model to predict customer purchasing behavior, achieving 26% accuracy in production and driving significant revenue growth.
+*   Built and maintained RESTful APIs for internal services, ensuring high availability and scalability.
+*   Contributed to the design and implementation of a new data warehouse, improving data accessibility and analytical capabilities.
+
+**Education**
+
+**Purdue University, West Lafayette, IN**
+Bachelor of Science in Computer Science | 2010
+
+**Certifications**
+
+*   AWS Certified Machine Learning – Specialty
+*   AWS Certified Solutions Architect – Associate
+*   Google Cloud Professional Data Engineer
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **Personalized Recommendation Engine:** Built a recommendation engine using collaborative filtering and content-based methods, leveraging Python, PyTorch, and deployed on AWS SageMaker.
+*   **Real-Time Anomaly Detection:** Developed a system for detecting anomalies in real-time data streams using statistical methods and machine learning algorithms. Leveraged Kafka streams and deployed on Kubernetes.
+*   **Customer Churn Prediction:** Developed and deployed a machine learning model to predict customer churn, resulting in a significant reduction in churn rate. Used Python, Scikit-learn, and deployed on AWS.
+
+**Skills**
+
+*   **Programming Languages:** Python, Java, C++
+*   **Machine Learning:** TensorFlow, PyTorch, Scikit-learn, Pandas, NumPy
+*   **Cloud Computing:** AWS (SageMaker, EC2, S3, Lambda, DynamoDB), GCP (Compute Engine, Cloud Storage, Cloud Functions), Azure
+*   **Big Data:** Spark, Hadoop, Kafka
+*   **Databases:** SQL (MySQL, PostgreSQL), NoSQL (MongoDB, Cassandra)
+*   **DevOps:** Docker, Kubernetes, Jenkins, Git
+*   **Operating Systems:** Linux, Windows, macOS

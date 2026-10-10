@@ -1,0 +1,68 @@
+Amara Jackson-Kim
+(555) 123-4567 | amara.jk@email.com | linkedin.com/in/amarajacksonkim
+
+SUMMARY
+
+Highly accomplished and results-driven Full Stack Developer with 16 years of experience designing, developing, and scaling high-performance data-intensive applications. Proven ability to lead engineering teams, optimize infrastructure costs, and improve user experience. Expertise in Python, Spark, Airflow, Snowflake, dbt, Kafka, and Databricks. Passionate about mentoring junior engineers and driving innovation.
+
+EXPERIENCE
+
+Lyft, San Francisco, CA
+Principal Engineer | 2018 – Present
+
+* Led the design and implementation of a real-time data pipeline for fraud detection, resulting in a 15% reduction in fraudulent transactions.
+* Architected and built a scalable data warehousing solution using Snowflake and dbt, enabling faster and more efficient data analysis.
+* Optimized Spark jobs for ETL processes, reducing processing time by 30% and infrastructure costs by $2,000 annually.
+* Mentored 10 junior engineers, providing guidance on best practices and career development.
+* Scaled the recommendation system backend to handle over 2 million daily active users, ensuring high availability and low latency.
+
+Airbnb, San Francisco, CA
+Senior Software Engineer | 2015 – 2018
+
+* Developed and maintained key components of the booking platform using Python and Flask.
+* Implemented a new search algorithm that improved search relevance by 20%.
+* Reduced page load time by 50% by optimizing front-end code and caching strategies.
+* Collaborated with product managers and designers to deliver high-quality user experiences.
+
+Microsoft, Redmond, WA
+Software Engineer | 2011 – 2015
+
+* Contributed to the development of Azure Data Lake Analytics, a big data analytics service.
+* Designed and implemented scalable data ingestion pipelines using Apache Kafka and Apache Spark.
+* Automated deployment and monitoring processes using Ansible and Kubernetes.
+
+EDUCATION
+
+University of Washington, Seattle, WA
+Bachelor of Science in Computer Science | 2011
+
+CERTIFICATIONS
+
+* AWS Certified Solutions Architect – Associate
+* Databricks Certified Associate Developer for Apache Spark
+* Google Cloud Professional Data Engineer
+
+PROJECTS
+
+* Real-Time Fraud Detection System: Developed a real-time system using Kafka and Spark Streaming to identify and prevent fraudulent transactions.
+* Scalable Data Warehouse: Built a data warehouse using Snowflake and dbt to provide business intelligence insights.
+* Recommendation Engine: Created a personalized recommendation engine using machine learning algorithms.
+* ETL Pipeline Optimization: Refactored and optimized an existing ETL pipeline using Spark and Airflow, improving performance by 40%.
+* Open Source Contribution: Contributed to an open-source Python library for data analysis.
+
+SKILLS
+
+Programming Languages: Python, Java, Scala, SQL
+Big Data Technologies: Spark, Hadoop, Kafka, Hive, Pig
+Cloud Platforms: AWS, Azure, GCP
+Databases: Snowflake, PostgreSQL, MySQL, MongoDB
+Data Warehousing: dbt, Redshift
+ETL Tools: Airflow, Luigi
+DevOps: Docker, Kubernetes, Ansible, Terraform
+Machine Learning: scikit-learn, TensorFlow, PyTorch
+Agile Methodologies: Scrum, Kanban
+Operating Systems: Linux, Windows, macOS
+Version Control: Git
+Monitoring: Prometheus, Grafana
+Testing: Unit testing, Integration testing, End-to-end testing
+Data Modeling: Star Schema, Snowflake Schema

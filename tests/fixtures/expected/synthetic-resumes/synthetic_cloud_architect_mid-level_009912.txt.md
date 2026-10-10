@@ -1,0 +1,55 @@
+**Aisha Rodriguez**
+(555) 123-4567 | aisha.rodriguez@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly motivated and results-oriented Cloud Architect with 4+ years of experience designing, implementing, and optimizing cloud-based solutions using Python, Django, FastAPI, and AWS. Proven ability to improve system performance, reduce infrastructure costs, and drive innovation. Seeking a challenging role to leverage expertise in microservices architecture and cloud technologies to contribute to a dynamic organization.
+
+**Skills**
+
+*   **Programming Languages:** Python, JavaScript, SQL
+*   **Frameworks/Libraries:** Django, FastAPI, React, Pandas, NumPy
+*   **Databases:** PostgreSQL, Redis, MongoDB
+*   **Cloud Platforms:** Amazon Web Services (AWS) (EC2, S3, Lambda, RDS, ECS, EKS, CloudWatch, IAM), Google Cloud Platform (GCP) (Basic Familiarity)
+*   **DevOps:** Docker, Kubernetes, Terraform, CI/CD (Jenkins, GitLab CI)
+*   **Operating Systems:** Linux (Ubuntu, CentOS), macOS
+*   **Monitoring & Logging:** Prometheus, Grafana, ELK Stack (Elasticsearch, Logstash, Kibana)
+*   **Version Control:** Git
+*   **Agile Methodologies:** Scrum, Kanban
+
+**Experience**
+
+**Lyft, San Francisco, CA**
+**Cloud Architect** | June 2020 – Present
+
+*   Architected and implemented a scalable microservices architecture serving 10,000 requests per minute (RPM), improving system reliability and performance.
+*   Optimized API endpoints, reducing latency by 52% through code profiling and database query optimization.
+*   Reduced infrastructure costs by $10,000 annually by identifying and eliminating underutilized resources and implementing cost-effective scaling strategies.
+*   Spearheaded efforts to improve uptime for critical production systems, achieving a 34% increase in availability.
+*   Collaborated with cross-functional teams (engineering, product, operations) to define and implement cloud-based solutions aligned with business objectives.
+
+**Acme Corporation, Mountain View, CA**
+**Software Engineer** | July 2018 – June 2020
+
+*   Developed and maintained RESTful APIs using Python, Django, and PostgreSQL for a high-traffic e-commerce platform.
+*   Implemented CI/CD pipelines using Jenkins and Docker, automating the build, test, and deployment process.
+*   Contributed to the design and implementation of a data pipeline for processing and analyzing large datasets, improving data insights.
+*   Reduced infrastructure costs by $2,000 annually by migrating legacy systems to AWS Lambda functions.
+
+**Education**
+
+**Carnegie Mellon University, Pittsburgh, PA**
+Bachelor of Science in Computer Science | August 2014 – May 2018
+*   GPA: 3.8/4.0
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   AWS Certified Developer – Associate
+
+**Projects**
+
+*   **Personal Portfolio Website (React, AWS):** Developed a personal portfolio website hosted on AWS S3 and CloudFront, showcasing projects and skills.
+*   **Data Analysis Dashboard (Python, Pandas, Flask):** Created a data analysis dashboard using Python, Pandas, and Flask to visualize and analyze stock market data.
+*   **Task Management API (Python, FastAPI, PostgreSQL, Docker):** Designed and implemented a RESTful API for task management using FastAPI, PostgreSQL, and Docker. Deployed on AWS ECS.
+*   **Cloud Cost Optimization Tool (Python, AWS):** Built a tool to analyze AWS cost data and identify optimization opportunities using Python and AWS APIs.

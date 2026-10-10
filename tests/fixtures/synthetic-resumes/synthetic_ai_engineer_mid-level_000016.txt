@@ -1,0 +1,58 @@
+**Aisha Rodriguez-Chen**
+(123) 456-7890 | aisha.rodriguez.chen@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly motivated and results-oriented AI Engineer with 4 years of experience in developing and deploying innovative solutions within the FinTech industry. Proven ability to optimize performance, improve code quality, and lead technical initiatives. Expertise in Swift, SwiftUI, Combine, Core Data, Firebase, and Kubernetes. Seeking a challenging role where I can leverage my skills to contribute to the success of a forward-thinking organization.
+
+**Skills**
+
+**Programming Languages:** Swift, Python
+**Mobile Frameworks/Libraries:** SwiftUI, UIKit, Combine, Core Data
+**Backend Technologies:** Firebase (Authentication, Firestore, Cloud Functions), Node.js, REST APIs
+**Cloud Technologies:** AWS (EC2, S3, Lambda), Kubernetes, Docker
+**Testing:** XCTest, TestFlight, Unit Testing, UI Testing, Integration Testing
+**AI/ML:** Core ML, TensorFlow Lite
+**Databases:** Core Data, Firestore, MongoDB
+**Tools:** Xcode, Git, Jira, Confluence, CI/CD pipelines (Jenkins, GitHub Actions)
+
+**Experience**
+
+**Senior iOS Engineer | FinTech Startup | San Francisco, CA | June 2020 – Present**
+
+*   Engineered and maintained the core iOS application for a mobile banking platform with over 500,000 users.
+*   Optimized API performance, resulting in a 78% reduction in latency and improved user experience.
+*   Spearheaded a company-wide initiative to increase code coverage, raising test coverage from 27% to 74% using XCTest.
+*   Developed and implemented new features using Swift, SwiftUI, Combine, Core Data, and Firebase, adhering to agile development methodologies.
+*   Collaborated with cross-functional teams (product, design, backend) to deliver high-quality software on time and within budget.
+
+**Software Engineer | Mobile App Development Company | New York, NY | August 2018 – June 2020**
+
+*   Developed and maintained iOS applications for various clients, including e-commerce, social networking, and productivity apps.
+*   Contributed to the design and implementation of RESTful APIs using Node.js and Express.
+*   Improved code quality and maintainability through code reviews, unit testing, and refactoring.
+*   Optimized API performance, resulting in a 23% reduction in latency by improving query efficiency.
+*   Increased test coverage from 30% to 73% by writing comprehensive unit and UI tests.
+
+**Projects**
+
+**AI-Powered Expense Tracker (Personal Project)**
+
+*   Developed a mobile app using Swift and Core ML that automatically categorizes expenses based on image recognition and natural language processing.
+
+**Smart Home Automation System (Personal Project)**
+
+*   Built a system using Raspberry Pi, Python, and Firebase to control smart home devices remotely.
+
+**Kubernetes Microservice Migration (FinTech Startup)**
+
+*   Led the migration of two critical microservices from a monolithic architecture to a Kubernetes cluster, resulting in improved scalability and resilience.
+
+**Certifications**
+
+*   AWS Certified Cloud Practitioner
+*   Certified Kubernetes Administrator (CKA)
+
+**Education**
+
+**Massachusetts Institute of Technology (MIT) | Cambridge, MA | Bachelor of Science in Computer Science | May 2018**

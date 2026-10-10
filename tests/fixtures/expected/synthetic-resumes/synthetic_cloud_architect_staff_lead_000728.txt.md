@@ -1,0 +1,64 @@
+**Aaliyah Ramirez Chen**
+(555) 123-4567 | aaliyah.ramirez.chen@email.com | LinkedIn Profile URL
+
+**Summary**
+
+Highly accomplished and results-driven Cloud Architect with 9 years of experience in designing, developing, and deploying scalable and resilient cloud-based solutions. Proven ability to lead complex migration projects, optimize performance, and mentor engineering teams. Expertise in Java, Spring Boot, Kafka, Kubernetes, and GCP. Passionate about leveraging technology to drive business innovation and improve user experience.
+
+**Skills**
+
+*   **Languages:** Java, Python, SQL, Go
+*   **Frameworks/Libraries:** Spring Boot, Hibernate, React, Node.js
+*   **Databases:** MySQL, PostgreSQL, MongoDB, Redis
+*   **Cloud Platforms:** Google Cloud Platform (GCP), Amazon Web Services (AWS)
+*   **Containerization:** Docker, Kubernetes, Helm
+*   **Messaging:** Kafka, RabbitMQ, Pub/Sub
+*   **CI/CD:** Jenkins, GitLab CI, CircleCI, ArgoCD
+*   **Monitoring/Logging:** Prometheus, Grafana, ELK Stack (Elasticsearch, Logstash, Kibana)
+*   **Infrastructure as Code:** Terraform, CloudFormation
+*   **Operating Systems:** Linux, Windows
+*   **Agile Methodologies:** Scrum, Kanban
+
+**Experience**
+
+**Canva, Mountain View, CA**
+**Senior Cloud Architect** | June 2021 – Present
+
+*   Architected and led the migration of 20 microservices to Kubernetes on GCP, resulting in a 25% reduction in infrastructure costs.
+*   Optimized database queries using indexing and query tuning techniques, achieving a 75% faster read performance for critical application endpoints.
+*   Improved application performance by reducing average page load time by 71% through code optimization and caching strategies.
+*   Implemented CI/CD pipelines using GitLab CI, reducing release cycle time by 68% and increasing deployment frequency.
+*   Mentored 10 junior engineers in cloud technologies, best practices, and software development principles.
+
+**Netflix, Los Gatos, CA**
+**Cloud Engineer** | August 2018 – June 2021
+
+*   Designed and implemented scalable and resilient microservices using Java, Spring Boot, and Kafka for the content recommendation engine.
+*   Developed and maintained infrastructure as code using Terraform to provision and manage cloud resources on AWS, reducing manual effort by 40%.
+*   Automated deployment processes using Jenkins and Docker, enabling continuous delivery and improving deployment efficiency by 50%.
+*   Contributed to the development of monitoring and alerting systems using Prometheus and Grafana, ensuring high availability and performance of critical services.
+
+**Accenture, Chicago, IL**
+**Software Engineer** | June 2014 – August 2018
+
+*   Developed enterprise applications using Java, Spring, and Hibernate for various clients in the financial services and healthcare industries.
+*   Participated in all phases of the software development lifecycle, including requirements gathering, design, development, testing, and deployment.
+*   Worked closely with clients to understand their business needs and translate them into technical solutions.
+
+**Projects**
+
+*   **Personal Portfolio Website:** Developed a personal website using React, Node.js, and AWS to showcase skills and projects.
+*   **Open-Source Kafka Connector:** Created an open-source Kafka connector for ingesting data from a specific data source, contributing to the open-source community.
+*   **Kubernetes Autoscaling Solution:** Engineered a custom Kubernetes autoscaling solution based on custom metrics, optimizing resource utilization and reducing costs.
+
+**Education**
+
+**University of Illinois at Urbana-Champaign, Champaign, IL**
+Bachelor of Science in Computer Science | May 2014
+
+**Certifications**
+
+*   Google Cloud Certified Professional Cloud Architect
+*   AWS Certified Solutions Architect – Associate
+*   Certified Kubernetes Administrator (CKA)
+*   Spring Professional Certification

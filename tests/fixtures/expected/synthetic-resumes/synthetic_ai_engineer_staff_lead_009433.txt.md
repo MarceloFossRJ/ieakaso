@@ -1,0 +1,55 @@
+**Aisha Ramirez Chen**
+(555) 123-4567 | aisha.ramirez.chen@email.com | linkedin.com/in/aisharamirezchen | github.com/aisharc
+
+**Summary**
+
+Highly accomplished and results-driven AI Engineer with 9+ years of experience in designing, developing, and deploying scalable and resilient AI-powered systems. Proven ability to lead teams, optimize performance, and drive innovation across complex technological landscapes. Expertise in Go, gRPC, PostgreSQL, Redis, Kubernetes, Prometheus, and AWS. Passionate about leveraging AI to solve real-world problems and deliver impactful solutions.
+
+**Experience**
+
+**Apple, Cupertino, CA**
+**Staff AI Engineer** | June 2018 – Present
+
+*   Led the migration of 10 critical microservices from monolithic architecture to a Kubernetes-based infrastructure, resulting in a 30% reduction in infrastructure costs.
+*   Spearheaded the implementation of a CI/CD pipeline using Jenkins and ArgoCD, reducing release time by 23% and improving deployment frequency from monthly to 500x daily.
+*   Architected and scaled a real-time AI-powered recommendation system to handle 2M+ daily active users with a 99.99% uptime.
+*   Engineered a novel feature extraction pipeline, improving the accuracy of a fraud detection model by 15%.
+*   Improved overall uptime for critical production systems by 43% through proactive monitoring, automated remediation, and enhanced system resilience.
+
+**Google, Mountain View, CA**
+**Software Engineer** | August 2014 – June 2018
+
+*   Developed and maintained a high-throughput data ingestion pipeline using Go and gRPC, processing 100TB+ of data daily.
+*   Optimized database performance of a PostgreSQL cluster using advanced indexing and query optimization techniques, resulting in a 40% improvement in query response time.
+*   Designed and implemented a distributed caching layer using Redis to improve the performance of a key service, reducing latency by 25%.
+*   Collaborated with cross-functional teams to define and implement API specifications for new features.
+*   Contributed to the development of internal tooling for monitoring and managing Kubernetes deployments.
+
+**Projects**
+
+*   **AI-Powered Chatbot:** Developed a conversational AI chatbot using Go and TensorFlow for answering customer queries, achieving 90% accuracy in intent recognition.
+*   **Fraud Detection System:** Built a real-time fraud detection system using machine learning algorithms to identify and prevent fraudulent transactions, reducing fraud losses by 12%.
+*   **Personalized Recommendation Engine:** Engineered a personalized recommendation engine using collaborative filtering and content-based filtering techniques, increasing click-through rates by 18%.
+*   **Anomaly Detection Tool:** Created an anomaly detection tool for identifying unusual patterns in system logs, helping to proactively identify and resolve potential issues.
+
+**Skills**
+
+*   **Languages:** Go, Python, Java, SQL
+*   **Databases:** PostgreSQL, Redis, MongoDB, MySQL
+*   **Cloud:** AWS (EC2, S3, Lambda, ECS, EKS), GCP (Compute Engine, Cloud Storage, Cloud Functions, GKE)
+*   **DevOps:** Kubernetes, Docker, Jenkins, ArgoCD, Terraform, Prometheus, Grafana
+*   **AI/ML:** TensorFlow, PyTorch, scikit-learn, NLP
+*   **Protocols:** gRPC, REST
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Professional
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Administrator (CKA)
+
+**Education**
+
+**Cornell University, Ithaca, NY**
+Bachelor of Science in Computer Science | May 2014
+GPA: 3.8/4.0
+Relevant Coursework: Artificial Intelligence, Machine Learning, Data Structures and Algorithms, Distributed Systems, Database Systems

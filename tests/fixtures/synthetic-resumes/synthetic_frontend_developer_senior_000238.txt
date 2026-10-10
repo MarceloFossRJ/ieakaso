@@ -1,0 +1,59 @@
+ALEJANDRO TAN
+(123) 456-7890 | alejandro.tan@email.com | linkedin.com/in/alejandrotan | github.com/atan-dev
+
+SUMMARY
+
+Highly motivated and results-oriented Senior Frontend Developer with 7 years of experience building scalable and performant applications, specializing in Kotlin and Jetpack Compose within the Android ecosystem. Proven ability to lead teams, architect complex systems, and improve software quality. Expertise in mobile architecture, microservices, and real-time data processing. Seeking a challenging role where I can leverage my technical skills and leadership experience to contribute to innovative and impactful projects.
+
+EXPERIENCE
+
+Amazon, Seattle, WA
+Senior Android Engineer | 2020 – Present
+
+*   Led the development of a new feature for the Amazon Shopping App using Kotlin and Jetpack Compose, resulting in a 15% increase in user engagement.
+*   Designed and implemented a microservices architecture for personalized product recommendations, handling 5,000 requests per minute (RPM).
+*   Spearheaded the adoption of Dagger for dependency injection, improving code maintainability and testability.
+*   Increased unit test coverage from 21% to 79% across the team's codebase, significantly reducing bug reports.
+*   Mentored and trained over 500 junior engineers on best practices for Android development and software engineering principles through formal training sessions and one-on-one coaching.
+*   Built a real-time analytics pipeline using Firebase processing 500 million events per day, enabling data-driven decision-making for product improvements.
+
+Google, Mountain View, CA
+Android Engineer | 2018 – 2020
+
+*   Developed and maintained key features for the Google Maps Android app using Kotlin and Java.
+*   Optimized the application's performance, resulting in a 10% reduction in battery consumption on low-end devices.
+*   Implemented a new caching mechanism using Room Persistence Library, reducing network requests by 20%.
+*   Collaborated with cross-functional teams to define and implement new product features.
+
+Grab, Singapore
+Software Engineer | 2016 – 2018
+
+*   Developed and maintained features for the Grab Driver app using Java and Android SDK.
+*   Improved the application's reliability and stability by addressing critical bugs and implementing robust error handling.
+*   Contributed to the migration of the app to a more modular architecture.
+
+PROJECTS
+
+*   **Open Source Android Library (Kotlin):** Developed and maintained an open-source Android library for simplifying complex UI interactions using Jetpack Compose. (GitHub: github.com/atan-dev/compose-library)
+*   **Personal Finance Tracker App:** Built a personal finance tracker application using Kotlin, Jetpack Compose, Room, and Retrofit to manage expenses and track budgets.
+*   **Real-Time Chat Application:** Created a real-time chat application using Firebase Realtime Database and Kotlin, demonstrating proficiency in handling asynchronous data and building interactive user interfaces.
+*   **REST API for E-commerce:** Designed and implemented a REST API for an e-commerce platform utilizing Spring Boot (Java). Demonstrated experience with API design principles and database integration.
+
+EDUCATION
+
+National University of Singapore (NUS), Singapore
+Bachelor of Science in Computer Science | 2012 – 2016
+
+SKILLS
+
+*   Languages: Kotlin, Java, SQL, JavaScript
+*   Frameworks/Libraries: Jetpack Compose, Android SDK, Retrofit, Dagger, Room, Firebase, JUnit, Mockito
+*   Tools: Android Studio, Git, Gradle, Jenkins, Docker, Kubernetes, AWS, GCP
+*   Architecture: Microservices, MVVM, Clean Architecture
+*   Testing: Unit Testing, Integration Testing, UI Testing
+
+CERTIFICATIONS
+
+*   AWS Certified Developer – Associate
+*   Google Certified Android Engineer
+*   Certified Kubernetes Application Developer (CKAD)

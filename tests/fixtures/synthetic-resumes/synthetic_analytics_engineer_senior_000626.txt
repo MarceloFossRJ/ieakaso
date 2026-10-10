@@ -1,0 +1,59 @@
+Aaliyah Chen-O'Connell
+(555) 123-4567 | aaliyah.chen.oconnell@email.com | linkedin.com/in/aaliyahchenoconnell | github.com/aliyah-chen
+
+SUMMARY
+
+Senior Analytics Engineer with 7+ years of experience in building and maintaining data pipelines, architecting scalable infrastructure, and mentoring junior engineers. Proven ability to optimize system performance, reduce costs, and improve reliability. Expertise in React Native, TypeScript, Redux, and Kubernetes. Passionate about leveraging data to drive business decisions.
+
+EXPERIENCE
+
+Notion, San Francisco, CA
+Senior Analytics Engineer | 2021 – Present
+
+* Led the migration of 50 microservices to Kubernetes, resulting in a 21% uptime improvement for critical production systems.
+* Reduced annual infrastructure costs by $15K by optimizing resource allocation and identifying cost-saving opportunities within AWS.
+* Increased test coverage from 49% to 87% by implementing comprehensive unit and integration testing strategies.
+* Mentored 5 junior engineers on best practices for data modeling, ETL processes, and software development.
+* Designed and implemented data pipelines using Apache Airflow and Spark to process and analyze large datasets from various sources.
+
+Spotify, New York, NY
+Analytics Engineer | 2018 – 2021
+
+* Engineered and maintained ETL pipelines for processing streaming data, user behavior, and music metadata using Python and SQL.
+* Developed and maintained data visualization dashboards using Tableau and Looker to provide insights into user engagement and content performance.
+* Collaborated with product managers and data scientists to define key metrics and develop data-driven recommendations.
+* Optimized database queries and data storage strategies, resulting in a 15% improvement in query performance.
+* Proactively identified and resolved data quality issues, ensuring the accuracy and reliability of data used for decision-making.
+
+EDUCATION
+
+University of Toronto, Toronto, ON
+Bachelor of Science in Computer Science | 2014 – 2018
+
+SKILLS
+
+Languages: TypeScript, JavaScript, Python, SQL
+Frameworks/Libraries: React Native, React, Redux, Node.js, Express.js, Jest, Enzyme
+Cloud Platforms: AWS (Amazon Web Services), GCP (Google Cloud Platform)
+Databases: PostgreSQL, MySQL, MongoDB
+Tools: Kubernetes, Docker, Apache Airflow, Spark, Kafka, Git, Jenkins, Tableau, Looker
+Methodologies: Agile, Scrum
+
+CERTIFICATIONS
+
+* AWS Certified Solutions Architect – Associate
+* Certified Kubernetes Administrator (CKA)
+
+PROJECTS
+
+Personal Finance Tracker (React Native, TypeScript, Redux)
+* Developed a mobile application for tracking personal expenses, budgeting, and financial analysis.
+
+E-commerce Platform (React, Node.js, MongoDB)
+* Built a full-stack e-commerce platform with features such as product browsing, shopping cart, and order management.
+
+Data Analysis Pipeline (Python, Spark, AWS)
+* Created a data pipeline for analyzing social media data, identifying trends, and generating insights.
+
+Machine Learning Model for Fraud Detection (Python, Scikit-learn)
+* Developed a machine learning model to detect fraudulent transactions based on transaction history and user behavior.

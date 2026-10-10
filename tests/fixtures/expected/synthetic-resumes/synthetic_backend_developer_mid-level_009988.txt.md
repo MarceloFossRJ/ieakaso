@@ -1,0 +1,58 @@
+Aaliyah Chen-Rodriguez
+(555) 123-4567 | a.chenrodriguez@email.com | linkedin.com/in/aaliyahr | github.com/achenrodriguez
+
+SUMMARY
+
+Mid-level Backend Developer with 4 years of experience building scalable and robust applications. Proven ability to design, develop, and deploy high-performance systems using Flutter, Dart, and Firebase. Passionate about optimizing code for efficiency and reliability. Seeking a challenging role where I can leverage my skills to contribute to innovative projects.
+
+EXPERIENCE
+
+Netflix, Los Gatos, CA
+Backend Developer | June 2021 – Present
+
+* Led the migration of 20 microservices to Kubernetes, improving scalability and resilience.
+* Architected a real-time analytics pipeline processing 5 million events per day, providing critical insights into user behavior.
+* Implemented CI/CD pipelines using Jenkins and Docker, reducing release time by 21%.
+* Optimized database queries resulting in 59% faster read times and reduced database load.
+* Improved deployment frequency from monthly to 50x daily by automating the release process.
+
+Spotify, New York, NY
+Software Engineer | August 2019 – June 2021
+
+* Developed and maintained backend APIs using Dart and Firebase Cloud Functions for the Spotify mobile application.
+* Implemented new features using Flutter, Dart, and Provider, improving user engagement by 15%.
+* Collaborated with cross-functional teams to design and implement new features, ensuring high quality and timely delivery.
+* Troubleshooted and resolved production issues, ensuring minimal downtime and optimal performance.
+
+EDUCATION
+
+University of Illinois at Urbana-Champaign, Champaign, IL
+Bachelor of Science in Computer Science | August 2015 – May 2019
+
+SKILLS
+
+Languages: Dart, Python, Java, JavaScript
+Frameworks/Libraries: Flutter, Provider, BLoC, Firebase, Node.js, Express.js, React
+Databases: PostgreSQL, MongoDB, MySQL, Redis
+Tools: Docker, Kubernetes, Jenkins, AWS, GCP, Git, Jira, Confluence
+Operating Systems: Linux, macOS, Windows
+
+PROJECTS
+
+Real-Time Chat Application (Flutter/Firebase)
+* Developed a real-time chat application using Flutter and Firebase, featuring user authentication, message encryption, and push notifications.
+
+Personal Finance Tracker (Dart/PostgreSQL)
+* Built a personal finance tracker using Dart and PostgreSQL, enabling users to track their income, expenses, and budget.
+
+E-commerce Platform (Flutter/Node.js)
+* Created an e-commerce platform using Flutter for the frontend and Node.js for the backend, including product catalog, shopping cart, and checkout functionality.
+
+Machine Learning Model Deployment (Python/AWS SageMaker)
+* Deployed a machine learning model using Python and AWS SageMaker, enabling real-time predictions on incoming data.
+
+CERTIFICATIONS
+
+* AWS Certified Developer – Associate
+* Certified Kubernetes Application Developer (CKAD)
+* Google Cloud Certified Professional Cloud Architect
