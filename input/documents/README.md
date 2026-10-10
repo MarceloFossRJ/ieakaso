@@ -1,23 +1,13 @@
-# documents/ — profile intake sources
+# documents/ — your source documents
 
-Incöude here documents you have, then ask your agent to run the
-`intake` mode (see `modes/intake.md`). It extracts text locally, proposes
-source-annotated additions to `config/profile.yml` / `../cv.md` /
-`modes/_profile.md`, and writes nothing without your explicit confirmation.
+Put your documents here, then run `/ieakaso init`. It checks what is here, asks you to confirm the details it reads from them, and saves them in `config.yml`. Run it again whenever you add or change a document.
 
-| Folder | What goes here |
-|---|---|
-| `cv/` | Master CV (PDF, `.md`, `.tex`, or `.txt`) |
-| `linkedin/` | LinkedIn "Save to PDF" export |
-| `peerlist/` | Peerlist "Save to PDF" export |
-| `wellfound/` | Wellfound "Save to PDF" export |
-| `xing/` | Xing "Save to PDF" export |
-| `diplomas/` | Transcripts, degree certificates |
-| `reference_letters/` | Reference letters |
+| Folder | What goes here | |
+|---|---|---|
+| `cv/` | Your CV (`.pdf`, `.docx`, `.md`, `.txt`, or `.tex`). With several (e.g. one per language), init asks which is the main one. | **Required** |
+| `linkedin/` | Your LinkedIn profile as PDF: profile → **Resources** → **Save to PDF** | Strongly recommended |
+| `reference_letters/` | Reference letters from former employers or colleagues | Suggested |
 
-Your source documents here are **user layer**: gitignored, never touched by
-the updater, never leaving your machine. `../../README.md` and `.gitkeep` are the
-system-owned scaffold for the folder — they are tracked, and the updater does
-maintain them.
-Extraction is fully local.
-Re-runs are idempotent.
+Init creates these folders if they are missing.
+
+Everything in `input/` is gitignored and stays on your machine, except this README. Ieakaso reads your documents; it never changes, moves, or deletes them.

@@ -28,6 +28,27 @@ When the first code lands, replace this section with the real commands.
   7. Suggest next steps.
 - **Interview prep flow:** a second flow, not yet detailed.
 
+## Commands
+
+All commands go through one skill, `ai/skills/ieakaso/` (loaded through the pointer `.claude/skills/ieakaso/SKILL.md`): `/ieakaso <mode> [args]`. Each mode is a file in `ai/skills/ieakaso/modes/`; add new modes there and to the table in `ai/skills/ieakaso/SKILL.md`. The skill description lives only in the pointer; update it there when modes change.
+
+- **First run:** every mode except `init` checks `db/system_status.json` first and runs `/ieakaso init` if setup is missing or incomplete. `init` is idempotent.
+- **User data:** `config.yml` (candidate data, format in `config_example.yml`), `db/system_status.json` (setup state, starting point in `db/system_status_example.json`), and `input/` are gitignored and stay on the user's machine. The only mandatory document is the CV in `input/documents/cv/`.
+
 ## Product guardrails
 
 The tool drafts and the user acts. It never submits applications or sends emails, and it never fabricates CV content; it only reformulates it. It advises against applying when the score is below 4.0/5, but the user can override that.
+
+## Agent skills
+
+### Issue tracker
+
+Issues are tracked in GitHub Issues on `MarceloFossRJ/ieakaso`, using the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Uses the five default labels: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `CONTEXT.md` plus `docs/adr/` at the repo root. See `docs/agents/domain.md`.
