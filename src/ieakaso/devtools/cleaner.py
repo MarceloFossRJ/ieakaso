@@ -100,7 +100,7 @@ def _dirs_left_empty(root: Path, deleted: list[Path]) -> list[Path]:
 
 
 def _now() -> datetime:
-    return datetime.now()
+    return datetime.now().astimezone()
 
 
 def _backup(root: Path, report: CleanReport, backup_dir: Path) -> Path:

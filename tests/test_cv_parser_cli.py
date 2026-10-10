@@ -7,8 +7,7 @@ from pathlib import Path
 import pytest
 from conftest import TRACKED, snapshot, write_files
 
-import ieakaso.cv_parser.cli as cli
-from ieakaso.cv_parser import PARSER_VERSION
+from ieakaso.cv_parser import PARSER_VERSION, cli
 
 CV_PATH = "input/documents/cv/cv.txt"
 

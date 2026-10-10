@@ -16,9 +16,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parents[1]))
 
-from fixtures.catalog import MANIFEST, expected_outputs, expected_path, sources  # noqa: E402
+from fixtures.catalog import MANIFEST, expected_outputs, expected_path, sources
 
-from ieakaso.cv_parser import PARSER_VERSION, parse  # noqa: E402
+from ieakaso.cv_parser import PARSER_VERSION, parse
 
 
 def main(rewrite_all: bool) -> int:

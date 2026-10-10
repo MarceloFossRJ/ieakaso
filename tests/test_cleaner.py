@@ -1,7 +1,6 @@
 from datetime import datetime
 from pathlib import Path
 
-import pytest
 from conftest import TRACKED, folders, snapshot
 
 from ieakaso.devtools import cleaner
@@ -106,7 +105,7 @@ def test_backup_round_trip_restores_the_repo_byte_for_byte(repo: Path, backups: 
 
 
 def test_two_backups_in_the_same_second_get_a_suffix(repo: Path, backups: Path, monkeypatch):
-    monkeypatch.setattr(cleaner, "_now", lambda: datetime(2026, 10, 10, 14, 30, 5))
+    monkeypatch.setattr(cleaner, "_now", lambda: datetime(2026, 10, 10, 14, 30, 5).astimezone())
     first = clean(repo, backup_dir=backups)
     (repo / "config.yml").write_text("again\n")
     second = clean(repo, backup_dir=backups)
