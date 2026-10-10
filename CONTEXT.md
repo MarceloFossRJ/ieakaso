@@ -27,3 +27,15 @@ _Avoid_: original CV, uploaded CV, main document
 **Parsed CV**:
 `input/cv.md`, generated from the Source CV by the CV parser with the same words in the same order (footnote text moves to just after the passage that references it). It is never edited by hand; to change it, change the Source CV and parse again. Other modes read the Parsed CV, never the Source CV.
 _Avoid_: CV markdown, transcribed CV, living CV
+
+**Job ad**:
+The posting for one position, as the candidate supplies it: a URL Ieakaso can read, or the ad's text pasted in.
+_Avoid_: job description, JD, posting
+
+**Job analysis**:
+The report the job-analyzer mode writes on how well the Parsed CV fits one Job ad, ending in a Verdict.
+_Avoid_: CV score, fit report
+
+**Verdict**:
+The job analysis's advice on whether to apply: Top applicant, Apply, Stretch or Don't apply. Stretch and Don't apply advise against applying; the candidate can override either.
+_Avoid_: suggestion, recommendation

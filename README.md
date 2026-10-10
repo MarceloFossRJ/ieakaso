@@ -69,11 +69,13 @@ Init also turns your CV into `input/cv.md`, word for word: nothing reworded, add
 
 Edit your CV, not `input/cv.md`: it is regenerated from the CV.
 
-Then score your CV against a job ad:
+Then ask whether a job ad is worth applying to. Give its URL, or paste its text:
 
 ```
-/ieakaso job-analyzer <job-url>
+/ieakaso job-analyzer <job-url or job-ad text>
 ```
+
+The job analysis lands in `output/job-analysis/`: a verdict (Top applicant, Apply, Stretch, Don't apply), your strengths and weaknesses for the role, and what your CV under-sells.
 
 The first runs are rough. It does not know you yet.
 Talk to it: what you want, what you refuse.
