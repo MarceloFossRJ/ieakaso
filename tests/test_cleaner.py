@@ -35,7 +35,10 @@ def test_clean_removes_status_and_db_and_keeps_examples(repo: Path):
 def test_clean_empties_output_but_keeps_gitkeep(repo: Path):
     clean(repo)
 
-    assert {p for p in snapshot(repo) if p.startswith("output/")} == {"output/.gitkeep"}
+    assert {p for p in snapshot(repo) if p.startswith("output/")} == {
+        "output/.gitkeep",
+        "output/job-analysis/.gitkeep",
+    }
 
 
 def test_clean_removes_leftover_folders_without_gitkeep(repo: Path):

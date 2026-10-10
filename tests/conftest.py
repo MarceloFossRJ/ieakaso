@@ -19,6 +19,7 @@ TRACKED = {
     "input/documents/wellfound/.gitkeep": "",
     "input/documents/xing/.gitkeep": "",
     "output/.gitkeep": "",
+    "output/job-analysis/.gitkeep": "",
 }
 
 # The candidate's user data, as it looks after a completed init.

@@ -1,7 +1,7 @@
 ---
 name: job-analyzer
-description: "Ieakaso job-analyzer: Scores the CV against one job ad, 0-100"
-argument-hint: <job-url>
+description: "Ieakaso job-analyzer: Scores the CV against one job ad and gives a verdict"
+argument-hint: <job-url or job-ad text>
 disable-model-invocation: true
 ---
 

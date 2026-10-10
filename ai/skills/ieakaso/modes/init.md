@@ -116,7 +116,7 @@ Write `db/system_status.json` (create `db/` if missing), then show a short summa
 
 - CV, LinkedIn PDF, reference letters: found / skipped / missing
 - Config: confirmed, with any skipped optional fields
-- What's next: `/ieakaso job-analyzer <job-url>` to score the CV against a job ad
+- What's next: `/ieakaso job-analyzer <job-url or job-ad text>` to score the CV against a job ad and get a verdict
 
 ---
 
