@@ -1,0 +1,62 @@
+**Javier O'Connell**
+(123) 456-7890 | javier.oconnell@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Senior Analytics Engineer with 7 years of experience in designing, developing, and implementing data-driven solutions within high-volume environments. Proven ability to leverage cloud technologies, automation, and machine learning to optimize performance, scalability, and reliability. Expertise in Azure cloud services, infrastructure-as-code (IaC), and CI/CD pipelines. Passionate about building innovative solutions to complex business challenges.
+
+**Skills**
+
+*   Cloud Computing: Azure (AKS, Azure Monitor, Azure Data Factory, Azure Blob Storage, Azure Functions, Azure DevOps), AWS (Basic Familiarity)
+*   IaC: ARM Templates, Bicep
+*   Containerization: Kubernetes, Docker
+*   CI/CD: GitHub Actions, Azure DevOps Pipelines
+*   Programming Languages: Python, SQL, Bash
+*   Data Modeling: Relational Databases, Data Warehousing
+*   Monitoring and Logging: Splunk, Prometheus, Grafana
+*   Machine Learning: Scikit-learn, TensorFlow, PyTorch (Exposure)
+*   Version Control: Git, GitHub
+*   Operating Systems: Linux, Windows
+
+**Experience**
+
+**Uber, San Francisco, CA**
+**Senior Analytics Engineer** | 2020 – Present
+
+*   Led the migration of two critical microservices to Kubernetes (AKS), resulting in a 30% reduction in infrastructure costs and improved resource utilization.
+*   Engineered and implemented a CI/CD pipeline using GitHub Actions for a key data ingestion service, reducing release time by 56% and increasing deployment frequency.
+*   Designed and deployed a machine learning model to predict rider demand, achieving 82% accuracy in production and contributing to a 15% increase in rider satisfaction.
+*   Scaled the data processing system to handle 2M+ daily active users by optimizing resource allocation and implementing caching strategies.
+*   Served as technical lead for a team of 3 engineers, providing guidance and mentorship on best practices for cloud infrastructure and software development.
+
+**Lyft, San Francisco, CA**
+**Analytics Engineer** | 2018 – 2020
+
+*   Architected and implemented a new microservices architecture for real-time data analytics, capable of handling 15,000 requests per minute (RPM).
+*   Optimized database queries on a PostgreSQL database resulting in 84% faster read times and reduced server load by 40%.
+*   Developed and maintained data pipelines using Azure Data Factory to ingest and transform data from various sources into Azure Blob Storage.
+*   Created detailed monitoring dashboards using Splunk to track system performance, identify bottlenecks, and proactively address issues.
+
+**Accenture, Chicago, IL**
+**Software Engineer** | 2016 – 2018
+
+*   Developed and maintained ETL pipelines using SQL Server Integration Services (SSIS) to load data into a data warehouse.
+*   Designed and implemented data validation processes to ensure data quality and accuracy.
+*   Collaborated with business stakeholders to gather requirements and translate them into technical specifications.
+
+**Projects**
+
+*   **Kubernetes Auto-Scaler:** Developed a custom Kubernetes auto-scaler using Python and the Kubernetes API to dynamically adjust the number of pods based on real-time metrics, reducing infrastructure costs by 20%.
+*   **Bicep Module Library:** Created a library of reusable Bicep modules for deploying common Azure resources, simplifying infrastructure provisioning and ensuring consistency across environments.
+*   **Splunk Alerting System:** Designed and implemented a comprehensive alerting system using Splunk to proactively identify and address critical system issues, reducing downtime by 15%.
+*   **Data Lake Automation:** Automated the process of creating and configuring Azure Data Lake Storage Gen2 accounts using ARM templates and Azure DevOps Pipelines.
+
+**Education**
+
+**Indian Institute of Technology (IIT) Bombay, Mumbai, India**
+Bachelor of Technology in Computer Science | 2012 – 2016
+
+**Certifications**
+
+*   Microsoft Certified: Azure Solutions Architect Expert
+*   Certified Kubernetes Administrator (CKA)

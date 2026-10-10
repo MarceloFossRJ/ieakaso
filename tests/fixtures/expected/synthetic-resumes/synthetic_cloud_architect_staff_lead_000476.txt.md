@@ -1,0 +1,62 @@
+**Aaliyah Nguyen**
+(555) 123-4567 | aaliyah.nguyen@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Results-driven Cloud Architect with 9 years of experience in designing, implementing, and managing scalable, secure, and highly available cloud infrastructure, specializing in Google Cloud Platform (GCP) and Kubernetes. Proven ability to lead complex migrations, optimize CI/CD pipelines, and improve overall system performance. Passionate about leveraging cutting-edge technologies to drive innovation and business value.
+
+**Skills**
+
+*   **Cloud Platforms:** Google Cloud Platform (GCP), Amazon Web Services (AWS)
+*   **Containerization:** Kubernetes, Docker, Helm
+*   **Infrastructure as Code:** Terraform, CloudFormation
+*   **CI/CD:** ArgoCD, Jenkins, GitLab CI
+*   **Service Mesh:** Istio, Envoy
+*   **Monitoring & Logging:** Grafana, Datadog, Prometheus, ELK Stack
+*   **Languages:** Python, Go, Bash
+*   **Databases:** PostgreSQL, MySQL, MongoDB
+*   **Operating Systems:** Linux (Ubuntu, CentOS), Windows Server
+*   **Security:** IAM, RBAC, Network Security, Vulnerability Scanning
+
+**Experience**
+
+**Lead Cloud Architect | HealthTech Startup | San Francisco, CA | 2020 – Present**
+
+*   Led the migration of 500+ microservices to Kubernetes on GCP, resulting in a 30% reduction in infrastructure costs and a 40% increase in application uptime.
+*   Architected and implemented a fully automated CI/CD pipeline using ArgoCD, increasing deployment frequency from monthly to 20x daily and reducing release time by 49%.
+*   Spearheaded efforts to improve test coverage from 45% to 74% by implementing automated testing frameworks and promoting a culture of quality.
+*   Designed and implemented a centralized logging and monitoring solution using Datadog, providing real-time visibility into system performance and enabling proactive identification of issues.
+*   Drove cost optimization initiatives, resulting in a 15% reduction in cloud spending while maintaining performance and availability.
+
+**Senior Cloud Engineer | FinTech Company | New York, NY | 2017 – 2020**
+
+*   Engineered and maintained the company's cloud infrastructure on AWS, ensuring high availability, security, and scalability.
+*   Developed and implemented infrastructure-as-code using Terraform, automating the provisioning and management of cloud resources.
+*   Collaborated with development teams to containerize and deploy applications using Docker and Kubernetes.
+*   Optimized the performance of critical applications by identifying and resolving bottlenecks, resulting in a 25% improvement in response time.
+*   Participated in on-call rotation and provided support for production incidents.
+
+**Cloud Engineer | Consulting Firm | Chicago, IL | 2015 – 2017**
+
+*   Assisted clients in migrating their applications and infrastructure to the cloud (AWS, Azure, GCP).
+*   Implemented monitoring and alerting solutions using tools like CloudWatch and Prometheus.
+*   Developed and maintained automation scripts using Python and Bash.
+*   Provided training and support to clients on cloud technologies and best practices.
+
+**Projects**
+
+*   **Kubernetes Autoscaling:** Developed a custom Kubernetes autoscaler based on Prometheus metrics, optimizing resource utilization and reducing costs by 20%.
+*   **Terraform Module Library:** Created a reusable Terraform module library for deploying common infrastructure components on GCP, streamlining the provisioning process.
+*   **CI/CD Pipeline for Microservices:** Implemented a fully automated CI/CD pipeline for a microservices architecture using Jenkins and Kubernetes, enabling rapid and reliable deployments.
+*   **Security Hardening of Kubernetes Clusters:** Hardened Kubernetes clusters by implementing RBAC, network policies, and vulnerability scanning.
+
+**Certifications**
+
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Administrator (CKA)
+*   AWS Certified Solutions Architect – Associate
+
+**Education**
+
+**University of California, Los Angeles (UCLA) | Los Angeles, CA**
+Bachelor of Science in Computer Science

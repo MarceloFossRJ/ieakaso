@@ -1,0 +1,59 @@
+**Aisha Ramirez**
+(555) 123-4567 | aisha.ramirez@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly accomplished and results-oriented Cybersecurity Analyst with 16 years of experience in securing and scaling critical infrastructure for high-growth tech companies. Proven ability to lead security initiatives, optimize system performance, and reduce operational costs. Expertise in cloud security, threat modeling, incident response, and vulnerability management. Proficient in Go, gRPC, PostgreSQL, Redis, Kubernetes, Prometheus, and AWS.
+
+**Experience**
+
+**Principal Security Engineer | YC Backed Startup | San Francisco, CA | 2020 – Present**
+
+*   Led security architecture and engineering for a rapidly growing platform supporting 20M+ daily active users.
+*   Architected and implemented a comprehensive security monitoring and incident response program using Prometheus and Grafana.
+*   Reduced infrastructure costs by $100K annually through optimizing resource allocation and implementing cost-effective security solutions.
+*   Spearheaded the design and implementation of a zero-trust network architecture to enhance internal security.
+*   Optimized PostgreSQL database queries, resulting in an 18% improvement in read performance.
+*   Achieved 99.99% uptime for critical production systems through proactive monitoring and automated failover mechanisms.
+
+**Senior Security Architect | Tech Solutions Inc. | Seattle, WA | 2015 – 2020**
+
+*   Designed and implemented secure cloud infrastructure solutions on AWS, ensuring compliance with industry standards (SOC 2, HIPAA).
+*   Led a team of security engineers in conducting vulnerability assessments, penetration testing, and code reviews.
+*   Developed and delivered security awareness training programs for employees, reducing phishing click-through rates by 25%.
+*   Managed security incidents, including containment, eradication, and post-incident analysis.
+
+**Security Engineer | Data Systems Corp. | Chicago, IL | 2010 – 2015**
+
+*   Implemented and maintained intrusion detection and prevention systems (IDS/IPS) to protect network infrastructure.
+*   Developed and maintained security policies, procedures, and standards.
+*   Conducted security audits and risk assessments to identify vulnerabilities and recommend remediation strategies.
+
+**Education**
+
+**Purdue University | West Lafayette, IN | Bachelor of Science in Computer Science**
+
+**Certifications**
+
+*   AWS Certified Security – Specialty
+*   Certified Information Systems Security Professional (CISSP)
+*   Certified Ethical Hacker (CEH)
+*   Kubernetes Certified Security Specialist (KCKS)
+*   Google Cloud Certified Professional Cloud Architect
+
+**Projects**
+
+*   **Automated Vulnerability Scanner:** Developed a Go-based vulnerability scanner that integrates with CI/CD pipelines to identify security flaws early in the development lifecycle.
+*   **Security Information and Event Management (SIEM) System:** Built a SIEM system using open-source tools like Elasticsearch, Logstash, and Kibana (ELK stack) to collect, analyze, and correlate security logs.
+*   **Threat Intelligence Platform:** Created a threat intelligence platform that aggregates and analyzes threat data from various sources to provide proactive security insights.
+*   **Automated Incident Response:** Developed a suite of automated incident response scripts to expedite the resolution of common security incidents.
+*   **Kubernetes Security Hardening:** Developed custom Kubernetes security policies and configurations to lock down container environments.
+
+**Skills**
+
+**Languages:** Go, Python, Java, SQL
+**Databases:** PostgreSQL, Redis, MySQL
+**Cloud:** AWS (IAM, EC2, S3, VPC, Lambda), Google Cloud Platform (GCP)
+**Security:** Vulnerability Management, Penetration Testing, Incident Response, Threat Modeling, SIEM, IDS/IPS, Network Security, Application Security, Cryptography
+**Tools:** Kubernetes, Docker, Prometheus, Grafana, Terraform, Ansible, Git
+**Protocols:** gRPC, TLS/SSL, TCP/IP

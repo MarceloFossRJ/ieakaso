@@ -1,0 +1,68 @@
+Javier Chen-O'Connell
+(555) 555-5555 | j.chen.o@email.com | linkedin.com/in/javierchenoconnell | github.com/jcheno
+
+SUMMARY
+
+Principal Cloud Architect with 16+ years of experience designing, implementing, and scaling cloud-based solutions. Proven ability to lead cross-functional teams, optimize system performance, and deliver high-impact results in fast-paced environments. Expertise in microservices architecture, database optimization, and front-end development using Angular, TypeScript, and related technologies.
+
+EXPERIENCE
+
+Figma
+Principal Cloud Architect | 2020 – Present
+
+* Spearheaded the design and implementation of a new microservices architecture for real-time collaboration features, handling 10,000 requests per minute (RPM) with 99.99% uptime.
+* Led a team of 8 engineers in scaling the system to support 5 million+ daily active users, resulting in a 35% increase in user engagement.
+* Optimized database queries using indexing and caching strategies, resulting in a 24% reduction in read latency and a 15% reduction in database costs.
+* Championed the adoption of Kubernetes for container orchestration, improving deployment frequency by 40%.
+* Mentored junior engineers on best practices for cloud architecture, performance optimization, and secure coding.
+
+Airbnb
+Senior Software Engineer | 2016 – 2020
+
+* Designed and implemented a highly scalable data pipeline for processing user behavior data, enabling personalized recommendations and targeted marketing campaigns.
+* Developed key front-end components using Angular, TypeScript, and RxJS, enhancing user experience and improving conversion rates by 12%.
+* Collaborated with product managers and designers to define and implement new features, ensuring alignment with business goals and user needs.
+* Automated deployment processes using CI/CD pipelines, reducing deployment time by 50%.
+* Resolved critical production issues, minimizing downtime and ensuring service availability.
+
+Google
+Software Engineer | 2012 – 2016
+
+* Contributed to the development of Google Maps APIs, focusing on performance optimization and scalability.
+* Implemented new features and bug fixes in C++ and Java, adhering to Google's coding standards and best practices.
+* Participated in code reviews, ensuring code quality and maintainability.
+* Collaborated with cross-functional teams to integrate new features into existing systems.
+
+SKILLS
+
+Cloud Computing: AWS (EC2, S3, Lambda, DynamoDB, RDS, ECS, EKS, CloudFormation), GCP (Compute Engine, Cloud Storage, Cloud Functions, Cloud SQL, GKE), Azure.
+Languages: TypeScript, JavaScript (ES6+), Angular, Java, C++.
+Frameworks/Libraries: Angular, RxJS, NgRx, Material UI, React.
+Databases: PostgreSQL, MySQL, MongoDB, DynamoDB.
+Tools: Kubernetes, Docker, Jenkins, Git, Jira, Confluence, Prometheus, Grafana.
+Methodologies: Agile, Scrum, DevOps.
+
+CERTIFICATIONS
+
+* AWS Certified Solutions Architect – Professional
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Administrator (CKA)
+
+PROJECTS
+
+E-Commerce Platform Optimization (Personal Project)
+* Designed and implemented a cloud-based e-commerce platform using serverless architecture (AWS Lambda, API Gateway, DynamoDB) to handle high traffic and scale automatically.
+* Utilized caching mechanisms and CDN to optimize website performance, resulting in a 30% reduction in page load time.
+
+Real-Time Chat Application (Personal Project)
+* Developed a real-time chat application using Angular, TypeScript, and WebSocket technology, enabling seamless communication between users.
+* Implemented user authentication and authorization using JWT tokens, ensuring secure access to the application.
+
+Data Analytics Dashboard (Personal Project)
+* Created an interactive data analytics dashboard using Angular and charting libraries to visualize key metrics and identify trends.
+* Integrated with various data sources (e.g., CSV files, APIs) to provide a comprehensive view of business performance.
+
+EDUCATION
+
+University of California, Berkeley
+Bachelor of Science in Computer Science | 2012

@@ -1,0 +1,53 @@
+**Aisha Rodriguez-Chen**
+(123) 456-7890 | aisha.r.chen@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly motivated and results-oriented Senior AI Engineer with 7+ years of experience in designing, developing, and deploying scalable AI/ML solutions within high-growth environments. Proven ability to improve system performance, streamline deployment processes, and build real-time analytics pipelines. Expertise in Node.js, TypeScript, MongoDB, GraphQL, Docker, and Azure cloud services. Passionate about leveraging cutting-edge technologies to solve complex business challenges and drive impactful results.
+
+**Skills**
+
+*   **Languages:** TypeScript, JavaScript, Python
+*   **Frameworks/Libraries:** Node.js, Express, React, GraphQL, Apollo Client, Redux
+*   **Databases:** MongoDB, PostgreSQL, Redis
+*   **Cloud Platforms:** Azure (App Service, Kubernetes Service (AKS), Functions, Cosmos DB, Event Hub), AWS (EC2, S3, Lambda, DynamoDB)
+*   **DevOps:** Docker, Kubernetes, CI/CD (Azure DevOps, Jenkins), Terraform, Helm
+*   **Machine Learning:** Scikit-learn, TensorFlow, PyTorch, Model Deployment
+*   **Data Engineering:** Apache Kafka, Apache Spark, Data Lakes, Data Warehousing
+*   **Other:** REST APIs, Microservices, Agile Methodologies, Git, Linux
+
+**Experience**
+
+**Instacart, San Francisco, CA**
+**Senior AI Engineer** | June 2020 – Present
+
+*   Led the development and implementation of a real-time analytics pipeline processing 20M events per day using Apache Kafka, Azure Event Hub, and MongoDB, providing critical insights into user behavior and delivery performance.
+*   Architected and implemented a new CI/CD pipeline using Azure DevOps and Docker, improving deployment frequency from monthly to 15 times daily, resulting in a 75% reduction in deployment-related incidents.
+*   Engineered a scalable microservices architecture using Node.js, TypeScript, and Express to support 10M+ daily active users, improving system availability by 99.99%.
+*   Developed and deployed a machine learning model to predict order fulfillment time, achieving 49% accuracy in production and reducing late deliveries by 12%.
+*   Mentored junior engineers in best practices for software development, testing, and deployment.
+
+**Lyft, San Francisco, CA**
+**Software Engineer** | August 2017 – June 2020
+
+*   Designed and implemented RESTful APIs using Node.js and Express for ride-matching and driver management services.
+*   Optimized database queries and indexing strategies in MongoDB, improving API response times by 30%.
+*   Contributed to the development of a GraphQL API for mobile clients, reducing data fetching overhead and improving application performance.
+*   Participated in code reviews, sprint planning, and daily stand-up meetings within an Agile development environment.
+
+**Education**
+
+**Massachusetts Institute of Technology (MIT), Cambridge, MA**
+**Bachelor of Science in Computer Science** | September 2013 – May 2017
+
+**Certifications**
+
+*   AWS Certified Developer – Associate
+*   Microsoft Certified: Azure Developer Associate
+
+**Projects**
+
+*   **Personalized Recommendation Engine:** Developed a recommendation engine using collaborative filtering and content-based filtering techniques to provide personalized product recommendations.
+*   **Real-Time Sentiment Analysis:** Built a real-time sentiment analysis pipeline using Twitter data and machine learning to monitor public opinion on various topics.
+*   **Image Recognition App:** Created an image recognition app using TensorFlow and convolutional neural networks to identify objects in images. Utilized transfer learning to improve model accuracy and training time.
+*   **Automated Bug Reporting System:** Developed a system that automatically analyzes error logs, identifies potential bugs, and generates detailed bug reports.

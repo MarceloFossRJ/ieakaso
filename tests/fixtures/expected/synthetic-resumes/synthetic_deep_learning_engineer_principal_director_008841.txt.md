@@ -1,0 +1,56 @@
+**Aisha Rodriguez-Chen**
+(512) 555-1212 | aisha.rodriguezchen@email.com | linkedin.com/in/aisharodriguezchen | github.com/archen
+
+**Summary**
+
+Highly accomplished and results-oriented Deep Learning Engineer with 16 years of experience in designing, developing, and deploying cutting-edge AI/ML solutions. Proven ability to lead cross-functional teams, drive innovation, and deliver impactful results. Expertise in developing and optimizing deep learning models, architecting scalable infrastructure, and streamlining CI/CD pipelines. Proficient in React Native, TypeScript, Redux, Expo, Jest, and cloud technologies (AWS, GCP, Kubernetes). Seeking a challenging leadership role to leverage expertise and contribute to a forward-thinking organization.
+
+**Skills**
+
+**Languages:** Python, TypeScript, JavaScript, Java, C++
+**Frameworks/Libraries:** TensorFlow, PyTorch, Keras, Scikit-learn, Pandas, NumPy, React Native, Redux, Expo, Jest
+**Cloud Platforms:** AWS (Amazon Web Services), GCP (Google Cloud Platform), Azure
+**Databases:** PostgreSQL, MySQL, MongoDB, Redis
+**DevOps:** Kubernetes, Docker, CI/CD (Jenkins, CircleCI, GitLab CI), Terraform, Ansible
+**Machine Learning:** Deep Learning, Computer Vision, Natural Language Processing (NLP), Recommendation Systems
+**Operating Systems:** Linux, macOS, Windows
+
+**Experience**
+
+**Salesforce, Principal Deep Learning Engineer** (2018 – Present)
+* Led a team of 8 engineers in the development and deployment of a deep learning-powered personalization engine, resulting in a 12% increase in user engagement.
+* Architected and implemented a distributed training pipeline using TensorFlow on Kubernetes, improving model training speed by 25%.
+* Spearheaded the migration of two critical microservices to Kubernetes, enhancing scalability and resilience.
+* Optimized existing deep learning models for cloud deployment, reducing inference latency by 18%.
+* Reduced infrastructure costs by $100,000 annually by implementing efficient resource allocation strategies and optimizing cloud utilization.
+
+**Google, Senior Machine Learning Engineer** (2014 – 2018)
+* Designed and developed a novel computer vision algorithm for object detection in real-time video streams, improving accuracy by 15% compared to the previous solution.
+* Led the development of a recommendation system for YouTube using deep learning techniques, resulting in a 10% increase in click-through rates.
+* Collaborated with cross-functional teams to integrate machine learning models into production systems.
+* Mentored junior engineers and provided technical guidance on best practices for machine learning development.
+
+**Amazon, Machine Learning Engineer** (2010 – 2014)
+* Developed and deployed a fraud detection system using machine learning algorithms, reducing fraudulent transactions by 20%.
+* Implemented a CI/CD pipeline for machine learning models, reducing release time by 19%.
+* Automated data preprocessing and feature engineering pipelines, improving data quality and reducing manual effort.
+
+**Education**
+
+**University of Texas at Austin, Bachelor of Science in Computer Science** (2006 – 2010)
+
+**Certifications**
+
+* AWS Certified Machine Learning – Specialty
+* Google Cloud Professional Machine Learning Engineer
+* Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+**AI-Powered Medical Image Diagnosis System:** Developed a deep learning model for detecting pneumonia in chest X-ray images, achieving 95% accuracy. Utilized Python, TensorFlow, and Keras.
+
+**Real-Time Object Detection System:** Created a real-time object detection system using YOLOv5 for identifying objects in video streams. Deployed on AWS Lambda with API Gateway.
+
+**Personalized Music Recommendation Engine:** Built a music recommendation engine using collaborative filtering and deep learning techniques, providing personalized recommendations based on user listening history. Implemented with Python, PyTorch, and deployed on GCP.
+
+**Chatbot for Customer Support:** Designed and implemented a chatbot using NLP techniques to provide automated customer support. Integrated with a knowledge base and deployed on a web application using React Native.

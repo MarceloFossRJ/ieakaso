@@ -1,0 +1,52 @@
+**Anya Sharma-Rodriguez**
+(555) 123-4567 | anya.sharma.rodriguez@email.com | LinkedIn Profile URL
+
+**Summary**
+
+Highly motivated and results-oriented Cybersecurity Analyst with 7+ years of experience in securing complex web applications and cloud infrastructure. Proven ability to identify vulnerabilities, implement security controls, and lead critical infrastructure migrations while improving performance and resilience. Expertise in Vue.js, Kubernetes, cloud security, and incident response. Seeking a challenging role where I can leverage my skills to protect critical assets and drive security innovation.
+
+**Skills**
+
+*   **Frontend:** Vue.js, Vuex, Nuxt.js, SCSS, JavaScript, HTML, CSS, Webpack, Vitest
+*   **Cloud:** AWS (IAM, EC2, S3, VPC, CloudWatch, CloudTrail), GCP (Compute Engine, Cloud Storage, VPC, Cloud Logging)
+*   **Security:** Vulnerability Assessment, Penetration Testing, Security Auditing, Incident Response, SIEM, Threat Modeling, Network Security, Application Security, OWASP
+*   **Infrastructure:** Kubernetes, Docker, Linux, Terraform, Ansible, Jenkins, CI/CD
+*   **Other:** Python, Bash, Git, Agile, Scrum
+
+**Experience**
+
+**Lyft, San Francisco, CA**
+**Senior Cybersecurity Analyst** | 2020 – Present
+
+*   Led the migration of 100+ microservices to Kubernetes, improving resource utilization by 30% and reducing infrastructure costs by 15%.
+*   Architected and implemented a new security monitoring system using CloudWatch and CloudTrail, resulting in a 40% faster incident response time.
+*   Spearheaded a vulnerability assessment program that identified and remediated 250+ critical security flaws in production systems.
+*   Engineered and maintained security configurations within AWS and GCP environments, adhering to industry best practices and compliance requirements.
+*   Achieved 99.46% uptime for critical production systems through proactive monitoring, automated incident response, and robust disaster recovery planning.
+
+**Acme Corporation, Chicago, IL**
+**Security Engineer** | 2017 – 2020
+
+*   Developed and implemented security policies and procedures to protect sensitive data and systems, resulting in a 20% reduction in security incidents.
+*   Conducted regular vulnerability scans and penetration tests to identify and remediate security weaknesses in web applications and infrastructure.
+*   Managed and maintained SIEM (Security Information and Event Management) systems to detect and respond to security threats.
+*   Participated in incident response activities, including investigation, containment, and remediation of security breaches.
+
+**Education**
+
+**University of Illinois, Urbana-Champaign, IL**
+Bachelor of Science in Computer Science | 2013 - 2017
+
+**Certifications**
+
+*   AWS Certified Security - Specialty
+*   Certified Kubernetes Security Specialist (CKS)
+*   Google Cloud Certified Professional Cloud Security Engineer
+*   Certified Ethical Hacker (CEH)
+
+**Projects**
+
+*   **Vulnerability Scanner:** Developed a custom vulnerability scanner using Python and various security libraries to automate the detection of common web application vulnerabilities.
+*   **SIEM Integration:** Integrated open-source security tools (e.g., Suricata, Zeek) with a centralized SIEM platform to improve threat detection and response capabilities.
+*   **Kubernetes Security Hardening:** Implemented Kubernetes security best practices, including network policies, role-based access control (RBAC), and pod security policies, to harden the security posture of Kubernetes clusters.
+*   **Performance Optimization Tool:** Created a Nuxt.js based tool to analyze and optimize website performance, resulting in a 22% reduction in average page load time.

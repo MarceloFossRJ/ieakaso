@@ -1,0 +1,61 @@
+**Aisha Ramirez**
+(555) 123-4567 | aisha.ramirez@email.com | linkedin.com/in/aisharamirez | github.com/aisharamirez
+
+**Summary**
+
+Highly accomplished and results-oriented Deep Learning Engineer with 16 years of experience in designing, developing, and deploying cutting-edge AI solutions. Proven ability to lead teams, drive innovation, and deliver significant business impact. Expertise in building scalable and robust machine learning models and deploying them in production environments using Node.js, Express, TypeScript, MongoDB, GraphQL, Docker, and Azure. Seeking a challenging leadership role where I can leverage my skills and experience to contribute to the success of a dynamic organization.
+
+**Skills**
+
+*   **Programming Languages:** TypeScript, JavaScript, Python, Java
+*   **Frameworks/Libraries:** Node.js, Express, React, TensorFlow, PyTorch, scikit-learn, Pandas, NumPy
+*   **Databases:** MongoDB, PostgreSQL, MySQL
+*   **Cloud Platforms:** Azure (Expert), AWS (Proficient), Google Cloud Platform (GCP)
+*   **DevOps:** Docker, Kubernetes, CI/CD, Jenkins, Azure DevOps
+*   **Machine Learning:** Deep Learning, Natural Language Processing (NLP), Computer Vision, Regression, Classification, Clustering
+*   **API Design:** REST, GraphQL
+*   **Testing:** Jest, Mocha, Cypress
+*   **Agile Methodologies:** Scrum, Kanban
+
+**Experience**
+
+**IBM, Principal Deep Learning Engineer** (2018 – Present)
+
+*   Led a team of 8 engineers in the development and deployment of AI-powered solutions for IBM Watson.
+*   Architected a novel deep learning model for fraud detection, resulting in a 25% reduction in fraudulent transactions, saving the company $5 million annually.
+*   Spearheaded the migration of legacy systems to Azure cloud, resulting in a 40% reduction in infrastructure costs.
+*   Improved test coverage from 49% to 90% by implementing a comprehensive testing strategy.
+*   Improved deployment frequency from monthly to 10x daily by implementing a robust CI/CD pipeline using Azure DevOps.
+*   Mentored junior engineers and provided technical guidance on best practices in software development and machine learning.
+
+**Google, Senior Software Engineer** (2014 – 2018)
+
+*   Developed and deployed scalable machine learning models for Google Search, improving search relevance by 15%.
+*   Contributed to the development of TensorFlow, a leading open-source machine learning framework.
+*   Collaborated with cross-functional teams to integrate machine learning models into various Google products.
+*   Designed and implemented a real-time data pipeline for processing large volumes of data using Apache Kafka and Apache Spark.
+
+**Microsoft, Software Engineer** (2010 – 2014)
+
+*   Developed and maintained software components for Microsoft Windows.
+*   Worked on the development of .NET framework, contributing to the improvement of performance and stability.
+*   Participated in code reviews and provided constructive feedback to other engineers.
+
+**Projects**
+
+*   **AI-Powered Chatbot:** Developed a chatbot using Node.js, Express, and Dialogflow to automate customer support interactions.
+*   **Image Recognition System:** Built an image recognition system using TensorFlow and Python to classify images with 85% accuracy.
+*   **Personalized Recommendation Engine:** Created a recommendation engine using collaborative filtering and matrix factorization to provide personalized product recommendations.
+*   **Fraud Detection Model:** Developed an ML model to identify fraudulent transactions with 54% accuracy in production, using a combination of supervised and unsupervised learning techniques.
+
+**Certifications**
+
+*   AWS Certified Machine Learning – Specialty
+*   Google Cloud Certified Professional Data Engineer
+*   Certified Kubernetes Administrator (CKA)
+
+**Education**
+
+**Stanford University, Stanford, CA**
+
+Bachelor of Science in Computer Science, 2010

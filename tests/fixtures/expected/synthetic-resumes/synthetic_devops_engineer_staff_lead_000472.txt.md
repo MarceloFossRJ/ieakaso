@@ -1,0 +1,62 @@
+**Elias Tanaka-Olsen**
+(555) 123-4567 | elias.tanakaolsen@email.com | linkedin.com/in/eliastanakao
+
+**Summary**
+
+Highly accomplished and results-oriented DevOps Engineer with 9+ years of experience in building, scaling, and automating cloud-native infrastructure for high-growth technology companies. Proven ability to lead complex migrations, optimize performance, and reduce costs. Expertise in Go, gRPC, PostgreSQL, Redis, Kubernetes, Prometheus, and AWS. Passionate about driving innovation and fostering a collaborative DevOps culture.
+
+**Skills**
+
+*   **Languages:** Go, Python, Bash, SQL
+*   **Databases:** PostgreSQL, Redis, MySQL, MongoDB
+*   **Cloud:** AWS (EC2, S3, RDS, ECS, EKS, Lambda, CloudWatch), GCP (Compute Engine, Cloud Storage, Cloud SQL, GKE)
+*   **Infrastructure as Code:** Terraform, CloudFormation
+*   **Containerization:** Docker, Kubernetes, Helm
+*   **CI/CD:** Jenkins, CircleCI, GitLab CI, ArgoCD
+*   **Monitoring & Observability:** Prometheus, Grafana, ELK Stack (Elasticsearch, Logstash, Kibana), Datadog
+*   **Operating Systems:** Linux (Ubuntu, CentOS), macOS
+*   **Protocols:** gRPC, REST
+*   **Configuration Management:** Ansible, Puppet, Chef
+
+**Experience**
+
+**Figma, San Francisco, CA**
+**Staff DevOps Engineer** | June 2021 – Present
+
+*   Led the migration of 15 microservices to Kubernetes, improving scalability and resilience.
+*   Architected and built a real-time analytics pipeline processing 50 million events per day using Go, gRPC, and Kafka, enabling data-driven decision-making.
+*   Reduced infrastructure costs by $20,000 annually by optimizing resource utilization and implementing cost-saving strategies in AWS.
+*   Mentored junior engineers and fostered a collaborative DevOps culture.
+
+**Lyft, San Francisco, CA**
+**Senior DevOps Engineer** | January 2018 – June 2021
+
+*   Scaled the core platform to handle 100 million+ daily active users, ensuring high availability and performance.
+*   Implemented CI/CD pipelines using Jenkins and Terraform, reducing release time by 36%.
+*   Optimized PostgreSQL database performance, resulting in an 85% reduction in page load time for critical user workflows.
+*   Developed and maintained infrastructure monitoring solutions using Prometheus and Grafana, enabling proactive identification and resolution of issues.
+
+**Airbnb, San Francisco, CA**
+**DevOps Engineer** | August 2015 – January 2018
+
+*   Developed and maintained infrastructure as code using Terraform, automating the provisioning and management of AWS resources.
+*   Implemented containerization strategies using Docker and Kubernetes, improving application portability and scalability.
+*   Contributed to the development of internal tools and scripts to automate common DevOps tasks.
+
+**Projects**
+
+*   **Kubernetes Operator for PostgreSQL:** Developed a Kubernetes Operator to automate the deployment, management, and scaling of PostgreSQL clusters.
+*   **Terraform Module Library:** Created a library of reusable Terraform modules for common infrastructure components.
+*   **Go-based Event Processor:** Built a high-performance event processor using Go and gRPC.
+*   **Prometheus Exporter for Redis:** Developed a Prometheus exporter to monitor Redis performance metrics.
+
+**Certifications**
+
+*   AWS Certified DevOps Engineer – Professional
+*   Certified Kubernetes Administrator (CKA)
+*   Google Cloud Certified Professional Cloud Architect
+
+**Education**
+
+**University of Illinois at Urbana-Champaign**
+Bachelor of Science in Computer Science | May 2015

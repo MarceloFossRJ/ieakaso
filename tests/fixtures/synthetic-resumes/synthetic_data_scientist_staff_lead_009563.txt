@@ -1,0 +1,50 @@
+**Anya Sharma-Rodriguez**
+(555) 123-4567 | anya.sharma.rodriguez@email.com | linkedin.com/in/anyasharmarodriguez | github.com/anya-sr
+
+**Summary**
+
+Data Scientist and Engineering Leader with 9+ years of experience building and scaling data-driven products. Proven ability to translate complex business problems into actionable insights and implement scalable solutions using machine learning, predictive analytics, and modern engineering practices. Expertise in React Native, TypeScript, Redux, and cloud platforms. Passionate about leveraging data to drive impactful business outcomes.
+
+**Skills**
+
+*   **Languages:** Python, TypeScript, JavaScript, SQL, R
+*   **Frameworks/Libraries:** React Native, Redux, Expo, Jest, Node.js, TensorFlow, PyTorch, scikit-learn, Pandas, NumPy
+*   **Cloud Platforms:** AWS (EC2, S3, Lambda, SageMaker), GCP (Compute Engine, Cloud Storage, Cloud Functions, Vertex AI)
+*   **Databases:** PostgreSQL, MySQL, MongoDB, Redis
+*   **Tools:** Git, Docker, Kubernetes, Jenkins, CI/CD, Terraform, Airflow
+*   **Machine Learning:** Regression, Classification, Clustering, Time Series Analysis, A/B Testing, Deep Learning
+
+**Experience**
+
+**Lyft, San Francisco, CA**
+**Staff Data Scientist** | 2019 – Present
+
+*   Led the development and deployment of a real-time predictive model for customer churn, resulting in a **56% reduction in churn rate** and an estimated **$2.3M in annual savings**.
+*   Architected and implemented a scalable data pipeline for processing user behavior data, enabling the system to handle **500M+ daily active users** and improving data availability by **35%**.
+*   Developed and maintained mobile app features using React Native, TypeScript, Redux, and Expo.
+*   Mentored junior data scientists and engineers, fostering a collaborative and high-performing team environment.
+
+**Airbnb, San Francisco, CA**
+**Senior Data Scientist** | 2016 – 2019
+
+*   Engineered and deployed a machine learning model to optimize pricing recommendations for hosts, resulting in a **12% increase in booking rates** and a **7% increase in average revenue per listing**.
+*   Designed and implemented a CI/CD pipeline using Jenkins and Docker, reducing release time by **76%** and improving code quality.
+*   Built and scaled a recommendation system using Python and TensorFlow to personalize guest experiences, increasing user engagement by **18%**.
+
+**Certifications**
+
+*   AWS Certified Machine Learning – Specialty
+*   Google Cloud Certified Professional Data Engineer
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **Personalized Recommendation Engine:** Developed a recommendation engine using collaborative filtering and content-based filtering to suggest relevant products to users, improving click-through rates by 15%. (Python, scikit-learn)
+*   **Customer Churn Prediction:** Built a machine learning model to predict customer churn based on historical usage data, enabling proactive intervention and reducing churn by 10%. (Python, Pandas, scikit-learn)
+*   **Real-time Fraud Detection:** Implemented a real-time fraud detection system using anomaly detection techniques to identify and prevent fraudulent transactions, saving the company $50,000 annually. (Python, TensorFlow)
+*   **Mobile App Redesign:** Led the front-end development of a React Native mobile application using TypeScript and Redux, improving user engagement and satisfaction.
+
+**Education**
+
+**University of Illinois at Urbana-Champaign, Champaign, IL**
+Bachelor of Science in Computer Science | 2012 – 2016

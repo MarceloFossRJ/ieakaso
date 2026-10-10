@@ -1,0 +1,60 @@
+Anika Rodriguez
+(555) 123-4567 | anika.rodriguez@email.com | linkedin.com/in/anikarodriguez | github.com/anikarodriguez
+
+SUMMARY
+
+Highly motivated and results-oriented Senior Android Developer with 7 years of experience in designing, developing, and deploying scalable and high-performance mobile applications. Proven ability to lead and mentor engineering teams, optimize application performance, and implement CI/CD pipelines. Expertise in Azure cloud services and DevOps practices. Passionate about leveraging technology to solve complex business challenges.
+
+EXPERIENCE
+
+DoorDash, Mountain View, CA
+Senior Android Developer                                                                                              2020 – Present
+
+*   Architected and maintained the core Android application used by millions of delivery drivers, resulting in a 15% increase in driver satisfaction based on in-app surveys.
+*   Engineered ARM Templates and Bicep infrastructure-as-code (IaC) for deploying and managing Android application services on Azure Kubernetes Service (AKS).
+*   Implemented CI/CD pipelines using GitHub Actions, reducing release time by 39% and improving deployment frequency from monthly to 2x daily.
+*   Optimized database queries, resulting in 20% faster data reads and reducing database load by 12%.
+*   Built and maintained real-time analytics pipeline using Splunk to process 20 million events per day, enabling proactive monitoring and issue resolution.
+*   Mentored 10 junior engineers, providing technical guidance and fostering a collaborative team environment.
+
+Lyft, San Francisco, CA
+Android Developer                                                                                                         2017 – 2020
+
+*   Developed and maintained key features for the Lyft passenger application, including ride request and payment processing.
+*   Contributed to the design and implementation of a new ride-matching algorithm that reduced average wait times by 8%.
+*   Implemented automated testing frameworks to improve code quality and reduce bug count by 22%.
+*   Collaborated with cross-functional teams (product, design, QA) to deliver high-quality features on time and within budget.
+*   Assisted in the migration of core services to the Azure cloud platform.
+
+EDUCATION
+
+Carnegie Mellon University, Pittsburgh, PA
+Bachelor of Science in Computer Science                                                                                                        2017
+
+SKILLS
+
+Languages: Kotlin, Java, XML, SQL, Python
+Frameworks/Libraries: Android SDK, Jetpack Compose, Dagger, RxJava, Retrofit, JUnit, Espresso
+Cloud Platforms: Azure (AKS, Azure Functions, Azure DevOps), AWS (basic knowledge)
+DevOps: ARM Templates, Bicep, GitHub Actions, Docker, Kubernetes, Splunk
+Databases: MySQL, PostgreSQL, MongoDB
+Other: Agile Development, REST APIs, Microservices, Design Patterns, Mobile Security
+
+CERTIFICATIONS
+
+*   Microsoft Certified: Azure Fundamentals
+*   Kubernetes Certified Application Developer (CKAD)
+
+PROJECTS
+
+Smart Grocery List Android Application
+*   Developed a smart grocery list application that uses machine learning to predict user needs based on past purchase history, improving list accuracy by 26% in production.
+*   Utilized Kotlin, Android SDK, and a local SQLite database.
+
+Personal Finance Tracker Android Application
+*   Built an Android application for tracking personal finances, including income, expenses, and budgeting.
+*   Implemented features such as transaction categorization, budget alerts, and financial reporting.
+
+Open Source Contribution: Android UI Library
+*   Contributed to an open-source Android UI library, adding new components and improving existing functionality.
+*   Focused on creating reusable and customizable UI elements for Android applications.

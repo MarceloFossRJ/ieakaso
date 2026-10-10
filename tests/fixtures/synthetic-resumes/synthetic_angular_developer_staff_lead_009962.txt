@@ -1,0 +1,61 @@
+**Jian Sharma**
+(123) 456-7890 | jian.sharma@email.com | linkedin.com/in/jiansharma | github.com/jiansharma
+
+**Summary**
+
+Highly accomplished and results-oriented Staff Software Engineer with 9+ years of experience specializing in front-end development using Angular, React, and related technologies. Proven ability to architect, develop, and optimize complex web applications, lead teams, and drive significant improvements in performance, reliability, and test coverage. Passionate about leveraging technology to solve challenging problems and deliver exceptional user experiences. Seeking a challenging and rewarding leadership role where I can contribute to the success of a dynamic organization.
+
+**Skills**
+
+*   **Languages:** TypeScript, JavaScript (ES6+), HTML5, CSS3, Python
+*   **Frameworks/Libraries:** Angular (2+), React, Redux, Next.js, Tailwind CSS, Node.js, Express.js
+*   **Testing:** Jest, Cypress, JUnit, Mocha, Chai, Selenium
+*   **Cloud:** AWS (EC2, S3, Lambda, ECS), Google Cloud Platform (GCP), Kubernetes
+*   **Databases:** PostgreSQL, MongoDB, MySQL
+*   **Tools:** Git, Docker, Jenkins, CI/CD, Jira, Confluence, Agile methodologies
+
+**Experience**
+
+**Citadel, Chicago, IL**
+**Senior Software Engineer** | 2018 – Present
+
+*   Led the migration of 500+ microservices to Kubernetes, resulting in improved scalability and resource utilization.
+*   Reduced API latency by 58% through performance optimization techniques, including code profiling and caching strategies.
+*   Increased test coverage from 38% to 72% by implementing a comprehensive testing strategy using Jest and Cypress.
+*   Architected and developed a real-time data visualization dashboard using React, TypeScript, and Redux, improving monitoring and decision-making capabilities.
+*   Achieved 99.22% uptime for critical production systems by implementing robust monitoring and alerting solutions.
+*   Built a machine learning model with 81% accuracy to predict potential system failures and automate preventative maintenance.
+
+**Morgan Stanley, New York, NY**
+**Software Engineer** | 2016 – 2018
+
+*   Developed and maintained Angular-based web applications for financial trading platforms.
+*   Collaborated with cross-functional teams to gather requirements and design solutions.
+*   Optimized application performance by identifying and resolving bottlenecks.
+*   Contributed to the development of a RESTful API using Node.js and Express.js.
+
+**Infosys, Bangalore, India**
+**Software Engineer** | 2014 – 2016
+
+*   Developed and maintained Java-based web applications for various clients.
+*   Participated in all phases of the software development lifecycle, from requirements gathering to deployment.
+*   Worked with a team of developers to design and implement new features.
+
+**Projects**
+
+*   **E-commerce Platform (React, Next.js, Tailwind CSS):** Developed a fully functional e-commerce platform with user authentication, product catalog, shopping cart, and checkout functionality.
+*   **Real-Time Chat Application (React, Node.js, Socket.IO):** Built a real-time chat application with user authentication, private messaging, and group chat features.
+*   **Personal Portfolio Website (Next.js, Tailwind CSS):** Created a responsive and visually appealing personal portfolio website to showcase my skills and experience.
+*   **Data Analysis Dashboard (Angular, TypeScript, D3.js):** Developed a data analysis dashboard to visualize and analyze large datasets.
+
+**Education**
+
+**Tsinghua University, Beijing, China**
+Bachelor of Science in Computer Science | 2010 – 2014
+
+**Certifications**
+
+*   AWS Certified Developer – Associate
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Administrator (CKA)
+*   Certified ScrumMaster (CSM)

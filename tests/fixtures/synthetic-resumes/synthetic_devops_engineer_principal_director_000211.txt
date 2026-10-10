@@ -1,0 +1,60 @@
+**Alejandro Nguyen**
+(555) 555-5555 | alejandro.nguyen@email.com | linkedin.com/in/alejandro-nguyen | github.com/an-devops
+
+**Summary**
+
+Highly accomplished DevOps Engineer with 15+ years of experience in designing, implementing, and managing scalable, reliable, and secure cloud infrastructure. Proven ability to lead and mentor teams, drive automation, and optimize system performance. Expertise in GCP, Kubernetes, Terraform, and CI/CD pipelines. Passionate about leveraging cutting-edge technologies to deliver exceptional business value.
+
+**Skills**
+
+*   Cloud Platforms: Google Cloud Platform (GCP), Amazon Web Services (AWS)
+*   Containerization: Docker, Kubernetes, Helm, Istio, ArgoCD
+*   Infrastructure as Code: Terraform, Ansible, CloudFormation
+*   CI/CD: Jenkins, GitLab CI, CircleCI, Spinnaker
+*   Monitoring & Logging: Grafana, Datadog, Prometheus, ELK Stack
+*   Scripting: Python, Bash, Go
+*   Databases: MySQL, PostgreSQL, MongoDB, Redis
+*   Operating Systems: Linux (Ubuntu, CentOS), Windows Server
+*   Networking: TCP/IP, DNS, Load Balancing, Firewalls
+*   Version Control: Git
+
+**Experience**
+
+**Oracle | Principal DevOps Engineer | 2018 – Present**
+
+*   Led a team of 5 DevOps engineers in managing and scaling cloud infrastructure on GCP for a mission-critical SaaS platform.
+*   Architected and implemented a microservices architecture that improved API performance by 26% and handled 2,000 requests per minute (RPM).
+*   Spearheaded the migration of legacy systems to Kubernetes, resulting in a 40% reduction in infrastructure costs.
+*   Optimized CI/CD pipelines using Jenkins and Terraform, reducing deployment time by 30%.
+*   Increased test coverage from 37% to 75% by implementing automated testing frameworks.
+
+**Acme Corporation | Senior DevOps Engineer | 2014 – 2018**
+
+*   Engineered and maintained highly available and scalable infrastructure on AWS, supporting over 20 million daily active users.
+*   Developed and implemented automated monitoring and alerting systems using Grafana and Datadog.
+*   Improved system uptime to 99.9% by implementing robust disaster recovery and business continuity plans.
+*   Managed infrastructure costs, achieving a 15% reduction through resource optimization and automation.
+
+**Beta Solutions | DevOps Engineer | 2010 – 2014**
+
+*   Built and maintained CI/CD pipelines using Jenkins and Ansible for multiple development teams.
+*   Implemented infrastructure as code (IaC) using Terraform, enabling consistent and reproducible deployments.
+*   Managed and maintained Linux servers and databases (MySQL, PostgreSQL).
+
+**Education**
+
+**University of Toronto | Bachelor of Science, Computer Science | 2006 – 2010**
+
+**Certifications**
+
+*   Google Cloud Certified Professional Cloud Architect
+*   AWS Certified DevOps Engineer – Professional
+*   Certified Kubernetes Administrator (CKA)
+*   HashiCorp Certified: Terraform Associate
+
+**Projects**
+
+*   **Automated Infrastructure Provisioning:** Developed a Terraform module to automate the provisioning of GCP resources, reducing deployment time from days to minutes.
+*   **CI/CD Pipeline for Microservices:** Created a fully automated CI/CD pipeline using Jenkins, Docker, and Kubernetes for deploying microservices.
+*   **Centralized Logging and Monitoring:** Implemented a centralized logging and monitoring solution using ELK Stack and Grafana to improve system visibility.
+*   **Disaster Recovery Automation:** Designed and implemented an automated disaster recovery solution using Terraform and CloudFormation to minimize downtime in case of failures.

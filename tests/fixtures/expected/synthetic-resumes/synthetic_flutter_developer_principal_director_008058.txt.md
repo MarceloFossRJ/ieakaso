@@ -1,0 +1,60 @@
+```
+**Aisha Rodriguez O'Connell**
+(555) 123-4567 | aisha.rodriguez.oconnell@email.com | linkedin.com/in/aisharodriguezoconnell
+
+**Summary**
+
+Principal Flutter Developer with 16 years of experience architecting, developing, and scaling high-performance mobile and backend systems. Expertise in Flutter, C#, .NET Core, SQL Server, RabbitMQ, Azure, and Docker. Proven ability to optimize performance, lead technical teams, and mentor junior engineers. Passionate about building innovative solutions that drive business value.
+
+**Skills**
+
+*   **Languages:** Dart, C#, SQL, HTML, CSS, JavaScript
+*   **Frameworks/Platforms:** Flutter, .NET Core, ASP.NET, Xamarin
+*   **Databases:** SQL Server, PostgreSQL, MySQL, NoSQL (MongoDB)
+*   **Cloud:** Azure (AKS, App Services, Functions, Service Bus, Cosmos DB), AWS (EC2, S3, Lambda), Google Cloud Platform (GKE)
+*   **DevOps:** Docker, Kubernetes, CI/CD (Azure DevOps, Jenkins, GitHub Actions), Terraform
+*   **Messaging:** RabbitMQ, Kafka, Azure Service Bus
+*   **Methodologies:** Agile (Scrum, Kanban), Waterfall
+
+**Experience**
+
+**IBM, Senior Software Engineer / Architect, 2016 – Present**
+
+*   Led the development and architecture of a new Flutter-based mobile application for enterprise clients, resulting in a 25% increase in user engagement.
+*   Engineered and optimized backend APIs using C# .NET Core and SQL Server, reducing page load time by 46% through efficient caching strategies and query optimization.
+*   Spearheaded the migration of two critical microservices to Kubernetes on Azure (AKS), improving scalability and resilience.
+*   Optimized database queries resulting in 30% faster reads and reduced database load by 15%.
+*   Mentored 10 junior engineers on Flutter development best practices, code quality, and performance optimization.
+*   Contributed to the development and maintenance of CI/CD pipelines using Azure DevOps, ensuring smooth and automated deployments.
+
+**Acme Corporation, Software Engineer, 2012 – 2016**
+
+*   Developed and maintained a high-volume e-commerce platform using C# .NET and SQL Server.
+*   Implemented performance enhancements that scaled the system to handle 50M+ daily active users, with 99.99% uptime.
+*   Designed and implemented a RabbitMQ-based messaging system for order processing, improving system reliability and scalability.
+*   Contributed to the design and implementation of RESTful APIs for mobile applications.
+*   Participated in code reviews and provided constructive feedback to junior developers.
+
+**Tech Solutions Inc, Junior Software Developer, 2008 – 2012**
+
+*   Developed and maintained web applications using ASP.NET and SQL Server.
+*   Assisted in the design and implementation of database schemas and stored procedures.
+*   Participated in all phases of the software development lifecycle, from requirements gathering to testing and deployment.
+
+**Projects**
+
+*   **Personal Finance Tracker (Flutter):** Developed a cross-platform mobile application for tracking personal finances, featuring real-time data visualization and budget management.
+*   **E-commerce API (C# .NET Core):** Designed and implemented a RESTful API for an e-commerce platform, including features for product management, order processing, and user authentication.
+*   **Microservice Orchestration (Kubernetes):** Deployed and managed a cluster of microservices on Kubernetes, using Docker and CI/CD pipelines for automated deployments.
+*   **Data Pipeline (Azure Functions & Service Bus):** Built a serverless data pipeline using Azure Functions and Service Bus to process and transform large volumes of data in real-time.
+
+**Certifications**
+
+*   AWS Certified Developer – Associate
+*   Microsoft Certified: Azure Solutions Architect Expert
+*   Certified Kubernetes Application Developer (CKAD)
+
+**Education**
+
+**Purdue University, Bachelor of Science in Computer Science, 2008**
+```

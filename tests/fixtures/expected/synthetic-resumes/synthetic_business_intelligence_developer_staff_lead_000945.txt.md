@@ -1,0 +1,62 @@
+**Anya Ramirez-Chen**
+(123) 456-7890 | anya.ramirez.chen@email.com | LinkedIn Profile URL (Example: linkedin.com/in/anyaramirezchen) | GitHub Profile URL (Example: github.com/aramirezchen)
+
+**Summary**
+
+Highly analytical and results-oriented Business Intelligence Developer with 9 years of experience in designing, developing, and maintaining robust and scalable data solutions using cutting-edge technologies. Proven ability to translate complex business requirements into actionable insights through effective data modeling, ETL processes, and insightful visualizations. Expertise in Node.js, Express, TypeScript, MongoDB, GraphQL, Docker, and Azure cloud services. Passionate about driving data-driven decision-making and improving overall system performance.
+
+**Experience**
+
+**Meta, Menlo Park, CA**
+**Senior Business Intelligence Developer** | 2019 – Present
+
+*   Led the design and implementation of a real-time data pipeline using Node.js, TypeScript, and Kafka to ingest and process user activity data, resulting in a 20% improvement in data latency.
+*   Architected and developed a GraphQL API to expose key business metrics, empowering stakeholders with self-service analytics capabilities and reducing ad-hoc reporting requests by 30%.
+*   Engineered automated testing frameworks using Jest and Supertest, increasing test coverage from 48% to 87% and improving code quality.
+*   Spearheaded the migration of legacy data infrastructure to Azure cloud services, reducing infrastructure costs by 15% and improving scalability.
+*   Optimized database queries and indexing strategies, reducing page load time by 16% and improving user experience.
+*   Collaborated with cross-functional teams to gather requirements, design solutions, and deliver impactful business intelligence solutions.
+
+**Data Solutions Inc., San Francisco, CA**
+**Business Intelligence Developer** | 2016 – 2019
+
+*   Developed and maintained ETL pipelines using Python and Apache Spark to extract, transform, and load data from various sources into a data warehouse.
+*   Designed and implemented data models in MongoDB to support business reporting and analysis requirements.
+*   Created interactive dashboards and visualizations using Tableau to provide actionable insights to stakeholders.
+*   Contributed to the development of a data governance framework to ensure data quality and consistency.
+*   Improved data processing efficiency by 25% through query optimization and code refactoring.
+
+**TechStart Solutions, Toronto, Canada**
+**Junior Data Analyst** | 2014 – 2016
+
+*   Collected, analyzed, and interpreted data using SQL and Excel to identify trends and patterns.
+*   Prepared reports and presentations to communicate findings and recommendations to management.
+*   Assisted in the development of data quality assurance processes.
+*   Automated repetitive data tasks using Python scripts, saving 10 hours per week.
+
+**Projects**
+
+*   **Real-time Dashboard:** Developed a real-time dashboard using Node.js, Express, and React to visualize key business metrics, providing stakeholders with up-to-the-minute insights.
+*   **Data Pipeline Automation:** Created a data pipeline automation tool using Python and Airflow to automate ETL processes, improving data accuracy and reducing manual effort.
+*   **Recommendation Engine:** Designed a recommendation engine using machine learning algorithms to personalize user experiences, resulting in a 10% increase in user engagement.
+*   **Anomaly Detection System:** Built an anomaly detection system using time series analysis techniques to identify unusual patterns in data, enabling proactive issue resolution.
+*   **ETL Optimization:** Optimized existing ETL pipelines using profiling techniques and parallel processing reducing processing time by 30%.
+
+**Skills**
+
+*   **Languages:** JavaScript, TypeScript, Python, SQL
+*   **Frameworks/Libraries:** Node.js, Express, React, GraphQL, Jest, Supertest
+*   **Databases:** MongoDB, PostgreSQL, MySQL
+*   **Cloud Platforms:** Azure (Data Factory, Databricks, Blob Storage), AWS (S3, EC2, Lambda)
+*   **Tools:** Docker, Kubernetes, Git, Jenkins, Tableau, Apache Spark, Kafka
+*   **Methodologies:** Agile, Scrum
+
+**Certifications**
+
+*   AWS Certified Cloud Practitioner
+*   Microsoft Certified: Azure Data Engineer Associate
+
+**Education**
+
+**University of Toronto, Toronto, Canada**
+Bachelor of Science in Computer Science | 2010 – 2014

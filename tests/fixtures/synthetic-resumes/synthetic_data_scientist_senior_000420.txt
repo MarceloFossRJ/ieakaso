@@ -1,0 +1,58 @@
+Anya Sharma-Nguyen
+(555) 123-4567 | anya.sharma.nguyen@email.com | linkedin.com/in/anyasharmanguyen | github.com/anyasharmanguyen
+
+Summary
+
+Data Scientist with 7 years of experience in designing, developing, and deploying machine learning models and data pipelines in cloud environments. Proven ability to optimize systems, reduce churn, and lead complex migrations. Expertise in AWS, Terraform, Ansible, Docker, Kubernetes, and machine learning techniques. Passionate about mentoring junior engineers and driving data-informed decision-making.
+
+Experience
+
+Netflix, Los Gatos, CA
+Senior Data Scientist | 2020 – Present
+
+* Led the migration of 500+ microservices to a Kubernetes infrastructure, improving scalability and resilience.
+* Optimized API infrastructure, reducing latency by 23% and improving overall system performance.
+* Developed and deployed a churn prediction model, resulting in an 8.4% reduction in customer churn and a $5M annual cost savings.
+* Mentored 5 junior data scientists, providing guidance on model development, deployment, and best practices.
+* Engineered and maintained data pipelines using AWS services (S3, Lambda, Kinesis) and tools like Airflow.
+* Achieved 76% uptime for critical production systems through proactive monitoring and automated incident response.
+
+Spotify, New York, NY
+Data Scientist | 2017 – 2020
+
+* Built and deployed a machine learning model to personalize music recommendations, achieving a 3.5% increase in user engagement.
+* Implemented A/B testing frameworks to evaluate the performance of new features and algorithms.
+* Collaborated with engineering teams to integrate machine learning models into production systems.
+* Developed data visualizations and dashboards to communicate insights to stakeholders.
+* Optimized database queries and data pipelines, improving data processing speed by 15%.
+
+Education
+
+Massachusetts Institute of Technology (MIT), Cambridge, MA
+Bachelor of Science in Computer Science | 2017
+
+Skills
+
+Programming Languages: Python, R, SQL, Java
+Cloud Technologies: AWS (EC2, S3, Lambda, Kinesis, IAM, ECS), Google Cloud Platform (GCP)
+Infrastructure as Code: Terraform, Ansible
+Containerization: Docker, Kubernetes
+CI/CD: Jenkins, Git
+Monitoring: Prometheus, Grafana, CloudWatch
+Machine Learning: Regression, Classification, Clustering, Deep Learning, Natural Language Processing (NLP)
+Databases: PostgreSQL, MySQL, MongoDB, Cassandra
+Big Data: Spark, Hadoop, Hive
+
+Certifications
+
+* AWS Certified Machine Learning – Specialty
+* Certified Kubernetes Administrator (CKA)
+* Google Cloud Professional Data Engineer
+
+Projects
+
+Fraud Detection System: Developed a machine learning model to detect fraudulent transactions, achieving 92% accuracy on a test dataset. (Python, Scikit-learn, AWS)
+Recommendation Engine: Built a collaborative filtering-based recommendation engine to personalize product recommendations. (Python, Surprise library, MongoDB)
+Sentiment Analysis Tool: Created a sentiment analysis tool to analyze customer feedback from social media. (Python, NLTK, AWS Lambda)
+Automated Deployment Pipeline: Designed and implemented a fully automated CI/CD pipeline for deploying machine learning models to production using Jenkins, Docker, and Kubernetes. (Jenkins, Docker, Kubernetes, Terraform, Ansible)
+Log Analysis and Anomaly Detection: Utilized Prometheus and Grafana to monitor system logs and detect anomalies in real-time. (Prometheus, Grafana, Python)

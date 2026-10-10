@@ -1,0 +1,68 @@
+**Jia Rodriguez-Chen**
+(555) 123-4567 | jia.rodriguez.chen@email.com | linkedin.com/in/jiarodriguezchen | github.com/jiarc
+
+**Summary**
+
+Highly accomplished and results-oriented Analytics Engineer with 9 years of experience in designing, developing, and scaling high-performance data-driven applications. Proven ability to translate business requirements into innovative technical solutions. Expertise in building and optimizing data pipelines, implementing predictive analytics models, and leveraging cloud technologies to drive significant business impact. Proficient in Kotlin, Jetpack Compose, Room, Retrofit, Dagger, and Firebase. Seeking a challenging leadership role where I can leverage my skills and experience to contribute to the success of a dynamic and innovative organization. AWS Certified Solutions Architect - Associate.
+
+**Experience**
+
+**Amazon, Seattle, WA**
+**Lead Analytics Engineer** | 2018 – Present
+
+*   Led a team of 4 engineers in the development and maintenance of a real-time customer behavior analytics platform.
+*   Architected and implemented a microservices architecture using Kotlin and Spring Boot, enabling the platform to serve 50,000 requests per minute (RPM) with 99.99% uptime.
+*   Engineered a predictive analytics model using machine learning algorithms, resulting in a 51% reduction in customer churn.
+*   Spearheaded the implementation of a CI/CD pipeline using Jenkins and Docker, reducing release time by 70%.
+*   Scaled the system to efficiently handle data from 2M+ daily active users, ensuring optimal performance and data accuracy.
+
+**Data Solutions Inc., Austin, TX**
+**Senior Analytics Engineer** | 2015 – 2018
+
+*   Designed and implemented ETL pipelines using Apache Spark and Python, processing large datasets from various sources (SQL databases, NoSQL databases, and cloud storage).
+*   Developed and maintained data visualization dashboards using Tableau and Power BI, providing actionable insights to business stakeholders.
+*   Optimized database queries and data storage strategies, resulting in a 30% improvement in data processing speed and a 20% reduction in storage costs.
+*   Collaborated with cross-functional teams (product, marketing, and sales) to identify business opportunities and develop data-driven solutions.
+
+**Acme Corporation, Dallas, TX**
+**Analytics Engineer** | 2013 – 2015
+
+*   Developed and maintained data warehousing solutions using SQL Server and SSIS.
+*   Implemented data quality checks and validation processes to ensure data accuracy and consistency.
+*   Generated reports and analyses to support business decision-making.
+
+**Projects**
+
+**Personal Finance Tracker (Kotlin, Jetpack Compose, Room)**
+
+*   Developed a mobile application for tracking personal finances, including budgeting, expense tracking, and investment management.
+*   Utilized Jetpack Compose for building a modern and responsive user interface.
+*   Employed Room persistence library for local data storage.
+
+**E-commerce Recommendation Engine (Python, TensorFlow)**
+
+*   Built a recommendation engine using collaborative filtering techniques to provide personalized product recommendations to e-commerce customers.
+*   Leveraged TensorFlow for building and training machine learning models.
+
+**Real-Time Data Streaming Pipeline (Kafka, Spark Streaming)**
+
+*   Designed and implemented a real-time data streaming pipeline for processing and analyzing sensor data from IoT devices.
+*   Utilized Kafka for data ingestion and Spark Streaming for real-time data processing.
+
+**Skills**
+
+**Languages:** Kotlin, Java, Python, SQL
+**Frameworks/Libraries:** Jetpack Compose, Spring Boot, Room, Retrofit, Dagger, TensorFlow, Pandas, NumPy
+**Databases:** MySQL, PostgreSQL, MongoDB, DynamoDB
+**Cloud Platforms:** AWS (EC2, S3, Lambda, RDS), Google Cloud Platform (BigQuery, Dataflow, Compute Engine)
+**Tools:** Git, Docker, Kubernetes, Jenkins, Tableau, Power BI
+
+**Education**
+
+**University of Texas at Austin, Austin, TX**
+Bachelor of Science in Computer Science | 2009 – 2013
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Google Cloud Certified Professional Data Engineer

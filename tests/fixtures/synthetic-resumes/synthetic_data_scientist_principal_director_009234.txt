@@ -1,0 +1,61 @@
+```
+Aisha Ramirez
+(555) 123-4567 | aisha.ramirez@email.com | linkedin.com/in/aisharamirez
+
+Summary
+
+Data Science leader with 15+ years of experience in designing, developing, and deploying scalable and robust machine learning solutions. Proven ability to build and lead high-performing teams, drive innovation, and deliver impactful results. Expertise in Python, Django, FastAPI, PostgreSQL, Redis, Docker, and AWS cloud technologies. Passionate about leveraging data to solve complex business problems and mentoring the next generation of data scientists.
+
+Experience
+
+Salesforce | Principal Data Scientist | San Francisco, CA | 2018 – Present
+
+* Led the development and deployment of a microservices architecture using FastAPI, Docker, and Kubernetes, resulting in a system capable of handling 100K requests per minute (RPM).
+* Architected and implemented a real-time fraud detection system, reducing fraudulent transactions by 15% in the first quarter.
+* Spearheaded efforts to improve code quality and reliability, increasing test coverage from 47% to 77%.
+* Mentored 10 junior engineers, fostering their technical growth and career development.
+* Reduced annual infrastructure costs by $2,000 through optimizing resource allocation and implementing cost-saving strategies.
+* Collaborated with product and engineering teams to define and prioritize data science projects aligned with business objectives.
+
+Google | Senior Data Scientist | Mountain View, CA | 2014 – 2018
+
+* Designed and developed machine learning models for personalized recommendations, improving user engagement by 10%.
+* Engineered scalable data pipelines using Apache Spark and Hadoop to process large datasets for model training and evaluation.
+* Led a team of data scientists in developing a churn prediction model, resulting in a 5% reduction in customer churn.
+* Presented research findings and technical solutions to stakeholders, effectively communicating complex concepts in a clear and concise manner.
+* Contributed to open-source projects related to machine learning and data engineering.
+
+Amazon | Data Scientist | Seattle, WA | 2010 – 2014
+
+* Built and deployed machine learning models for predicting customer demand, improving inventory management and reducing stockouts.
+* Developed data visualization dashboards using Tableau to monitor key performance indicators and identify trends.
+* Collaborated with engineers to integrate machine learning models into production systems.
+* Conducted A/B testing to evaluate the performance of different models and algorithms.
+
+Education
+
+Massachusetts Institute of Technology (MIT) | Cambridge, MA | Bachelor of Science in Computer Science
+
+Skills
+
+Programming Languages: Python, SQL, R
+Frameworks/Libraries: Django, FastAPI, Pandas, NumPy, Scikit-learn, TensorFlow, PyTorch
+Databases: PostgreSQL, MySQL, Redis, MongoDB
+Cloud Technologies: AWS (EC2, S3, Lambda, ECS), Google Cloud Platform (GCP)
+Tools: Docker, Kubernetes, Git, Jenkins, Tableau, Apache Spark, Hadoop
+Machine Learning: Regression, Classification, Clustering, Deep Learning, Natural Language Processing (NLP)
+
+Certifications
+
+* AWS Certified Machine Learning – Specialty
+* Google Cloud Certified Professional Data Engineer
+* Certified Kubernetes Administrator (CKA)
+
+Projects
+
+* Customer Churn Prediction: Developed a machine learning model to predict customer churn using historical data and demographic information.
+* Fraud Detection System: Designed and implemented a real-time fraud detection system using machine learning algorithms and anomaly detection techniques.
+* Recommendation Engine: Built a personalized recommendation engine using collaborative filtering and content-based filtering methods.
+* Sales Forecasting: Developed a time series model using historical sales data and external factors to forecast future sales.
+* Sentiment Analysis: Created a sentiment analysis model to analyze customer reviews and identify areas for improvement.
+```

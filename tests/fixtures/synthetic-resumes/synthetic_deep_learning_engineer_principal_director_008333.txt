@@ -1,0 +1,56 @@
+**Aisha Rodriguez-Kumar**
+(555) 123-4567 | aisha.rk@email.com | linkedin.com/in/aishark | github.com/aishark
+
+**Summary**
+
+Highly accomplished and results-oriented Deep Learning Engineer with 15+ years of experience in developing, deploying, and scaling AI/ML solutions. Proven ability to lead and mentor engineering teams, drive innovation, and deliver significant business impact. Expertise in building robust, scalable, and reliable production systems utilizing cutting-edge technologies. Adept at leveraging predictive analytics to improve business outcomes and reduce operational costs. Seeking a challenging leadership role where I can leverage my expertise to drive innovation and achieve strategic objectives.
+
+**Skills**
+
+* **Languages:** Kotlin, Python, Java, Scala, C++
+* **Frameworks/Libraries:** TensorFlow, PyTorch, Keras, scikit-learn, Pandas, NumPy, Jetpack Compose, Retrofit, Room, Dagger
+* **Cloud Technologies:** AWS (EC2, S3, Lambda, SageMaker), GCP (Compute Engine, Cloud Storage, Cloud Functions, Vertex AI), Kubernetes, Docker
+* **Databases:** SQL (PostgreSQL, MySQL), NoSQL (MongoDB, Cassandra), Firebase
+* **DevOps:** CI/CD, Jenkins, Git, Terraform, Ansible
+* **Machine Learning:** Deep Learning, Natural Language Processing (NLP), Computer Vision, Recommender Systems, Time Series Analysis
+* **Other:** Agile Methodologies (Scrum, Kanban), Microservices Architecture, Data Warehousing
+
+**Experience**
+
+**Adobe | Principal Deep Learning Engineer | 2018 – Present**
+
+* Led a team of 10 engineers in developing and deploying deep learning models for Adobe Creative Cloud, resulting in a 45% reduction in customer churn by predicting user behavior and tailoring personalized experiences.
+* Spearheaded the migration of 500 microservices to Kubernetes, improving system scalability and resilience, and achieving 73% uptime for critical production systems.
+* Architected and implemented a new CI/CD pipeline that improved deployment frequency from monthly to 500x daily, enabling faster iteration and quicker time-to-market.
+* Developed and maintained production-ready deep learning models for image recognition, natural language processing, and recommendation systems.
+* Mentored junior engineers and provided technical guidance on best practices in deep learning and software engineering.
+
+**Netflix | Senior Machine Learning Engineer | 2014 – 2018**
+
+* Designed and implemented machine learning algorithms for personalized movie recommendations, leading to a 15% increase in user engagement.
+* Built and deployed real-time fraud detection systems using TensorFlow and Kubernetes, resulting in a 20% reduction in fraudulent activities.
+* Optimized existing machine learning models for performance and scalability, reducing inference latency by 30%.
+* Collaborated with cross-functional teams to define and prioritize machine learning initiatives.
+
+**Amazon | Software Development Engineer | 2010 – 2014**
+
+* Developed and maintained large-scale distributed systems for e-commerce recommendations.
+* Improved deployment frequency from monthly to 20x daily by re-architecting the delivery pipeline with improved automation.
+* Contributed to the design and implementation of a new data warehouse for business intelligence.
+
+**Projects**
+
+* **AI-Powered Content Generator (Personal Project):** Developed a deep learning model using GPT-3 to generate creative content for marketing campaigns.
+* **Real-time Object Detection System (Personal Project):** Built a real-time object detection system using TensorFlow and YOLOv5 for autonomous driving applications.
+* **Personalized Recommendation Engine (GitHub):** Created a personalized recommendation engine for e-commerce websites using collaborative filtering and content-based filtering. (github.com/aishark/recommendation-engine)
+* **AI-Based Chatbot (GitHub):** Developed an AI-based chatbot using natural language processing (NLP) techniques to provide customer support. (github.com/aishark/ai-chatbot)
+
+**Education**
+
+**Indian Institute of Technology (IIT) Kanpur | Bachelor of Technology in Computer Science | 2010**
+
+**Certifications**
+
+* AWS Certified Machine Learning – Specialty
+* Google Cloud Certified Professional Machine Learning Engineer
+* Certified Kubernetes Application Developer (CKAD)

@@ -1,0 +1,60 @@
+Aisha Rodriguez-Chen
+(555) 123-4567 | aisha.rodriguez.chen@email.com | LinkedIn Profile URL
+
+Summary
+
+Highly accomplished and results-driven DevOps Engineer with 9+ years of experience in designing, implementing, and managing scalable, resilient, and automated infrastructure solutions. Proven ability to lead teams, mentor engineers, and drive significant improvements in system performance, deployment frequency, and operational efficiency. Expertise in Vue.js ecosystem and cloud technologies. Seeking a challenging Staff/Lead DevOps Engineer role.
+
+Experience
+
+JPMorgan Chase & Co., New York, NY
+Lead DevOps Engineer | 2019 – Present
+
+* Led a team of 5 engineers in designing and implementing a real-time analytics pipeline processing over 100 million events per day, utilizing Kubernetes, Kafka, and Spark.
+* Spearheaded the migration of critical applications to AWS, resulting in a 30% reduction in infrastructure costs.
+* Optimized API performance, achieving a 66% reduction in latency and improving user experience for 15M+ daily active users.
+* Implemented CI/CD pipelines using Jenkins and GitOps principles, increasing deployment frequency from monthly to 2x daily.
+* Mentored over 10 junior engineers on DevOps best practices and cloud technologies.
+
+Amazon Web Services (AWS), Seattle, WA
+Senior DevOps Engineer | 2016 – 2019
+
+* Engineered and maintained highly available and scalable infrastructure on AWS, supporting 5M+ daily active users.
+* Developed infrastructure-as-code (IaC) using Terraform and CloudFormation, automating provisioning and configuration management.
+* Implemented monitoring and alerting solutions using Prometheus and Grafana, ensuring proactive identification and resolution of issues.
+* Contributed to the development of internal tools for automating deployment and management of microservices.
+
+Microsoft Corporation, Redmond, WA
+DevOps Engineer | 2014 – 2016
+
+* Designed and implemented CI/CD pipelines for web applications using Jenkins and Azure DevOps.
+* Collaborated with development teams to improve code quality and reduce deployment time.
+* Managed and maintained production and staging environments on Azure.
+
+Skills
+
+Languages: JavaScript, Python, Bash
+Frameworks/Libraries: Vue.js, Vuex, Nuxt.js, SCSS, Webpack, Vitest, Node.js
+Cloud Platforms: AWS (EC2, S3, Lambda, ECS, EKS, CloudFormation), Azure (Virtual Machines, Blob Storage, Azure DevOps), GCP (Compute Engine, Cloud Storage, Kubernetes Engine)
+DevOps Tools: Kubernetes, Docker, Terraform, Ansible, Jenkins, Git, Prometheus, Grafana, ELK Stack, Kafka, Spark
+Operating Systems: Linux, Windows
+Databases: PostgreSQL, MySQL, MongoDB
+
+Projects
+
+Real-time Dashboard: Developed a real-time dashboard using Vue.js, Vuex, and WebSockets to visualize key performance indicators (KPIs) from the analytics pipeline.
+Automated Infrastructure: Built a fully automated infrastructure deployment pipeline using Terraform and AWS CloudFormation.
+Microservices Monitoring: Implemented a comprehensive monitoring solution for microservices using Prometheus, Grafana, and Alertmanager.
+CI/CD Pipeline: Designed and implemented a robust CI/CD pipeline for a Vue.js application using Jenkins and Docker.
+Serverless Application: Architected and deployed a serverless application using AWS Lambda and API Gateway.
+
+Certifications
+
+* AWS Certified DevOps Engineer – Professional
+* Kubernetes Certified Administrator (CKA)
+* Google Cloud Certified Professional Cloud Architect
+
+Education
+
+University of Washington, Seattle, WA
+Bachelor of Science in Computer Science | 2010 – 2014

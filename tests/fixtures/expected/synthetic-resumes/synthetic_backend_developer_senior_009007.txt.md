@@ -1,0 +1,53 @@
+**Aaliyah Nguyen**
+(555) 123-4567 | aaliyah.nguyen@email.com | linkedin.com/in/aaliyahnguyen | github.com/aaliyahnguyen
+
+**Summary**
+
+Highly motivated and results-oriented Senior Backend Developer with 7+ years of experience in designing, developing, and deploying scalable and reliable data-intensive applications within the FinTech industry. Proven ability to lead teams, mentor junior engineers, and drive significant improvements in system performance and reliability. Expertise in Python, Spark, Airflow, Snowflake, dbt, Kafka, and Databricks. AWS Certified Cloud Practitioner.
+
+**Skills**
+
+*   **Languages:** Python, SQL, Scala
+*   **Big Data:** Spark, Hadoop, Kafka, Hive
+*   **Cloud:** AWS (S3, EC2, IAM, Lambda), Databricks, Snowflake
+*   **Data Pipelines:** Airflow, dbt, Luigi
+*   **Databases:** PostgreSQL, MySQL, NoSQL (MongoDB)
+*   **Microservices:** Kubernetes, Docker, REST APIs, gRPC
+*   **DevOps:** CI/CD, Jenkins, Git, Terraform
+*   **Other:** Data Modeling, ETL, Data Warehousing, Agile Methodologies
+
+**Experience**
+
+**Senior Backend Engineer | Nova Finance | San Francisco, CA | 2020 – Present**
+
+*   Led the development and maintenance of critical backend systems supporting high-volume financial transactions, impacting over 50,000 daily users.
+*   Architected and implemented a microservices architecture using Kubernetes and Python, resulting in a 40% reduction in latency and enabling 5K RPM.
+*   Spearheaded the migration of two legacy monolithic services to a modern microservices architecture on Kubernetes, improving scalability and resilience.
+*   Designed and implemented data pipelines using Airflow, Spark, and Snowflake for real-time fraud detection, resulting in a 15% decrease in fraudulent transactions.
+*   Mentored 15 junior engineers in best practices for software development, code quality, and system design.
+*   Improved system uptime by 23% through proactive monitoring, automated incident response, and infrastructure optimization.
+
+**Backend Engineer | DataStream Analytics | New York, NY | 2017 – 2020**
+
+*   Developed and maintained ETL pipelines using Spark and Python to process large datasets from various sources, ensuring data quality and consistency.
+*   Optimized existing data pipelines, resulting in a 30% reduction in processing time and cost savings of $50,000 annually.
+*   Collaborated with data scientists to build and deploy machine learning models for predictive analytics, improving business decision-making.
+*   Contributed to the design and implementation of a data warehouse solution using Snowflake.
+
+**Certifications**
+
+*   AWS Certified Cloud Practitioner
+*   Databricks Certified Associate Developer for Apache Spark
+*   Certified Kubernetes Application Developer (CKAD)
+
+**Projects**
+
+*   **Real-Time Fraud Detection System:** Developed a real-time fraud detection system using Kafka, Spark Streaming, and a machine learning model deployed on Kubernetes.
+*   **Automated Data Quality Monitoring:** Built an automated data quality monitoring system using Airflow and Python to detect and resolve data quality issues in real-time.
+*   **Personalized Recommendation Engine:** Designed and implemented a personalized recommendation engine using collaborative filtering and content-based filtering techniques.
+*   **Open Source Contribution - Airflow Plugin:** Developed and contributed an Airflow plugin for interacting with a proprietary data source.
+
+**Education**
+
+**University of California, Los Angeles (UCLA) | Los Angeles, CA | 2013 – 2017**
+Bachelor of Science in Computer Science, GPA: 3.8

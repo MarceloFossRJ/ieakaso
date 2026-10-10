@@ -1,0 +1,70 @@
+**Aisha Ramirez**
+(555) 123-4567 | aisha.ramirez@email.com | linkedin.com/in/aisharamirez | github.com/aisharamirez
+
+**Summary**
+
+Highly accomplished and results-oriented Deep Learning Engineer with 16 years of experience in architecting, developing, and deploying scalable AI/ML solutions. Expertise in cloud infrastructure (Azure, AWS, GCP), CI/CD pipelines, and deep learning frameworks. Proven ability to lead and mentor teams, driving innovation and delivering impactful results. Seeking a challenging Principal/Director role where I can leverage my experience to build and scale cutting-edge AI products.
+
+**Experience**
+
+**Instacart** | **Principal Deep Learning Engineer** | San Francisco, CA | 2020 – Present
+
+*   Led the development and deployment of deep learning models for personalized recommendations, demand forecasting, and fraud detection, impacting $10M+ in annual revenue.
+*   Architected and implemented a fully automated CI/CD pipeline using Azure DevOps and ARM Templates, improving deployment frequency from monthly to 2x daily.
+*   Spearheaded the migration of ML models to Azure Kubernetes Service (AKS), resulting in a 40% reduction in infrastructure costs and improved model serving latency.
+*   Mentored 15 junior engineers in deep learning best practices, cloud infrastructure, and software engineering principles.
+*   Optimized model training pipelines using distributed training techniques, reducing training time by 65%.
+*   Implemented robust monitoring and alerting systems using Splunk to ensure model performance and reliability.
+
+**Netflix** | **Senior Machine Learning Engineer** | Los Gatos, CA | 2016 – 2020
+
+*   Designed and built recommendation algorithms for personalized movie and TV show suggestions, improving user engagement by 15%.
+*   Developed and deployed a deep learning model for video quality assessment, reducing manual review efforts by 70%.
+*   Collaborated with cross-functional teams to integrate ML models into production systems, ensuring scalability and reliability.
+*   Contributed to the development of a novel reinforcement learning algorithm for optimizing content delivery, resulting in a 10% reduction in bandwidth costs.
+
+**Amazon** | **Machine Learning Engineer** | Seattle, WA | 2012 – 2016
+
+*   Developed and deployed machine learning models for fraud detection and risk assessment, reducing fraudulent transactions by 25%.
+*   Built data pipelines for ingesting and processing large-scale datasets using Apache Spark and Hadoop.
+*   Designed and implemented A/B testing frameworks for evaluating the performance of ML models.
+
+**Education**
+
+**Stanford University** | Stanford, CA | Master of Science in Computer Science | 2012
+* GPA: 3.9/4.0
+* Relevant Coursework: Deep Learning, Machine Learning, Artificial Intelligence, Data Mining
+
+**Stanford University** | Stanford, CA | Bachelor of Science in Computer Science | 2010
+* GPA: 3.8/4.0
+
+**Projects**
+
+*   **AI-Powered Image Recognition System:** Developed a real-time image recognition system using convolutional neural networks (CNNs) for object detection and classification.
+*   **Personalized Recommendation Engine:** Built a recommendation engine using collaborative filtering and content-based filtering techniques to suggest relevant items to users.
+*   **Fraud Detection System:** Implemented a fraud detection system using machine learning algorithms to identify and prevent fraudulent transactions.
+*   **Chatbot for Customer Service:** Created a chatbot using natural language processing (NLP) techniques to provide automated customer support.
+
+**Skills**
+
+*   **Deep Learning:** TensorFlow, PyTorch, Keras, CNNs, RNNs, LSTMs, Transformers
+*   **Machine Learning:** Scikit-learn, XGBoost, Random Forest, Gradient Boosting
+*   **Cloud Computing:** Azure (AKS, Azure DevOps, ARM Templates, Bicep), AWS (EC2, S3, Lambda, SageMaker), GCP (GKE, Cloud Functions, Cloud Storage)
+*   **Programming Languages:** Python, Java, Scala, C++
+*   **Big Data Technologies:** Spark, Hadoop, Hive, Kafka
+*   **Databases:** SQL, NoSQL (MongoDB, Cassandra)
+*   **CI/CD:** Jenkins, GitHub Actions
+*   **Monitoring & Logging:** Splunk, Prometheus, Grafana
+*   **DevOps:** Docker, Kubernetes
+
+**Certifications**
+
+*   AWS Certified Machine Learning – Specialty
+*   Google Cloud Certified Professional Machine Learning Engineer
+*   Certified Kubernetes Administrator (CKA)
+*   Microsoft Certified: Azure Solutions Architect Expert
+
+**Awards and Recognition**
+
+*   Instacart Engineering Excellence Award (2022)
+*   Netflix Innovation Award (2018)

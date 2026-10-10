@@ -1,0 +1,63 @@
+**Aisha Patel-O'Connell**
+(123) 456-7890 | aisha.patel.oconnell@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly accomplished and results-oriented Data Platform Engineer with 9 years of experience in designing, developing, and deploying scalable and performant data platforms. Proven ability to architect and implement microservices architectures, optimize performance, and build machine learning models that drive business value. Expertise in Swift, SwiftUI, Combine, Core Data, Firebase, and modern cloud technologies. Seeking a challenging Staff/Lead Data Platform Engineer role to leverage expertise and contribute to innovative solutions.
+
+**Experience**
+
+**Two Sigma Investments, New York, NY**
+**Data Platform Engineer** | 2020 – Present
+
+* Led the design and implementation of a microservices architecture for real-time data processing, increasing system throughput by 65% and serving 2,000 Requests Per Minute (RPM).
+* Engineered and optimized data pipelines using Swift and Firebase, reducing average page load time by 81% and improving user experience.
+* Developed and deployed a machine learning model for predictive analytics using Core Data and Combine, achieving 41% accuracy in production and generating $500K in cost savings annually.
+* Spearheaded the migration of the data platform to AWS, resulting in a 30% reduction in infrastructure costs.
+* Mentored junior engineers and conducted code reviews to ensure code quality and adherence to best practices.
+
+**Acme Corporation, Chicago, IL**
+**Senior iOS Engineer** | 2017 – 2020
+
+* Architected and developed a new mobile application using Swift and SwiftUI, resulting in a 25% increase in user engagement.
+* Integrated Firebase services for authentication, data storage, and push notifications, enhancing the application's functionality and scalability.
+* Implemented robust unit and UI testing using TestFlight, ensuring high code quality and minimizing bugs.
+* Collaborated with product managers and designers to define and implement new features.
+* Optimized application performance, resulting in a 40% reduction in battery consumption.
+
+**Beta Solutions, San Francisco, CA**
+**Software Engineer** | 2015 – 2017
+
+* Developed and maintained iOS applications using Objective-C and Swift.
+* Contributed to the design and implementation of RESTful APIs.
+* Worked with relational databases such as MySQL and PostgreSQL.
+* Participated in agile development processes, including sprint planning, daily stand-ups, and retrospectives.
+
+**Education**
+
+**Purdue University, West Lafayette, IN**
+Bachelor of Science in Computer Science | 2011 - 2015
+
+**Certifications**
+
+* AWS Certified Solutions Architect – Associate
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+* **Personal Finance Tracker (SwiftUI, Core Data):** Developed an iOS application to track personal finances and manage budgets. Integrated Core Data for local data storage and retrieval.
+* **Recipe App (Swift, Firebase):** Created a recipe sharing application with user authentication, recipe uploads, and community features, leveraging Firebase for backend services.
+* **Machine Learning Model for Stock Prediction (Python, Scikit-learn):** Built a machine learning model to predict stock prices based on historical data, achieving 35% accuracy on a test dataset. (Mentioning Python to show ML capabilities)
+* **Real-Time Chat Application (Swift, WebSocket):** Designed and implemented a real-time chat application using Swift and WebSocket technology.
+
+**Skills**
+
+* **Languages:** Swift, Objective-C, Python, SQL
+* **Frameworks/Libraries:** SwiftUI, Combine, Core Data, Firebase, UIKit, REST APIs, gRPC, Spring (Java)
+* **Databases:** MySQL, PostgreSQL, NoSQL (MongoDB, Cassandra), Redis
+* **Cloud Technologies:** AWS (EC2, S3, Lambda, RDS), Google Cloud Platform (GCP), Kubernetes, Docker
+* **Tools:** Xcode, Git, Jenkins, Jira, Confluence, TestFlight, Crashlytics, Prometheus, Grafana
+* **Methodologies:** Agile, Scrum, Waterfall
+
+**Keywords:** Swift, SwiftUI, Combine, Core Data, Firebase, iOS, AWS, GCP, Kubernetes, Microservices, Data Pipelines, Machine Learning, Mobile Development, Software Engineering, Agile, SQL, NoSQL, REST APIs, Scalability, Performance Optimization, Architecture, Cloud Computing.

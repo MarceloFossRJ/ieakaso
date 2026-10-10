@@ -1,0 +1,64 @@
+AJANI OKORO
+(123) 456-7890 | ajani.okoro@email.com | linkedin.com/in/ajaniokoro | github.com/ajaniokoro
+
+SUMMARY
+
+Highly motivated and results-oriented Data Platform Engineer with 7 years of experience building and scaling data-intensive applications in fast-paced environments. Proven ability to design, develop, and maintain robust and scalable data platforms, leveraging expertise in Python, Django, FastAPI, PostgreSQL, Redis, Docker, and AWS. Passionate about mentoring junior engineers and driving continuous improvement.
+
+EXPERIENCE
+
+Oracle, Redwood Shores, CA
+Senior Data Platform Engineer | 2020 – Present
+
+* Architected and implemented a new data pipeline using Python, FastAPI, and PostgreSQL, reducing API latency by 77% and improving user experience for 50M+ daily active users.
+* Led a team of 5 engineers in scaling the existing data platform to handle a 2x increase in data volume, ensuring high availability and performance.
+* Spearheaded the migration of on-premise data infrastructure to AWS, resulting in a 40% reduction in infrastructure costs.
+* Improved deployment frequency from monthly to 10x daily by implementing a CI/CD pipeline using Docker, Kubernetes, and AWS CodePipeline.
+* Mentored 100+ junior engineers, providing technical guidance and support on data platform technologies and best practices.
+* Developed and deployed a machine learning model using Python and scikit-learn to predict user churn, achieving 35% accuracy in production.
+
+Acme Corporation, San Francisco, CA
+Data Engineer | 2018 – 2020
+
+* Designed and built a real-time data ingestion pipeline using Apache Kafka and Apache Spark, processing 10 TB of data per day.
+* Optimized PostgreSQL database performance by implementing indexing strategies and query optimization techniques, resulting in a 20% improvement in query response time.
+* Developed and maintained RESTful APIs using Django and Django REST Framework to expose data to internal applications.
+* Automated data validation and quality checks using Python and pytest, ensuring data accuracy and reliability.
+
+Tech Solutions Inc., San Jose, CA
+Software Engineer | 2016 – 2018
+
+* Developed and maintained web applications using Python, Flask, and PostgreSQL.
+* Implemented unit and integration tests using pytest, ensuring code quality and reliability.
+* Collaborated with cross-functional teams to gather requirements and design solutions.
+
+PROJECTS
+
+Real-Time Analytics Dashboard: Developed a real-time dashboard using Python, Flask, and Chart.js to visualize key performance indicators (KPIs) for a SaaS product.
+
+Machine Learning Recommendation Engine: Built a recommendation engine using collaborative filtering techniques to suggest relevant products to users.
+
+Data Pipeline Automation: Created a Python script to automate the extraction, transformation, and loading (ETL) of data from various sources into a data warehouse.
+
+Personal Portfolio Website: Designed and developed a personal portfolio website using React and deployed it on AWS.
+
+EDUCATION
+
+Tsinghua University, Beijing, China
+Bachelor of Science in Computer Science | 2012 – 2016
+
+SKILLS
+
+Programming Languages: Python, SQL, Java, JavaScript
+Frameworks/Libraries: Django, FastAPI, Flask, React, Pandas, NumPy, scikit-learn
+Databases: PostgreSQL, MySQL, Redis, MongoDB
+Cloud Platforms: AWS (EC2, S3, RDS, Lambda, ECS), GCP
+DevOps: Docker, Kubernetes, CI/CD, Git
+Big Data: Apache Kafka, Apache Spark
+
+CERTIFICATIONS
+
+AWS Certified Solutions Architect – Associate
+AWS Certified Developer – Associate
+Certified Kubernetes Administrator (CKA)
+Google Cloud Certified Professional Data Engineer

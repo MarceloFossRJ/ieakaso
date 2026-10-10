@@ -1,0 +1,69 @@
+**Aaliyah Rodriguez Chen**
+(555) 123-4567 | aaliyah.rchen@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly motivated and results-oriented Junior AI Engineer with 1.5 years of experience in developing, optimizing, and deploying machine learning models and mobile applications. Proficient in Flutter, Dart, Provider, Firebase, and BLoC architecture. Proven ability to improve system performance, streamline development processes, and mentor junior engineers. Passionate about leveraging AI to solve complex problems and create innovative solutions.
+
+**Skills**
+
+*   **Languages:** Dart, Python, SQL
+*   **Frameworks/Libraries:** Flutter, Provider, TensorFlow, Keras, scikit-learn, NumPy, Pandas
+*   **Mobile Development:** iOS, Android
+*   **Databases:** Firebase, PostgreSQL
+*   **Cloud Platforms:** AWS (Amazon Web Services), Google Cloud Platform (GCP)
+*   **DevOps:** CI/CD, Docker, Kubernetes, Jenkins, Git
+*   **Architectures:** BLoC, MVC
+*   **Other:** Agile Development, Machine Learning, Deep Learning, Data Analysis, REST APIs
+
+**Experience**
+
+**Two Sigma, New York, NY**
+**AI Engineer** | June 2023 – Present
+
+*   Engineered and deployed machine learning models using Python and TensorFlow for financial forecasting, improving prediction accuracy by 12%.
+*   Developed and maintained mobile applications using Flutter, Dart, Provider, and Firebase, resulting in a 30% increase in user engagement.
+*   Spearheaded the implementation of a new CI/CD pipeline using Jenkins, reducing release time by 83%.
+*   Improved deployment frequency from monthly to 5x daily through automation and optimized release processes.
+*   Mentored 20 junior engineers on best practices for Flutter development and machine learning model deployment.
+*   Increased test coverage from 27% to 95% by implementing robust unit and integration testing strategies.
+
+**AlphaTech Solutions, Austin, TX**
+**Software Engineer Intern** | June 2022 – August 2022
+
+*   Contributed to the development of a REST API using Python and Flask for data analysis, handling over 1 million requests per day.
+*   Assisted in the design and implementation of a PostgreSQL database schema for storing and managing large datasets.
+*   Developed unit tests and performed code reviews to ensure code quality and maintainability.
+
+**Projects**
+
+**Smart Grocery App (Flutter)**
+*   Developed a mobile application using Flutter, Dart, and Firebase that helps users create smart grocery lists based on their dietary preferences and purchase history.
+*   Implemented machine learning algorithms to predict user needs and suggest relevant products.
+
+**AI-Powered Chatbot (Python)**
+*   Built a chatbot using Python, TensorFlow, and Keras that can answer user questions and provide personalized recommendations.
+*   Deployed the chatbot on a cloud platform for easy accessibility.
+
+**Image Recognition System (Python)**
+*   Created an image recognition system using Python and OpenCV that can identify objects in images with 90% accuracy.
+*   Optimized the system for real-time performance.
+
+**Personal Portfolio Website (Flutter)**
+* Developed a responsive and dynamic personal portfolio website using Flutter web, showcasing projects and experience. Deployed using Firebase Hosting.
+
+**Education**
+
+**University of Texas at Austin, Austin, TX**
+Bachelor of Science in Computer Science | August 2019 – May 2023
+GPA: 3.8/4.0
+
+**Certifications**
+
+*   AWS Certified Cloud Practitioner
+*   Google Cloud Certified Associate Cloud Engineer
+
+**Awards and Recognition**
+
+*   Dean's List, University of Texas at Austin (2019-2023)
+*   HackUTD Winner (2022)

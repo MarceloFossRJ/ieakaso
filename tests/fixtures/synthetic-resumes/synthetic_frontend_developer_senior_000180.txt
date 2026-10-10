@@ -1,0 +1,55 @@
+**Aarav Chen**
+(123) 456-7890 | aarav.chen@email.com | linkedin.com/in/aaravchen | github.com/aaravchen
+
+**Summary**
+
+Highly accomplished and results-driven Senior Frontend Developer with 7+ years of experience in designing, developing, and scaling high-performance web applications. Proven ability to optimize systems for speed, scalability, and cost-efficiency. Expertise in Go, gRPC, PostgreSQL, Redis, Kubernetes, Prometheus, and AWS. Passionate about delivering exceptional user experiences and driving innovation.
+
+**Skills**
+
+*   **Languages:** Go, JavaScript (ES6+), HTML5, CSS3, SQL
+*   **Frameworks/Libraries:** React, Redux, Node.js, Express.js, gRPC
+*   **Databases:** PostgreSQL, Redis, MongoDB
+*   **Cloud Platforms:** AWS (EC2, S3, Lambda, ECS, EKS), Google Cloud Platform (GCP)
+*   **DevOps:** Kubernetes, Docker, Prometheus, Grafana, Terraform, CI/CD (Jenkins, GitLab CI)
+*   **Testing:** Jest, Mocha, Cypress, Unit Testing, Integration Testing, End-to-End Testing
+*   **Other:** RESTful APIs, GraphQL, Microservices, Agile Development, Git
+
+**Experience**
+
+**Cisco Systems, San Jose, CA**
+**Senior Frontend Developer** | 2019 – Present
+
+*   Led the development of a new microservices architecture for Cisco's core user authentication platform, scaling the system to handle 100M+ daily active users.
+*   Engineered and optimized frontend components using React and Redux, reducing page load time by 85% through code splitting and image optimization techniques.
+*   Architected and implemented a real-time monitoring dashboard using Prometheus and Grafana, achieving 99.98% uptime for critical production systems, exceeding the initial target of 99.9%.
+*   Reduced infrastructure costs by $500K annually by migrating legacy applications to AWS Lambda and optimizing resource allocation within Kubernetes clusters.
+*   Mentored junior developers in best practices for frontend development, code quality, and performance optimization.
+
+**Acme Corporation, Mountain View, CA**
+**Frontend Developer** | 2016 – 2019
+
+*   Developed and maintained key features for Acme's flagship web application using React and Node.js, resulting in a 20% increase in user engagement.
+*   Optimized database queries using PostgreSQL, resulting in 23% faster read times and improved application performance.
+*   Implemented a new CI/CD pipeline using Jenkins, automating the build, test, and deployment process.
+*   Collaborated with cross-functional teams to gather requirements, design solutions, and deliver high-quality software on time and within budget.
+
+**Education**
+
+**Tsinghua University, Beijing, China**
+**Bachelor of Science in Computer Science** | 2012 - 2016
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **Personal Portfolio Website:** Developed a personal portfolio website using React, showcasing skills and projects. Hosted on AWS S3 with CloudFront CDN.
+*   **Open-Source Library (React Component):** Created a reusable React component for displaying interactive charts. Published on npm.
+*   **Data Visualization Dashboard:** Built a data visualization dashboard using React, Redux, and D3.js to analyze and display real-time data from a public API. Leveraged Prometheus for metrics.
+
+**Awards & Recognition**
+
+*   Cisco Innovation Award (2022) - For contributions to the user authentication platform.

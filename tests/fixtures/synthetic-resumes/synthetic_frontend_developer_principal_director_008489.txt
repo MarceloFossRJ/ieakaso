@@ -1,0 +1,58 @@
+**Aisha Patel-O’Connell**
+(555) 123-4567 | aisha.p.oconnell@email.com | LinkedIn Profile URL (example: linkedin.com/in/aishapateloconnell) | GitHub Profile URL (example: github.com/aishaoconnell)
+
+**Summary**
+
+Highly accomplished and results-oriented Frontend Engineering Leader with 16 years of experience architecting, developing, and optimizing high-performance web applications. Proven ability to lead and mentor teams, drive technical innovation, and deliver exceptional user experiences. Expertise in React, TypeScript, Redux, Next.js, and modern frontend technologies. Adept at identifying and resolving performance bottlenecks, reducing costs, and accelerating release cycles.
+
+**Skills**
+
+*   **Languages:** TypeScript, JavaScript (ES6+), HTML5, CSS3, JSX
+*   **Frameworks/Libraries:** React, Redux, Next.js, Tailwind CSS, Material UI, Styled Components, React Query, Redux Toolkit
+*   **Testing:** Jest, Cypress, React Testing Library, Enzyme
+*   **DevOps:** CI/CD (Jenkins, GitLab CI, CircleCI), Docker, Kubernetes, AWS (S3, EC2, Lambda), Git
+*   **Architecture:** Micro Frontends, Serverless Architecture, RESTful APIs, GraphQL
+*   **Other:** Webpack, Babel, Agile/Scrum, Performance Optimization, Accessibility (WCAG)
+
+**Experience**
+
+**Citadel, Chicago, IL**
+**Principal Frontend Engineer** | 2018 – Present
+
+*   Led a team of 8 frontend engineers in the development and maintenance of a mission-critical trading platform used by hundreds of internal users.
+*   Architected and implemented a new micro-frontend architecture using React and Next.js, resulting in a **37% reduction in page load time** and a significant improvement in user experience.
+*   Spearheaded the migration of legacy JavaScript code to TypeScript, improving code maintainability and reducing bugs by **22%**.
+*   Optimized API request handling and data caching strategies, resulting in an **81% reduction in API latency**.
+*   Implemented CI/CD pipelines using Jenkins, automating the build, testing, and deployment processes, and **reducing release time by 68%**.
+*   Identified and resolved infrastructure inefficiencies, **reducing infrastructure costs by $10,000 annually**.
+
+**Google, Mountain View, CA**
+**Senior Frontend Engineer** | 2014 – 2018
+
+*   Developed and maintained key features for Google Maps using React, Redux, and TypeScript.
+*   Contributed to the development of a new UI component library, ensuring consistency and reusability across different Google products.
+*   Collaborated with designers and product managers to translate user stories into high-quality, performant code.
+*   Improved the performance of the Google Maps search functionality, resulting in a **15% increase in user engagement**.
+
+**Amazon, Seattle, WA**
+**Frontend Engineer** | 2010 – 2014
+
+*   Developed frontend features for the Amazon.com website using JavaScript, HTML, and CSS.
+*   Worked on the implementation of A/B testing frameworks to optimize conversion rates.
+*   Participated in code reviews and provided constructive feedback to other engineers.
+
+**Projects**
+
+*   **Personal Portfolio Website (React, Next.js, Tailwind CSS):** Developed a personal portfolio website showcasing my skills and experience. Includes a blog and a contact form.
+*   **Open Source UI Component Library (React, TypeScript):** Created a reusable UI component library for React applications. Published on npm.
+*   **Real-Time Chat Application (React, Node.js, Socket.io):** Built a real-time chat application using React, Node.js, and Socket.io. Deployed on AWS.
+
+**Certifications**
+
+*   AWS Certified Developer – Associate
+*   Google Cloud Certified Professional Cloud Architect
+
+**Education**
+
+**Purdue University, West Lafayette, IN**
+Bachelor of Science in Computer Science

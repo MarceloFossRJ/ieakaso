@@ -1,0 +1,60 @@
+**Aisha Chen-Garcia**
+(555) 123-4567 | aisha.chen.garcia@email.com | linkedin.com/in/aishachengarcia | github.com/aishachengarcia
+
+**Summary**
+
+Highly accomplished and results-oriented AI Engineer with 16 years of experience in designing, developing, and deploying scalable and reliable AI-powered solutions. Proven ability to lead teams, drive innovation, and optimize performance in fast-paced environments. Expertise in Rust, Actix, PostgreSQL, Redis, Docker, and AWS cloud technologies. Passionate about building robust and efficient systems that deliver significant business value.
+
+**Experience**
+
+**Principal AI Engineer** | FinTech Startup | San Francisco, CA | 2018 – Present
+
+*   Led the design and implementation of a real-time analytics pipeline processing 10 million events per day using Rust, Actix, PostgreSQL, and Redis, enabling data-driven decision-making across the organization.
+*   Architected and implemented a novel data compression algorithm, reducing storage costs by $20,000 annually.
+*   Spearheaded the development of a CI/CD pipeline using Docker and AWS CodePipeline, increasing deployment frequency from monthly releases to 500 deployments per day.
+*   Optimized critical APIs, reducing latency by 79% and improving user experience.
+*   Drove improvements in system reliability, achieving 80% uptime for critical production systems.
+*   Increased test coverage from 30% to 95% by implementing comprehensive unit and integration testing strategies.
+*   Mentored and guided a team of junior engineers in best practices for software development and deployment.
+
+**Senior Software Engineer** | Tech Solutions Inc. | Mountain View, CA | 2012 – 2018
+
+*   Developed and maintained a high-performance fraud detection system using machine learning algorithms in Python and deployed on AWS.
+*   Designed and implemented RESTful APIs using Python (Flask) to expose machine learning models for real-time predictions.
+*   Contributed to the design and implementation of a data warehouse using PostgreSQL and ETL processes for data ingestion and transformation.
+*   Improved the accuracy of fraud detection models by 15% through feature engineering and model optimization.
+*   Reduced cloud infrastructure costs by 10% through code optimization and resource management.
+
+**Software Engineer** | Data Insights Corp. | Seattle, WA | 2008 – 2012
+
+*   Developed and maintained data pipelines for processing large datasets using Hadoop and Spark.
+*   Designed and implemented data visualization dashboards using Tableau to communicate insights to stakeholders.
+*   Developed and executed test plans for ensuring data quality and system reliability.
+*   Collaborated with cross-functional teams to define requirements and deliver high-quality software solutions.
+
+**Projects**
+
+*   **Real-Time Risk Engine:** Developed a low-latency risk scoring engine using Rust and Actix to provide real-time risk assessments for financial transactions.
+*   **Anomaly Detection System:** Built an anomaly detection system using machine learning algorithms to identify fraudulent activities in real-time.
+*   **Predictive Maintenance Platform:** Developed a predictive maintenance platform using machine learning to predict equipment failures and optimize maintenance schedules.
+*   **Personalized Recommendation Engine:** Designed and implemented a personalized recommendation engine using collaborative filtering and content-based filtering techniques.
+*   **Automated Trading Bot:** Created automated trading bot for cryptocurrency markets.
+
+**Education**
+
+**Bachelor of Science in Computer Science** | Birla Institute of Technology and Science (BITS) Pilani | Pilani, India | 2008
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Administrator (CKA)
+
+**Skills**
+
+**Languages:** Rust, Python, SQL, Java, JavaScript
+**Frameworks/Libraries:** Actix, Flask, Pandas, NumPy, Scikit-learn, TensorFlow, PyTorch
+**Databases:** PostgreSQL, Redis, MySQL, MongoDB
+**Cloud:** AWS (EC2, S3, Lambda, ECS, RDS), Google Cloud Platform (GCP), Docker, Kubernetes
+**Tools:** Git, Docker, Jenkins, CI/CD, Terraform, Ansible
+**Other:** Machine Learning, Deep Learning, Data Mining, Data Analysis, Algorithm Design, Software Architecture, System Design

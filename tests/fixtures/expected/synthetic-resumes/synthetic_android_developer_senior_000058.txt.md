@@ -1,0 +1,63 @@
+**Aaliyah Chen-Rodriguez**
+(555) 123-4567 | aaliyah.chen.rodriguez@email.com | LinkedIn Profile URL (Example: linkedin.com/in/aaliyahr) | GitHub Profile URL (Example: github.com/aaliyahcr)
+
+**Summary**
+
+Highly motivated and results-oriented Senior Android Developer with 7 years of experience in designing, developing, and optimizing high-performance mobile applications. Proven ability to lead projects, improve application efficiency, and deliver exceptional user experiences. Expertise in data analysis and visualization utilizing R, Python, SQL, Tableau, Power BI, and Looker to drive data-informed decisions. Seeking a challenging role where I can leverage my skills and contribute to innovative projects.
+
+**Skills**
+
+*   **Languages:** Kotlin, Java, R, Python, SQL
+*   **Android Frameworks/Tools:** Android SDK, Android Studio, Jetpack Compose, Retrofit, RxJava, Dagger/Hilt, JUnit, Espresso, Mockito, Gradle, Firebase
+*   **Data Visualization:** Tableau, Power BI, Looker
+*   **Data Analysis:** Pandas, NumPy, Scikit-learn
+*   **Databases:** MySQL, PostgreSQL, MongoDB
+*   **Cloud Technologies:** AWS (EC2, S3, Lambda), GCP (Compute Engine, Cloud Storage, Cloud Functions)
+*   **Version Control:** Git (GitHub, GitLab, Bitbucket)
+*   **CI/CD:** Jenkins, CircleCI, Travis CI
+*   **Agile Methodologies:** Scrum, Kanban
+*   **Operating Systems:** Windows, macOS, Linux
+
+**Experience**
+
+**DoorDash, San Francisco, CA**
+**Senior Android Developer** | 2020 – Present
+
+*   Led a team of 3 developers in the design and implementation of new features for the DoorDash Android application, impacting millions of users.
+*   Architected and implemented a new data caching strategy, **reducing API latency by 63%** and improving app responsiveness.
+*   Optimized the application's image loading process, **reducing page load time by 85%**.
+*   Spearheaded the migration of legacy Java code to Kotlin, improving code maintainability and reducing code complexity by 20%.
+*   Utilized R and Python to analyze user behavior data, identify areas for improvement, and inform product development decisions, resulting in a 15% increase in user engagement.
+
+**Lyft, San Francisco, CA**
+**Android Developer** | 2018 – 2020
+
+*   Developed and maintained key features for the Lyft Driver Android application, focusing on improving driver efficiency and earnings.
+*   Collaborated with cross-functional teams to implement new features, ensuring seamless integration with backend systems.
+*   **Reduced API latency by 35%** through optimization of network requests and data serialization.
+*   Implemented robust error handling and crash reporting mechanisms, improving application stability and reducing crash rates by 25%.
+
+**Accenture, New York, NY**
+**Software Engineer** | 2016 – 2018
+
+*   Developed custom Android applications for various clients across different industries.
+*   Participated in all phases of the software development lifecycle, from requirements gathering to deployment and maintenance.
+*   Gained experience working with a variety of technologies, including Java, Android SDK, and RESTful APIs.
+
+**Projects**
+
+*   **Personal Finance Tracker (Android):** Developed a mobile application for tracking personal finances, including budgeting, expense tracking, and investment analysis. (Kotlin, SQLite, Jetpack Compose)
+*   **Machine Learning-Powered Recommendation Engine (Python):** Created a recommendation engine using Python and machine learning algorithms to provide personalized recommendations for products and services. (Python, Scikit-learn, Pandas)
+*   **Real-Time Data Dashboard (Tableau):** Developed an interactive data dashboard using Tableau to visualize key performance indicators (KPIs) and provide real-time insights. (Tableau, SQL)
+*   **Open Source Weather App (Android):** Developed an open-source weather application utilizing a public weather API. (Java, Retrofit)
+
+**Education**
+
+**Cornell University, Ithaca, NY**
+Bachelor of Science in Computer Science | 2012 – 2016
+
+**Certifications**
+
+*   AWS Certified Cloud Practitioner
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Application Developer (CKAD)

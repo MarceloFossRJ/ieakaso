@@ -1,0 +1,53 @@
+**Amara Nguyen**
+(123) 456-7890 | amara.nguyen@email.com | linkedin.com/in/amara-nguyen | github.com/amara-nguyen
+
+**Summary**
+
+Highly motivated and results-oriented Senior Backend Developer with 7 years of experience designing, developing, and deploying scalable and robust applications. Proven ability to lead complex projects, optimize performance, and reduce infrastructure costs. Expertise in Python, Django, FastAPI, PostgreSQL, Redis, Docker, and AWS. Passionate about building innovative solutions and contributing to team success.
+
+**Skills**
+
+*   **Languages:** Python, Go, SQL
+*   **Frameworks:** Django, FastAPI, Flask, Celery
+*   **Databases:** PostgreSQL, Redis, MongoDB, MySQL
+*   **Cloud:** AWS (EC2, S3, Lambda, RDS, ECS, DynamoDB, SQS, SNS), Docker, Kubernetes
+*   **Tools:** Git, Docker, Kubernetes, Terraform, Jenkins, Prometheus, Grafana, Datadog, New Relic
+*   **Methodologies:** Agile, Scrum, DevOps
+
+**Experience**
+
+**Lyft, San Francisco, CA**
+**Senior Backend Engineer** | June 2020 – Present
+
+*   Architected and implemented a real-time analytics pipeline processing 10 million events per day using Kafka, Spark, and Redis, enabling data-driven decision-making across the organization.
+*   Designed and built a microservices architecture for the ride matching service using FastAPI and PostgreSQL, serving 20,000 requests per minute with 99.99% uptime.
+*   Optimized API endpoints using caching strategies and database query optimization, resulting in a 58% reduction in average API latency.
+*   Led a team of 3 engineers in the development of a new fraud detection system, leveraging machine learning algorithms and real-time data streams to identify and prevent fraudulent activities.
+*   Automated infrastructure provisioning and deployment processes using Terraform and Jenkins, reducing deployment time by 40%.
+*   Identified and resolved performance bottlenecks in existing systems, resulting in a $15,000 annual reduction in infrastructure costs.
+
+**Acme Corporation, New York, NY**
+**Backend Engineer** | August 2017 – June 2020
+
+*   Developed and maintained RESTful APIs using Django and PostgreSQL for a high-traffic e-commerce platform.
+*   Implemented asynchronous task processing using Celery and Redis, improving application responsiveness and scalability.
+*   Contributed to the design and implementation of a new recommendation engine using collaborative filtering techniques.
+*   Wrote unit and integration tests to ensure code quality and prevent regressions.
+*   Participated in code reviews and provided constructive feedback to junior engineers.
+
+**Projects**
+
+*   **Personal Finance Tracker (Python, Django, PostgreSQL):** Developed a web application to track personal income and expenses, providing detailed financial reports and visualizations.
+*   **Real-Time Chat Application (Python, FastAPI, WebSocket):** Created a real-time chat application with user authentication, group messaging, and message persistence.
+*   **Machine Learning Model Deployment (Python, Flask, AWS Lambda):** Deployed a machine learning model for image classification as a serverless API using Flask and AWS Lambda.
+*   **Dockerized Microservice Example (Python, FastAPI, Docker, Kubernetes):** Created a demo application showcasing containerization using Docker and orchestration using Kubernetes.
+
+**Education**
+
+**University of Michigan, Ann Arbor, MI**
+Bachelor of Science in Computer Science | May 2017
+
+**Certifications**
+
+*   AWS Certified Developer – Associate
+*   Docker Certified Associate

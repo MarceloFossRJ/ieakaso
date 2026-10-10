@@ -1,0 +1,60 @@
+**Isabella Nguyen-Desai**
+(555) 123-4567 | isabella.nguyen.desai@email.com | linkedin.com/in/isabellanguyendesai | github.com/inguyendesai
+
+**Summary**
+
+Highly accomplished and results-driven Data Scientist with 16 years of experience in designing, developing, and deploying scalable and high-performance data analytics solutions. Proven ability to lead cross-functional teams, drive innovation, and deliver impactful business outcomes. Expertise in cloud infrastructure (Azure), DevOps practices, and real-time data processing. Passionate about leveraging data to solve complex problems and drive data-informed decisions.
+
+**Skills**
+
+*   **Cloud Computing:** Azure (Expert), AWS (Proficient), GCP (Familiar)
+*   **Infrastructure as Code:** ARM Templates, Bicep, Terraform
+*   **Containerization & Orchestration:** Docker, Kubernetes (AKS, EKS, GKE)
+*   **CI/CD:** GitHub Actions, Azure DevOps
+*   **Big Data:** Spark, Hadoop, Kafka, Databricks
+*   **Data Visualization:** Tableau, Power BI
+*   **Programming Languages:** Python, SQL, R, Java
+*   **Monitoring & Logging:** Splunk, Prometheus, Grafana
+*   **Databases:** SQL Server, PostgreSQL, MongoDB
+*   **Machine Learning:** Regression, Classification, Clustering, Deep Learning
+*   **Statistical Analysis:** Hypothesis Testing, A/B Testing
+
+**Experience**
+
+**Adobe | Principal Data Scientist | 2018 – Present**
+
+*   Led a team of 5 data scientists and engineers in building and maintaining real-time analytics pipelines, resulting in a **25% improvement in marketing campaign effectiveness**.
+*   Architected and implemented a real-time analytics pipeline processing **100 million events per day**, enabling personalized customer experiences.
+*   Engineered a machine learning model to predict customer churn, leading to a **15% reduction in churn rate** and a **$2M increase in annual revenue**.
+*   Improved the performance of a critical application by **reducing page load time by 82%** through code optimization and infrastructure improvements.
+*   Managed a budget of **$500K** for cloud infrastructure and data analytics tools.
+
+**Netflix | Senior Data Scientist | 2014 – 2018**
+
+*   Developed and deployed a recommendation engine that improved click-through rates by **18%**.
+*   Built a real-time analytics pipeline processing **15 million events per day** to monitor streaming performance and identify areas for improvement.
+*   Spearheaded the migration of data infrastructure to the cloud (AWS), resulting in a **40% reduction in infrastructure costs**.
+*   Achieved **99.66% uptime** for critical production systems by implementing robust monitoring and alerting systems.
+
+**Microsoft | Data Scientist | 2010 – 2014**
+
+*   Designed and implemented A/B testing frameworks to optimize product features, leading to a **10% increase in user engagement**.
+*   Developed machine learning models to detect fraudulent activities, saving the company **$1M annually**.
+*   Automated data processing pipelines, resulting in a **50% reduction in manual effort**.
+
+**Projects**
+
+*   **Cloud Cost Optimization Tool (Azure):** Developed an Azure Function app using Bicep and ARM Templates to identify and shut down unused resources, resulting in a **15% reduction in monthly cloud costs** for a client.
+*   **Real-time Anomaly Detection System:** Built a real-time anomaly detection system using Kafka, Spark Streaming, and a machine learning model to identify fraudulent transactions in the financial sector.
+*   **Customer Segmentation Model:** Developed a customer segmentation model using k-means clustering and Python to identify distinct customer groups based on purchasing behavior and demographics.
+*   **Predictive Maintenance System:** Created a predictive maintenance system for industrial equipment using machine learning algorithms to predict equipment failures and reduce downtime by **20%**.
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Microsoft Certified: Azure Solutions Architect Expert
+*   Certified Kubernetes Administrator (CKA)
+
+**Education**
+
+**BITS Pilani | Bachelor of Engineering in Computer Science | 2006 – 2010**

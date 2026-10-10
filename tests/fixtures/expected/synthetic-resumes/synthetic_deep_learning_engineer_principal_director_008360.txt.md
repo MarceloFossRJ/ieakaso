@@ -1,0 +1,58 @@
+Aisha Nakamura
+(555) 123-4567 | aisha.nakamura@email.com | linkedin.com/in/aishanakamura | github.com/aishanakamura
+
+Summary
+
+Highly accomplished and results-oriented Deep Learning Engineer with 16 years of experience designing, developing, and deploying machine learning solutions at scale. Proven ability to lead cross-functional teams, mentor junior engineers, and drive significant improvements in performance and efficiency. Expertise in building and optimizing machine learning models, architecting scalable infrastructure, and migrating legacy systems to modern cloud-native architectures. Proficient in React Native, TypeScript, Redux, Expo, and Jest. Seeking a challenging leadership role where I can leverage my expertise to drive innovation and impact.
+
+Experience
+
+Databricks, San Francisco, CA
+Principal Deep Learning Engineer | 2018 – Present
+
+* Led a team of 8 engineers in the development and deployment of a novel machine learning model for fraud detection, achieving 48% accuracy in production and resulting in a 15% reduction in fraudulent transactions, saving the company $2.5M annually.
+* Architected and implemented a scalable data pipeline for real-time feature engineering, reducing data latency by 35% and improving model training efficiency by 20%.
+* Mentored 20 junior engineers, providing guidance on best practices in machine learning, software engineering, and cloud infrastructure.
+* Spearheaded the adoption of MLOps best practices, including automated model deployment, monitoring, and retraining.
+
+Google, Mountain View, CA
+Senior Software Engineer | 2014 – 2018
+
+* Led the migration of 50 microservices from a monolithic architecture to a Kubernetes-based platform, improving application scalability and resilience.
+* Designed and implemented a new API gateway using TypeScript and Node.js, resulting in a 25% reduction in API response time.
+* Optimized database queries for a high-traffic service, resulting in 41% faster read operations and a 10% reduction in database server costs.
+* Collaborated with cross-functional teams to define and implement product roadmaps, ensuring alignment with business goals.
+
+Amazon, Seattle, WA
+Software Development Engineer | 2008 – 2014
+
+* Developed and maintained a key component of the Amazon recommendation engine, responsible for generating personalized product recommendations for millions of users.
+* Implemented a new caching strategy that reduced latency by 30% and improved system throughput by 20%.
+* Designed and implemented a new monitoring system that provided real-time insights into system performance and identified potential bottlenecks.
+
+Projects
+
+* Mobile E-commerce App (React Native, TypeScript, Redux): Developed a fully functional e-commerce application for iOS and Android, including product browsing, shopping cart, checkout, and user account management.
+* Machine Learning Image Classifier (Python, TensorFlow): Built a convolutional neural network to classify images with 85% accuracy.
+* Kubernetes Deployment Automation (Bash, Docker, Kubernetes): Created a set of scripts to automate the deployment of applications to Kubernetes clusters.
+* Real-time Data Pipeline (Kafka, Spark, Cassandra): Designed and implemented a real-time data pipeline for processing and analyzing streaming data from various sources.
+* Personal Finance Tracker (React, Node.js, MongoDB): Developed a web application for tracking personal finances, including budgeting, expense tracking, and investment management.
+
+Skills
+
+Languages: TypeScript, JavaScript, Python, Java, C++
+Frameworks/Libraries: React Native, React, Redux, Expo, Node.js, TensorFlow, PyTorch, Pandas, NumPy
+Databases: PostgreSQL, MySQL, MongoDB, Cassandra
+Cloud Platforms: AWS (Amazon Web Services), GCP (Google Cloud Platform)
+Tools: Docker, Kubernetes, Jenkins, Git, Jest, CircleCI, Terraform
+
+Certifications
+
+* AWS Certified Machine Learning – Specialty
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Administrator (CKA)
+
+Education
+
+Tsinghua University, Beijing, China
+Bachelor of Science in Computer Science | 2008

@@ -1,0 +1,58 @@
+Aaliyah Chen-O’Connell
+(555) 123-4567 | a.chen.oconnell@email.com | LinkedIn Profile URL
+
+SUMMARY
+
+Highly accomplished and results-oriented Big Data Engineer with 16+ years of experience architecting, developing, and implementing scalable data solutions. Proven ability to lead cross-functional teams, optimize data pipelines, and drive significant business impact through data-driven insights. Expertise in cloud technologies, data warehousing, and machine learning. Seeking a challenging Principal or Director level role to leverage technical expertise and leadership skills to contribute to organizational success.
+
+EXPERIENCE
+
+Snowflake | Principal Data Engineer | 2020 – Present
+
+* Led a team of 5 data engineers in designing and implementing a new data warehouse solution using Snowflake, resulting in a 30% improvement in data query performance.
+* Architected and implemented a real-time data ingestion pipeline using Kafka and Spark, enabling near real-time analytics for business-critical dashboards.
+* Spearheaded the development of a predictive analytics model using Python and machine learning libraries to identify at-risk customers, leading to a 34% reduction in customer churn.
+* Implemented CI/CD pipelines using Jenkins and Git, reducing release time by 64%.
+* Optimized data storage costs by 20% through the implementation of data lifecycle management policies.
+
+Amazon | Senior Data Engineer | 2016 – 2020
+
+* Designed and built scalable ETL pipelines using AWS Glue, S3, and Redshift for processing large volumes of data from various sources.
+* Developed and maintained data quality monitoring systems, ensuring data accuracy and reliability.
+* Collaborated with data scientists to develop and deploy machine learning models for fraud detection and recommendation systems.
+* Increased test coverage from 25% to 83% through the adoption of Test Driven Development (TDD).
+* Maintained 70% uptime for critical production systems.
+
+Google | Data Engineer | 2012 – 2016
+
+* Engineered and maintained data pipelines using Hadoop, Spark, and Hive for processing and analyzing large datasets.
+* Developed data visualization dashboards using Tableau and Looker to provide actionable insights to business stakeholders.
+* Optimized data storage and processing costs by leveraging cloud-based solutions such as Google Cloud Storage and BigQuery.
+
+EDUCATION
+
+Purdue University | Bachelor of Science in Computer Science | 2012
+
+TECHNICAL SKILLS
+
+Languages: Python, SQL, Java, Scala, Dart
+Big Data Technologies: Hadoop, Spark, Hive, Kafka, Flink, MapReduce
+Cloud Platforms: AWS (S3, Redshift, Glue, EC2, Lambda, IAM), Google Cloud Platform (BigQuery, Dataflow, Cloud Storage, Compute Engine), Snowflake
+Databases: MySQL, PostgreSQL, MongoDB
+Frameworks/Libraries: Pandas, NumPy, Scikit-learn, TensorFlow, Keras, Flutter, Provider, BLoC, Firebase
+CI/CD: Jenkins, Git, Docker, Kubernetes
+Data Visualization: Tableau, Looker
+
+CERTIFICATIONS
+
+* AWS Certified Data Analytics – Specialty
+* Google Cloud Certified Professional Data Engineer
+* Certified Kubernetes Administrator (CKA)
+
+PROJECTS
+
+* Real-time Customer Churn Prediction: Developed a real-time churn prediction model using Spark Streaming and machine learning techniques.
+* Scalable Data Ingestion Pipeline: Designed and implemented a scalable data ingestion pipeline using Kafka and AWS Kinesis for processing high-velocity data streams.
+* Data Quality Monitoring System: Built a data quality monitoring system using Python and SQL to identify and resolve data quality issues.
+* Mobile App Development using Flutter: Developed a cross-platform mobile app for tracking personal finances, utilizing Flutter, Dart, Provider, and Firebase.
+* Automated Report Generation: Created a system to automatically generate reports from a database using Python and scheduled scripts.

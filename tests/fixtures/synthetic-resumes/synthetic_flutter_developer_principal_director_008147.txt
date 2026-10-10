@@ -1,0 +1,61 @@
+Anika Sharma-Tan
+(123) 456-7890 | anika.sharma.tan@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+SUMMARY
+
+Highly accomplished and results-oriented Principal Flutter Developer with 16 years of experience in designing, developing, and deploying high-performance, scalable mobile applications and AI-powered solutions. Proven ability to lead engineering teams, mentor junior talent, and drive innovation in fast-paced environments. Expertise in Python, TensorFlow, PyTorch, and AWS cloud technologies. Passionate about leveraging cutting-edge technologies to solve complex business challenges.
+
+EXPERIENCE
+
+Principal Flutter Developer | Zenith AI Solutions | Singapore | 2018 – Present
+
+* Led the development and architecture of a next-generation mobile application for AI-powered personalized recommendations, reaching over 100 million downloads within the first year.
+* Optimized API performance, resulting in a 19% reduction in latency and a 15% decrease in server costs.
+* Scaled the system to handle 500M+ daily active users, ensuring high availability and optimal performance.
+* Spearheaded the migration of the application backend to AWS SageMaker, improving machine learning model deployment efficiency by 25%.
+* Mentored 20 junior engineers, providing technical guidance and fostering a collaborative team environment.
+* Reduced app size by 22% through code optimization and asset compression, improving download speed and user experience.
+
+Senior Mobile Engineer | GlobalTech Innovations | Singapore | 2014 – 2018
+
+* Designed and implemented key features for the company's flagship mobile banking application, serving over 5 million users.
+* Led the development of a real-time fraud detection system, resulting in a 12% reduction in fraudulent transactions.
+* Integrated TensorFlow Lite for on-device machine learning, enabling personalized financial insights for users.
+* Collaborated with cross-functional teams to define product requirements and ensure alignment with business goals.
+* Improved application performance by 30% through profiling and code optimization techniques.
+
+Software Engineer | DataWise Analytics | Singapore | 2010 – 2014
+
+* Developed and maintained Python-based data processing pipelines for analyzing large datasets.
+* Implemented machine learning models using Scikit-learn and Pandas for customer churn prediction and market segmentation.
+* Contributed to the development of a web-based reporting dashboard for visualizing key performance indicators.
+* Automated data analysis tasks, resulting in a 40% reduction in manual effort.
+
+PROJECTS
+
+* AI-Powered Fitness Tracker: Developed a Flutter application that leverages TensorFlow for activity recognition and personalized fitness recommendations.
+* Smart Home Automation System: Created a mobile application that controls smart home devices using voice commands and machine learning algorithms.
+* Image Recognition App: Built a Flutter application that identifies objects in images using a pre-trained PyTorch model. Deployed model on-device for real-time processing.
+* Personalized News Aggregator: Developed an app that aggregates news articles based on user preferences using NLP techniques and recommendation algorithms.
+* Mobile E-commerce Platform: Designed and implemented core features for a mobile e-commerce platform with user authentication, product browsing, and secure payment processing.
+
+EDUCATION
+
+National University of Singapore (NUS), Singapore | Bachelor of Science in Computer Science
+
+SKILLS
+
+* Mobile Development: Flutter, Dart, Android (Java, Kotlin), iOS (Swift, Objective-C)
+* Programming Languages: Python, Java, C++, JavaScript
+* Machine Learning: TensorFlow, PyTorch, Scikit-learn, Pandas, NumPy
+* Cloud Technologies: AWS (SageMaker, EC2, S3), Google Cloud Platform (GCP)
+* Databases: SQL (MySQL, PostgreSQL), NoSQL (MongoDB)
+* DevOps: Docker, Kubernetes, CI/CD
+* Other: REST APIs, JSON, Git, Agile Development
+
+CERTIFICATIONS
+
+* AWS Certified Machine Learning – Specialty
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Application Developer (CKAD)
+* TensorFlow Developer Certificate

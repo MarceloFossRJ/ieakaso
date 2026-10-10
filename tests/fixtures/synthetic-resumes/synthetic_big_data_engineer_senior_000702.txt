@@ -1,0 +1,56 @@
+**Rohan Chen-Dubois**
+(123) 456-7890 | rohan.chendubois@email.com | linkedin.com/in/rohanchendubois | github.com/rohanchendubois
+
+**Summary**
+
+Highly accomplished and results-oriented Big Data Engineer with 7 years of experience in designing, developing, and scaling high-performance data pipelines and systems. Proven ability to optimize database performance, reduce latency, and mentor junior engineers. Expertise in Java, Spring Boot, Kafka, Kubernetes, and GCP. Passionate about leveraging data to drive business impact.
+
+**Skills**
+
+*   **Programming Languages:** Java, Python, SQL
+*   **Frameworks/Libraries:** Spring Boot, Hibernate, Apache Kafka, Apache Spark, JUnit, Mockito
+*   **Databases:** MySQL, PostgreSQL, MongoDB, Redis
+*   **Cloud Platforms:** Google Cloud Platform (GCP), Amazon Web Services (AWS)
+*   **Big Data Technologies:** Kafka, Hadoop, Spark, Flink
+*   **Containerization & Orchestration:** Docker, Kubernetes
+*   **DevOps:** CI/CD (Jenkins, GitLab CI), Terraform, Ansible, Monitoring (Prometheus, Grafana)
+*   **Operating Systems:** Linux, macOS
+*   **Data Modeling:** Relational, NoSQL
+*   **Agile Methodologies:** Scrum, Kanban
+
+**Experience**
+
+**Notion, San Francisco, CA**
+**Senior Big Data Engineer** | June 2020 – Present
+
+*   Led the design and implementation of a scalable data pipeline for real-time user activity analysis, supporting 500M+ daily active users with 99.99% uptime.
+*   Optimized database queries for user profile data, resulting in a 29% reduction in read latency and improved application performance.
+*   Spearheaded the migration of data infrastructure to Google Cloud Platform (GCP), reducing infrastructure costs by 15% and improving scalability.
+*   Mentored 10 junior engineers on best practices in data engineering, code quality, and system design.
+*   Developed and maintained Kubernetes deployments for critical data processing services, ensuring high availability and efficient resource utilization.
+
+**Lyft, San Francisco, CA**
+**Data Engineer** | August 2017 – June 2020
+
+*   Engineered and maintained data pipelines using Kafka and Spark for processing ride data, enabling data-driven decision-making for pricing and demand forecasting.
+*   Reduced average page load time for internal dashboards by 34% through query optimization and caching strategies.
+*   Developed a real-time anomaly detection system using Kafka Streams to identify and alert on fraudulent activities, preventing an estimated $500,000 in potential losses annually.
+*   Collaborated with cross-functional teams (product, engineering, and data science) to define data requirements and deliver data solutions.
+
+**Education**
+
+**Indian Institute of Technology (IIT) Bombay, Mumbai, India**
+**Bachelor of Technology in Computer Science** | August 2013 – May 2017
+
+**Certifications**
+
+*   Google Cloud Certified Professional Data Engineer
+*   AWS Certified Big Data – Specialty
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **Real-time Data Analytics Dashboard:** Developed a real-time dashboard using Kafka, Spark Streaming, and Grafana to visualize key performance indicators (KPIs) from a simulated e-commerce platform.
+*   **Fraud Detection System:** Built a machine learning model to detect fraudulent transactions using historical data and real-time features, achieving 92% accuracy. (Python, Scikit-learn, Kafka)
+*   **Recommendation Engine:** Implemented a collaborative filtering-based recommendation engine using Spark and MongoDB to provide personalized product recommendations to users.
+*   **Distributed Log Aggregation System:** Created a system for aggregating and analyzing logs from multiple servers using Fluentd, Elasticsearch, and Kibana (EFK stack) to improve system monitoring and troubleshooting.

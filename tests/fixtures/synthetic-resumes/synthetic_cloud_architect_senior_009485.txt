@@ -1,0 +1,52 @@
+Aisha Rodriguez
+(123) 456-7890 | aisha.rodriguez@email.com | linkedin.com/in/aisharodriguez | github.com/aisharodriguez
+
+SUMMARY
+
+Highly motivated and results-oriented Cloud Architect with 7+ years of experience designing, developing, and scaling cloud-based solutions. Proven ability to lead technical teams, drive innovation, and deliver impactful results. Expertise in Angular, TypeScript, and cloud platforms (AWS, GCP). Passionate about building robust, scalable, and efficient systems.
+
+EXPERIENCE
+
+Intel Corporation, Santa Clara, CA | Senior Cloud Architect | 2019 – Present
+
+* Led the architecture and development of a highly scalable, cloud-native platform serving 15M+ daily active users, utilizing Angular, TypeScript, and AWS services.
+* Architected and implemented a new microservices architecture, resulting in a 30% reduction in latency and a 20% decrease in infrastructure costs.
+* Spearheaded the migration of a legacy application to AWS, reducing operational overhead by 40% and improving system reliability.
+* Increased test coverage from 25% to 81% by implementing comprehensive unit and integration testing strategies using Jasmine and Jest.
+* Mentored junior engineers and provided technical guidance on best practices for cloud development and deployment.
+* Optimized the application's performance, achieving a 25% improvement in response time through code refactoring and database optimization.
+
+Cloud Solutions Inc., San Francisco, CA | Cloud Engineer | 2017 – 2019
+
+* Designed and implemented cloud infrastructure solutions on AWS and GCP, including VPCs, EC2 instances, and Kubernetes clusters.
+* Developed and maintained CI/CD pipelines using Jenkins and Docker, automating the build, test, and deployment process.
+* Collaborated with cross-functional teams to define and implement cloud security policies and best practices.
+* Implemented infrastructure-as-code (IaC) using Terraform, resulting in a 50% reduction in provisioning time.
+* Troubleshooted and resolved complex technical issues related to cloud infrastructure and applications.
+
+EDUCATION
+
+Indian Institute of Technology (IIT) Bombay, India | Bachelor of Technology in Computer Science | 2013 – 2017
+
+SKILLS
+
+* Cloud Platforms: AWS (EC2, S3, Lambda, RDS, VPC, ECS, EKS), GCP (Compute Engine, Cloud Storage, Cloud Functions, Cloud SQL, GKE)
+* Languages: TypeScript, JavaScript, Python
+* Frameworks/Libraries: Angular, RxJS, NgRx, Material UI, Node.js, Express.js
+* Databases: MySQL, PostgreSQL, MongoDB, DynamoDB, Redis
+* DevOps: Docker, Kubernetes, Terraform, Jenkins, Git, CI/CD
+* Testing: Jasmine, Jest, Mocha, Cypress
+* Operating Systems: Linux, Windows
+
+CERTIFICATIONS
+
+* AWS Certified Solutions Architect – Professional
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Administrator (CKA)
+
+PROJECTS
+
+* E-commerce Platform: Developed a scalable e-commerce platform using Angular, TypeScript, Node.js, and MongoDB, deployed on AWS. Integrated payment gateways and shipping APIs.
+* Real-Time Chat Application: Built a real-time chat application using Angular, RxJS, and Socket.IO, deployed on Kubernetes. Implemented user authentication and authorization.
+* Data Analytics Dashboard: Created a data analytics dashboard using Angular, D3.js, and Python, visualizing key performance indicators (KPIs) from various data sources. Deployed on GCP.
+* Serverless Image Processing: Designed and implemented a serverless image processing pipeline using AWS Lambda and S3. Optimized image sizes and formats for improved performance.

@@ -1,0 +1,57 @@
+```text
+**Aisha Ramirez**
+(555) 123-4567 | aisha.ramirez@email.com | linkedin.com/in/aisharamirez | github.com/aramirez
+
+**Summary**
+
+Highly motivated and results-oriented Senior Cybersecurity Analyst with 7+ years of experience in designing, implementing, and maintaining secure and scalable systems. Proven ability to identify vulnerabilities, develop security solutions, and automate security processes. Expertise in Rust, Actix, PostgreSQL, Redis, Docker, and AWS. Passionate about building robust and resilient infrastructure.
+
+**Skills**
+
+*   **Languages:** Rust, Python, Go, SQL
+*   **Frameworks/Libraries:** Actix-web, Tokio, Pytest, Pandas, NumPy
+*   **Databases:** PostgreSQL, Redis, MySQL, MongoDB
+*   **Cloud Platforms:** AWS (EC2, S3, IAM, Lambda, CloudWatch), Docker, Kubernetes
+*   **Security Tools:** Wireshark, Nmap, Metasploit, Burp Suite, OWASP ZAP
+*   **CI/CD:** Jenkins, GitLab CI, CircleCI
+*   **Operating Systems:** Linux (Ubuntu, CentOS), Windows, macOS
+*   **Security Concepts:** Vulnerability Assessment, Penetration Testing, Threat Modeling, Incident Response, Security Auditing, Cryptography
+
+**Experience**
+
+**Bloomberg, New York, NY**
+**Senior Cybersecurity Analyst** | 2019 – Present
+
+*   Led the design and implementation of a real-time analytics pipeline processing 20 million events per day using Rust, Actix-web, PostgreSQL, and Redis, improving data visibility by 40%.
+*   Engineered automated security tools for vulnerability scanning and penetration testing, reducing manual effort by 60%.
+*   Spearheaded the implementation of CI/CD pipelines using Jenkins, reducing release time by 50% and increasing deployment frequency.
+*   Increased test coverage from 36% to 77% through the adoption of TDD and automated testing strategies.
+*   Mentored junior analysts, providing guidance on secure coding practices and security tooling.
+
+**JP Morgan Chase & Co., New York, NY**
+**Cybersecurity Analyst** | 2016 – 2019
+
+*   Conducted vulnerability assessments and penetration testing on web applications and infrastructure.
+*   Developed and implemented security policies and procedures to protect sensitive data and systems.
+*   Participated in incident response activities, including investigation, containment, and remediation.
+*   Developed a real-time analytics pipeline processing 2 million events/day improving incident detection capabilities.
+
+**Education**
+
+**Georgia Institute of Technology, Atlanta, GA**
+Bachelor of Science in Computer Science | 2012 – 2016
+
+**Certifications**
+
+*   AWS Certified Security – Specialty
+*   Certified Information Systems Security Professional (CISSP)
+*   Certified Ethical Hacker (CEH)
+
+**Projects**
+
+*   **Secure API Gateway (Rust, Actix):** Developed a secure API gateway using Rust and Actix-web, providing authentication, authorization, and rate limiting.
+*   **Vulnerability Scanner (Python, Nmap):** Built a Python-based vulnerability scanner using Nmap to identify security weaknesses in network devices.
+*   **Automated Incident Response System (Python, AWS Lambda):** Created an automated incident response system using Python and AWS Lambda to trigger alerts and initiate remediation actions based on security events.
+*   **Container Security Hardening Script (Docker, Bash):** Developed a bash script to automatically harden Docker containers, reducing attack surface and improving security posture.
+
+```

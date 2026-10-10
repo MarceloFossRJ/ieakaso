@@ -1,0 +1,62 @@
+**Li Wei Nakamura**
+(123) 456-7890 | li.nakamura@email.com | linkedin.com/in/liweinakamura | github.com/liweinakamura
+
+**Summary**
+
+Highly motivated and results-oriented Cloud Architect with 7 years of experience in designing, developing, and deploying scalable and resilient cloud-native applications. Proven ability to lead technical initiatives, mentor junior engineers, and optimize infrastructure for cost efficiency and performance. Expertise in React Native, TypeScript, Kubernetes, and cloud platforms like AWS and GCP. Seeking a challenging role where I can leverage my skills and experience to drive innovation and deliver impactful solutions.
+
+**Skills**
+
+* **Languages:** TypeScript, JavaScript, Python, Go
+* **Frameworks/Libraries:** React Native, React, Redux, Expo, Node.js, Express.js
+* **Cloud Platforms:** Amazon Web Services (AWS), Google Cloud Platform (GCP)
+* **Containerization/Orchestration:** Kubernetes, Docker, Docker Compose
+* **Databases:** PostgreSQL, MongoDB, Redis, MySQL
+* **DevOps:** CI/CD (Jenkins, GitLab CI, CircleCI), Terraform, Ansible, Helm, ArgoCD
+* **Testing:** Jest, Mocha, Cypress
+* **Monitoring/Logging:** Prometheus, Grafana, ELK Stack (Elasticsearch, Logstash, Kibana)
+* **Other:** REST APIs, GraphQL, Microservices Architecture, Agile Development
+
+**Experience**
+
+**Meta, Menlo Park, CA**
+**Senior Cloud Architect** | June 2020 – Present
+
+* Led the migration of 20 microservices from a legacy system to a Kubernetes-based architecture, resulting in a 25% reduction in page load time and improved application scalability.
+* Architected and implemented a serverless infrastructure on AWS Lambda for processing user-generated content, reducing infrastructure costs by $10,000 annually.
+* Optimized cloud infrastructure by leveraging reserved instances and spot instances on AWS EC2, resulting in an additional $2,000 annual cost savings.
+* Mentored 50 junior engineers on best practices for cloud development, deployment, and monitoring.
+* Spearheaded the adoption of Infrastructure as Code (IaC) using Terraform, automating the provisioning and management of cloud resources.
+
+**ByteDance, Mountain View, CA**
+**Cloud Engineer** | August 2018 – June 2020
+
+* Designed and implemented a CI/CD pipeline using Jenkins and Docker for automated building, testing, and deployment of microservices.
+* Developed and maintained RESTful APIs using Node.js and Express.js for internal applications.
+* Implemented monitoring and logging solutions using Prometheus and Grafana to ensure application uptime and performance.
+* Contributed to the development of a React Native mobile application for content creation and sharing.
+
+**Huawei Technologies, Shenzhen, China**
+**Software Engineer** | June 2016 – August 2018
+
+* Developed and maintained backend systems using Java and Spring Framework for a large-scale e-commerce platform.
+* Implemented unit and integration tests using JUnit and Mockito to ensure code quality and reliability.
+* Collaborated with cross-functional teams to deliver high-quality software on time and within budget.
+
+**Projects**
+
+* **Personal Portfolio Website (React, TypeScript, AWS S3):** Developed a responsive portfolio website to showcase my skills and projects.
+* **Kubernetes Cluster Automation (Terraform, Ansible):** Automated the deployment and management of a Kubernetes cluster on AWS using Terraform and Ansible.
+* **Real-Time Chat Application (Node.js, Socket.IO, React):** Built a real-time chat application using Node.js, Socket.IO, and React.
+* **Mobile Weather App (React Native, TypeScript, Expo):** Created a mobile weather application that displays current weather conditions and forecasts using React Native, TypeScript and Expo.
+
+**Education**
+
+**Tsinghua University, Beijing, China**
+Bachelor of Science in Computer Science | June 2016
+
+**Certifications**
+
+* AWS Certified Solutions Architect – Associate
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Administrator (CKA)

@@ -1,0 +1,72 @@
+Aisha O'Connell
+(555) 123-4567 | aisha.oconnell@email.com | linkedin.com/in/aishaoconnell
+
+SUMMARY
+
+Highly accomplished and results-oriented Cybersecurity Leader with 16 years of experience architecting, implementing, and managing robust security solutions in cloud-native environments. Proven ability to significantly improve security posture, streamline deployment processes, and enhance application performance at scale. Expertise in Azure security architecture, infrastructure-as-code (IaC), and threat detection/response. Seeking a challenging and impactful leadership role in a forward-thinking organization.
+
+EXPERIENCE
+
+Netflix | Principal Security Engineer | Los Gatos, CA | 2018 – Present
+
+* Led a team of security engineers in designing and implementing security controls for the Netflix streaming platform on Azure and AWS, protecting over 200 million users.
+* Spearheaded the migration of critical infrastructure to Azure Kubernetes Service (AKS), resulting in a 69% reduction in page load time and a 30% decrease in operational costs.
+* Architected and implemented a fully automated security deployment pipeline using ARM Templates, Bicep, and GitHub Actions, improving deployment frequency from monthly to 100x daily.
+* Developed and maintained Splunk-based security information and event management (SIEM) dashboards and alerts, enabling proactive threat detection and incident response.
+* Reduced security vulnerabilities by 45% through proactive threat modeling and vulnerability assessments.
+
+Amazon Web Services (AWS) | Senior Security Engineer | Seattle, WA | 2014 – 2018
+
+* Designed and implemented secure cloud infrastructure solutions for enterprise customers on AWS, adhering to industry best practices and compliance standards (SOC 2, PCI DSS).
+* Led the development of automated security testing frameworks, improving deployment frequency from monthly to 500x daily and reducing time to market by 25%.
+* Collaborated with development teams to integrate security into the software development lifecycle (SDLC), promoting a "security-first" culture.
+* Automated security incident response processes, reducing resolution time by 60%.
+
+Microsoft Corporation | Security Engineer | Redmond, WA | 2010 – 2014
+
+* Engineered and deployed security solutions for Microsoft's cloud services, focusing on identity and access management (IAM) and data protection.
+* Developed and maintained security policies, standards, and procedures to ensure compliance with regulatory requirements.
+* Improved deployment frequency from monthly to 10x daily through infrastructure automation with PowerShell and Chef.
+* Conducted penetration testing and vulnerability assessments to identify and remediate security weaknesses.
+
+EDUCATION
+
+Georgia Institute of Technology | Atlanta, GA | Bachelor of Science in Computer Science | 2010
+
+CERTIFICATIONS
+
+* Certified Information Systems Security Professional (CISSP)
+* Certified Cloud Security Professional (CCSP)
+* AWS Certified Security – Specialty
+* Azure Security Engineer Associate
+* Kubernetes Certified Security Specialist (KCSS)
+
+PROJECTS
+
+* Azure Security Baseline Automation: Developed an automated Azure security baseline deployment using ARM Templates and Bicep, ensuring consistent security configuration across all Azure resources.
+* Splunk Threat Hunting Dashboard: Created a custom Splunk dashboard for proactive threat hunting, utilizing threat intelligence feeds and anomaly detection techniques.
+* Kubernetes Security Hardening: Implemented a set of security best practices for Kubernetes clusters, including network policies, pod security policies, and RBAC.
+* Vulnerability Management Pipeline: Automated vulnerability scanning and remediation process, integrating with CI/CD pipelines and ticketing systems.
+* Cloud Infrastructure Security Assessment: Conducted comprehensive security assessments of cloud environments, identifying and remediating security vulnerabilities and misconfigurations.
+
+SKILLS
+
+Cloud Security: Azure (Expert), AWS (Advanced), GCP (Proficient), AKS, Kubernetes, Docker
+Security Tools: Splunk (Expert), Qualys, Nessus, Burp Suite, Metasploit, Wireshark
+Programming Languages: Python, PowerShell, Bash, Go
+Infrastructure-as-Code: ARM Templates, Bicep, Terraform, CloudFormation
+Security Frameworks: NIST Cybersecurity Framework, CIS Controls, OWASP
+Operating Systems: Windows, Linux
+CI/CD: GitHub Actions, Azure DevOps, Jenkins
+Networking: TCP/IP, DNS, Firewalls, VPNs
+IAM: Azure Active Directory, AWS IAM
+Compliance: SOC 2, PCI DSS, HIPAA
+Threat Modeling: STRIDE, DREAD
+Incident Response: SANS Incident Handling Process
+Penetration Testing: Web Application, Network
+Vulnerability Assessment
+Reverse Engineering (Basic)
+Cryptography
+Data Loss Prevention (DLP)
+SIEM
+SOAR

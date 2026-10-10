@@ -1,0 +1,59 @@
+Amara Sharma-O'Connell
+(123) 456-7890 | amara.soconnell@email.com | linkedin.com/in/amarasharmaoconnell | github.com/amarasoc
+
+SUMMARY
+
+Principal Backend Engineer with 16 years of experience architecting, developing, and scaling high-performance systems. Expert in Kotlin, Jetpack Compose, and cloud-native technologies. Proven ability to lead and mentor engineering teams, drive technical innovation, and deliver impactful business results. Passionate about building robust, efficient, and user-centric applications.
+
+EXPERIENCE
+
+Goldman Sachs, New York, NY
+Principal Engineer, Platform Engineering | 2018 – Present
+
+* Led the migration of 100+ microservices to Kubernetes, resulting in a 30% reduction in infrastructure costs and improved application resilience.
+* Architected and implemented a real-time analytics pipeline using Kafka and Spark, processing 20 million events per day for enhanced decision-making.
+* Mentored 15 Senior Engineers and 50 Junior Engineers through performance reviews and coaching sessions.
+* Spearheaded the development of a new internal developer platform, improving developer velocity by 40%.
+* Reduced customer churn by 68% through the implementation of a predictive analytics model built on machine learning algorithms.
+
+Acme Corporation, San Francisco, CA
+Senior Software Engineer | 2012 – 2018
+
+* Designed and developed key features for Acme's flagship mobile application using Kotlin, Jetpack Compose, Room, and Retrofit.
+* Optimized database queries, reducing page load time by 49% and improving user experience.
+* Contributed to the development of RESTful APIs for various internal services.
+* Implemented robust unit and integration tests, improving code coverage to 90%.
+* Collaborated with product managers and designers to translate business requirements into technical specifications.
+
+Tech Solutions Inc., Mountain View, CA
+Software Engineer | 2008 – 2012
+
+* Developed and maintained backend systems for various client projects using Java and Spring framework.
+* Gained experience in all stages of the software development lifecycle, from requirements gathering to deployment and maintenance.
+* Contributed to the design and implementation of scalable and reliable web applications.
+
+PROJECTS
+
+* **Personal Finance Tracker (Kotlin/Jetpack Compose/Firebase):** Developed a mobile application for tracking personal finances, including budgeting, expense tracking, and investment analysis. Leveraged Firebase for authentication and data storage.
+* **Real-time Chat Application (Kotlin/WebSocket):** Built a real-time chat application using Kotlin and WebSocket technology. Implemented features such as message delivery, presence indicators, and user authentication.
+* **Machine Learning Model for Fraud Detection (Python/TensorFlow):** Developed a machine learning model for detecting fraudulent transactions using Python and TensorFlow. Achieved a 95% accuracy rate in identifying fraudulent activity.
+* **Open Source Library for Date Handling (Kotlin):** Created an open-source Kotlin library for handling dates and times, providing a more intuitive and efficient API for developers.
+
+SKILLS
+
+Languages: Kotlin, Java, Python, SQL
+Frameworks/Libraries: Jetpack Compose, Room, Retrofit, Dagger, Spring, TensorFlow, Spark, Kafka, REST
+Databases: MySQL, PostgreSQL, MongoDB
+Cloud Platforms: AWS (Amazon Web Services), GCP (Google Cloud Platform), Kubernetes
+Tools: Git, Docker, Jenkins, Jira, Confluence
+
+CERTIFICATIONS
+
+* AWS Certified Solutions Architect – Professional
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Administrator (CKA)
+
+EDUCATION
+
+Indian Institute of Technology (IIT) Delhi, Delhi, India
+Bachelor of Technology in Computer Science

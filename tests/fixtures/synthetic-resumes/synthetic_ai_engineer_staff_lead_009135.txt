@@ -1,0 +1,69 @@
+Aisha Tanaka
+(555) 123-4567 | aisha.tanaka@email.com | linkedin.com/in/aishatanaka | github.com/aitanaka
+
+Summary
+
+Highly accomplished and results-driven AI Engineer with 9 years of experience in designing, developing, and deploying scalable and high-performance AI solutions. Proven ability to lead teams, optimize performance, and reduce costs. Expertise in Vue.js and related front-end technologies. Passionate about mentoring junior engineers and driving innovation.
+
+Experience
+
+Notion | Senior AI Engineer | San Francisco, CA | 2020 – Present
+
+* Led the development and deployment of AI-powered features for Notion's collaborative workspace, impacting over 10 million daily active users.
+* Architected and implemented a new data pipeline for AI model training, reducing infrastructure costs by $50K annually.
+* Optimized database queries related to AI feature interactions, resulting in a 29% improvement in read speeds and a 77% improvement in write speeds.
+* Mentored 15 junior engineers on best practices for Vue.js development, AI model deployment, and performance optimization.
+* Reduced page load time for key user workflows by 40% through front-end optimization using Vue.js, Vuex, and Nuxt.js.
+
+Google | Software Engineer | Mountain View, CA | 2017 – 2020
+
+* Developed and maintained core components of a large-scale machine learning platform using Python and TensorFlow.
+* Spearheaded the migration of a critical service to Google Cloud Platform (GCP), improving scalability and reliability.
+* Collaborated with cross-functional teams to design and implement new features for Google's AI-powered search algorithms.
+* Contributed to the development of internal tools for monitoring and managing AI model performance.
+
+Microsoft | Software Development Engineer | Redmond, WA | 2015 – 2017
+
+* Developed and tested new features for Microsoft's AI platform, focusing on natural language processing (NLP) and computer vision.
+* Optimized existing algorithms for improved performance and accuracy.
+* Participated in code reviews and provided constructive feedback to other engineers.
+
+Projects
+
+AI-Powered Content Summarization Tool | Personal Project
+
+* Developed a Vue.js-based web application that automatically summarizes long-form text using natural language processing techniques.
+* Utilized TensorFlow and Python for model training and inference.
+
+Real-Time Object Detection System | University Project
+
+* Implemented a real-time object detection system using convolutional neural networks (CNNs).
+* Achieved high accuracy and performance on benchmark datasets.
+
+Smart Home Automation System | Open Source Contribution
+
+* Contributed to an open-source project for smart home automation, focusing on integration with AI-powered voice assistants.
+
+Skills
+
+Languages: Python, JavaScript, HTML, CSS, SCSS
+
+Frameworks/Libraries: Vue.js, Vuex, Nuxt.js, React, Angular, TensorFlow, PyTorch, scikit-learn, NumPy, Pandas
+
+Tools: Webpack, Vitest, Jest, Git, Docker, Kubernetes, AWS, GCP
+
+Databases: MySQL, PostgreSQL, MongoDB
+
+Cloud Technologies: AWS (Amazon Web Services), GCP (Google Cloud Platform)
+
+AI/ML: Machine Learning, Deep Learning, Natural Language Processing (NLP), Computer Vision
+
+Education
+
+University of Toronto | Bachelor of Science in Computer Science | Toronto, ON | 2015
+
+Certifications
+
+* AWS Certified Machine Learning – Specialty
+* Google Cloud Certified Professional Cloud Architect
+* Kubernetes Certified Application Developer (CKAD)

@@ -1,0 +1,53 @@
+Aisha Ramirez
+(555) 123-4567 | aisha.ramirez@email.com | linkedin.com/in/aisharamirez | github.com/aisharamirez
+
+SUMMARY
+
+Highly accomplished and results-oriented Backend Developer with 7+ years of experience in designing, developing, and deploying scalable and high-performance applications. Proven ability to lead teams, optimize infrastructure, and drive significant improvements in software delivery pipelines. Expertise in React, TypeScript, Redux, Next.js, Tailwind CSS, Jest, Cypress, and Kubernetes. Seeking a challenging role where I can leverage my skills and experience to contribute to the success of a dynamic organization.
+
+EXPERIENCE
+
+Canva | Senior Backend Developer | Sydney, Australia | 2020 – Present
+
+* Led a team of 4 engineers in the migration of 15+ critical microservices to Kubernetes, resulting in a 30% reduction in infrastructure costs and improved system scalability.
+* Spearheaded the implementation of a CI/CD pipeline using Jenkins and ArgoCD, increasing deployment frequency from monthly releases to 500+ deployments daily.
+* Architected and implemented a new data indexing strategy, optimizing database queries and achieving a 52% improvement in read performance for key application features.
+* Mentored junior developers, providing guidance on best practices for code quality, performance optimization, and testing.
+* Contributed to the development of a new feature that increased user engagement by 15% based on A/B testing results.
+
+Dropbox | Backend Developer | San Francisco, CA | 2017 – 2020
+
+* Developed and maintained RESTful APIs using Python (Flask) and PostgreSQL, serving millions of users daily.
+* Implemented caching strategies using Redis, reducing database load by 40% and improving application response time.
+* Contributed to the redesign of the file sharing system, resulting in a 20% increase in file sharing efficiency.
+* Wrote comprehensive unit and integration tests using pytest, ensuring code quality and reducing bug incidence.
+* Collaborated with frontend developers to integrate backend services with React-based user interfaces.
+
+EDUCATION
+
+Cornell University | Ithaca, NY | Bachelor of Science in Computer Science | 2013 – 2017
+
+SKILLS
+
+Languages: TypeScript, JavaScript, Python, Go
+Frameworks/Libraries: React, Redux, Next.js, Tailwind CSS, Flask, Node.js
+Databases: PostgreSQL, MySQL, MongoDB, Redis, DynamoDB
+Tools: Kubernetes, Docker, AWS (EC2, S3, Lambda), GCP (Compute Engine, Cloud Storage, Cloud Functions), Jenkins, ArgoCD, Git, Jest, Cypress, GraphQL
+Methodologies: Agile, Scrum
+
+CERTIFICATIONS
+
+* AWS Certified Developer – Associate
+* Certified Kubernetes Application Developer (CKAD)
+
+PROJECTS
+
+* E-commerce Platform (Personal Project): Developed a full-stack e-commerce platform using Next.js, TypeScript, and MongoDB. Implemented features such as user authentication, product catalog, shopping cart, and checkout process.
+* Real-time Chat Application (Personal Project): Built a real-time chat application using React, Node.js, and Socket.IO. Implemented features such as user presence, message history, and group chat.
+* Serverless API for Image Recognition (Personal Project): Created a serverless API using AWS Lambda and Rekognition for image recognition, deployed and managed via Terraform.
+* Data Visualization Dashboard (Github): Developed a React based dashboard using TypeScript and integrating with a REST API, used D3.js for visualizing data.
+
+AWARDS & RECOGNITION
+
+* Dropbox Hack Week Winner (2019) - Project: Automated code review tool.
+* Cornell University Dean's List (2015, 2016, 2017)

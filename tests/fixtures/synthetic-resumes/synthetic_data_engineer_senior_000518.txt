@@ -1,0 +1,54 @@
+Li Wei Rodriguez
+(555) 123-4567 | li.rodriguez@email.com | linkedin.com/in/lirodriguez | github.com/lirodriguez
+
+SUMMARY
+
+Senior Data Engineer with 7 years of experience building and optimizing data pipelines and machine learning infrastructure at high-growth startups. Proven ability to design, implement, and scale data solutions that drive business impact. Expertise in front-end development with Angular, TypeScript, and a deep understanding of cloud technologies. Seeking a challenging role where I can leverage my skills to contribute to a data-driven organization.
+
+EXPERIENCE
+
+Data Engineer | TechSolutions Inc. (YC Backed Startup) | San Francisco, CA | 2020 – Present
+
+* Led the migration of 15 microservices to Kubernetes, resulting in a 15% reduction in infrastructure costs and improved system scalability.
+* Engineered and maintained data pipelines using Python, Spark, and Kafka, processing over 5TB of data daily.
+* Built and deployed a machine learning model for fraud detection, achieving 44% accuracy in production and preventing an estimated $50,000 in fraudulent transactions per month.
+* Implemented CI/CD pipelines using Jenkins and Docker, reducing release time by 23% and increasing deployment frequency.
+* Mentored junior engineers, providing guidance on best practices for data engineering and software development.
+* Developed and maintained a real-time data monitoring dashboard using Grafana, providing critical insights into system performance.
+
+Software Engineer | DataWise Analytics | Chicago, IL | 2017 – 2020
+
+* Designed and implemented new features for the company's flagship data analytics platform using Angular, TypeScript, RxJS, NgRx, and Material UI.
+* Optimized front-end performance, reducing page load time by 76% through code splitting and lazy loading techniques.
+* Architected and implemented a new data visualization component using D3.js, improving user engagement by 20%.
+* Built a machine learning model to predict customer churn, achieving 25% accuracy in production and informing targeted retention efforts.
+* Contributed to the development of RESTful APIs using Node.js and Express.
+
+EDUCATION
+
+Purdue University | West Lafayette, IN | Bachelor of Science in Computer Science | 2013 - 2017
+
+* GPA: 3.8/4.0
+* Relevant Coursework: Data Structures and Algorithms, Database Systems, Machine Learning, Software Engineering
+
+PROJECTS
+
+Real-Time Stock Price Dashboard: Developed a real-time stock price dashboard using Angular, TypeScript, RxJS, and a financial API.
+Predictive Maintenance System: Built a predictive maintenance system using Python and machine learning algorithms to predict equipment failures.
+E-commerce Recommendation Engine: Implemented a recommendation engine using collaborative filtering techniques to suggest products to users.
+Sentiment Analysis Tool: Created a sentiment analysis tool using natural language processing techniques to analyze social media data.
+
+CERTIFICATIONS
+
+* AWS Certified Cloud Practitioner
+* Google Cloud Certified Professional Data Engineer
+* Certified Kubernetes Administrator (CKA)
+
+SKILLS
+
+Languages: Python, TypeScript, JavaScript, Java, SQL
+Frameworks/Libraries: Angular, React, RxJS, NgRx, Material UI, Node.js, Express.js, Spark, Pandas, NumPy, Scikit-learn, D3.js
+Databases: PostgreSQL, MySQL, MongoDB, Cassandra
+Cloud Technologies: AWS (EC2, S3, Lambda, RDS), Google Cloud Platform (Compute Engine, Cloud Storage, Cloud Functions, Cloud SQL), Kubernetes, Docker
+DevOps: Jenkins, Git, Docker, Kubernetes, CI/CD
+Data Visualization: Grafana, Tableau

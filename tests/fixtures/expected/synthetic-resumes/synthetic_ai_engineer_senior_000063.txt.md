@@ -1,0 +1,58 @@
+```
+**Aisha O’Connell**
+(123) 456-7890 | aisha.oconnell@email.com | linkedin.com/in/aishaoconnell | github.com/aishaoconnell
+
+**Summary**
+
+Highly motivated and results-oriented AI Engineer with 7 years of experience in designing, developing, and deploying scalable and efficient AI-powered solutions, primarily within the FinTech industry. Proven ability to lead technical initiatives, optimize performance, and drive innovation. Expertise in Kotlin, Jetpack Compose, Room, Retrofit, Dagger, and Firebase, with a strong understanding of microservices architecture and cloud technologies. Passionate about building high-quality, data-driven products.
+
+**Skills**
+
+*   **Languages:** Kotlin, Java, Python, SQL
+*   **Frameworks/Libraries:** Jetpack Compose, Retrofit, Dagger, Room, TensorFlow Lite, Pandas, NumPy
+*   **Databases:** PostgreSQL, MySQL, Firebase Realtime Database
+*   **Cloud Platforms:** AWS (EC2, S3, Lambda, DynamoDB), Google Cloud Platform (GCP)
+*   **Microservices:** Docker, Kubernetes, gRPC, REST
+*   **DevOps:** CI/CD (Jenkins, GitLab CI), Terraform, Ansible
+*   **AI/ML:** Machine Learning, Deep Learning, Natural Language Processing (NLP)
+*   **Other:** Agile Methodologies, Git, Data Analysis, Performance Optimization
+
+**Experience**
+
+**Senior AI Engineer | FinTech Startup | San Francisco, CA | 2020 – Present**
+
+*   Led the design and implementation of a microservices architecture using Kotlin and gRPC, serving 50K requests per minute (RPM) and improving system resilience by 60%.
+*   Optimized API performance, reducing latency by 84% through code profiling, caching strategies, and database query optimization.
+*   Scaled the mobile platform to handle 20M+ daily active users, ensuring high availability and responsiveness.
+*   Improved deployment frequency from monthly to 100x daily by implementing a robust CI/CD pipeline using Jenkins and Terraform.
+*   Reduced page load time by 37% by optimizing image delivery, leveraging caching mechanisms, and improving network performance.
+*   Mentored junior engineers, providing guidance on best practices in software development and AI/ML implementation.
+
+**Software Engineer | Mobile Payments Company | New York, NY | 2017 – 2020**
+
+*   Developed and maintained key features of the company’s flagship mobile payments application using Kotlin, Jetpack Compose, Room, Retrofit, and Dagger.
+*   Implemented robust unit and integration tests, increasing code coverage by 45% and reducing bug incidence.
+*   Collaborated with product managers and designers to translate user stories into functional and visually appealing user interfaces.
+*   Reduced page load time by 21% by optimizing database queries and implementing caching strategies.
+*   Contributed to the development of a new AI-powered fraud detection system, resulting in a 15% reduction in fraudulent transactions.
+
+**Education**
+
+**Indian Institute of Technology (IIT) Kanpur | Bachelor of Technology in Computer Science | Kanpur, India | 2013 – 2017**
+
+*   GPA: 9.2/10
+*   Relevant Coursework: Data Structures and Algorithms, Database Management Systems, Operating Systems, Machine Learning, Artificial Intelligence
+
+**Certifications**
+
+*   AWS Certified Machine Learning – Specialty
+*   Google Cloud Professional Data Engineer
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **AI-Powered Loan Approval System:** Developed a machine learning model using Python and scikit-learn to predict loan default risk, improving approval accuracy by 20%.
+*   **Real-Time Fraud Detection System:** Designed and implemented a real-time fraud detection system using TensorFlow Lite and Kotlin, detecting fraudulent transactions with 95% accuracy.
+*   **Personalized Recommendation Engine:** Built a personalized recommendation engine using collaborative filtering techniques to suggest relevant products to users, increasing click-through rates by 10%.
+*   **Automated Chatbot for Customer Support:** Developed an automated chatbot using NLP techniques to provide instant customer support, reducing response times by 50%.
+```

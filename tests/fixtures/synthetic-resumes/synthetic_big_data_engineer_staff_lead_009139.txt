@@ -1,0 +1,73 @@
+Aaliyah Chen-O’Connell
+(555) 123-4567 | a.chen.oconnell@email.com | linkedin.com/in/aaliyahchenoconnell | github.com/achenoconnell
+
+SUMMARY
+
+Highly motivated and results-oriented Staff Big Data Engineer with 9 years of experience in designing, developing, and optimizing data infrastructure for high-performance applications. Proven ability to lead teams, drive innovation, and deliver significant improvements in system performance, reliability, and cost efficiency. Expertise in Swift, SwiftUI, Combine, Core Data, Firebase, and cloud technologies. Passionate about building scalable and robust solutions to solve complex business challenges.
+
+EXPERIENCE
+
+FinTech Startup | Senior iOS Engineer | 2020 – Present
+
+* Led the engineering and architecture of key features within the core iOS application, impacting over 500,000 active users.
+* Reduced API latency by 59% through code profiling, algorithm optimization, and caching strategies, resulting in a significantly improved user experience.
+* Optimized database queries resulting in 31% faster reads and improved overall app responsiveness.
+* Reduced page load time by 81% by implementing efficient data fetching techniques and optimizing image assets.
+* Collaborated with product managers, designers, and other engineers to define and implement product roadmaps.
+* Mentored junior engineers, providing guidance on best practices, code reviews, and career development.
+* Implemented comprehensive unit and UI testing strategies, increasing test coverage by 40%.
+* Reduced infrastructure costs by $5K annually by identifying and eliminating redundant resources.
+
+Tech Solutions Inc. | iOS Engineer | 2017 – 2020
+
+* Developed and maintained key features for a flagship mobile application used by over 1 million customers.
+* Engineered a new data synchronization mechanism using Core Data and CloudKit, improving data consistency and reliability.
+* Improved application stability and performance by identifying and resolving critical bugs and performance bottlenecks.
+* Contributed to the development of a CI/CD pipeline using TestFlight, enabling faster and more reliable software releases.
+* Improved critical production system uptime by 51% through proactive monitoring and improved incident response procedures.
+* Worked with RESTful APIs to integrate with backend services and third-party providers.
+
+Early Start-Up Co. | Junior iOS Developer | 2015 – 2017
+
+* Assisted senior developers in building and maintaining a mobile application from the ground up.
+* Gained experience in all phases of the software development lifecycle, from requirements gathering to deployment.
+* Implemented user interfaces using UIKit and Swift, adhering to Apple's Human Interface Guidelines.
+* Contributed to the development of unit tests and UI tests to ensure code quality.
+
+PROJECTS
+
+Personal Finance Tracker | iOS App
+
+* Developed a personal finance tracking application using SwiftUI, Combine, and Core Data.
+* Implemented features for tracking income, expenses, and budgets.
+* Integrated with Plaid API for automatic transaction importing.
+
+Recipe App | iOS App
+
+* Built a recipe app using SwiftUI, allowing users to search and save their favorite recipes.
+* Utilized Firebase for authentication and data storage.
+
+Data Visualization Dashboard | Web App
+
+* Created a web application using React and D3.js to visualize financial data from various sources.
+
+EDUCATION
+
+Cornell University | Bachelor of Science in Computer Science | 2011 – 2015
+
+SKILLS
+
+Languages: Swift, Objective-C, Python, SQL
+
+Frameworks/Libraries: SwiftUI, UIKit, Combine, Core Data, Firebase, REST APIs, Alamofire, RxSwift
+
+Databases: MySQL, PostgreSQL, MongoDB
+
+Tools: Xcode, Git, Jira, Confluence, AWS, Docker, Kubernetes, Jenkins
+
+Cloud: AWS (EC2, S3, Lambda), Google Cloud Platform
+
+CERTIFICATIONS
+
+AWS Certified Cloud Practitioner
+Certified Kubernetes Application Developer (CKAD)

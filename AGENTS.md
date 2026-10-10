@@ -4,10 +4,11 @@ This file provides guidance to AI coding agents in this repository.
 
 ## Project state
 
-Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` skill (see Commands), and the Python package in `src/ieakaso/` so far holds only development tools.
+Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` skill (see Commands). The Python package in `src/ieakaso/` holds the CV parser and the development tools.
 
 - **Toolchain:** Python 3.14 managed by `uv`. Dependencies live in `pyproject.toml`; add them with `uv add` (or `uv add --dev` for development-only ones).
 - **Tests:** `uv run pytest` (pytest, in `tests/`). Tests run on temporary fake repos; never let a test write to the real `input/`, `output/`, `config.yml`, or `db/`.
+- **CV parser:** `src/ieakaso/cv_parser/` turns the Source CV into the Parsed CV `input/cv.md` (terms in `CONTEXT.md`, decisions in `docs/adr/0001-deterministic-cv-parser.md`). It is deterministic code, never the agent. Its expected outputs in `tests/fixtures/expected/` are the spec: when output changes, regenerate them with `uv run python tests/fixtures/update_expected.py --all`, review the diff, and raise `PARSER_VERSION` in the same commit. Fixtures are synthetic or anonymized CVs only; the repo is public.
 - **Development tools** live in `src/ieakaso/devtools/` and are never exposed to the candidate: not an `ieakaso` command, not a `/ieakaso` mode.
   - Cleaner: `uv run python -m ieakaso.devtools.cleaner clean | restore [name] | list` returns the repo to a fresh state (see `CONTEXT.md`) so init can be tested from scratch. The command always backs up to `~/.ieakaso-backups/` first, and `restore` brings the newest backup back, or the named one. Options: `--dry-run` (`clean` and `restore`: show what would happen, change nothing), `--root` (default: found from the current folder), `--backup-dir`. Called from Python, `clean()` only backs up when given a `backup_dir`. If you add user data anywhere, add it to the cleaner and `.gitignore` together; `tests/test_cleaner_drift.py` fails when they disagree.
 - `README.md` describes the product as designed in the [diagram](`docs/flows.excalidraw`); its Roadmap section lists features beyond the diagram that are not designed yet.

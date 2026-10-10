@@ -1,0 +1,63 @@
+**Aisha Sharma-Lee**
+(123) 456-7890 | aisha.sharma.lee@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly accomplished and results-oriented Deep Learning Engineer with 9 years of experience building, deploying, and scaling machine learning solutions in fast-paced environments. Proven ability to lead and mentor teams, improve system performance, and drive innovation. Expertise in Python, TensorFlow, PyTorch, and AWS SageMaker. Seeking a challenging Staff/Lead role to leverage my skills and experience to deliver impactful results.
+
+**Experience**
+
+**Airbnb, San Francisco, CA**
+**Staff Machine Learning Engineer** | 2019 – Present
+
+*   Led a team of 5 engineers in developing and deploying deep learning models for personalized recommendations, resulting in a 12% increase in user engagement.
+*   Architected and implemented a new feature ranking system using TensorFlow, reducing page load time by 38% and improving user satisfaction.
+*   Spearheaded the migration of ML models to AWS SageMaker, resulting in a 25% reduction in infrastructure costs.
+*   Increased test coverage from 35% to 83% through implementing robust unit and integration tests, improving code reliability.
+*   Mentored 100+ junior engineers through formal training programs and individual coaching, fostering a culture of continuous learning and development.
+
+**Google, Mountain View, CA**
+**Machine Learning Engineer** | 2016 – 2019
+
+*   Engineered a novel deep learning model for fraud detection, resulting in a 20% reduction in fraudulent transactions and saving the company $500,000 annually.
+*   Optimized existing ML models using techniques like pruning and quantization, achieving a 15% improvement in inference speed.
+*   Implemented CI/CD pipelines using Jenkins and Kubernetes, reducing release time by 48% and improving deployment frequency.
+*   Collaborated with cross-functional teams to define and implement ML product roadmaps.
+
+**Amazon, Seattle, WA**
+**Software Development Engineer (Machine Learning)** | 2014 – 2016
+
+*   Developed and deployed machine learning models for predicting customer demand, improving inventory management and reducing waste by 10%.
+*   Built a recommendation engine using collaborative filtering techniques, resulting in a 7% increase in sales.
+*   Participated in the design and implementation of large-scale data processing pipelines using Apache Spark.
+
+**Education**
+
+**National University of Singapore (NUS), Singapore**
+**Bachelor of Science in Computer Science** | 2010 – 2014
+
+**Certifications**
+
+*   AWS Certified Machine Learning – Specialty
+*   TensorFlow Developer Certificate
+*   Google Cloud Professional Machine Learning Engineer
+
+**Projects**
+
+*   **Image Classification Model:** Developed a convolutional neural network (CNN) using TensorFlow to classify images with 92% accuracy on the CIFAR-10 dataset.
+*   **Sentiment Analysis API:** Built a REST API using Python and Flask to perform sentiment analysis on text data, achieving 85% accuracy.
+*   **Fraud Detection System:** Implemented a machine learning model for fraud detection using Scikit-learn, achieving 90% precision and recall.
+*   **Recommendation System:** Created a collaborative filtering recommendation system to personalized recommendations based on user interaction data. Achieved 50% accuracy in production.
+*   **Time Series Forecasting:** Developed a time series forecasting model using LSTM networks to predict future sales trends for a retail company.
+
+**Skills**
+
+*   **Programming Languages:** Python, Java, C++
+*   **Machine Learning Frameworks:** TensorFlow, PyTorch, Scikit-learn
+*   **Data Science Libraries:** Pandas, NumPy, Matplotlib, Seaborn
+*   **Cloud Computing:** AWS (SageMaker, EC2, S3, Lambda), Google Cloud Platform (GCP)
+*   **Databases:** SQL, NoSQL (MongoDB, Cassandra)
+*   **Big Data Technologies:** Apache Spark, Hadoop
+*   **DevOps:** Docker, Kubernetes, Jenkins, CI/CD
+*   **Statistical Modeling:** Regression, Classification, Clustering
+*   **Deep Learning:** CNNs, RNNs, LSTMs, Transformers

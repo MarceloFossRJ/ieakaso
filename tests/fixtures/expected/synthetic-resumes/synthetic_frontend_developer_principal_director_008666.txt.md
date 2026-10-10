@@ -1,0 +1,62 @@
+Aisha Rodriguez-Chen
+(206) 555-1212 | aisha.rc@email.com | linkedin.com/in/aisharodriguezchen | github.com/arodriguezchen
+
+SUMMARY
+
+Principal Frontend Developer with 16 years of experience building and scaling high-performance web applications in dynamic startup and enterprise environments. Expertise in Rust, Actix, PostgreSQL, Redis, Docker, and AWS. Proven ability to lead teams, drive technical innovation, and deliver impactful results. Passionate about creating elegant and efficient solutions to complex challenges.
+
+EXPERIENCE
+
+Lead Frontend Engineer | InnovAI Solutions | Seattle, WA | 2018 – Present
+
+* Led a team of 5 frontend engineers in the design, development, and maintenance of the company's flagship AI-powered platform.
+* Architected and implemented a new microfrontend architecture using Rust and Actix, resulting in a 40% reduction in deployment time.
+* Spearheaded a company-wide initiative to improve code quality and test coverage, increasing overall test coverage from 26% to 89%.
+* Optimized database queries, resulting in 60% faster read times and a 20% reduction in database load.
+* Implemented CI/CD pipelines using Docker and AWS CodePipeline, reducing release time by 65%.
+* Mentored junior engineers and provided technical guidance on best practices.
+
+Senior Software Engineer | TechForward Inc. | San Francisco, CA | 2014 – 2018
+
+* Developed and maintained key features for a high-traffic e-commerce platform using JavaScript, React, and Node.js.
+* Engineered scalable backend solutions using PostgreSQL and Redis.
+* Collaborated with product managers and designers to translate requirements into technical specifications.
+* Improved website performance by optimizing images and reducing HTTP requests, resulting in a 15% increase in page load speed.
+* Contributed to the development of a new mobile application using React Native.
+
+Software Engineer | Global Solutions Corp | New York, NY | 2008 – 2014
+
+* Developed and maintained web applications using Java, Spring, and MySQL.
+* Worked on a team to build a new customer relationship management (CRM) system.
+* Implemented RESTful APIs for integration with third-party services.
+* Participated in code reviews and contributed to the improvement of coding standards.
+
+PROJECTS
+
+* Rust-Based Microservice Framework: Developed a lightweight microservice framework using Rust and Actix for internal use.
+* Automated Deployment Pipeline: Created an automated deployment pipeline using Docker, Kubernetes, and AWS, significantly improving release efficiency.
+* Real-Time Data Visualization Dashboard: Built a real-time data visualization dashboard using React and WebSockets to monitor key performance indicators.
+* Open-Source Library: Contributed to an open-source Rust library for parsing and validating JSON data.
+
+EDUCATION
+
+University of Washington | Seattle, WA
+Bachelor of Science in Computer Science | 2008
+
+CERTIFICATIONS
+
+* AWS Certified Solutions Architect – Associate
+* Docker Certified Associate (DCA)
+
+SKILLS
+
+Languages: Rust, JavaScript, Java, Python, SQL
+Frameworks/Libraries: Actix, React, Node.js, Spring, JUnit
+Databases: PostgreSQL, Redis, MySQL
+Cloud Technologies: AWS (EC2, S3, Lambda, ECS, RDS, CloudWatch), Docker, Kubernetes
+Tools: Git, Jenkins, Jira, Confluence, Terraform
+Operating Systems: Linux, macOS, Windows
+Methodologies: Agile, Scrum, DevOps
+CI/CD: Jenkins, AWS CodePipeline, GitLab CI
+Testing: Unit Testing, Integration Testing, End-to-End Testing
+Other: REST APIs, Microservices, System Design, Data Structures, Algorithms, Problem Solving

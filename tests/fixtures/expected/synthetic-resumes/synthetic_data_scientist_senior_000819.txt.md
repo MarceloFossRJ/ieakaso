@@ -1,0 +1,54 @@
+Aisha Nguyen
+(555) 123-4567 | aisha.nguyen@email.com | linkedin.com/in/aishanguyen | github.com/aisha-nguyen
+
+Summary
+
+Data Scientist with 7 years of experience designing, developing, and deploying scalable data solutions for high-traffic applications. Proficient in Go, gRPC, PostgreSQL, Redis, Kubernetes, and AWS. Proven ability to leverage data-driven insights to optimize performance, reduce costs, and improve customer retention. Expertise in predictive modeling, data warehousing, and cloud-native architectures.
+
+Experience
+
+Uber, San Francisco, CA
+Senior Data Scientist | June 2020 – Present
+
+*   Architected and maintained data pipelines using Go, gRPC, and PostgreSQL to support real-time analytics for 500M+ daily active users.
+*   Led the development and implementation of a predictive churn model using machine learning techniques, resulting in a 67% reduction in customer churn rate.
+*   Optimized Kubernetes deployments for data processing jobs, reducing infrastructure costs by $2,000 annually.
+*   Spearheaded the implementation of CI/CD pipelines using Jenkins and Kubernetes, reducing release time by 48%.
+*   Mentored junior data scientists and engineers, providing guidance on best practices for data modeling and software development.
+
+Lyft, San Francisco, CA
+Data Scientist | August 2017 – June 2020
+
+*   Developed and deployed machine learning models for fraud detection, improving accuracy by 25% and reducing fraudulent transactions.
+*   Designed and implemented data warehouses using PostgreSQL and AWS Redshift to support business intelligence and reporting.
+*   Collaborated with engineering teams to integrate data solutions into production systems.
+*   Analyzed large datasets to identify trends and insights, providing recommendations to improve operational efficiency.
+
+Education
+
+University of Illinois at Urbana-Champaign, Urbana, IL
+Bachelor of Science in Computer Science | May 2017
+
+Skills
+
+Programming Languages: Go, Python, SQL
+Databases: PostgreSQL, Redis, AWS Redshift
+Cloud Platforms: AWS (EC2, S3, Lambda, RDS), Kubernetes
+Tools: gRPC, Prometheus, Jenkins, Docker, Git, Kafka, Spark
+Machine Learning: Regression, Classification, Clustering, Time Series Analysis
+
+Projects
+
+Real-Time Anomaly Detection: Developed a Go-based service using Prometheus to detect anomalies in real-time data streams, alerting operations teams to potential issues.
+
+Customer Churn Prediction: Built a predictive model using machine learning techniques to identify customers at risk of churn, enabling proactive intervention strategies.
+
+Fraud Detection System: Designed and implemented a fraud detection system using machine learning algorithms to identify and prevent fraudulent transactions.
+
+Recommendation Engine: Created a personalized recommendation engine using collaborative filtering to suggest relevant products to users based on their past behavior.
+
+Certifications
+
+AWS Certified Cloud Practitioner
+Certified Kubernetes Administrator (CKA)
+Google Cloud Certified Professional Data Engineer

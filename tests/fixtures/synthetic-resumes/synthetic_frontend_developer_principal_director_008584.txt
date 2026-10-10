@@ -1,0 +1,52 @@
+**Ayana Sharma**
+(555) 123-4567 | ayana.sharma@email.com | linkedin.com/in/ayanasharma | github.com/ayanasharma
+
+**Summary**
+
+Principal Frontend Developer with 16 years of experience in designing, developing, and leading high-performance web applications. Expertise in C#, .NET Core, SQL Server, RabbitMQ, Azure, and Docker. Proven ability to drive significant improvements in customer retention, infrastructure efficiency, and code quality. Passionate about building scalable, maintainable, and user-friendly solutions.
+
+**Skills**
+
+*   **Languages:** C#, JavaScript, TypeScript, HTML, CSS, SQL
+*   **Frameworks/Libraries:** .NET Core, React, Angular, Vue.js, Redux, RxJS, ASP.NET MVC, Entity Framework
+*   **Databases:** SQL Server, PostgreSQL, NoSQL (MongoDB)
+*   **Cloud:** Azure (Compute, Storage, Networking, Functions, DevOps), AWS (EC2, S3, Lambda), Docker, Kubernetes
+*   **Tools:** Git, Docker, Kubernetes, Azure DevOps, Jira, Confluence, Visual Studio, VS Code, Webpack, CI/CD pipelines
+*   **Methodologies:** Agile (Scrum, Kanban), Test-Driven Development (TDD), Behavior-Driven Development (BDD)
+
+**Experience**
+
+**Figma** | San Francisco, CA | **Principal Frontend Developer** | 2021 – Present
+
+*   Led a team of 5 frontend engineers in developing and maintaining key features for Figma's collaborative design platform using React, TypeScript, and Redux.
+*   Architected and implemented a real-time analytics pipeline processing 5M events/day, providing actionable insights into user behavior and platform performance.
+*   Reduced infrastructure costs by $2,000 annually by optimizing resource allocation and identifying unused services within Azure.
+
+**Microsoft** | Redmond, WA | **Senior Software Engineer** | 2016 – 2021
+
+*   Developed and maintained core components of the .NET Core framework using C#, ASP.NET MVC, and Entity Framework.
+*   Spearheaded the implementation of predictive analytics models using machine learning algorithms, resulting in an 83% reduction in customer churn.
+*   Increased test coverage from 27% to 95% by implementing robust unit and integration testing strategies.
+
+**Amazon Web Services (AWS)** | Seattle, WA | **Software Development Engineer** | 2012 – 2016
+
+*   Designed and implemented RESTful APIs using .NET Core and C# for various AWS services.
+*   Engineered a scalable and reliable message queueing system using RabbitMQ, improving inter-service communication efficiency by 40%.
+*   Reduced customer churn by 27% by improving documentation and user onboarding flows.
+
+**Education**
+
+**University of Washington** | Seattle, WA | **Bachelor of Science in Computer Science** | 2012
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Microsoft Certified: Azure Developer Associate
+*   Certified Kubernetes Application Developer (CKAD)
+
+**Projects**
+
+*   **Personal Portfolio Website:** Developed a responsive portfolio website using React, showcasing personal projects and skills.
+*   **E-commerce Platform:** Built a full-stack e-commerce platform using .NET Core, React, and SQL Server, including product catalog, shopping cart, and checkout functionality.
+*   **Machine Learning API:** Created a RESTful API for image classification using Python, TensorFlow, and Flask. Deployed on AWS Lambda.
+*   **Task Management Application:** Developed a collaborative task management application using Angular, TypeScript and Firebase.

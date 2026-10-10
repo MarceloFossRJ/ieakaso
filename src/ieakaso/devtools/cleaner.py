@@ -8,10 +8,11 @@ import filecmp
 import re
 import shutil
 import sys
-import tomllib
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
+
+from ieakaso.repo import find_root, is_ieakaso_repo
 
 # User data outside input/ and output/. Must stay in sync with .gitignore
 # (tests/test_cleaner_drift.py checks it against the real repo).
@@ -127,22 +128,6 @@ def _backup_order(path: Path) -> tuple[str, int]:
     """Sort key, so `-10` comes after `-2`."""
     stamp, n = BACKUP_NAME.fullmatch(path.name).groups()
     return stamp, int(n or 1)
-
-
-def is_ieakaso_repo(path: Path) -> bool:
-    try:
-        project = tomllib.loads((path / "pyproject.toml").read_text())["project"]
-    except (OSError, tomllib.TOMLDecodeError, KeyError):
-        return False
-    return project.get("name") == "ieakaso" and (path / "ai/skills/ieakaso").is_dir()
-
-
-def find_root(start: Path) -> Path | None:
-    """The nearest ieakaso repo at or above start."""
-    for path in [start, *start.parents]:
-        if is_ieakaso_repo(path):
-            return path
-    return None
 
 
 def main(argv: list[str] | None = None) -> int:

@@ -1,0 +1,60 @@
+**Anya Sharma-Rodriguez**
+(555) 123-4567 | anya.sr@email.com | linkedin.com/in/anyasr
+
+**Summary**
+
+Highly accomplished and results-driven Cybersecurity Analyst with 16 years of experience in securing cloud-native environments, implementing robust security measures, and leading cross-functional teams. Proven ability to architect, implement, and manage complex security systems, optimizing performance, and ensuring compliance. Expertise in AWS, Terraform, Ansible, Docker, Kubernetes, and CI/CD pipelines. Passionate about leveraging technology to mitigate risks and protect critical assets.
+
+**Experience**
+
+**Principal Cybersecurity Architect** | EdTech Startup | San Francisco, CA | 2018 – Present
+
+*   Led the design and implementation of a comprehensive security architecture for a cloud-based platform supporting 50M+ daily active users.
+*   Architected and deployed a new security information and event management (SIEM) system resulting in a 35% improvement in threat detection.
+*   Implemented CI/CD pipelines using Jenkins, reducing release time by 57% and improving deployment frequency.
+*   Developed and deployed a machine learning model to identify and prevent fraudulent activity, achieving 50% accuracy in production.
+*   Reduced page load time by 56% by identifying and optimizing database queries and caching strategies.
+*   Mentored and trained junior security engineers, fostering a culture of security awareness and best practices.
+
+**Senior Security Engineer** | Fintech Innovations | New York, NY | 2014 – 2018
+
+*   Spearheaded the migration of on-premise infrastructure to AWS, ensuring security compliance and minimizing disruption.
+*   Automated security infrastructure provisioning and management using Terraform and Ansible, reducing manual effort by 40%.
+*   Implemented and maintained Kubernetes-based security solutions for containerized applications, enhancing security posture.
+*   Optimized database queries resulting in 16% faster reads and improved application performance.
+*   Conducted regular security audits and vulnerability assessments, identifying and remediating critical security risks.
+
+**Security Engineer** | GlobalTech Solutions | Bangalore, India | 2008 – 2014
+
+*   Designed and implemented security controls for web applications and APIs, protecting sensitive data from unauthorized access.
+*   Developed and maintained security policies, standards, and procedures, ensuring compliance with industry regulations.
+*   Implemented CI/CD reducing release time by 23%
+*   Investigated and responded to security incidents, mitigating potential damage and preventing future occurrences.
+
+**Projects**
+
+*   **Automated Security Compliance:** Developed a Terraform-based module to automate the deployment and configuration of security controls for AWS resources, ensuring compliance with CIS benchmarks.
+*   **Threat Intelligence Platform:** Built a centralized threat intelligence platform that aggregates data from multiple sources to provide real-time insights into potential threats.
+*   **Vulnerability Management System:** Implemented a vulnerability management system using tools like Nessus and OpenVAS to identify and prioritize vulnerabilities.
+*   **Kubernetes Security Hardening:** Developed a set of best practices and tools for hardening Kubernetes clusters against common security threats.
+
+**Certifications**
+
+*   AWS Certified Security – Specialty
+*   Certified Information Systems Security Professional (CISSP)
+*   Certified Ethical Hacker (CEH)
+*   Kubernetes Certified Security Specialist (KCKS)
+*   Google Cloud Certified Professional Cloud Architect
+
+**Skills**
+
+**Cloud Security:** AWS (IAM, VPC, Security Groups, CloudTrail, CloudWatch), GCP, Azure Security Center
+**Security Tools:** SIEM (Splunk, ELK Stack), Vulnerability Scanners (Nessus, OpenVAS), Intrusion Detection/Prevention Systems (IDS/IPS), Web Application Firewalls (WAF)
+**DevSecOps:** Terraform, Ansible, Docker, Kubernetes, Jenkins, Git
+**Programming Languages:** Python, Java, Shell Scripting
+**Operating Systems:** Linux, Windows
+**Databases:** MySQL, PostgreSQL, MongoDB
+
+**Education**
+
+**Bachelor of Science in Computer Science** | Birla Institute of Technology and Science (BITS) Pilani | Pilani, India

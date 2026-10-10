@@ -1,0 +1,55 @@
+```text
+**Aisha Rodriguez-Chen**
+(512) 555-1212 | a.rodriguezchen@email.com | linkedin.com/in/aisharodriguezchen | github.com/arodriguezchen
+
+**Summary**
+
+Highly motivated and results-oriented AI Engineer with 7 years of experience in developing and deploying machine learning solutions, specializing in predictive analytics and system optimization. Proven ability to lead teams, mentor junior engineers, and drive significant improvements in system performance and business outcomes. Proficient in Vue.js, Vuex, Nuxt.js, SCSS, Webpack, and Vitest. Experienced in migrating legacy systems to Kubernetes and optimizing cloud infrastructure.
+
+**Skills**
+
+* **Programming Languages:** Python, JavaScript, R
+* **Frameworks/Libraries:** Vue.js, Vuex, Nuxt.js, React, Node.js, SCSS, Webpack, Vitest, TensorFlow, PyTorch, Scikit-learn, Pandas, NumPy
+* **Cloud Technologies:** AWS (EC2, S3, Lambda, ECS, EKS), GCP (Compute Engine, Cloud Storage, Cloud Functions, GKE), Kubernetes, Docker
+* **Databases:** SQL (PostgreSQL, MySQL), NoSQL (MongoDB, Cassandra)
+* **DevOps:** CI/CD (Jenkins, GitLab CI), Terraform, Ansible
+* **Other:** Data Visualization, Machine Learning, Deep Learning, Natural Language Processing (NLP), A/B Testing, Agile Development
+
+**Experience**
+
+**IBM, Austin, TX**
+**Senior AI Engineer** | 2019 – Present
+
+* Spearheaded the development and deployment of a predictive analytics model that reduced customer churn by 53% within the first quarter of implementation, resulting in $1.2M in retained revenue.
+* Led the migration of 10 microservices from a monolithic architecture to Kubernetes, improving scalability and resilience.
+* Architected and implemented an API optimization strategy that reduced API latency by 33%, significantly improving user experience.
+* Mentored 15 junior engineers in best practices for software development, machine learning, and cloud deployment.
+* Achieved 84% uptime for critical production systems through proactive monitoring and automated incident response.
+* Optimized machine learning models, achieving a 15% increase in prediction accuracy using feature engineering and hyperparameter tuning.
+
+**Accenture, Dallas, TX**
+**Data Scientist** | 2016 – 2019
+
+* Developed and implemented machine learning models for fraud detection, resulting in a 20% reduction in fraudulent transactions.
+* Designed and built data pipelines for ingesting and processing large datasets from various sources, using Python, Spark, and Hadoop.
+* Conducted A/B testing to optimize marketing campaigns, leading to a 10% increase in conversion rates.
+* Collaborated with cross-functional teams to define project requirements and deliver impactful data-driven solutions.
+
+**Education**
+
+**University of Texas at Austin, Austin, TX**
+Bachelor of Science in Computer Science | 2012 – 2016
+
+**Certifications**
+
+* AWS Certified Machine Learning – Specialty
+* Google Cloud Certified Professional Data Engineer
+* Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+* **Real-Time Sentiment Analysis Dashboard:** Developed a Vue.js-based dashboard that visualizes real-time sentiment analysis of Twitter data using NLP techniques.
+* **Personalized Recommendation Engine:** Built a recommendation engine using collaborative filtering and content-based filtering techniques in Python. Deployed using Flask.
+* **Image Recognition System:** Created an image recognition system using TensorFlow and convolutional neural networks (CNNs) to classify images with 92% accuracy.
+* **Automated Chatbot for Customer Support:** Developed a chatbot using Rasa and NLP to automate customer support inquiries, reducing response time by 40%.
+```

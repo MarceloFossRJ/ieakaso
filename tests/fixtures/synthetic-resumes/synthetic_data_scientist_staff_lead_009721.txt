@@ -1,0 +1,57 @@
+**Aisha O'Connell**
+(555) 123-4567 | aisha.oconnell@email.com | linkedin.com/in/aishaoconnell
+
+**Summary**
+
+Data Scientist with 9 years of experience in building, deploying, and maintaining data-driven iOS applications. Expertise in Swift, SwiftUI, Combine, Core Data, and Firebase. Proven ability to lead teams, improve system reliability, and optimize development processes. Passionate about leveraging data to drive impactful business decisions.
+
+**Skills**
+
+*   **Programming Languages:** Swift, Python, Objective-C
+*   **iOS Frameworks/Tools:** SwiftUI, Combine, Core Data, UIKit, TestFlight, XCTest, Xcode, CocoaPods, Carthage
+*   **Cloud Technologies:** Firebase, AWS (EC2, S3, Lambda), Google Cloud Platform (GCP)
+*   **Data Science:** Machine Learning, Data Analysis, Statistical Modeling, Data Visualization
+*   **Databases:** SQL, NoSQL (MongoDB)
+*   **CI/CD:** Jenkins, GitLab CI, CircleCI
+*   **Other:** Agile Development, Git, REST APIs, JSON
+
+**Experience**
+
+**Cisco | Staff Data Scientist | San Jose, CA | 2020 – Present**
+
+*   Led a team of 4 engineers in the development of a mobile analytics dashboard using Swift, SwiftUI, and Combine to monitor network performance, impacting over 10,000 users.
+*   Architected and implemented a new CI/CD pipeline using Jenkins, reducing release time by 57%.
+*   Optimized data storage strategies using Core Data and Firebase, resulting in a 20% decrease in data retrieval latency.
+*   Increased unit test coverage from 24% to 76%, leading to a significant reduction in production bugs.
+*   Achieved 63% uptime for critical production systems, exceeding the target of 50%.
+
+**Juniper Networks | Senior Data Scientist | Sunnyvale, CA | 2017 – 2020**
+
+*   Developed and deployed a machine learning model using Python and scikit-learn to predict network outages, resulting in a 15% reduction in downtime.
+*   Engineered a real-time data pipeline using Kafka and Spark to process network traffic data, enabling faster anomaly detection.
+*   Collaborated with cross-functional teams to integrate data insights into the product roadmap.
+*   Mentored junior engineers on best practices for iOS development and data analysis.
+
+**VMware | Data Scientist | Palo Alto, CA | 2015 – 2017**
+
+*   Designed and implemented a data visualization dashboard using Tableau to track key performance indicators (KPIs) for virtualized infrastructure.
+*   Conducted A/B testing to optimize user interface elements, resulting in a 10% increase in user engagement.
+*   Developed a data-driven approach to identify and mitigate security vulnerabilities.
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Google Cloud Certified Professional Data Engineer
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **Personal Finance Tracker (iOS):** Developed an iOS app using Swift, SwiftUI, and Core Data to track personal expenses and manage budgets.
+*   **Sentiment Analysis Tool (Python):** Built a Python script using NLP libraries to analyze text data and determine sentiment polarity.
+*   **Network Monitoring Dashboard (Web):** Created a web-based dashboard using React and Node.js to visualize network traffic data.
+*   **Machine Learning Model for Fraud Detection:** Implemented a fraud detection model using Python and machine learning techniques to identify suspicious transactions.
+*   **Open Source Swift Library:** Developed and maintained an open-source Swift library for simplifying network requests using Combine.
+
+**Education**
+
+**Carnegie Mellon University | Bachelor of Science in Computer Science | Pittsburgh, PA | 2011 – 2015**

@@ -1,0 +1,52 @@
+Jamal O'Connell
+(555) 123-4567 | jamal.oconnell@email.com | linkedin.com/in/jamaloconnell | github.com/joconnell
+
+Summary
+
+Highly accomplished DevOps Engineer with 18 years of experience in designing, implementing, and managing scalable and resilient infrastructure. Proven ability to lead complex migrations, build robust CI/CD pipelines, and optimize system performance. Expert in Kubernetes, GCP, and Java-based technologies. Passionate about mentoring and fostering a collaborative team environment.
+
+Skills
+
+Languages: Java, Python, Go, Bash, SQL
+Frameworks/Tools: Spring Boot, Hibernate, Kubernetes, Docker, Terraform, Ansible, Jenkins, Git, Kafka, Prometheus, Grafana, ELK Stack, MySQL, PostgreSQL, GCP (Compute Engine, GKE, Cloud Storage, Cloud SQL, Cloud Functions), AWS (EC2, S3, RDS, Lambda)
+Operating Systems: Linux (Ubuntu, CentOS), Windows Server
+
+Experience
+
+Figma | Principal DevOps Engineer | San Francisco, CA | 2018 – Present
+
+* Led the migration of 50 microservices to Kubernetes, resulting in a 30% reduction in infrastructure costs and a 20% improvement in deployment speed.
+* Architected and implemented a real-time analytics pipeline processing 20 million events per day using Kafka, Spark, and Cassandra.
+* Improved uptime for critical production systems by 54% through proactive monitoring, automated remediation, and comprehensive incident response plans.
+* Mentored 20 junior engineers, providing technical guidance and fostering their professional growth.
+* Developed and maintained Infrastructure-as-Code (IaC) using Terraform, enabling consistent and repeatable deployments across multiple environments.
+
+Netflix | Senior DevOps Engineer | Los Gatos, CA | 2014 – 2018
+
+* Engineered a highly available and scalable CI/CD pipeline using Jenkins, Docker, and Kubernetes, supporting hundreds of daily deployments.
+* Optimized application performance by identifying and resolving bottlenecks in Java-based microservices, resulting in a 15% improvement in response time.
+* Implemented robust monitoring and alerting systems using Prometheus and Grafana, enabling proactive identification and resolution of production issues.
+* Collaborated with development teams to design and implement cloud-native solutions on AWS, ensuring scalability, reliability, and security.
+
+Amazon | DevOps Engineer | Seattle, WA | 2010 – 2014
+
+* Spearheaded the automation of infrastructure provisioning and configuration management using Ansible, reducing deployment time by 40%.
+* Developed and maintained a centralized logging system using the ELK Stack (Elasticsearch, Logstash, Kibana), providing valuable insights into system performance and security.
+* Contributed to the design and implementation of a disaster recovery plan, ensuring business continuity in the event of a major outage.
+
+Education
+
+University of Illinois at Urbana-Champaign | Bachelor of Science in Computer Science | 2010
+
+Certifications
+
+* AWS Certified DevOps Engineer – Professional
+* Google Cloud Certified Professional Cloud Architect
+* Certified Kubernetes Administrator (CKA)
+
+Projects
+
+* Kubernetes Auto-Scaling: Developed a custom Kubernetes auto-scaler based on real-time application metrics, improving resource utilization by 25%.
+* CI/CD Pipeline Automation: Built a fully automated CI/CD pipeline using Jenkins, Docker, and Kubernetes, enabling faster and more reliable deployments.
+* Real-Time Monitoring Dashboard: Created a real-time monitoring dashboard using Prometheus and Grafana, providing comprehensive visibility into system performance and health.
+* Terraform Infrastructure Module: Designed a reusable Terraform module for deploying and managing cloud infrastructure on GCP, reducing deployment time and ensuring consistency.

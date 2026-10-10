@@ -1,0 +1,63 @@
+**Aisha Rodriguez-Chen**
+(555) 123-4567 | aisha.rodriguez.chen@email.com | LinkedIn Profile URL (replace with actual URL) | GitHub Profile URL (replace with actual URL)
+
+**Summary**
+
+Highly accomplished and results-oriented Frontend Developer with 15 years of experience in designing, developing, and optimizing high-performance web applications. Proven ability to lead and mentor teams, architect scalable solutions, and drive significant improvements in application performance. Expertise in Vue.js ecosystem, including Vuex and Nuxt.js, coupled with a strong understanding of backend technologies and cloud infrastructure. Passionate about delivering exceptional user experiences and driving innovation.
+
+**Experience**
+
+**JPMorgan Chase & Co.**, New York, NY
+**Principal Frontend Engineer** | 2018 – Present
+
+*   Led the development and implementation of key features for a high-volume trading platform using Vue.js, Vuex, and SCSS, serving over 5,000 active daily users.
+*   Architected a component library using Vue.js and Storybook, resulting in a 40% reduction in development time for new features.
+*   Mentored 10 junior engineers, providing technical guidance and fostering a collaborative team environment.
+*   Optimized database queries used by the frontend resulting in 69% faster read speeds and improved application responsiveness.
+*   Reduced API latency by 70% through optimization of data fetching strategies and caching mechanisms.
+
+**Goldman Sachs**, New York, NY
+**Senior Frontend Engineer** | 2015 – 2018
+
+*   Spearheaded the migration of two critical microservices to Kubernetes, improving scalability and resilience.
+*   Developed and maintained a complex data visualization dashboard using Vue.js and D3.js, providing real-time insights into market trends.
+*   Implemented automated testing using Jest and Cypress, achieving 95% test coverage.
+*   Collaborated with backend engineers to design and implement RESTful APIs.
+
+**Citigroup**, New York, NY
+**Frontend Engineer** | 2010 – 2015
+
+*   Developed and maintained web applications using JavaScript, HTML, and CSS.
+*   Contributed to the redesign of the company's public website, resulting in a 20% increase in user engagement.
+*   Worked with cross-functional teams to gather requirements and translate them into technical specifications.
+
+**Education**
+
+**University of California, Berkeley**, Berkeley, CA
+Bachelor of Science in Computer Science | 2010
+
+**Certifications**
+
+*   AWS Certified Developer – Associate
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Application Developer (CKAD)
+
+**Projects**
+
+*   **Personal Portfolio Website (Vue.js/Nuxt.js):** Developed a personal website showcasing skills and projects. Implemented server-side rendering for improved SEO and performance.
+*   **Open Source Component Library (Vue.js/Storybook):** Created a reusable component library with detailed documentation and examples, contributing to the open-source community.
+*   **Expense Tracker Application (Vue.js/Vuex):** Built a single-page application for tracking personal expenses, utilizing Vuex for state management and local storage for data persistence.
+*   **Real-Time Chat Application (Vue.js/WebSockets):** Developed a real-time chat application using Vue.js and WebSockets, allowing users to communicate instantly.
+
+**Skills**
+
+*   Languages: JavaScript, HTML, CSS, SCSS
+*   Frameworks/Libraries: Vue.js, Vuex, Nuxt.js, React, Angular, jQuery, D3.js
+*   Build Tools: Webpack, Vite, Rollup, Babel
+*   Testing: Jest, Vitest, Cypress, Selenium
+*   Databases: MongoDB, PostgreSQL, MySQL
+*   Cloud Platforms: AWS, Google Cloud Platform, Azure
+*   Containerization: Docker, Kubernetes
+*   Version Control: Git (GitHub, GitLab, Bitbucket)
+*   Agile Methodologies: Scrum, Kanban
+*   API Design: REST, GraphQL

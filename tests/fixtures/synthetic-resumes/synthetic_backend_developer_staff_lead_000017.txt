@@ -1,0 +1,60 @@
+**Javier Chen-O'Connell**
+(555) 555-5555 | j.chen.o'connell@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly accomplished and results-oriented Staff Backend Engineer with 9+ years of experience in designing, developing, and deploying scalable and efficient backend systems. Proven ability to optimize performance, improve reliability, and drive innovation through the application of cutting-edge technologies. Expertise in Python, machine learning frameworks (TensorFlow, PyTorch, Scikit-learn), data manipulation libraries (Pandas, NumPy), and cloud platforms (AWS SageMaker). Passionate about building high-performing teams and delivering impactful solutions.
+
+**Skills**
+
+**Languages:** Python, SQL, Java, Go (basic)
+**Frameworks/Libraries:** TensorFlow, PyTorch, Scikit-learn, Pandas, NumPy, Flask, Django, FastAPI
+**Databases:** PostgreSQL, MySQL, MongoDB, Redis, DynamoDB
+**Cloud Platforms:** AWS (SageMaker, EC2, S3, Lambda, RDS, DynamoDB), GCP (basic)
+**Tools:** Docker, Kubernetes, Terraform, Git, Jenkins, CI/CD, REST APIs, GraphQL, Kafka
+**Methodologies:** Agile, Scrum
+
+**Experience**
+
+**Instacart, San Francisco, CA**
+**Staff Backend Engineer** | 2020 – Present
+
+*   Led a team of 4 engineers in designing and implementing a new recommendation engine using TensorFlow and AWS SageMaker, resulting in a 15% increase in user engagement.
+*   Spearheaded the optimization of database queries, achieving a 73% reduction in read latency and a 40% decrease in database server costs.
+*   Architected and implemented a new microservice for order processing, improving deployment frequency from monthly to 50x daily and reducing deployment-related errors by 25%.
+*   Developed and maintained RESTful APIs for internal and external consumers, ensuring high availability and performance.
+*   Mentored junior engineers, providing guidance on best practices and code quality.
+
+**Pinterest, San Francisco, CA**
+**Senior Backend Engineer** | 2017 – 2020
+
+*   Developed and maintained backend systems for content discovery and recommendation, serving millions of users daily.
+*   Optimized page load time by 39% through code profiling, caching strategies, and database tuning.
+*   Engineered a real-time data pipeline using Kafka and Spark for analyzing user behavior and generating personalized recommendations.
+*   Collaborated with frontend engineers and product managers to define and implement new features.
+*   Participated in on-call rotations, ensuring the reliability and availability of critical systems.
+
+**Affirm, San Francisco, CA**
+**Backend Engineer** | 2015 – 2017
+
+*   Designed and implemented new features for the core lending platform using Python and PostgreSQL.
+*   Contributed to the development of a fraud detection system using machine learning algorithms.
+*   Automated deployment processes using Jenkins and Docker, improving efficiency and reducing errors.
+
+**Education**
+
+**University of Texas at Austin, Austin, TX**
+Bachelor of Science in Computer Science | 2015
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   AWS Certified Developer – Associate
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **Personalized News Aggregator:** Developed a personalized news aggregator using Python, Flask, and Scikit-learn. The system clusters news articles based on content similarity and recommends articles based on user interests.
+*   **Image Recognition API:** Created an image recognition API using TensorFlow and deployed it on AWS Lambda. The API can identify objects in images and classify them into different categories.
+*   **Automated Trading Bot:** Built an automated trading bot using Python and a financial API. The bot uses machine learning algorithms to predict market trends and execute trades automatically.
+*   **Data Pipeline for Social Media Analysis:** Designed and implemented a data pipeline using Kafka, Spark, and Cassandra to collect and analyze social media data. The pipeline can be used to track trends, identify influencers, and monitor brand sentiment.

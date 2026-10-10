@@ -1,0 +1,54 @@
+**Anya Sharma-Rodriguez**
+(123) 456-7890 | anya.sharma.rodriguez@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly motivated and results-oriented Cloud Architect with 4 years of experience in designing, implementing, and optimizing cloud solutions for scalability, performance, and cost efficiency. Proven ability to leverage data analytics and cloud technologies to drive significant business impact. Expertise in AWS, Azure, and Google Cloud Platform environments. Proficient in R, Python, SQL, and data visualization tools including Tableau, Power BI, and Looker.
+
+**Skills**
+
+*   **Cloud Platforms:** AWS (EC2, S3, Lambda, RDS, IAM, CloudWatch, CloudFormation), Azure (Virtual Machines, Blob Storage, Azure Functions, Azure SQL Database, Azure AD, Monitor, ARM Templates), GCP (Compute Engine, Cloud Storage, Cloud Functions, Cloud SQL, IAM, Cloud Monitoring, Cloud Deployment Manager)
+*   **Programming Languages:** Python, R, SQL, Bash Scripting
+*   **Data Visualization:** Tableau, Power BI, Looker
+*   **Databases:** SQL Server, MySQL, PostgreSQL, MongoDB
+*   **DevOps:** Docker, Kubernetes, Terraform, Jenkins, Git
+*   **Operating Systems:** Linux, Windows Server
+*   **Microservices Architecture:** REST APIs, gRPC
+*   **Data Analysis:** Statistical Modeling, Predictive Analytics, Machine Learning
+*   **Project Management:** Agile, Scrum, Waterfall
+
+**Experience**
+
+**Microsoft, Redmond, WA**
+**Cloud Architect** | June 2020 – Present
+
+*   Architected and implemented a microservices architecture using Docker and Kubernetes on Azure, resulting in a 74% reduction in page load time.
+*   Led the development and deployment of a predictive analytics model using R and Azure Machine Learning, reducing customer churn by 58%.
+*   Optimized cloud infrastructure and resource utilization on AWS and Azure, resulting in $100K annual cost savings.
+*   Developed and maintained Infrastructure as Code (IaC) using Terraform, automating the provisioning and management of cloud resources.
+*   Collaborated with cross-functional teams to ensure seamless integration of cloud solutions with existing systems.
+
+**Amazon Web Services (AWS), Seattle, WA**
+**Cloud Solutions Engineer** | July 2019 – May 2020
+
+*   Engineered and deployed scalable and resilient cloud solutions for enterprise customers using AWS services, including EC2, S3, and Lambda.
+*   Provided technical guidance and support to customers on cloud migration strategies and best practices.
+*   Developed and presented technical workshops and training sessions on AWS cloud technologies.
+
+**Education**
+
+**Stanford University, Stanford, CA**
+**Bachelor of Science in Computer Science** | September 2015 – June 2019
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Associate
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Administrator (CKA)
+
+**Projects**
+
+*   **Customer Churn Prediction Model:** Developed a machine learning model using Python and scikit-learn to predict customer churn with 85% accuracy.
+*   **Cloud Cost Optimization Tool:** Created a Python-based tool to analyze cloud resource utilization and identify opportunities for cost optimization.
+*   **Automated Infrastructure Deployment:** Implemented an automated infrastructure deployment pipeline using Terraform and Jenkins.
+*   **Real-Time Data Analytics Dashboard:** Built a real-time data analytics dashboard using Tableau to monitor key business metrics.

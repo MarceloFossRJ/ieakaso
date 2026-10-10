@@ -1,0 +1,65 @@
+Aisha Rodriguez-Chen
+(512) 555-1212 | aisha.rodriguez.chen@email.com | linkedin.com/in/aisharodriguezchen | github.com/archen
+
+Summary
+
+Principal Flutter Developer with 16 years of experience architecting and implementing high-performance, scalable mobile and web applications within the FinTech industry. Proven ability to lead and mentor teams, drive innovation, and deliver impactful solutions using Flutter, C#, .NET Core, SQL Server, RabbitMQ, Azure, and Docker. Expertise in microservices architecture, cloud technologies, and performance optimization. Passionate about building user-centric and robust applications.
+
+Skills
+
+Languages: Flutter (Dart), C#, SQL, JavaScript, HTML, CSS
+Frameworks/Platforms: .NET Core, Node.js, Angular, React Native
+Databases: SQL Server, PostgreSQL, MongoDB, Cosmos DB
+Cloud: Azure (AKS, App Service, Functions, Storage, DevOps), AWS (EC2, S3, Lambda), Google Cloud Platform (GKE)
+Tools: Docker, Kubernetes, Git, Jenkins, CI/CD, RabbitMQ, Kafka, Jira, Confluence, Prometheus, Grafana
+Methodologies: Agile, Scrum, Waterfall, DevOps
+
+Experience
+
+Senior Director of Engineering, Mobile & Platform  | FinTech Startup | Austin, TX | 2018 – Present
+
+* Led a team of 15 engineers in the development and maintenance of a mobile-first FinTech platform using Flutter, C#, and .NET Core.
+* Architected and implemented a new microservices architecture based on Kubernetes and Docker, resulting in a 40% reduction in operational costs.
+* Spearheaded the migration of 20 existing microservices to Kubernetes on Azure, ensuring zero downtime and improved scalability.
+* Optimized API endpoints, reducing latency by 83% and improving overall platform performance, leading to a 15% increase in user engagement.
+* Managed the platform budget of $500k, ensuring resources were allocated efficiently and effectively.
+* Mentored junior engineers, fostering a culture of learning and growth within the team.
+
+Principal Software Engineer | Tech Solutions Inc. | Dallas, TX | 2014 – 2018
+
+* Designed and developed high-performance web applications using .NET Core, C#, and SQL Server.
+* Implemented a real-time data processing pipeline using RabbitMQ and Azure Functions.
+* Optimized database queries and application code, resulting in a 61% reduction in page load time.
+* Collaborated with cross-functional teams to define requirements, design solutions, and deliver high-quality software.
+* Led the implementation of a new CI/CD pipeline using Jenkins, resulting in a 25% reduction in deployment time.
+* Served as a technical lead, providing guidance and mentorship to junior developers.
+
+Software Engineer | Global Software Company | Houston, TX | 2008 – 2014
+
+* Developed and maintained enterprise-level applications using C#, .NET Framework, and SQL Server.
+* Contributed to the design and implementation of new features and enhancements.
+* Worked closely with QA to identify and resolve bugs.
+* Participated in code reviews and provided constructive feedback.
+
+Projects
+
+Flutter Mobile Banking App: Developed a cross-platform mobile banking application with features such as account management, transaction history, and bill payment.
+
+E-commerce Platform: Built an e-commerce platform using .NET Core, Angular, and SQL Server, featuring product catalog management, shopping cart functionality, and secure checkout.
+
+Data Analytics Dashboard: Created a data analytics dashboard using React, Node.js, and MongoDB, providing insights into key business metrics.
+
+API Gateway: Designed and implemented an API gateway using .NET Core and Azure API Management to secure and manage API access.
+
+Real-time Chat Application: Developed a real-time chat application using Flutter and Firebase, enabling users to communicate with each other in real-time.
+
+Certifications
+
+* AWS Certified Developer – Associate
+* Microsoft Certified: Azure Developer Associate
+* Certified Kubernetes Administrator (CKA)
+
+Education
+
+University of Texas at Austin | Austin, TX
+Bachelor of Science in Computer Science, 2008

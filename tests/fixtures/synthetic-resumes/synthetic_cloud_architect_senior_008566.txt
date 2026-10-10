@@ -1,0 +1,54 @@
+**Aaliyah Patel**
+(555) 123-4567 | aaliyah.patel@email.com | LinkedIn Profile URL
+
+**Summary**
+
+Highly motivated and results-oriented Cloud Architect with 7 years of experience designing, developing, and deploying scalable and resilient cloud-based solutions. Expertise in Java, Spring Boot, Kafka, Kubernetes, and GCP. Proven ability to optimize infrastructure, improve performance, and drive innovation. Seeking a challenging and rewarding opportunity to leverage my skills and experience to contribute to the success of a forward-thinking organization.
+
+**Skills**
+
+*   **Cloud Technologies:** Google Cloud Platform (GCP), Kubernetes, Docker, AWS (Basic)
+*   **Programming Languages:** Java, Python, JavaScript
+*   **Frameworks/Libraries:** Spring Boot, Hibernate, React
+*   **Databases:** MySQL, PostgreSQL, MongoDB
+*   **Messaging/Streaming:** Kafka, RabbitMQ
+*   **DevOps:** CI/CD, Jenkins, Terraform, Ansible
+*   **Monitoring/Logging:** Prometheus, Grafana, ELK Stack
+*   **Operating Systems:** Linux, Windows
+*   **Agile Methodologies:** Scrum, Kanban
+*   **Other:** REST APIs, Microservices Architecture, Distributed Systems
+
+**Experience**
+
+**Notion** | Senior Cloud Architect | San Francisco, CA | 2021 – Present
+
+*   Led the design and implementation of a real-time analytics pipeline processing 100 million events per day using Kafka, Kubernetes, and GCP Dataflow, resulting in improved data-driven decision-making.
+*   Architected and implemented a new microservices-based architecture for the user authentication service, improving scalability and resilience.
+*   Optimized database queries and caching strategies, resulting in an 18% reduction in API latency.
+*   Reduced infrastructure costs by $10,000 annually by identifying and implementing cost-effective solutions within GCP.
+*   Increased test coverage from 36% to 73% through the implementation of automated testing frameworks and processes.
+
+**Airbnb** | Cloud Engineer | San Francisco, CA | 2018 – 2021
+
+*   Engineered and maintained the cloud infrastructure on AWS, ensuring high availability and scalability of the platform.
+*   Developed and deployed microservices using Spring Boot and Docker, contributing to the expansion of the platform's capabilities.
+*   Automated infrastructure provisioning and deployment processes using Terraform and Ansible, reducing deployment time by 25%.
+*   Collaborated with cross-functional teams to design and implement solutions for various business requirements.
+*   Monitored system performance and identified areas for improvement, resulting in increased system stability.
+
+**Projects**
+
+*   **Personal Portfolio Website:** Developed a personal portfolio website using React and deployed it on GCP App Engine.
+*   **Real-time Chat Application:** Built a real-time chat application using Spring Boot, WebSockets, and Kafka.
+*   **Machine Learning Model Deployment:** Deployed a machine learning model on Kubernetes using TensorFlow Serving.
+*   **Automated Home Automation System:** Integrated Raspberry Pi with GCP IoT Core to control home appliances through voice commands.
+
+**Education**
+
+**University of California, Berkeley** | Bachelor of Science in Computer Science | Berkeley, CA | 2018
+
+**Certifications**
+
+*   Google Cloud Certified Professional Cloud Architect
+*   Kubernetes Certified Application Developer (CKAD)
+*   AWS Certified Cloud Practitioner

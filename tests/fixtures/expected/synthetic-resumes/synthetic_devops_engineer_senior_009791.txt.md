@@ -1,0 +1,59 @@
+Aisha Patel-O'Connell
+(555) 555-5555 | aisha.patel.oconnell@email.com | linkedin.com/in/aishapo
+
+SUMMARY
+
+Senior DevOps Engineer with 7+ years of experience in building, automating, and maintaining robust and scalable cloud infrastructure. Proven ability to lead migrations, optimize performance, and implement cutting-edge technologies in fast-paced environments. Expertise in C#, .NET Core, SQL Server, RabbitMQ, Azure, and Docker. Passionate about leveraging DevOps principles to drive efficiency and reliability.
+
+EXPERIENCE
+
+Senior DevOps Engineer | FinTech Startup | San Francisco, CA | 2020 – Present
+
+*   Led the migration of 15 microservices from on-premise servers to Kubernetes on Azure, resulting in a 30% reduction in infrastructure costs.
+*   Designed and implemented a CI/CD pipeline using Azure DevOps for automated deployment and testing, increasing release frequency by 40%.
+*   Engineered a machine learning model to detect fraudulent transactions with 76% accuracy, preventing an estimated $500,000 in losses annually.
+*   Optimized API performance by identifying and resolving database bottlenecks, resulting in a 26% reduction in average API latency.
+*   Spearheaded the adoption of Infrastructure as Code (IaC) using Terraform, improving infrastructure consistency and reducing provisioning time by 50%.
+*   Mentored junior engineers on DevOps best practices and cloud technologies.
+
+DevOps Engineer | Tech Solutions Inc. | Chicago, IL | 2017 – 2020
+
+*   Managed and maintained a hybrid cloud infrastructure consisting of AWS and on-premise data centers.
+*   Automated server provisioning and configuration management using Ansible, reducing manual effort by 60%.
+*   Implemented monitoring and alerting solutions using Prometheus and Grafana, providing real-time visibility into system performance.
+*   Collaborated with development teams to troubleshoot production issues and ensure high availability of critical applications.
+*   Contributed to the development of internal tools and scripts to improve operational efficiency.
+
+Software Engineer | Acme Corporation | Indianapolis, IN | 2015 – 2017
+
+*   Developed and maintained C# .NET applications for the company's internal systems.
+*   Wrote SQL queries to retrieve and manipulate data from SQL Server databases.
+*   Participated in code reviews and testing to ensure code quality.
+
+PROJECTS
+
+*   Personal Portfolio Website: Developed a personal website using React and deployed it on Netlify using CI/CD.
+*   Automated Kubernetes Cluster Deployment: Created a Terraform script to automate the deployment of a Kubernetes cluster on AWS.
+*   Dockerized .NET Core Application: Dockerized a .NET Core application and deployed it to Azure Container Instances.
+*   API Performance Monitoring Dashboard: Built a Grafana dashboard to monitor the performance of APIs using Prometheus metrics.
+
+EDUCATION
+
+Purdue University | West Lafayette, IN
+Bachelor of Science in Computer Science | 2015
+
+CERTIFICATIONS
+
+*   AWS Certified DevOps Engineer – Professional
+*   Microsoft Certified: Azure DevOps Engineer Expert
+*   Certified Kubernetes Administrator (CKA)
+
+SKILLS
+
+Languages: C#, SQL, Python, Bash
+Cloud: Azure, AWS, Kubernetes, Docker
+Databases: SQL Server, MySQL
+Tools: Terraform, Ansible, Azure DevOps, Jenkins, Prometheus, Grafana, Git
+Operating Systems: Windows, Linux
+Methodologies: Agile, Scrum, DevOps
+Keywords: CI/CD, IaC, Monitoring, Automation, Microservices, Cloud Native, .NET Core, SQL Server, RabbitMQ

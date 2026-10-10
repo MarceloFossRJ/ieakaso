@@ -1,0 +1,58 @@
+**Ayana Rodriguez-Lee**
+(555) 123-4567 | ayana.rodriguezlee@email.com | LinkedIn Profile URL
+
+**Summary**
+
+Highly accomplished and results-driven Principal Data Engineer with 16 years of experience designing, developing, and scaling high-performance data infrastructure. Expertise in building and optimizing distributed systems using Go, gRPC, PostgreSQL, Redis, Kubernetes, and AWS. Proven ability to lead teams, mentor engineers, and deliver impactful solutions that drive business growth. Passionate about leveraging data to solve complex challenges and build innovative products.
+
+**Experience**
+
+**Netflix, Los Gatos, CA**
+**Principal Data Engineer** | 2018 – Present
+
+* Led a team of 6 engineers in the design and implementation of a scalable data pipeline for processing user activity data, supporting 10M+ daily active users.
+* Architected a real-time recommendation engine using Go, gRPC, and Redis, resulting in a 15% increase in user engagement.
+* Spearheaded the migration of critical data services to Kubernetes, improving resource utilization by 30% and reducing operational costs by $200,000 annually.
+* Increased unit test coverage from 31% to 95%, significantly reducing bugs and improving code quality.
+* Mentored 15 junior engineers, fostering their technical growth and contributing to a high-performing team environment.
+
+**Airbnb, San Francisco, CA**
+**Senior Data Engineer** | 2014 – 2018
+
+* Designed and built a data warehouse using PostgreSQL and AWS Redshift to support business intelligence and analytics.
+* Optimized query performance, reducing page load time by 52% and improving user experience.
+* Developed an ML model to detect fraudulent listings with 76% accuracy in production, preventing $500,000 in potential losses.
+* Implemented a data governance framework to ensure data quality and compliance with GDPR regulations.
+
+**Google, Mountain View, CA**
+**Software Engineer** | 2010 – 2014
+
+* Contributed to the development of Google Maps' data infrastructure, focusing on data ingestion and processing.
+* Built and maintained large-scale data pipelines using MapReduce and BigTable.
+* Automated data validation processes, improving data accuracy and reducing manual effort.
+
+**Projects**
+
+* **Personalized News Aggregator:** Developed a Go-based news aggregator that personalizes content based on user preferences, leveraging Redis for caching and PostgreSQL for data storage.
+* **Real-Time Stock Tracker:** Built a real-time stock tracker using gRPC for communication and Prometheus for monitoring.
+* **Kubernetes Deployment Automation:** Created a Kubernetes deployment automation tool using Go, streamlining the deployment process and reducing deployment time by 40%.
+* **Open Source Contribution:** Contributed to the development of a Go library for interacting with PostgreSQL databases.
+
+**Certifications**
+
+* AWS Certified Solutions Architect – Associate
+* Certified Kubernetes Administrator (CKA)
+
+**Skills**
+
+* **Languages:** Go, Python, SQL
+* **Databases:** PostgreSQL, Redis, MySQL, MongoDB
+* **Cloud Platforms:** AWS (EC2, S3, Redshift, Lambda, DynamoDB), GCP
+* **Tools:** Kubernetes, Docker, Prometheus, Grafana, Terraform, Git
+* **Protocols:** gRPC, REST
+* **Methodologies:** Agile, DevOps
+
+**Education**
+
+**University of California, Los Angeles (UCLA)**
+Bachelor of Science in Computer Science

@@ -1,0 +1,49 @@
+**Aaliyah Nguyen**
+(555) 123-4567 | aaliyah.nguyen@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly motivated and results-oriented Cybersecurity Analyst with 7 years of experience in securing large-scale, cloud-based applications. Proven ability to design, implement, and maintain robust security architectures, perform vulnerability assessments, and respond to security incidents. Expertise in Java, Spring Boot, Kubernetes, and GCP. Seeking a challenging and rewarding role where I can leverage my skills and experience to protect critical assets and enhance security posture.
+
+**Skills**
+
+*   **Security:** Vulnerability Assessment, Penetration Testing, Incident Response, Security Auditing, Threat Modeling, Security Information and Event Management (SIEM), Intrusion Detection/Prevention Systems (IDS/IPS), Network Security, Application Security, Data Loss Prevention (DLP), Cloud Security
+*   **Cloud:** Google Cloud Platform (GCP), Amazon Web Services (AWS)
+*   **Languages:** Java, Python, SQL
+*   **Frameworks/Tools:** Spring Boot, Hibernate, Kubernetes, Docker, Kafka, MySQL, Jenkins, Git, Terraform, Burp Suite, OWASP ZAP
+*   **Operating Systems:** Linux, Windows
+
+**Experience**
+
+**Oracle, Senior Security Engineer** | Redwood Shores, CA | 2019 – Present
+
+*   Led the design and implementation of a microservices-based architecture for a critical authentication service, resulting in a 40% reduction in latency and supporting 2,000 requests per minute (RPM).
+*   Spearheaded the automation of security vulnerability scanning within the CI/CD pipeline, reducing the time to identify and remediate vulnerabilities by 60%.
+*   Engineered a scalable security infrastructure on GCP using Kubernetes and Terraform, supporting 15 million+ daily active users and reducing operational costs by 25%.
+*   Improved deployment frequency from monthly to 10x daily through automated security testing and integration.
+*   Mentored junior security engineers, fostering a culture of security awareness and best practices.
+
+**CyberDefense Solutions, Security Analyst** | San Francisco, CA | 2017 – 2019
+
+*   Conducted vulnerability assessments and penetration testing on web applications, networks, and infrastructure, identifying and reporting critical security flaws.
+*   Developed and maintained security policies, procedures, and standards to ensure compliance with industry regulations (e.g., PCI DSS, HIPAA).
+*   Responded to security incidents, performing forensic analysis, containment, and eradication activities.
+*   Improved incident response time by 30% by creating and implementing automated incident response workflows.
+
+**Certifications**
+
+*   AWS Certified Security – Specialty
+*   Google Cloud Certified Professional Cloud Security Engineer
+*   Certified Kubernetes Security Specialist (CKS)
+*   Certified Ethical Hacker (CEH)
+
+**Projects**
+
+*   **Automated Vulnerability Scanner:** Developed a custom vulnerability scanner using Python and OWASP ZAP to automatically scan web applications for common security vulnerabilities.
+*   **SIEM Integration:** Integrated various security logs into a centralized SIEM platform (Splunk) for real-time monitoring and threat detection.
+*   **Kubernetes Security Hardening:** Implemented security best practices for Kubernetes deployments, including network policies, RBAC, and pod security policies.
+*   **Kafka Security Implementation:** Configured Kafka with TLS encryption, authentication, and authorization to secure data in transit and at rest.
+
+**Education**
+
+**Massachusetts Institute of Technology (MIT)** | Cambridge, MA | Bachelor of Science in Computer Science | 2017

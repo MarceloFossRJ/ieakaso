@@ -1,0 +1,52 @@
+Rana Gupta-O’Connell
+(555) 123-4567 | rana.gupta.oconnell@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+Summary
+
+Senior DevOps Engineer with 7+ years of experience in designing, implementing, and managing scalable and resilient cloud infrastructure. Proven ability to optimize system performance, automate deployment pipelines, and improve overall system reliability. Expertise in leading technical initiatives, mentoring engineers, and driving impactful improvements to key business metrics. Proficient in Angular, TypeScript, RxJS, and various DevOps tools and methodologies.
+
+Skills
+
+Languages: TypeScript, JavaScript, Python, Bash, Go
+Frameworks/Libraries: Angular, RxJS, NgRx, Material UI, Node.js, React (basic)
+Cloud Platforms: AWS (Amazon Web Services), GCP (Google Cloud Platform), Azure (basic)
+DevOps Tools: Kubernetes, Docker, Terraform, Ansible, Jenkins, Prometheus, Grafana, ELK Stack (Elasticsearch, Logstash, Kibana), CloudFormation
+Databases: PostgreSQL, MySQL, MongoDB, Redis
+Operating Systems: Linux (Ubuntu, CentOS), Windows
+Testing: Jasmine, Jest, Cypress
+Methodologies: Agile, Scrum, CI/CD, Infrastructure as Code (IaC)
+
+Experience
+
+Instacart | Senior DevOps Engineer | San Francisco, CA | 2020 – Present
+
+*   Led the design and implementation of a fully automated CI/CD pipeline using Jenkins, Docker, and Kubernetes, resulting in a 40% reduction in deployment time.
+*   Optimized API endpoints using caching strategies and code profiling, reducing average API latency by 72% and improving user experience.
+*   Developed and deployed predictive analytics models using Python and machine learning libraries, contributing to a 19% reduction in customer churn.
+*   Mentored 100+ junior engineers on DevOps best practices, cloud technologies, and automation techniques.
+*   Engineered scalable and resilient infrastructure on AWS using Terraform and CloudFormation, ensuring 99.99% uptime for critical services.
+
+Lyft | DevOps Engineer | San Francisco, CA | 2017 – 2020
+
+*   Automated infrastructure provisioning and management using Ansible and Terraform, resulting in a 60% reduction in manual operational tasks.
+*   Implemented monitoring and alerting solutions using Prometheus and Grafana, enabling proactive identification and resolution of performance issues.
+*   Developed and maintained microservices architecture using Docker and Kubernetes, improving scalability and resilience of the platform.
+*   Collaborated with development teams to integrate CI/CD pipelines into their workflows, improving software delivery speed and quality.
+
+Education
+
+University of Michigan | Bachelor of Science in Computer Science | Ann Arbor, MI | 2013 - 2017
+
+Certifications
+
+*   AWS Certified DevOps Engineer – Professional
+*   Google Cloud Certified Professional Cloud Architect
+*   Certified Kubernetes Administrator (CKA)
+
+Projects
+
+*   Kubernetes Cluster Automation: Developed a Terraform module to automate the deployment of a highly available Kubernetes cluster on AWS.
+*   CI/CD Pipeline for Angular Applications: Created a fully automated CI/CD pipeline using Jenkins, Docker, and Kubernetes for Angular applications.
+*   Log Aggregation and Analysis Platform: Built a centralized log aggregation and analysis platform using the ELK Stack (Elasticsearch, Logstash, Kibana).
+*   Infrastructure Monitoring Dashboard: Designed and implemented an infrastructure monitoring dashboard using Prometheus and Grafana to track key performance metrics.
+*   Predictive Churn Model: Developed a predictive model to identify customers at risk of churn using machine learning techniques in Python. Increased accuracy by 15% compared to previous methods.

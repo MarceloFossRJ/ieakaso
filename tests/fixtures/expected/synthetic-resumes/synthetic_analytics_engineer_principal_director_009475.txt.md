@@ -1,0 +1,59 @@
+**Javier Singh Nguyen**
+(123) 456-7890 | javier.s.nguyen@email.com | linkedin.com/in/javiernguyen | github.com/javiernguyen
+
+**Summary**
+
+Highly accomplished Analytics Engineer with 16 years of experience in designing, developing, and implementing scalable and high-performance data solutions. Proven ability to lead engineering teams, architect complex systems, and deliver impactful business outcomes. Expertise in building real-time analytics pipelines, microservices architectures, and data-driven applications. Proficient in React Native, TypeScript, Redux, Expo, and cloud technologies.
+
+**Skills**
+
+*   **Languages:** TypeScript, JavaScript, Python, SQL
+*   **Frameworks/Libraries:** React Native, React, Redux, Expo, Node.js, Jest, Mocha, Enzyme
+*   **Databases:** PostgreSQL, MySQL, MongoDB, DynamoDB, Redis, Cassandra
+*   **Cloud:** AWS (EC2, S3, Lambda, Kinesis, Redshift, Athena, Glue, IAM), GCP (Compute Engine, Cloud Storage, Cloud Functions, Pub/Sub, BigQuery, Dataflow)
+*   **DevOps:** Docker, Kubernetes, Terraform, CI/CD (Jenkins, GitLab CI, AWS CodePipeline)
+*   **Analytics:** Data Warehousing, ETL, Data Modeling, Business Intelligence (Tableau, Looker)
+*   **Other:** Microservices Architecture, REST APIs, GraphQL, Agile Methodologies, Git
+
+**Experience**
+
+**Amazon, Seattle, WA**
+**Principal Analytics Engineer** | 2018 – Present
+
+*   Led a team of 8 engineers in designing and implementing a microservices architecture for a critical internal analytics platform, serving 10,000 requests per minute (RPM) with 99.9% availability.
+*   Architected a real-time analytics pipeline processing 2 million events per day from various sources, enabling data-driven decision-making for product development and marketing strategies.
+*   Spearheaded the migration of legacy data infrastructure to AWS cloud, resulting in a 40% reduction in infrastructure costs and a 25% improvement in data processing speed.
+*   Engineered robust monitoring and alerting systems, achieving a 62% reduction in downtime for critical production systems compared to the previous year.
+*   Mentored junior engineers, fostering a collaborative and high-performing team environment.
+
+**Netflix, Los Gatos, CA**
+**Senior Analytics Engineer** | 2014 – 2018
+
+*   Developed and maintained a data warehouse solution for streaming analytics, supporting over 100 internal users with reporting and analysis needs.
+*   Designed and implemented ETL pipelines using Python and Apache Spark to ingest and transform large datasets from various sources, including user activity logs and content metadata.
+*   Optimized database queries and data models, resulting in a 30% improvement in query performance and reduced data latency.
+*   Collaborated with product managers and data scientists to define key performance indicators (KPIs) and build interactive dashboards for monitoring business performance.
+
+**Google, Mountain View, CA**
+**Software Engineer** | 2010 – 2014
+
+*   Contributed to the development of a large-scale data processing system for advertising analytics, processing billions of events per day.
+*   Developed and maintained Java-based data pipelines using Hadoop and MapReduce for data extraction, transformation, and loading (ETL).
+*   Improved code quality and performance through code reviews, unit testing, and performance tuning.
+
+**Education**
+
+**Indian Institute of Technology (IIT) Delhi, India**
+Bachelor of Technology in Computer Science | 2006 - 2010
+
+**Projects**
+
+*   **Personal Finance Tracker (React Native):** Developed a mobile app using React Native, Redux, and TypeScript for tracking personal expenses and managing budgets.
+*   **Real-Time Chat Application (Node.js, Socket.IO):** Built a real-time chat application using Node.js, Socket.IO, and MongoDB, enabling users to communicate in real-time.
+*   **Data Visualization Dashboard (React, D3.js):** Created an interactive data visualization dashboard using React and D3.js for visualizing sales data and identifying trends.
+
+**Certifications**
+
+*   AWS Certified Solutions Architect – Professional
+*   Google Cloud Certified Professional Data Engineer
+*   Certified Kubernetes Administrator (CKA)

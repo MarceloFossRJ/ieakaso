@@ -1,0 +1,53 @@
+**Javier Chen-O'Connell**
+(555) 555-5555 | javier.chen.oconnell@email.com | LinkedIn Profile URL | GitHub Profile URL
+
+**Summary**
+
+Highly motivated and results-oriented Senior Android Developer with 7 years of experience in designing, developing, and deploying high-performance, scalable Android applications. Proven ability to architect robust solutions, optimize existing systems for performance and efficiency, and lead teams to deliver exceptional results. Expertise in C#, .NET Core, SQL Server, RabbitMQ, Azure, and Docker. Passionate about mentoring junior engineers and fostering a collaborative team environment. Seeking a challenging role where I can leverage my skills and experience to contribute to the success of a dynamic organization.
+
+**Skills**
+
+*   **Languages:** C#, Java, Kotlin, XML, JSON
+*   **Frameworks/Platforms:** .NET Core, Android SDK, Android Jetpack (Compose, Navigation, Data Binding, LiveData, ViewModel, Room), Firebase, REST APIs
+*   **Databases:** SQL Server, SQLite, Realm
+*   **Cloud Technologies:** Azure (App Service, Azure Functions, Azure DevOps), AWS (EC2, S3), Docker, Kubernetes
+*   **Messaging:** RabbitMQ, Kafka
+*   **Tools:** Android Studio, Visual Studio, Git, Jenkins, Jira, Confluence, Postman, Swagger
+*   **Methodologies:** Agile (Scrum, Kanban), Waterfall
+
+**Experience**
+
+**Meta, Menlo Park, CA**
+**Senior Android Engineer** | 2020 – Present
+
+*   Led the development and optimization of core features for the flagship Android application, serving millions of users daily.
+*   Architected and implemented a new data caching strategy, **reducing page load time by 44%** and improving user engagement.
+*   Spearheaded the transition to a CI/CD pipeline using Azure DevOps and Docker, **improving deployment frequency from monthly to 100x daily.**
+*   Mentored a team of **15 junior engineers**, providing guidance on best practices, code reviews, and technical problem-solving.
+*   Developed and maintained unit, integration, and UI tests, ensuring high code quality and reducing bug occurrence by 25%.
+
+**Amazon, Seattle, WA**
+**Android Developer** | 2017 – 2020
+
+*   Developed and maintained key features for the Amazon Shopping Android application, focusing on personalization and search functionality.
+*   Collaborated with cross-functional teams, including product managers, designers, and backend engineers, to deliver high-quality software.
+*   Engineered a new recommendation engine integration, **resulting in a 15% increase in click-through rates.**
+*   Optimized database queries and data retrieval processes, **improving application performance by 30%.**
+*   Participated in code reviews and provided constructive feedback to improve code quality and maintainability.
+
+**Projects**
+
+*   **Personal Finance Tracker (Android Application):** Developed a personal finance tracking application using Android Jetpack Compose, Room database, and Firebase for authentication and data storage.
+*   **Open-Source Android Library (GitHub):** Created and maintained an open-source Android library for simplifying image loading and caching, achieving 500+ stars on GitHub.
+*   **Machine Learning Model Deployment (Azure):** Built and deployed a machine learning model to Azure for predicting customer churn, using .NET Core and Azure Machine Learning services.
+
+**Certifications**
+
+*   AWS Certified Developer – Associate
+*   Certified Kubernetes Application Developer (CKAD)
+*   Azure Developer Associate
+
+**Education**
+
+**University of California, Los Angeles (UCLA), Los Angeles, CA**
+Bachelor of Science in Computer Science | 2017

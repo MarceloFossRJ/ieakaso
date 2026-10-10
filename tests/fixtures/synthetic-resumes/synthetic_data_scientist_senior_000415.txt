@@ -1,0 +1,58 @@
+Aisha Rodriguez-Chen
+(512) 555-1212 | a.rodriguez.chen@email.com | linkedin.com/in/aisharodriguezchen | github.com/aisharc
+
+SUMMARY
+
+Data Scientist with 7 years of experience in designing, developing, and scaling data-driven solutions. Proven ability to leverage advanced technologies like Go, gRPC, PostgreSQL, Redis, Kubernetes, and AWS to build robust and efficient systems. Passionate about applying machine learning techniques to solve complex business problems and drive impactful results.
+
+EXPERIENCE
+
+Stripe, San Francisco, CA
+Senior Data Scientist, January 2020 – Present
+
+* Led the design and implementation of a microservices architecture using Go and gRPC to process transaction data, supporting 100K requests per minute.
+* Scaled the fraud detection system to handle 15M+ daily active users by optimizing database queries and caching strategies with Redis.
+* Developed and deployed a machine learning model for identifying fraudulent transactions, achieving 65% accuracy in production using Python and scikit-learn.
+* Improved deployment frequency from monthly to 20x daily by implementing CI/CD pipelines with Kubernetes and GitOps principles, increasing team agility.
+* Optimized infrastructure costs by $5K annually by identifying and eliminating unused resources and rightsizing instances in AWS.
+
+Acme Corp, Austin, TX
+Data Scientist, June 2017 – December 2019
+
+* Engineered a data pipeline using Python and Apache Kafka to ingest and process large volumes of customer behavior data from various sources.
+* Built and maintained a data warehouse in PostgreSQL for storing and analyzing customer data, enabling data-driven decision-making across the organization.
+* Developed dashboards and reports using Tableau to visualize key performance indicators and provide insights to stakeholders.
+* Deployed machine learning models using AWS SageMaker for customer churn prediction and personalized recommendations.
+
+EDUCATION
+
+University of Texas at Austin, Austin, TX
+Bachelor of Science in Computer Science, May 2017
+GPA: 3.8/4.0
+
+PROJECTS
+
+Fraud Detection System
+* Designed and implemented a real-time fraud detection system using Go and Kafka, capable of processing thousands of transactions per second.
+* Integrated machine learning models to identify suspicious patterns and flag potentially fraudulent transactions.
+
+Recommendation Engine
+* Developed a personalized recommendation engine using collaborative filtering techniques to suggest relevant products to customers.
+* Utilized Python and scikit-learn to train and evaluate the model, achieving a significant improvement in click-through rates.
+
+Log Analysis Platform
+* Built a centralized log analysis platform using Elasticsearch, Logstash, and Kibana (ELK stack) to monitor system performance and identify potential issues.
+* Implemented alerting rules to automatically notify engineers of critical errors and performance bottlenecks.
+
+SKILLS
+
+Programming Languages: Go, Python, SQL
+Databases: PostgreSQL, Redis, MySQL
+Cloud Platforms: AWS (EC2, S3, Lambda, SageMaker), Google Cloud Platform (GCP)
+Tools: Kubernetes, Docker, Prometheus, Grafana, Git, Kafka, gRPC, Tableau, Elasticsearch, Logstash, Kibana
+Machine Learning: scikit-learn, TensorFlow, PyTorch
+
+CERTIFICATIONS
+
+* AWS Certified Cloud Practitioner
+* Certified Kubernetes Administrator (CKA)

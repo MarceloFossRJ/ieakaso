@@ -1,0 +1,60 @@
+Aisha Ramirez
+(555) 123-4567 | aisha.ramirez@email.com | linkedin.com/in/aisharamirez
+
+SUMMARY
+
+Principal Software Engineer with 16 years of experience architecting, developing, and deploying scalable and resilient applications. Expertise in leading teams and delivering innovative solutions using C#, .NET Core, Angular, SQL Server, and cloud technologies (Azure & AWS). Proven ability to optimize performance, implement CI/CD pipelines, and drive significant improvements in application efficiency and reliability. Passionate about leveraging technology to solve complex business problems and mentor junior developers.
+
+EXPERIENCE
+
+EdTech Innovators, San Francisco, CA
+Principal Software Engineer | 2018 – Present
+
+* Spearheaded the migration of 10 critical microservices to Kubernetes, resulting in a 20% increase in infrastructure utilization and a 15% reduction in operational costs.
+* Architected and implemented a microservices architecture using .NET Core, RabbitMQ, and SQL Server, supporting 5,000 requests per minute (RPM) with 99.99% uptime.
+* Led the development and deployment of a machine learning model using Python and Azure Machine Learning to predict student performance, achieving 33% accuracy in a production environment.
+* Implemented a comprehensive CI/CD pipeline using Azure DevOps, reducing release time by 24% and improving deployment frequency.
+* Reduced API latency by 85% through code optimization, database indexing, and caching strategies, improving user experience and application performance.
+* Mentored and guided a team of 5 junior developers, fostering a collaborative and high-performance environment.
+
+FinServ Solutions, Chicago, IL
+Senior Software Engineer | 2014 – 2018
+
+* Designed and developed RESTful APIs using C# .NET, .NET Core, and SQL Server for a high-volume transaction processing system.
+* Implemented performance monitoring and logging solutions using Azure Monitor and Application Insights to identify and resolve performance bottlenecks.
+* Led the refactoring of a legacy application to a microservices architecture, improving scalability and maintainability.
+* Improved data processing speeds by 40% by optimizing SQL queries and implementing data caching strategies.
+
+GlobalTech Enterprises, New York, NY
+Software Engineer | 2008 – 2014
+
+* Developed and maintained web applications using Angular, C#, and SQL Server.
+* Contributed to the design and implementation of new features and enhancements for existing software products.
+* Collaborated with cross-functional teams to deliver high-quality software solutions on time and within budget.
+
+PROJECTS
+
+* E-Commerce Platform: Developed a fully functional e-commerce platform using Angular, .NET Core, and SQL Server. Included features such as product catalog, shopping cart, checkout process, and order management.
+* Data Analytics Dashboard: Designed and implemented a data analytics dashboard using Angular, D3.js, and Python to visualize key business metrics and trends.
+* Real-Time Chat Application: Built a real-time chat application using Angular, .NET Core SignalR, and Azure Cosmos DB.
+* Task Management System: Developed a task management system using Angular, .NET Core, and SQL Server to improve team collaboration and productivity.
+* Inventory Management System: Built an inventory management system using Angular, .NET Core, and SQL Server to track product levels and streamline logistics.
+
+SKILLS
+
+Languages: C#, .NET Core, Angular, TypeScript, SQL, Python
+Databases: SQL Server, Azure Cosmos DB, NoSQL
+Cloud: Azure (Expert), AWS (Proficient)
+Tools: Docker, Kubernetes, Azure DevOps, Git, RabbitMQ, Jenkins, REST APIs, Microservices
+Methodologies: Agile, Scrum
+
+CERTIFICATIONS
+
+* Microsoft Certified: Azure Solutions Architect Expert
+* AWS Certified Solutions Architect – Associate
+* Certified Kubernetes Application Developer (CKAD)
+
+EDUCATION
+
+Indian Institute of Technology (IIT) Kanpur, Kanpur, India
+Bachelor of Technology in Computer Science

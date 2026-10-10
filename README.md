@@ -59,6 +59,14 @@ To set up, put your CV in `input/documents/cv/` and run:
 
 It checks your documents, strongly recommends your LinkedIn "Save to PDF" export (`input/documents/linkedin/`), suggests reference letters (`input/documents/reference_letters/`), and asks you to confirm your details, target positions, and search location. It saves them in `config.yml`. Run it again any time to review or update them. Other commands run it for you if setup is incomplete.
 
+Init also turns your CV into `input/cv.md`, word for word: nothing reworded, added, or left out. When you change your CV, the next command updates `input/cv.md` for you, or run it yourself:
+
+```
+/ieakaso cv-parser
+```
+
+Edit your CV, not `input/cv.md`: it is regenerated from the CV.
+
 Then score your CV against a job ad:
 
 ```
