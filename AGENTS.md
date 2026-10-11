@@ -44,6 +44,11 @@ All commands go through one skill, `ai/skills/ieakaso/` (loaded through the poin
 
 The tool drafts and the user acts. It never submits applications or sends emails, and it never fabricates CV content; it only reformulates it. It advises against applying when the score is below 4.0/5, but the user can override that.
 
+## Agent Skills Settings
+
+- When the human invokes `/grill-me` or `/grill-with-docs`, use the Claude Opus model. This phase requires deep reasoning to map out the complete design tree, capture hidden requirements, and write the specification.
+- When the human invokes `/implement`, use the Claude Sonnet model. This phase relies strictly on the pre-generated static markdown context (`docs/agents/`) to build code following test-driven development (TDD), optimizing for fast context-window compliance.
+
 ## Agent skills
 
 ### Issue tracker
