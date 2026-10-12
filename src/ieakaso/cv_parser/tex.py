@@ -14,232 +14,62 @@ from pylatexenc.macrospec import EnvironmentSpec, MacroSpec
 from ieakaso.cv_parser.errors import CvParseError
 from ieakaso.cv_parser.markdown import Footnotes, table, table_cell
 
-HEADINGS = {
-    "part": 1,
-    "chapter": 1,
-    "section": 1,
-    "subsection": 2,
-    "subsubsection": 3,
-    "paragraph": 4,
-    "subparagraph": 5,
-}
+HEADINGS = {"part": 1, "chapter": 1, "section": 1, "subsection": 2, "subsubsection": 3, "paragraph": 4, "subparagraph": 5}
 
 # Commands that show their last argument as it is (styling dropped).
 SHOW_CONTENT = {
-    "textbf": "{",
-    "textit": "{",
-    "emph": "{",
-    "underline": "{",
-    "textsc": "{",
-    "texttt": "{",
-    "textrm": "{",
-    "textsf": "{",
-    "textmd": "{",
-    "textup": "{",
-    "textsl": "{",
-    "textnormal": "{",
-    "mbox": "{",
-    "text": "{",
-    "textcolor": "[{{",
-    "colorbox": "[{{",
-    "makebox": "[[{",
-    "fbox": "{",
+    "textbf": "{", "textit": "{", "emph": "{", "underline": "{", "textsc": "{", "texttt": "{",
+    "textrm": "{", "textsf": "{", "textmd": "{", "textup": "{", "textsl": "{", "textnormal": "{",
+    "mbox": "{", "text": "{", "textcolor": "[{{", "colorbox": "[{{", "makebox": "[[{", "fbox": "{",
     "caption": "[{",
 }
 
 # Commands that show nothing: layout, spacing, sizes, fonts, and their arguments.
 IGNORE = {
-    "vspace": "*{",
-    "hspace": "*{",
-    "vfill": "",
-    "medskip": "",
-    "smallskip": "",
-    "bigskip": "",
-    "noindent": "",
-    "indent": "",
-    "centering": "",
-    "raggedright": "",
-    "raggedleft": "",
-    "clearpage": "",
-    "newpage": "",
-    "pagebreak": "[",
-    "nopagebreak": "[",
-    "nolinebreak": "[",
-    "label": "{",
-    "pagestyle": "{",
-    "thispagestyle": "{",
-    "setlength": "{{",
-    "addtolength": "{{",
-    "color": "[{",
-    "tiny": "",
-    "scriptsize": "",
-    "footnotesize": "",
-    "small": "",
-    "normalsize": "",
-    "large": "",
-    "Large": "",
-    "LARGE": "",
-    "huge": "",
-    "Huge": "",
-    "bfseries": "",
-    "itshape": "",
-    "mdseries": "",
-    "scshape": "",
-    "upshape": "",
-    "slshape": "",
-    "normalfont": "",
-    "rmfamily": "",
-    "sffamily": "",
-    "ttfamily": "",
-    "sloppy": "",
-    "includegraphics": "[{",
-    "hline": "",
-    "cline": "{",
-    "toprule": "[",
-    "midrule": "[",
-    "bottomrule": "[",
-    "cmidrule": "[{",
-    "maketitle": "",
-    "tableofcontents": "",
-    "null": "",
-    "strut": "",
-    "@": "",
-    "/": "",
-    "protect": "",
-    "relax": "",
+    "vspace": "*{", "hspace": "*{", "vfill": "", "medskip": "", "smallskip": "", "bigskip": "",
+    "noindent": "", "indent": "", "centering": "", "raggedright": "", "raggedleft": "",
+    "clearpage": "", "newpage": "", "pagebreak": "[", "nopagebreak": "[", "nolinebreak": "[",
+    "label": "{", "pagestyle": "{", "thispagestyle": "{", "setlength": "{{", "addtolength": "{{",
+    "color": "[{", "tiny": "", "scriptsize": "", "footnotesize": "", "small": "", "normalsize": "",
+    "large": "", "Large": "", "LARGE": "", "huge": "", "Huge": "", "bfseries": "", "itshape": "",
+    "mdseries": "", "scshape": "", "upshape": "", "slshape": "", "normalfont": "", "rmfamily": "",
+    "sffamily": "", "ttfamily": "", "sloppy": "", "includegraphics": "[{", "hline": "",
+    "cline": "{", "toprule": "[", "midrule": "[", "bottomrule": "[", "cmidrule": "[{",
+    "maketitle": "", "tableofcontents": "", "null": "", "strut": "", "@": "", "/": "",
+    "protect": "", "relax": "",
 }
 
-SPACES = {
-    "hfill": " ",
-    "quad": " ",
-    "qquad": " ",
-    " ": " ",
-    ",": " ",
-    ";": " ",
-    ":": " ",
-    "enspace": " ",
-    "thinspace": " ",
-}
+SPACES = {"hfill": " ", "quad": " ", "qquad": " ", " ": " ", ",": " ", ";": " ", ":": " ", "enspace": " ", "thinspace": " "}
 
 SYMBOLS = {
-    "&": "&",
-    "%": "%",
-    "$": "$",
-    "#": "#",
-    "_": "_",
-    "{": "{",
-    "}": "}",
-    "textbar": "|",
-    "textbackslash": "\\",
-    "textasciitilde": "~",
-    "textasciicircum": "^",
-    "ldots": "…",
-    "dots": "…",
-    "textellipsis": "…",
-    "textendash": "–",
-    "textemdash": "—",
-    "textbullet": "•",
-    "textperiodcentered": "·",
-    "textquoteleft": "‘",
-    "textquoteright": "’",
-    "textquotedblleft": "“",
-    "textquotedblright": "”",
-    "copyright": "©",
-    "textcopyright": "©",
-    "textregistered": "®",
-    "texttrademark": "™",
-    "euro": "€",
-    "texteuro": "€",
-    "pounds": "£",
-    "textdegree": "°",
-    "S": "§",
-    "P": "¶",
-    "ss": "ß",
-    "ae": "æ",
-    "AE": "Æ",
-    "oe": "œ",
-    "OE": "Œ",
-    "o": "ø",
-    "O": "Ø",
-    "aa": "å",
-    "AA": "Å",
-    "l": "ł",
-    "L": "Ł",
-    "i": "ı",
-    "j": "ȷ",
-    "LaTeX": "LaTeX",
-    "TeX": "TeX",
+    "&": "&", "%": "%", "$": "$", "#": "#", "_": "_", "{": "{", "}": "}",
+    "textbar": "|", "textbackslash": "\\", "textasciitilde": "~", "textasciicircum": "^",
+    "ldots": "…", "dots": "…", "textellipsis": "…", "textendash": "–", "textemdash": "—",
+    "textbullet": "•", "textperiodcentered": "·", "textquoteleft": "‘", "textquoteright": "’",
+    "textquotedblleft": "“", "textquotedblright": "”", "copyright": "©", "textcopyright": "©",
+    "textregistered": "®", "texttrademark": "™", "euro": "€", "texteuro": "€", "pounds": "£",
+    "textdegree": "°", "S": "§", "P": "¶", "ss": "ß", "ae": "æ", "AE": "Æ", "oe": "œ", "OE": "Œ",
+    "o": "ø", "O": "Ø", "aa": "å", "AA": "Å", "l": "ł", "L": "Ł", "i": "ı", "j": "ȷ",
+    "LaTeX": "LaTeX", "TeX": "TeX",
 }
 
 ACCENTS = {
-    "'": "́",
-    "`": "̀",
-    "^": "̂",
-    '"': "̈",
-    "~": "̃",
-    "=": "̄",
-    ".": "̇",
-    "u": "̆",
-    "v": "̌",
-    "H": "̋",
-    "c": "̧",
-    "d": "̣",
-    "b": "̱",
-    "k": "̨",
-    "r": "̊",
+    "'": "́", "`": "̀", "^": "̂", '"': "̈", "~": "̃", "=": "̄",
+    ".": "̇", "u": "̆", "v": "̌", "H": "̋", "c": "̧", "d": "̣",
+    "b": "̱", "k": "̨", "r": "̊",
 }
 
 SPECIALS = {"--": "–", "---": "—", "``": "“", "''": "”", "~": " ", "!`": "¡", "?`": "¿"}
 
-MATH = {
-    "sim": "~",
-    "times": "×",
-    "cdot": "·",
-    "pm": "±",
-    "approx": "≈",
-    "leq": "≤",
-    "geq": "≥",
-    "rightarrow": "→",
-    "to": "→",
-    "%": "%",
-    "#": "#",
-    "&": "&",
-    "_": "_",
-    "$": "$",
-    "bullet": "•",
-    "circ": "°",
-    "degree": "°",
-    "ast": "*",
-    "star": "*",
-    "mid": "|",
-    "vert": "|",
-    "infty": "∞",
-    "mu": "µ",
-    "alpha": "α",
-    "beta": "β",
-    "gamma": "γ",
-    "lambda": "λ",
-    "pi": "π",
-    "sigma": "σ",
-}
+MATH = {"sim": "~", "times": "×", "cdot": "·", "pm": "±", "approx": "≈", "leq": "≤", "geq": "≥",
+        "rightarrow": "→", "to": "→", "%": "%", "#": "#", "&": "&", "_": "_", "$": "$", "bullet": "•",
+        "circ": "°", "degree": "°", "ast": "*", "star": "*", "mid": "|", "vert": "|", "infty": "∞",
+        "mu": "µ", "alpha": "α", "beta": "β", "gamma": "γ", "lambda": "λ", "pi": "π", "sigma": "σ"}
 
 TRANSPARENT_ENVS = {
-    "document": "",
-    "center": "",
-    "flushleft": "",
-    "flushright": "",
-    "minipage": "[[[{",
-    "multicols": "{[",
-    "quote": "",
-    "quotation": "",
-    "verse": "",
-    "table": "[",
-    "table*": "[",
-    "figure": "[",
-    "figure*": "[",
-    "small": "",
-    "footnotesize": "",
-    "abstract": "",
+    "document": "", "center": "", "flushleft": "", "flushright": "", "minipage": "[[[{",
+    "multicols": "{[", "quote": "", "quotation": "", "verse": "", "table": "[", "table*": "[",
+    "figure": "[", "figure*": "[", "small": "", "footnotesize": "", "abstract": "",
 }
 LIST_ENVS = {"itemize": "-", "enumerate": "1.", "description": "-"}
 TABLE_ENVS = {"tabular": "[{", "tabular*": "{[{", "tabularx": "{[{", "tabulary": "{[{", "longtable": "[{"}
@@ -256,15 +86,9 @@ def _context():
     macros += [MacroSpec(name, "{") for name in ACCENTS]
     macros += [MacroSpec(name, "*[{") for name in HEADINGS]
     macros += [
-        MacroSpec("href", "[{{"),
-        MacroSpec("url", "{"),
-        MacroSpec("footnote", "[{"),
-        MacroSpec("item", "["),
-        MacroSpec("\\", "*["),
-        MacroSpec("newline", ""),
-        MacroSpec("par", ""),
-        MacroSpec("multicolumn", "{{{"),
-        MacroSpec("linebreak", "["),
+        MacroSpec("href", "[{{"), MacroSpec("url", "{"), MacroSpec("footnote", "[{"),
+        MacroSpec("item", "["), MacroSpec("\\", "*["), MacroSpec("newline", ""), MacroSpec("par", ""),
+        MacroSpec("multicolumn", "{{{"), MacroSpec("linebreak", "["),
     ]
     macros += [MacroSpec(name, "{") for name in INCLUDES]
     envs = [EnvironmentSpec(n, s) for n, s in {**TRANSPARENT_ENVS, **TABLE_ENVS}.items()]
@@ -280,7 +104,9 @@ def read_tex(source: Path) -> str:
     try:
         text = source.read_bytes().decode("utf-8-sig")
     except UnicodeDecodeError:
-        raise CvParseError(f"{source.name} is not saved as UTF-8 text. Save it again with UTF-8 encoding.") from None
+        raise CvParseError(
+            f"{source.name} is not saved as UTF-8 text. Save it again with UTF-8 encoding."
+        ) from None
     return _Renderer(source.name, text).render()
 
 
@@ -320,9 +146,7 @@ class _Renderer:
                 hint = "Put the included file's content into the main file, or export your CV as PDF or DOCX instead."
             else:
                 hint = "Ieakaso reads only common TeX commands. Export your CV as PDF or DOCX instead."
-            raise CvParseError(
-                f"{self.name} uses {error.what} on line {line}, which Ieakaso can't read. {hint}"
-            ) from None
+            raise CvParseError(f"{self.name} uses {error.what} on line {line}, which Ieakaso can't read. {hint}") from None
         return md
 
     # --- blocks: paragraphs split on blank lines; headings, lists and tables stand alone ---

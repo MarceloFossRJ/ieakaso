@@ -27,7 +27,7 @@ FIELD_LINK = re.compile(r'^\s*HYPERLINK\s+"([^"]+)"')
 def read_docx(source: Path) -> str:
     try:
         document = docx.Document(source)
-    except PackageNotFoundError, zipfile.BadZipFile, KeyError, ValueError:
+    except (PackageNotFoundError, zipfile.BadZipFile, KeyError, ValueError):
         raise CvParseError(
             f"{source.name} could not be read as a Word document; it may be damaged. "
             "Save it again as .docx and try again."
@@ -189,17 +189,11 @@ class _Reader:
                 r_id = child.get(f"{R}id")
                 if r_id and r_id in part.rels and part.rels[r_id].is_external:
                     uri = part.rels[r_id].target_ref
-                text = "".join(n if isinstance(n, str) else self._run_child_text(n) for n in self._runs(child, part))
+                text = "".join(
+                    n if isinstance(n, str) else self._run_child_text(n) for n in self._runs(child, part)
+                )
                 yield f"[{text}]({uri})" if uri and text.strip() else text
-            elif tag in (
-                f"{W}ins",
-                f"{W}moveTo",
-                f"{W}smartTag",
-                f"{W}customXml",
-                f"{W}fldSimple",
-                f"{W}dir",
-                f"{W}bdo",
-            ):
+            elif tag in (f"{W}ins", f"{W}moveTo", f"{W}smartTag", f"{W}customXml", f"{W}fldSimple", f"{W}dir", f"{W}bdo"):
                 yield from self._runs(child, part)
             elif tag == f"{W}sdt":
                 content = child.find(f"{W}sdtContent")
@@ -293,7 +287,7 @@ class _Reader:
     def _num_format(self, num_id: str, ilvl: int) -> str | None:
         try:
             numbering = self.part.numbering_part.element
-        except KeyError, NotImplementedError:
+        except (KeyError, NotImplementedError):
             return None
         num = next((n for n in numbering.iter(f"{W}num") if n.get(f"{W}numId") == num_id), None)
         if num is None:

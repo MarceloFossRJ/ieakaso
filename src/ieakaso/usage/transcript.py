@@ -182,7 +182,7 @@ def read_agent_runs(path: Path) -> list[AgentRun]:
     for meta_path in sorted(folder.glob("agent-*.meta.json")):
         try:
             meta = json.loads(meta_path.read_text(encoding="utf-8"))
-        except OSError, ValueError:
+        except (OSError, ValueError):
             continue
         if not isinstance(meta, dict) or meta.get("agentType") not in IEAKASO_AGENTS:
             continue
