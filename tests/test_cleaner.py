@@ -37,6 +37,7 @@ def test_clean_empties_output_but_keeps_gitkeep(repo: Path):
 
     assert {p for p in snapshot(repo) if p.startswith("output/")} == {
         "output/.gitkeep",
+        "output/cover-letter/.gitkeep",
         "output/job-analysis/.gitkeep",
     }
 

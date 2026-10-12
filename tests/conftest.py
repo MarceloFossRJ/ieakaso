@@ -19,6 +19,7 @@ TRACKED = {
     "input/documents/wellfound/.gitkeep": "",
     "input/documents/xing/.gitkeep": "",
     "output/.gitkeep": "",
+    "output/cover-letter/.gitkeep": "",
     "output/job-analysis/.gitkeep": "",
 }
 

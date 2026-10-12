@@ -20,14 +20,14 @@ Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` s
 - **Runtime:** runs locally, driven from a coding-assistant CLI (Claude Code, OpenCode) rather than its own UI.
 - **Storage:** file-based, using Markdown files in a structured folder tree. Application status is the folder an application sits in: `Applied` → `Interviewing` → `Not selected` / `Offer`.
 - **Memory:** on first run, the user provides their CV, a professional "about me", key projects, biggest achievements, and a personal SWOT. The agent should compound learnings from each application process back into memory.
-- **Two agents:** an *Applicant Agent* that writes the drafts and a *Seasoned Recruiter* that reviews them.
+- **Two agents:** an *Applicant Agent* that writes the drafts and a *Seasoned Recruiter* that reviews them. A third role, the *Job Application Assistant*, is the main conversation: it starts the two agents and passes work between them (`docs/adr/0002-job-application-assistant-in-main-conversation.md`). Role files are in `ai/agents/`; the Applicant and the Recruiter have pointers in `.claude/agents/` and `.opencode/agents/` (the same agents and targets in both, checked by `tests/test_agent_pointers_drift.py`), the Assistant never does.
 - **Application flow:**
   1. The user pastes a job ad URL.
   2. Read the ad and highlight the posting's strong and weak points.
   3. Decide whether the user is a top applicant.
   4. Read the application form.
   5. Prepare an application report.
-  6. If the form asks for a cover letter, the Applicant drafts it and the Recruiter grades it from 1 to 10. Below 9, the Recruiter suggests changes and the Applicant rewrites, and this repeats until the grade is at least 9.
+  6. If the form asks for a cover letter, the Job Application Assistant runs the `cover-letter` mode: the Applicant Agent drafts it and the Seasoned Recruiter gives it a Review score from 0 to 100. Below 90, the Recruiter lists what to remove, rewrite and improve and the Applicant rewrites. Each draft plus its Review is a Round. This repeats until the score is at least 90, the Recruiter declares a Plateau, or 5 Rounds have run; the best-scoring draft is kept.
   7. Suggest next steps.
 - **Interview prep flow:** a second flow, not yet detailed.
 
@@ -43,7 +43,7 @@ All commands go through one skill, `ai/skills/ieakaso/` (loaded through the poin
 
 ## Product guardrails
 
-The tool drafts and the user acts. It never submits applications or sends emails, and it never fabricates CV content; it only reformulates it. It advises against applying when the score is below 4.0/5, but the user can override that.
+The tool drafts and the user acts. It never submits applications or sends emails, and it never fabricates CV content; it only reformulates it. Reviews only suggest changes backed by the candidate's files; anything else becomes a question for the candidate. It advises against applying when the score is below 4.0/5, but the user can override that.
 
 ## Agent Skills Settings
 

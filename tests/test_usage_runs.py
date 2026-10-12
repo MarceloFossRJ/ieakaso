@@ -68,13 +68,13 @@ def test_agent_runs_are_attributed_by_tool_use_id_and_others_ignored(tmp_path):
     assert (first.usage.fresh_input, first.usage.out, first.usage.cache_read) == (2 + 6, 3, 10)
 
 
-def test_candidate_assistant_is_an_agent_run(tmp_path):
+def test_applicant_is_an_agent_run(tmp_path):
     s = FakeSession(tmp_path)
     s.start("job-analyzer", "m1")
     s.agent_call("m2", "toolu_B")
-    s.subagent("a1", "candidate-assistant", "toolu_B", [("s1", "claude-sonnet-5-5", 1, 0, 0, 1)])
+    s.subagent("a1", "applicant", "toolu_B", [("s1", "claude-sonnet-5-5", 1, 0, 0, 1)])
     (run,) = runs_of(s)
-    assert [a.agent_type for a in run.agent_runs] == ["candidate-assistant"]
+    assert [a.agent_type for a in run.agent_runs] == ["applicant"]
 
 
 def test_subagent_before_first_marker_is_excluded(tmp_path):
