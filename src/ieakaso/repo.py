@@ -7,7 +7,7 @@ from pathlib import Path
 def is_ieakaso_repo(path: Path) -> bool:
     try:
         project = tomllib.loads((path / "pyproject.toml").read_text())["project"]
-    except (OSError, tomllib.TOMLDecodeError, KeyError):
+    except OSError, tomllib.TOMLDecodeError, KeyError:
         return False
     return project.get("name") == "ieakaso" and (path / "ai/skills/ieakaso").is_dir()
 

@@ -27,7 +27,7 @@ def with_ld_json(data: str, body: str = "") -> str:
 # Extraction paths: the expected Markdown is the spec.
 
 
-@pytest.mark.parametrize("name", ["jsonld", "graph", "page_text"])
+@pytest.mark.parametrize("name", ["jsonld", "jsonld_extra", "graph", "page_text"])
 def test_extraction_matches_the_expected_markdown(name: str):
     assert extract(page(name), URL) == expected(name)
 
@@ -243,3 +243,26 @@ def test_only_http_and_https_addresses_are_fetched():
     with pytest.raises(FetchError, match="http"):
         fetch_page("file:///etc/passwd", opener=opener)
     assert opener.requests == []
+
+
+def test_lines_already_in_the_ad_are_not_repeated_in_more_from_the_page():
+    out = extract(page("jsonld_extra"), URL)
+
+    assert out.count("Lead a team of eight engineers") == 1
+    assert out.count("Engineering Manager, Platform") == 1
+
+
+def test_no_more_from_the_page_section_when_the_page_adds_nothing():
+    out = extract(page("jsonld"), URL)
+
+    assert out.startswith("Source: structured data\n")
+    assert "More from the page" not in out
+
+
+def test_the_comparison_ignores_case_and_spacing():
+    html = with_ld_json(
+        '{"@type": "JobPosting", "title": "Cook", "description": "<p>Cook   food.</p>"}',
+        "<main><p>COOK food.</p></main>",
+    )
+
+    assert "More from the page" not in extract(html, URL)

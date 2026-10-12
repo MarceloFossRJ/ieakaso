@@ -26,7 +26,7 @@ def _read_utf8(source: Path) -> str:
     except UnicodeDecodeError:
         raise CvParseError(
             f"{source.name} is not saved as UTF-8 text. Save it again with UTF-8 encoding "
-            "(most editors offer it under \"Save as\" or \"Encoding\")."
+            '(most editors offer it under "Save as" or "Encoding").'
         ) from None
 
 
@@ -47,8 +47,7 @@ def parse(source: Path) -> str:
     suffix = source.suffix.lower()
     if suffix not in READERS:
         raise CvParseError(
-            f"{source.name} is not a format Ieakaso can read. "
-            f"Save your CV as one of {', '.join(ACCEPTED)}."
+            f"{source.name} is not a format Ieakaso can read. Save your CV as one of {', '.join(ACCEPTED)}."
         )
     text = READERS[suffix](source)
     if suffix == COPIED_AS_IS:

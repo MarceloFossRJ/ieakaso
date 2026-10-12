@@ -80,6 +80,10 @@ def posting_markdown(posting: dict) -> str | None:
     lines = [f"- **{label}:** {value}" for label, value in details if value]
     if lines:
         parts.append("\n".join(lines))
+    organization = posting.get("hiringOrganization")
+    about = _description(organization.get("description")) if isinstance(organization, dict) else ""
+    if about:
+        parts.append(about)
     parts.append(body)
     return "\n\n".join(parts)
 

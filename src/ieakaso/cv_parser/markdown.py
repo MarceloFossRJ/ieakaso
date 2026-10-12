@@ -43,7 +43,7 @@ class Footnotes:
         up_to = len(self._texts) if up_to is None else up_to
         lines = [
             f"[^{number}]: {text}"
-            for number, text in enumerate(self._texts[self._written:up_to], start=self._written + 1)
+            for number, text in enumerate(self._texts[self._written : up_to], start=self._written + 1)
             if text is not None
         ]
         self._written = max(self._written, up_to)

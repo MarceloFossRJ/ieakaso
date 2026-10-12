@@ -17,16 +17,14 @@ FLAGS = pymupdf.TEXTFLAGS_RAWDICT & ~pymupdf.TEXT_PRESERVE_LIGATURES
 def read_pdf(source: Path) -> str:
     try:
         doc = pymupdf.open(source, filetype="pdf")
-    except (pymupdf.FileDataError, RuntimeError, ValueError):
+    except pymupdf.FileDataError, RuntimeError, ValueError:
         raise CvParseError(_unreadable(source)) from None
     with doc:
         if doc.needs_pass:
-            raise CvParseError(
-                f"{source.name} is password-protected. Save a copy without a password and try again."
-            )
+            raise CvParseError(f"{source.name} is password-protected. Save a copy without a password and try again.")
         try:
             pages = [_page_text(page) for page in doc]
-        except (pymupdf.FileDataError, RuntimeError, ValueError):
+        except pymupdf.FileDataError, RuntimeError, ValueError:
             raise CvParseError(_unreadable(source)) from None
     if not any(p.strip() for p in pages):
         raise CvParseError(
@@ -65,7 +63,7 @@ def _line_text(line: dict, links: list) -> str:
             text = "".join(run)
             stripped = text.strip()
             lead = text[: len(text) - len(text.lstrip())]
-            trail = text[len(text.rstrip()):]
+            trail = text[len(text.rstrip()) :]
             out.append(f"{lead}[{stripped}]({current_uri}){trail}" if stripped else text)
         run.clear()
 

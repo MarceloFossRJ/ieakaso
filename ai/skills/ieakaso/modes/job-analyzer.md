@@ -46,7 +46,7 @@ If the argument is pasted text, that is the ad. If it is a URL, get the ad in th
 
    | Exit | Meaning | What you do |
    |---|---|---|
-   | 0 | The ad is on stdout, first line `Source: structured data` or `Source: page text` | Use the ad (without that first line) as the ad text. |
+   | 0 | The ad is on stdout, first line `Source: structured data`, `Source: structured data + page text` or `Source: page text` | Use the ad (without that first line) as the ad text. |
    | 1 | The fetch failed (network error, timeout, HTTP status of 400 or more) | Show the candidate the message from stderr and ask them to paste the ad text. |
    | 2 | A login wall, or the ad says it is closed or expired | Show the message and ask them to paste the ad text. |
    | 3 | The page was fetched but holds no ad content | Show the message and ask them to paste the ad text. |
@@ -227,7 +227,7 @@ Experience the candidate has that `cv.md` does not show, or shows in different w
 
 [One of these three lines, as the ad was obtained:
 - `Fetched from [URL] by WebFetch (may not be word for word)`
-- `Fetched from [URL] by the Ieakaso fetcher (structured data | page text)`: name the one the fetcher's first line gave
+- `Fetched from [URL] by the Ieakaso fetcher (structured data | page text | structured data + page text)`: name the one the fetcher's first line gave
 - `Pasted by the candidate`]
 
 [The ad text]

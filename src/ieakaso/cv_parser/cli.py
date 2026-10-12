@@ -84,7 +84,7 @@ def _read_status(root: Path) -> dict:
     """db/system_status.json, or {} when it is missing or not a JSON object."""
     try:
         status = json.loads((root / STATUS).read_text("utf-8"))
-    except (OSError, ValueError):
+    except OSError, ValueError:
         return {}
     return status if isinstance(status, dict) else {}
 
