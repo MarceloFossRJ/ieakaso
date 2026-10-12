@@ -16,12 +16,14 @@ You read them. You send them.
 
 ## Two agents, one review loop
 
-Ieakaso runs two agents with opposite jobs:
+The job-analyzer mode weighs your CV against the job ad, points out the ad's strong and weak points, and decides whether you are a top applicant. The cover letter then goes through two agents with opposite jobs:
 
-- **Applicant Agent** writes. It reads the job ad and the application form, drafts the cover letter, rewrites it, and prepares the application report.
-- **Seasoned Recruiter** judges. It highlights the strong and weak points of the job ad, decides whether you are a top applicant, and grades every cover letter from 1 to 10.
+- **Applicant Agent** writes. It drafts the cover letter from your files and rewrites it after each Review.
+- **Seasoned Recruiter** judges. It reviews every cover letter draft as an experienced recruiter for the job ad's domain and gives it a Review score from 0 to 100.
 
-A cover letter only reaches you once the Recruiter grades it at least 9/10. Below that, the Recruiter suggests changes and the Applicant rewrites.
+A third role, the **Job Application Assistant**, is the conversation itself: it starts the two agents and passes drafts and Reviews between them.
+
+A cover letter reaches you once the Recruiter scores it at least 90/100, declares a plateau (no change backed by your files would raise the score), or 5 Rounds have run. Below 90, the Recruiter suggests changes and the Applicant rewrites.
 
 ```mermaid
 flowchart TD
@@ -30,8 +32,8 @@ flowchart TD
     C --> D[Read the application form]
     D --> E{Asks for a cover letter?}
     E -- Yes --> F[Prepare cover letter]
-    F --> G[Review and grade 1-10]
-    G --> H{At least 9/10?}
+    F --> G[Review and score 0-100]
+    G --> H{At least 90/100?}
     H -- No --> I[Suggest changes]
     I --> J[Rewrite]
     J --> G
@@ -87,6 +89,14 @@ It answers in chat with a verdict, a score out of 100, the reason, and your top 
 The advice is yours to override. A missing must-have, like a required work permit or language, caps the score at 59.
 
 The score reads only your CV, as a recruiter would. Your other memory files never raise it: they show what your CV under-sells, with wording you can add to your CV to score higher next time. If the URL can't be read, it asks you to paste the ad. Running it again for the same company and position on the same day replaces that day's analysis.
+
+When the job is worth it, write the cover letter:
+
+```
+/ieakaso cover-letter [<job-url or job-ad text>]
+```
+
+Without an argument it uses the last job ad of the session, or asks. It runs the job analysis first if there is none for that ad. Then the Applicant drafts the letter and the Recruiter reviews it, Round after Round, until the score is 90/100, the Recruiter sees no way to raise it from your files, or 5 Rounds have run. The final letter is saved as `output/cover-letter/<company>_<position>_<yyyymmdd>.md` (one A4 page, body of at most 350 words) and every Round's draft and Review as `..._review.md`. Facts you only tell it in chat are never used: add them to your files and it runs another Round.
 
 The first runs are rough. It does not know you yet.
 Talk to it: what you want, what you refuse.
