@@ -13,7 +13,7 @@ class Run:
     agent_runs: list[AgentRun] = field(default_factory=list)
 
 
-def segment(transcript: Transcript) -> list[Run]:
+def split_runs(transcript: Transcript) -> list[Run]:
     """A Run lasts from its start marker to the next marker or the end; earlier turns belong to no Run."""
     runs: list[Run] = []
     owner: dict[str, Run] = {}  # Agent tool_use id -> Run in effect there
@@ -23,9 +23,10 @@ def segment(transcript: Transcript) -> list[Run]:
         if not runs:
             continue
         run = runs[-1]
-        run.usage += turn.usage
-        if turn.model and turn.model not in run.models:
-            run.models.append(turn.model)
+        if turn.counts:
+            run.usage += turn.usage
+            if turn.model not in run.models:
+                run.models.append(turn.model)
         for tool_id in turn.agent_tool_ids:
             owner[tool_id] = run
     for agent_run in transcript.agent_runs:

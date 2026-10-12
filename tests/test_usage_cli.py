@@ -41,3 +41,15 @@ def test_statusline_never_crashes(tmp_path):
     for stdin in ("", "not json", "[]", json.dumps({"transcript_path": str(tmp_path / "nope")}), '{"model": 3}'):
         code, _ = run(["statusline"], tmp_path, stdin=stdin)
         assert code == 0
+
+
+def test_summary_never_fails(tmp_path, monkeypatch):
+    s = FakeSession(tmp_path, session_id="abc")
+    s.start("init", "m1", inp=1)
+
+    def boom(_):
+        raise RuntimeError("bug")
+
+    monkeypatch.setattr("ieakaso.usage.cli.summary", boom)
+    code, out = run(["summary"], tmp_path, env={"CLAUDE_CODE_SESSION_ID": "abc"})
+    assert code == 0 and out.startswith("Ieakaso usage:")

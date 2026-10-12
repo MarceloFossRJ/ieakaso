@@ -4,7 +4,7 @@ This file provides guidance to AI coding agents in this repository.
 
 ## Project state
 
-Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` skill (see Commands). The Python package in `src/ieakaso/` holds the CV parser and the development tools.
+Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` skill (see Commands). The Python package in `src/ieakaso/` holds the CV parser, the usage display and the development tools.
 
 - **Toolchain:** Python 3.14 managed by `uv`. Dependencies live in `pyproject.toml`; add them with `uv add` (or `uv add --dev` for development-only ones).
 - **Tests:** `uv run pytest` (pytest, in `tests/`). Tests run on temporary fake repos; never let a test write to the real `input/`, `output/`, `config.yml`, or `db/`.

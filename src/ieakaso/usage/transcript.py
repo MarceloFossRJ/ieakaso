@@ -3,29 +3,36 @@
 import json
 import os
 import re
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
 
+# Agent types of the Ieakaso agents, from the files in .claude/agents/; other agent types are not Ieakaso.
 IEAKASO_AGENTS = {"recruiter", "candidate-assistant"}
-_MARKER = re.compile(r"ieakaso\.usage\s+start\s+([\w-]+)")
+# The Bash command must itself be the start invocation: a grep or echo that mentions it starts no Run.
+_MARKER = re.compile(r"(?:uv run (?:--\S+ )*)?python -m ieakaso\.usage start ([\w-]+)")
 
 
 @dataclass(frozen=True)
 class Usage:
-    inp: int = 0  # input_tokens + cache_creation_input_tokens
+    fresh_input: int = 0  # input_tokens + cache_creation_input_tokens (new input plus cache writes)
     out: int = 0
     cache_read: int = 0
 
     def __add__(self, other: Usage) -> Usage:
-        return Usage(self.inp + other.inp, self.out + other.out, self.cache_read + other.cache_read)
+        return Usage(self.fresh_input + other.fresh_input, self.out + other.out, self.cache_read + other.cache_read)
+
+    @staticmethod
+    def total(usages: Iterable[Usage]) -> Usage:
+        return sum(usages, Usage())
 
     @property
     def new(self) -> int:
-        return self.inp + self.out
+        return self.fresh_input + self.out
 
     @property
     def context(self) -> int:
-        return self.inp + self.cache_read
+        return self.fresh_input + self.cache_read
 
 
 @dataclass
@@ -38,6 +45,11 @@ class Turn:
     start_mode: str | None = None  # set when this message runs the Run start marker
     agent_tool_ids: list[str] = field(default_factory=list)
 
+    @property
+    def counts(self) -> bool:
+        """Claude Code also writes <synthetic> messages and zero-usage ones; they spend nothing."""
+        return self.model != "<synthetic>" and self.usage != Usage()
+
 
 @dataclass
 class AgentRun:
@@ -47,11 +59,11 @@ class AgentRun:
 
     @property
     def usage(self) -> Usage:
-        return sum((t.usage for t in self.turns), Usage())
+        return Usage.total(t.usage for t in self.turns if t.counts)
 
     @property
     def models(self) -> list[str]:
-        return list(dict.fromkeys(t.model for t in self.turns))
+        return list(dict.fromkeys(t.model for t in self.turns if t.counts))
 
 
 @dataclass
@@ -74,15 +86,16 @@ def _lines(path: Path):
             yield obj
 
 
-def read_turns(path: Path) -> list[Turn]:
+def read_turns(path: Path, *, main_chain: bool = True) -> list[Turn]:
+    """Deduplicated assistant messages. Subagent files are all sidechain, so they pass main_chain=False."""
     turns: dict[str, Turn] = {}
     for obj in _lines(path):
         msg = obj.get("message")
-        if obj.get("type") != "assistant" or not isinstance(msg, dict) or obj.get("isSidechain"):
+        if obj.get("type") != "assistant" or not isinstance(msg, dict) or (main_chain and obj.get("isSidechain")):
             continue
         u = msg.get("usage") or {}
         usage = Usage(
-            inp=(u.get("input_tokens") or 0) + (u.get("cache_creation_input_tokens") or 0),
+            fresh_input=(u.get("input_tokens") or 0) + (u.get("cache_creation_input_tokens") or 0),
             out=u.get("output_tokens") or 0,
             cache_read=u.get("cache_read_input_tokens") or 0,
         )
@@ -93,7 +106,7 @@ def read_turns(path: Path) -> list[Turn]:
             if not isinstance(block, dict) or block.get("type") != "tool_use":
                 continue
             if block.get("name") == "Bash":
-                found = _MARKER.search(str((block.get("input") or {}).get("command", "")))
+                found = _MARKER.fullmatch(str((block.get("input") or {}).get("command", "")).strip())
                 if found:
                     turn.start_mode = found.group(1)
             elif block.get("name") == "Agent" and block.get("id"):
@@ -112,7 +125,7 @@ def read_agent_runs(path: Path) -> list[AgentRun]:
         if not isinstance(meta, dict) or meta.get("agentType") not in IEAKASO_AGENTS:
             continue
         log = meta_path.with_name(meta_path.name.removesuffix(".meta.json") + ".jsonl")
-        runs.append(AgentRun(meta.get("toolUseId", ""), meta["agentType"], read_turns(log)))
+        runs.append(AgentRun(meta.get("toolUseId", ""), meta["agentType"], read_turns(log, main_chain=False)))
     return runs
 
 

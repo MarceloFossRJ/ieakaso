@@ -13,6 +13,8 @@ class FakeSession:
         self.path.write_text("")
 
     def _write(self, line: dict, path: Path | None = None) -> None:
+        # Real transcripts: main lines have isSidechain false, every subagent line has it true.
+        line = {**line, "isSidechain": path is not None}
         with (path or self.path).open("a") as f:
             f.write(json.dumps(line) + "\n")
 
@@ -42,15 +44,22 @@ class FakeSession:
                 path,
             )
 
+    @staticmethod
+    def tool_use(tool_id, name, **input) -> dict:
+        return {"type": "tool_use", "id": tool_id, "name": name, "input": input}
+
     def start(self, mode, msg_id, **kw) -> None:
-        cmd = f"uv run python -m ieakaso.usage start {mode}"
-        self.assistant(msg_id, blocks=[{"type": "tool_use", "id": f"t-{msg_id}", "name": "Bash", "input": {"command": cmd}}], **kw)
+        self.bash(msg_id, f"uv run python -m ieakaso.usage start {mode}", **kw)
 
     def bash(self, msg_id, command, **kw) -> None:
-        self.assistant(msg_id, blocks=[{"type": "tool_use", "id": f"t-{msg_id}", "name": "Bash", "input": {"command": command}}], **kw)
+        self.assistant(msg_id, blocks=[self.tool_use(f"t-{msg_id}", "Bash", command=command)], **kw)
 
     def agent_call(self, msg_id, tool_use_id, **kw) -> None:
-        self.assistant(msg_id, blocks=[{"type": "tool_use", "id": tool_use_id, "name": "Agent", "input": {"prompt": "p"}}], **kw)
+        self.assistant(msg_id, blocks=[self.tool_use(tool_use_id, "Agent", prompt="p")], **kw)
+
+    def synthetic(self, msg_id) -> None:
+        """Claude Code writes these (e.g. for an interrupted turn): model <synthetic>, zero usage."""
+        self.assistant(msg_id, model="<synthetic>")
 
     def subagent(self, agent_id, agent_type, tool_use_id, turns) -> None:
         """turns: list of (msg_id, model, inp, cc, cr, out)."""

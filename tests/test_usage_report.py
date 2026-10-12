@@ -51,8 +51,8 @@ def test_summary_context_without_a_known_window_has_no_size(tmp_path):
 
 def test_summary_lists_every_model_of_the_run(tmp_path):
     s = FakeSession(tmp_path)
-    s.start("init", "m1", model="claude-opus-5-5")
-    s.assistant("m2", model="claude-sonnet-5-5")
+    s.start("init", "m1", model="claude-opus-5-5", inp=1)
+    s.assistant("m2", model="claude-sonnet-5-5", inp=1)
     assert summary(load(s.path)).splitlines()[1] == "Model     claude-opus-5-5, claude-sonnet-5-5"
 
 
@@ -106,3 +106,20 @@ def test_summary_header_matches_the_designed_layout(tmp_path):
     s = FakeSession(tmp_path)
     s.start("job-analyzer", "m1")
     assert summary(load(s.path)).splitlines()[0] == "── Ieakaso · job-analyzer (so far) ───────────────"
+
+
+def test_synthetic_message_does_not_change_context_fill(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("init", "m1", inp=84000)
+    s.synthetic("m2")
+    assert summary(load(s.path)).splitlines()[3] == "Context   84k / 200k (42%)"
+    assert statusline(load(s.path), {}) == "ieakaso ▸ init · opus-5-5 · ctx 42% · run 84k new · session 84k new"
+
+
+def test_summary_of_a_run_with_no_usable_message_still_renders(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("init", "m1")  # zero usage
+    out = summary(load(s.path))
+    assert out.splitlines()[0].startswith("── Ieakaso · init (so far)")
+    assert "Context" not in out
+    assert statusline(load(s.path), {}) == "ieakaso ▸ init · run 0 new · session 0 new"

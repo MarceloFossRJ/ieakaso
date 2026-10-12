@@ -12,7 +12,7 @@ import sys
 from pathlib import Path
 
 from ieakaso.usage.report import statusline, summary
-from ieakaso.usage.transcript import find_transcript, load
+from ieakaso.usage.transcript import Transcript, find_transcript, load
 
 
 def _statusline(stdin) -> str:
@@ -20,7 +20,7 @@ def _statusline(stdin) -> str:
         data = json.loads(stdin.read())
         data = data if isinstance(data, dict) else {}
         path = data.get("transcript_path")
-        transcript = load(Path(path)) if isinstance(path, str) else load(Path("/nonexistent"))
+        transcript = load(Path(path)) if isinstance(path, str) else Transcript()
         return statusline(transcript, data)
     except Exception:  # noqa: BLE001 - the status line must never crash
         return ""
@@ -46,5 +46,8 @@ def main(argv=None, stdin=None, environ=None, claude_dir=None, out=None) -> int:
         if path is None:
             print("Ieakaso usage: the Session transcript was not found, so there is no usage to show.", file=out)
         else:
-            print(summary(load(path)), file=out)
+            try:
+                print(summary(load(path)), file=out)
+            except Exception:  # noqa: BLE001 - a usage bug must never break the mode
+                print("Ieakaso usage: could not read the Session transcript, so there is no usage to show.", file=out)
     return 0
