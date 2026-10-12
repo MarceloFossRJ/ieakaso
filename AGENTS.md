@@ -4,13 +4,14 @@ This file provides guidance to AI coding agents in this repository.
 
 ## Project state
 
-Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` skill (see Commands). The Python package in `src/ieakaso/` holds the CV parser and the development tools.
+Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` skill (see Commands). The Python package in `src/ieakaso/` holds the CV parser, the usage display and the development tools.
 
 - **Toolchain:** Python 3.14 managed by `uv`. Dependencies live in `pyproject.toml`; add them with `uv add` (or `uv add --dev` for development-only ones).
 - **Tests:** `uv run pytest` (pytest, in `tests/`). Tests run on temporary fake repos; never let a test write to the real `input/`, `output/`, `config.yml`, or `db/`.
 - **CV parser:** `src/ieakaso/cv_parser/` turns the Source CV into the Parsed CV `input/cv.md` (terms in `CONTEXT.md`, decisions in `docs/adr/0001-deterministic-cv-parser.md`). It is deterministic code, never the agent. Its expected outputs in `tests/fixtures/expected/` are the spec: when output changes, regenerate them with `uv run python tests/fixtures/update_expected.py --all`, review the diff, and raise `PARSER_VERSION` in the same commit. Fixtures are synthetic or anonymized CVs only; the repo is public.
 - **Development tools** live in `src/ieakaso/devtools/` and are never exposed to the candidate: not an `ieakaso` command, not a `/ieakaso` mode.
   - Cleaner: `uv run python -m ieakaso.devtools.cleaner clean | restore [name] | list` returns the repo to a fresh state (see `CONTEXT.md`) so init can be tested from scratch. The command always backs up to `~/.ieakaso-backups/` first, and `restore` brings the newest backup back, or the named one. Options: `--dry-run` (`clean` and `restore`: show what would happen, change nothing), `--root` (default: found from the current folder), `--backup-dir`. Called from Python, `clean()` only backs up when given a `backup_dir`. If you add user data anywhere, add it to the cleaner and `.gitignore` together; `tests/test_cleaner_drift.py` fails when they disagree.
+- **Usage display:** `src/ieakaso/usage/` derives each Run's Token usage, models and Context fill from the Claude Code transcript (nothing is saved). `uv run python -m ieakaso.usage start <mode> | summary | statusline`: the router runs `start` as the Run marker and `summary` when a mode ends; the status line is `statusLine` in the tracked `.claude/settings.json`. Tests use fake transcripts only (`tests/usage_fakes.py`), never `~/.claude`. Context window sizes live in `CONTEXT_WINDOWS` in `report.py`.
 - `README.md` describes the product as designed in the [diagram](`docs/flows.excalidraw`); its Roadmap section lists features beyond the diagram that are not designed yet.
 - License: AGPL-3.0.
 
@@ -43,6 +44,11 @@ All commands go through one skill, `ai/skills/ieakaso/` (loaded through the poin
 ## Product guardrails
 
 The tool drafts and the user acts. It never submits applications or sends emails, and it never fabricates CV content; it only reformulates it. It advises against applying when the score is below 4.0/5, but the user can override that.
+
+## Agent Skills Settings
+
+- When the human invokes `/grill-me` or `/grill-with-docs`, use the Claude Opus model. This phase requires deep reasoning to map out the complete design tree, capture hidden requirements, and write the specification.
+- When the human invokes `/implement`, use the Claude Sonnet model. This phase relies strictly on the pre-generated static markdown context (`docs/agents/`) to build code following test-driven development (TDD), optimizing for fast context-window compliance.
 
 ## Agent skills
 

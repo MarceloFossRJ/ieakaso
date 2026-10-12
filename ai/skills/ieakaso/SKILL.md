@@ -18,6 +18,24 @@ If the mode is missing, ask the user which mode to run, with a choice question l
 
 If the user asks for something a mode covers without naming it (e.g. pastes a job ad URL), pick that mode and say which one you are running.
 
+## Run start
+
+Claude Code only: in any other tool (OpenCode), skip this section and the Run summary below.
+
+The very first step of every Run, before the setup check, however the mode was chosen (`/ieakaso <mode>`, a mode entry, or you picking it for pasted text), is to run:
+
+```
+uv run python -m ieakaso.usage start <mode>
+```
+
+That command is how the Run is counted: it only prints a line, so just continue. Do it once per Run. The setup check's init and cv-parser runs are part of the Run that triggered them and do not start another one.
+
+## Run summary
+
+Claude Code only, like the Run start.
+
+When the mode's work ends, including when it stops early (setup incomplete, cv-parser failure, no job ad text), run `uv run python -m ieakaso.usage summary` and show its output verbatim to the candidate, as the last thing you print. If it prints a notice instead, show the notice. Do this once per mode, not for the init or cv-parser the setup check ran.
+
 ## Setup check
 
 Run this before every mode except `init`:

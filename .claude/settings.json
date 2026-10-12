@@ -1,0 +1,6 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "uv run --quiet --project \"${CLAUDE_PROJECT_DIR:-.}\" python -m ieakaso.usage statusline"
+  }
+}
