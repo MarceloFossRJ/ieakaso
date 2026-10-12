@@ -39,3 +39,23 @@ _Avoid_: CV score, fit report
 **Verdict**:
 The job analysis's advice on whether to apply: Top applicant, Apply, Stretch or Don't apply. Stretch and Don't apply advise against applying; the candidate can override either.
 _Avoid_: suggestion, recommendation
+
+**Run**:
+One `/ieakaso <mode>` call, including the setup check and any init or cv-parser it triggers. It lasts until the next Run or the end of the Session, so follow-up questions about its result belong to it. Its Token usage includes that of its Agent runs.
+_Avoid_: execution, invocation, job
+
+**Agent run**:
+One call to an Ieakaso agent (the Applicant Agent or the Seasoned Recruiter) inside a Run.
+_Avoid_: subagent execution, agent call
+
+**Session**:
+One coding-assistant session, from its start (or `/clear`) to its end; resuming a session continues it. Ieakaso keeps nothing from a Session once it ends.
+_Avoid_: conversation, chat
+
+**Token usage**:
+The tokens a Run or Agent run spends, split into input, output and cache read. Ieakaso shows tokens only, never a cost. Session token usage is the sum of its Runs only; other activity in the Session is not counted.
+_Avoid_: spend, consumption, credits, cost
+
+**Context fill**:
+How full the model's context window is: tokens in the conversation out of the window size.
+_Avoid_: context size, context usage

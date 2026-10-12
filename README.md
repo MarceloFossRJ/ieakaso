@@ -92,6 +92,23 @@ The first runs are rough. It does not know you yet.
 Talk to it: what you want, what you refuse.
 Think of it as a recruiter's first week.
 
+## What a run costs
+
+Ieakaso shows how many tokens your searches spend, in Claude Code. A **Run** is one `/ieakaso <mode>` call, including the setup it triggers and your follow-up questions about its result. When a mode finishes, even when it stops early, it prints a summary of the Run so far:
+
+```
+── Ieakaso · job-analyzer (so far) ───────────────
+Model     claude-opus-5-5
+Tokens    in 12.4k · out 3.1k · cache read 48.0k
+Context   84k / 200k (42%)
+  Agent run  recruiter (claude-sonnet-5-5)   in 4.0k · out 0.8k · cache read 9.0k
+Session   3 Runs · in 31.0k · out 7.9k · cache read 120k
+```
+
+It lists the models used, the tokens (input includes cache writes), how full the context window is, one line per agent call and the total for the Session (the Runs since you started or cleared Claude Code, not your other chats). Tokens only, never a cost, and nothing is saved: it is read from the Claude Code transcript each time.
+
+The status line at the bottom of Claude Code shows the same, live: `opus-5-5 · ctx 42%` before any Run, and `ieakaso ▸ job-analyzer · opus-5-5 · ctx 42% · run 15.5k new · session 39k new` after. "new" is input plus output, without cache reads. It is set in `.claude/settings.json`.
+
 ## Your data
 
 Every application lives on your machine, as Markdown files in a plain folder tree. An application's status is the folder it sits in:
@@ -122,6 +139,8 @@ Ieakaso learns from every application it follows and folds what it learns back i
 - **CV and form answers.** Rewrite the CV for each job ad and draft answers for every field of the application form.
 - **Who do I talk to?** Find the hiring manager or recruiter and draft a note. It never sends it.
 - **What should I learn?** After a run of rejections, name the gap.
+- **OpenCode usage.** The token summary and status line, in OpenCode too.
+- **`/ieakaso usage`.** A mode to ask for the usage on demand.
 - **Fabrication check.** Block any CV draft whose facts or numbers are not in your memory.
 
 ## License
