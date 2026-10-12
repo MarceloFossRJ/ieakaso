@@ -35,7 +35,7 @@ That command is how the Run is counted: it only prints a line, so just continue.
 
 Claude Code only, like the Run start.
 
-When the mode's work ends, including when it stops early (setup incomplete, cv-parser failure, no job ad text), run `uv run python -m ieakaso.usage summary` and show its output verbatim to the candidate, as the last thing you print. If it prints a notice instead, show the notice. Do this once per mode, not for the init or cv-parser the setup check ran. Exception: a mode whose follow-ups stay in the same Run (cover-letter) shows the summary again after each follow-up.
+When the mode's work ends, including when it stops early (setup incomplete, cv-parser failure, no job ad text), run `uv run python -m ieakaso.usage summary` and show its output verbatim to the candidate, as the last thing you print. If it prints a notice instead, show the notice. Do this once per mode, not for the init or cv-parser the setup check ran. A mode file can say its follow-ups stay in the same Run; such a mode shows the summary again after each follow-up.
 
 ## Setup check
 

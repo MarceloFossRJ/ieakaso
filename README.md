@@ -18,12 +18,12 @@ You read them. You send them.
 
 The job-analyzer mode weighs your CV against the job ad, points out the ad's strong and weak points, and decides whether you are a top applicant. The cover letter then goes through two agents with opposite jobs:
 
-- **Applicant Agent** writes. It drafts the cover letter from your files and rewrites it after each review.
+- **Applicant Agent** writes. It drafts the cover letter from your files and rewrites it after each Review.
 - **Seasoned Recruiter** judges. It reviews every cover letter draft as an experienced recruiter for the job ad's domain and gives it a Review score from 0 to 100.
 
-A third role, the **Job Application Assistant**, is the conversation itself: it starts the two agents and passes drafts and reviews between them.
+A third role, the **Job Application Assistant**, is the conversation itself: it starts the two agents and passes drafts and Reviews between them.
 
-A cover letter reaches you once the Recruiter scores it at least 90/100, declares a plateau (no change backed by your files would raise the score), or 5 rounds have run. Below 90, the Recruiter suggests changes and the Applicant rewrites.
+A cover letter reaches you once the Recruiter scores it at least 90/100, declares a plateau (no change backed by your files would raise the score), or 5 Rounds have run. Below 90, the Recruiter suggests changes and the Applicant rewrites.
 
 ```mermaid
 flowchart TD
@@ -96,7 +96,7 @@ When the job is worth it, write the cover letter:
 /ieakaso cover-letter [<job-url or job-ad text>]
 ```
 
-Without an argument it uses the last job ad of the session, or asks. It runs the job analysis first if there is none for that ad. Then the Applicant drafts the letter and the Recruiter reviews it, round after round, until the score is 90/100, the Recruiter sees no way to raise it from your files, or 5 rounds have run. The final letter is saved as `output/cover-letter/<company>_<position>_<yyyymmdd>.md` (one A4 page, body of at most 350 words) and every round's draft and review as `..._review.md`. Facts you only tell it in chat are never used: add them to your files and it runs another round.
+Without an argument it uses the last job ad of the session, or asks. It runs the job analysis first if there is none for that ad. Then the Applicant drafts the letter and the Recruiter reviews it, Round after Round, until the score is 90/100, the Recruiter sees no way to raise it from your files, or 5 Rounds have run. The final letter is saved as `output/cover-letter/<company>_<position>_<yyyymmdd>.md` (one A4 page, body of at most 350 words) and every Round's draft and Review as `..._review.md`. Facts you only tell it in chat are never used: add them to your files and it runs another Round.
 
 The first runs are rough. It does not know you yet.
 Talk to it: what you want, what you refuse.

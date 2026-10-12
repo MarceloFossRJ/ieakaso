@@ -22,9 +22,9 @@ The Assistant gives you the paths and texts below. Read every file; if a file is
 | `input/personal_swot.md` | Strengths and weaknesses, as the candidate sees them |
 | `input/professional-self-reflection.md` | What the candidate wants and refuses: use it for motivation |
 | `config.yml` | The contact block, the languages and their levels |
-| `input/writing-style.md` | The candidate's voice. Write the way it says. If it does not exist, say so in your reply and write in a plain, direct voice. |
-| The latest draft and the latest Review | Only from the second Round on. Absent in the first Round. |
-| A change request from the candidate | Only when the candidate asked for a change. It comes with the latest draft, in place of a Review. |
+| `input/writing-style.md` | The candidate's voice. Write the way it says. If it does not exist, or is still the unfilled template from `resources/templates/writing_style_template.md`, say so in your reply and write in a plain, direct, professional voice. |
+| The current draft and the latest Review | Only from the second Round on. Absent in the first Round. The current draft is the one the Assistant passes: the latest draft in a normal Round, the current result in a follow-up. |
+| A change request from the candidate | Only when the candidate asked for a change. It comes with the current draft, in place of a Review. |
 
 ---
 
@@ -42,9 +42,9 @@ The Assistant gives you the paths and texts below. Read every file; if a file is
 
 **First Round:** write the draft from the Job ad, the Job analysis and the candidate's files. Lead with the strongest match to the ad's must-haves. Address the main gap from the Job analysis honestly if it matters, without inflating anything.
 
-**Later Rounds:** start from the latest draft and go through the latest Review, item by item. Apply every Remove, Rewrite and Improve item that the files support. Each item quotes the passage it refers to; change that passage. Keep what the Review did not criticise. You see only the latest Review; the Recruiter, which sees all of them, guards against reversing earlier advice.
+**Later Rounds:** start from the current draft and go through the latest Review, item by item. Apply every Remove, Rewrite and Improve item that the files support. Each item quotes the passage it refers to; change that passage. Keep what the Review did not criticise. You see only the latest Review; the Recruiter, which sees all of them, guards against reversing earlier advice.
 
-**Changes the candidate requested:** the Assistant may pass you a change request from the candidate instead of a Review, with the latest draft and all the other inputs. Make exactly that change and keep everything else. The candidate's request wins over earlier Reviews.
+**Changes the candidate requested:** the Assistant may pass you a change request from the candidate instead of a Review, with the current draft and all the other inputs. Make exactly that change and keep everything else. The candidate's request wins over earlier Reviews.
 
 ### Layout
 

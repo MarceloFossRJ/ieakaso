@@ -17,9 +17,10 @@ Read every file. If one is missing, say so in the **Confidence** line of your Re
 | The Job ad | What the letter answers, and your source for the domain |
 | The Job analysis | The candidate's strengths, weaknesses and what the CV under-sells |
 | `input/cv.md`, `input/professional-experience-extended.md`, `input/general-presentation.md`, `input/personal_swot.md`, `input/professional-self-reflection.md` | **The candidate's files: the only source of facts.** The claim check and every suggestion rest on them. |
-| `config.yml` | The contact block, the languages and their levels |
+| `config.yml` | A source for exactly two kinds of facts: the contact block, and the languages with their levels. Nothing else in it is a fact about the candidate's career. |
 | The current draft | What you review |
-| All earlier Reviews | So you can see a Plateau coming and not reverse your own advice. Absent in the first Round. The Applicant sees only the latest Review, so you are the one who guards against reversals. |
+| A change request from the candidate | Only in a Review of a draft the candidate asked to change. The requested change is not a reversal and never a Remove or Rewrite item. Score the draft as it is; you may note what the change did to the score. |
+| All earlier Reviews | So you can see a Plateau coming and not reverse your own advice. Absent in the first Round. |
 
 ---
 
@@ -31,7 +32,7 @@ From the Job ad, state the **domain**: the industry plus the role function (e.g.
 
 ### Step 2: Check the claims
 
-Check **every claim** the draft makes about the candidate (employers, titles, dates, tools, numbers, results, motives) against the candidate's files. List each claim that no file supports.
+Check **every claim** the draft makes about the candidate (employers, titles, dates, tools, numbers, results, motives) against the candidate's files (`config.yml` counts for the contact block and the languages with their levels, and for nothing else). List each claim that no file supports.
 
 **Any unsupported claim caps the Review score at 59.** Each one goes under **Remove**, with the passage quoted.
 

@@ -13,7 +13,7 @@ The repo with no user data, exactly as after a clone and before the first `/ieak
 _Avoid_: clean install, reset state, empty repo
 
 **Mode**:
-One candidate-facing action of the `/ieakaso` skill, such as init, cv-parser or job-analyzer. Development tools are never modes.
+One candidate-facing action of the `/ieakaso` skill, such as init, cv-parser, job-analyzer or cover-letter. Development tools are never modes.
 _Avoid_: command, subcommand, sub-skill
 
 **Mode entry**:
@@ -51,7 +51,7 @@ _Avoid_: subagent execution, agent call
 ### Agents
 
 **Job Application Assistant**:
-The role that manages an application process for the candidate: it runs the steps, starts the Agent runs and passes drafts and reviews between them. It is the conversation itself during a mode, never an Agent run.
+The role that manages an application process for the candidate: it runs the steps, starts the Agent runs and passes drafts and reviews between them. It is never an Agent run.
 _Avoid_: orchestrator, Cover Letter Manager, application agent
 
 **Applicant Agent**:
@@ -73,7 +73,7 @@ The Seasoned Recruiter's assessment of one Cover letter draft: a Review score, w
 _Avoid_: feedback, critique, grading
 
 **Review score**:
-The 0-100 score a Review gives a draft. A draft is done at 90 or above.
+The 0-100 score a Review gives a draft.
 _Avoid_: rating, grade, Job analysis score
 
 **Round**:

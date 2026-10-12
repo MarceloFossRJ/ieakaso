@@ -23,7 +23,7 @@ Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` s
 - **Two agents:** an *Applicant Agent* that writes the drafts and a *Seasoned Recruiter* that reviews them. A third role, the *Job Application Assistant*, is the main conversation: it starts the two agents and passes work between them (`docs/adr/0002-job-application-assistant-in-main-conversation.md`). Role files are in `ai/agents/`; the Applicant and the Recruiter have pointers in `.claude/agents/` and `.opencode/agents/` (the same agents and targets in both, checked by `tests/test_agent_pointers_drift.py`), the Assistant never does.
 - **Application flow:**
   1. The user pastes a job ad URL.
-  2. The `job-analyzer` mode reads the ad and highlights the posting's strong and weak points.
+  2. The `job-analyzer` mode reads the ad and highlights the Job ad's strong and weak points.
   3. The same mode decides whether the user is a top applicant (the Verdict).
   4. Read the application form.
   5. Prepare an application report.

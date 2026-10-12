@@ -10,14 +10,9 @@ Act as the Job Application Assistant: read `ai/agents/job-application-assistant.
 
 **Job ad:** the argument, either a URL or the ad's text pasted in. See Step 1 if there is none.
 
-**Candidate's files**, passed to the agents:
+**Job analysis:** found or made in Step 2.
 
-| File | Use |
-|---|---|
-| `input/cv.md` | The Parsed CV. **Required**; the setup check keeps it current. |
-| `input/professional-experience-extended.md`, `input/general-presentation.md`, `input/personal_swot.md`, `input/professional-self-reflection.md` | The four memory files. Optional; tell the agents which ones are missing. |
-| `input/writing-style.md` | The candidate's voice, for the Applicant. Optional. |
-| `config.yml` | Contact block, languages and levels |
+Each agent's file lists the candidate's files it reads (`ai/agents/applicant.md`, `ai/agents/recruiter.md`); this mode does not repeat them.
 
 ---
 
@@ -27,14 +22,14 @@ Act as the Job Application Assistant: read `ai/agents/job-application-assistant.
 
 1. If the argument is given, use it.
 2. Otherwise use the most recent Job ad from an earlier Run in this Session (a job-analyzer or cover-letter Run). Say which one you are using.
-3. Otherwise ask the candidate with a choice question (if your tool has one): the most recent files in `output/job-analysis/` (newest first, shown as company and position), or "paste a URL or text". **Never pick a file from disk silently.** If the candidate picks a file, its `**Job ad:**` header gives the URL; use the report's last section if the ad was pasted.
+3. Otherwise ask the candidate with a choice question (if your tool has one): the most recent files in `output/job-analysis/` (newest first, shown as company and position), or "paste a URL or text". **Never pick a file from disk silently.** If the candidate picks a file, its `**Job ad:**` header gives the URL, and the ad's text is in the report's "Job ad (as analysed)" section. That analysis counts as done for Step 2, even if it was made from pasted text.
 
 If the argument is a URL, fetch it as job-analyzer does (Step 1 of `ai/skills/ieakaso/modes/job-analyzer.md`). If the page needs a login, errors or says the ad is closed, ask the candidate to paste the ad text. Never write a letter from a URL or a job title alone. Keep the ad's text; the Applicant and the Recruiter receive it.
 
 ### Step 2: Get the Job analysis
 
 1. **Reuse** the newest `output/job-analysis/*.md` whose `**Job ad:**` header URL matches the Job ad's URL.
-2. Pasted ad text counts as analysed only if it was analysed earlier in this Session. Otherwise there is no matching analysis.
+2. Pasted ad text counts as analysed only if it was analysed earlier in this Session, or the candidate picked its analysis from disk in Step 1. Otherwise there is no matching analysis.
 3. If there is none, **run job-analyzer** (`ai/skills/ieakaso/modes/job-analyzer.md`) now, **inside this Run**: no separate Run start and no Run summary, like the setup check's init and cv-parser. Its report is the Job analysis. Do not stop after it, even though job-analyzer normally ends with its own chat summary of the analysis (verdict, score, strengths and weaknesses): show that chat summary, not the Run summary, and continue.
 4. Read the Job analysis's **Verdict**. If it is **Stretch** or **Don't apply**, warn the candidate that the analysis advises against applying, name the deciding gap, and ask whether to continue (a choice question if your tool has one). If they decline, stop. The Run summary still follows (see the end).
 
@@ -58,7 +53,7 @@ The result is the best draft, per the Job Application Assistant's rules. Its Rev
 
 ### Step 5: Write the files
 
-Names follow job-analyzer: `<company>_<position>_<yyyymmdd>`, with `<company>` and `<position>` in lowercase kebab-case and today's date (e.g. `output/cover-letter/acme_senior-backend-engineer_20261010`). Use the company and position of the Job analysis. Create `output/cover-letter/` if it does not exist.
+Names follow job-analyzer: `<company>_<position>_<yyyymmdd>`, with `<company>` and `<position>` in lowercase kebab-case and today's date (e.g. `output/cover-letter/acme_senior-backend-engineer_20261010`). Use the company and position of the Job analysis.
 
 If the files already exist, overwrite them as the Job Application Assistant's rules say.
 
@@ -69,7 +64,9 @@ If the files already exist, overwrite them as the Job Application Assistant's ru
 ```markdown
 # Cover letter review log: [Position] @ [Company]
 
-> **Date:** [yyyy-mm-dd] | **Job ad:** [URL, or "pasted text"] | **Final Review score:** [X]/100 | **Rounds:** [N] | **Exit:** [Review score 90 or above / Plateau / 5 Rounds]
+> **Date:** [yyyy-mm-dd] | **Job ad:** [URL, or "pasted text"] | **Final Review score:** [X]/100 | **Rounds:** [N] | **Exit:** [Review score 90 or above / Plateau / 5 Rounds / change requested by the candidate / Round after the candidate's answers]
+
+After a follow-up (Step 7), the header's Final Review score, Rounds and Exit describe the current result.
 
 **Final letter:** Round [N]'s draft. [If it is not the last Round: "It scored highest; later drafts scored lower."]
 
@@ -109,23 +106,20 @@ Show the candidate:
 - the language, if it is not the ad's language
 - any refused suggestion that matters
 
-Then the Run summary (see the router), as the last thing you print. Follow-ups (Step 7) belong to the same Run: after each one, report again and show the Run summary again, so it includes the follow-up's Agent runs.
-
-The mode does not submit the letter and does not start an application.
+Then the Run summary (see the router), as the last thing you print. Follow-ups (Step 7) stay in the same Run: after each one, report again and show the Run summary again, so it includes the follow-up's Agent runs.
 
 ### Step 7: Follow-ups, in the same Run
 
 **Answers to Questions for the candidate.** A fact given only in chat is not used (the Job Application Assistant's rules). Ask the candidate to add it to the right file first: the Source CV or the memory file the Recruiter named. When they say it is done:
 
 1. If they added it to the Source CV, run the cv-parser mode (`ai/skills/ieakaso/modes/cv-parser.md`) now, inside this Run, so `input/cv.md` is current. If it does not end with exit 0, stop and tell the candidate.
-2. Run **one more Round** (Step 3), update both files, and report again. A Round after the 5 Rounds is allowed here; it is the candidate's request.
+2. Run **one more Round** (Step 3), starting from the current result (the draft shown as the final letter, not the last draft written), update both files, and report again. A Round after the 5 Rounds is allowed here; it is the candidate's request. In the review log, set the exit to "Round after the candidate's answers".
 
-**Changes the candidate requests** (a different tone, a shorter body, a different emphasis). Start a fresh Applicant Agent run with everything in its INPUTS, plus the change request and the latest draft, then **one** Seasoned Recruiter Review of the result. No automatic loop afterwards. **The candidate's request wins even if the score drops:** the changed draft becomes the current result and the final letter, and the best-draft rule compares only drafts from that point on. Update both files, add a Round marked "requested by the candidate" to the review log, and set the exit reason to say it. Report the new Review score and any drop.
+**Changes the candidate requests** (a different tone, a shorter body, a different emphasis). Start a fresh Applicant Agent run with everything in its INPUTS, plus the change request and the current result as its draft, then **one** Seasoned Recruiter Review of the result, to which you also pass the change request. No automatic loop afterwards. **The candidate's request wins even if the score drops**, and the Job Application Assistant's best-draft reset applies. Update both files, add a Round marked "requested by the candidate" to the review log, and set the Exit to "change requested by the candidate" and the exit reason to say so. Report the new Review score and any drop.
 
 ---
 
 ## RULES
 
 1. **Act as the Job Application Assistant** and follow its rules for Agent runs, the best draft, overwriting and facts. You manage; the agents write and review.
-2. **Draft only.** Never submit an application, send an email or contact anyone.
-3. **No Run start and no Run summary for the job-analyzer run in Step 2**, and none for the Agent runs.
+2. **No Run start and no Run summary for the job-analyzer run in Step 2**, and none for the Agent runs.
