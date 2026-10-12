@@ -37,7 +37,7 @@ The memory files (the last four) never raise the score. Use them only to find ex
 If the argument is pasted text, that is the ad. If it is a URL, get the ad in this order:
 
 1. **WebFetch.** Fetch the URL with it. If it returns the ad, use that.
-2. **Ask.** If WebFetch fails or refuses (a login wall, an error, a closed ad, a blocked domain), tell the candidate what happened and ask with a choice question (if your tool has one): **"Fetch it with Ieakaso's job ad fetcher"** or **"Paste the ad text"**. A WebFetch refusal may be deliberate, so never go around it without asking.
+2. **Ask.** If WebFetch fails or refuses (a login wall, an error, a closed ad, a blocked domain), tell the candidate what happened and ask with a choice question (if your tool has one): **"Fetch it with Ieakaso's Job ad fetcher"** or **"Paste the ad text"**. A WebFetch refusal may be deliberate, so never go around it without asking.
 3. **The fetcher.** If the candidate picks it, run it. It is code, not you: same page, same text (see the Job ad fetcher in `AGENTS.md`).
 
    ```
