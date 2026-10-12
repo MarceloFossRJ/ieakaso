@@ -9,7 +9,7 @@ Source: structured data
 
 Help customers of Tidewater Systems get unstuck.
 
-## What you bring
+### What you bring
 
 1. Clear written English
 2. Patience

@@ -2,6 +2,7 @@
 
 import html
 import json
+from dataclasses import dataclass
 from html.parser import HTMLParser
 
 from ieakaso.job_ad.markdown import to_markdown
@@ -9,7 +10,15 @@ from ieakaso.job_ad.markdown import to_markdown
 UNITS = {"HOUR": "hour", "DAY": "day", "WEEK": "week", "MONTH": "month", "YEAR": "year"}
 
 
+@dataclass(frozen=True)
+class AdData:
+    markdown: str  # the ad's details and text, as Markdown
+    has_description: bool  # the JobPosting held a description; if not, the page text has to supply the body
+
+
 class _LdJson(HTMLParser):
+    """Collects the text of every <script type="application/ld+json"> in a page."""
+
     def __init__(self):
         super().__init__(convert_charrefs=False)
         self.blocks: list[str] = []
@@ -30,7 +39,7 @@ class _LdJson(HTMLParser):
 
 
 def job_posting(page_html: str) -> dict | None:
-    """The first JobPosting in the page's ld+json blocks (alone, in a list or in a @graph), or None."""
+    """The first schema.org JobPosting in the page's ld+json blocks (alone, in a list or in a @graph), or None."""
     scanner = _LdJson()
     scanner.feed(page_html)
     scanner.close()
@@ -46,6 +55,7 @@ def job_posting(page_html: str) -> dict | None:
 
 
 def _find(node) -> dict | None:
+    """The JobPosting object in parsed ld+json: the node itself, or one inside a list or a @graph."""
     if isinstance(node, list):
         for item in node:
             found = _find(item)
@@ -59,45 +69,48 @@ def _find(node) -> dict | None:
     return None
 
 
-def posting_markdown(posting: dict) -> str | None:
-    """The ad as Markdown, or None when the posting has no description to read."""
-    body = _description(posting.get("description"))
-    if not body:
-        return None
+def ad_data(job: dict) -> AdData | None:
+    """The ad in a JobPosting as Markdown, or None when it holds nothing to show."""
+    description = _description(job.get("description"))
     parts = []
-    title = _text(posting.get("title"))
+    title = _text(job.get("title"))
     if title:
         parts.append(f"# {title}")
     details = [
-        ("Company", _organization(posting.get("hiringOrganization"))),
-        ("Location", _locations(posting)),
-        ("Employment type", _employment_types(posting.get("employmentType"))),
-        ("Posted", _text(posting.get("datePosted"))),
-        ("Valid through", _text(posting.get("validThrough"))),
-        ("Salary", _salary(posting.get("baseSalary"))),
-        ("Reference", _identifier(posting.get("identifier"))),
+        ("Company", _field(job.get("hiringOrganization"), "name")),
+        ("Location", _locations(job)),
+        ("Employment type", _employment_types(job.get("employmentType"))),
+        ("Posted", _text(job.get("datePosted"))),
+        ("Valid through", _text(job.get("validThrough"))),
+        ("Salary", _salary(job.get("baseSalary"))),
+        ("Reference", _field(job.get("identifier"), "value")),
     ]
     lines = [f"- **{label}:** {value}" for label, value in details if value]
     if lines:
         parts.append("\n".join(lines))
-    organization = posting.get("hiringOrganization")
+    organization = job.get("hiringOrganization")
     about = _description(organization.get("description")) if isinstance(organization, dict) else ""
     if about:
         parts.append(about)
-    parts.append(body)
-    return "\n\n".join(parts)
+    if description:
+        parts.append(description)
+    if not parts:
+        return None
+    return AdData("\n\n".join(parts), has_description=bool(description))
 
 
 def _description(value) -> str:
+    """A description (HTML, escaped HTML or plain text) as Markdown, headings from ### down."""
     text = _text(value)
     if "<" not in text and "&lt;" in text:
         text = html.unescape(text)
     if "<" not in text:
         text = "".join(f"<p>{html.escape(chunk.strip())}</p>" for chunk in text.split("\n\n"))
-    return to_markdown(text, min_level=2)
+    return to_markdown(text, min_level=3)
 
 
 def _text(value) -> str:
+    """A string, number as text, stripped; anything else (None, objects, booleans) as an empty string."""
     if isinstance(value, bool) or value is None:
         return ""
     if isinstance(value, (str, int, float)):
@@ -105,24 +118,27 @@ def _text(value) -> str:
     return ""
 
 
-def _organization(value) -> str:
-    return _text(value.get("name")) if isinstance(value, dict) else _text(value)
+def _field(value, key: str) -> str:
+    """value[key] as text when value is an object, else value itself as text (a name or an id may be either)."""
+    return _text(value.get(key)) if isinstance(value, dict) else _text(value)
 
 
-def _locations(posting: dict) -> str:
-    places = posting.get("jobLocation")
+def _locations(job: dict) -> str:
+    """The places of the job, with Remote when the ad says so, separated by semicolons."""
+    places = job.get("jobLocation")
     places = places if isinstance(places, list) else [places]
     found = []
     for place in places:
         name = _place(place)
         if name and name not in found:
             found.append(name)
-    if _text(posting.get("jobLocationType")).upper() == "TELECOMMUTE":
+    if _text(job.get("jobLocationType")).upper() == "TELECOMMUTE":
         found.append("Remote")
     return "; ".join(found)
 
 
 def _place(place) -> str:
+    """One place as `locality, region, country`."""
     if not isinstance(place, dict):
         return _text(place)
     address = place.get("address")
@@ -135,12 +151,14 @@ def _place(place) -> str:
 
 
 def _employment_types(value) -> str:
+    """FULL_TIME or a list of them as `Full time, Contractor`."""
     values = value if isinstance(value, list) else [value]
     names = [_text(item).replace("_", " ").lower().capitalize() for item in values if _text(item)]
     return ", ".join(names)
 
 
 def _salary(value) -> str:
+    """A MonetaryAmount as `90000-110000 EUR per year`; empty when there is no figure."""
     if not isinstance(value, dict):
         return ""
     amount = value.get("value")
@@ -165,12 +183,9 @@ def _salary(value) -> str:
 
 
 def _number(value) -> str:
+    """A number as text without a trailing .0; empty when it is not a number."""
     if isinstance(value, bool) or not isinstance(value, (int, float, str)):
         return ""
     if isinstance(value, float) and value.is_integer():
         return str(int(value))
     return str(value).strip()
-
-
-def _identifier(value) -> str:
-    return _text(value.get("value")) if isinstance(value, dict) else _text(value)

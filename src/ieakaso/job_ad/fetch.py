@@ -18,6 +18,7 @@ MAX_BYTES = 5_000_000
 class Page:
     url: str  # the address the page came from, after any redirects
     html: str
+    truncated: bool = False  # the page was longer than MAX_BYTES and was cut off
 
 
 def fetch_page(url: str, opener: Callable | None = None) -> Page:
@@ -32,22 +33,30 @@ def fetch_page(url: str, opener: Callable | None = None) -> Page:
     for _attempt in range(2):
         try:
             with open_url(request, timeout=TIMEOUT_SECONDS) as response:
-                body = response.read(MAX_BYTES)
-                return Page(url=response.geturl(), html=_decode(body, response.headers.get_content_charset()))
+                body = response.read(MAX_BYTES + 1)
+                return Page(
+                    url=response.geturl(),
+                    html=_decode(body[:MAX_BYTES], response.headers.get_content_charset()),
+                    truncated=len(body) > MAX_BYTES,
+                )
         except urllib.error.HTTPError as http_error:
             error = FetchError(f"The server answered HTTP {http_error.code} for {url}.")
             if http_error.code < 500:
                 break
         except urllib.error.URLError as url_error:
             if isinstance(url_error.reason, TimeoutError):
-                error = FetchError(f"The request to {url} timed out after {TIMEOUT_SECONDS} seconds.")
+                error = _timed_out(url)
             else:
                 error = FetchError(f"Network error fetching {url}: {url_error.reason}.")
         except TimeoutError:
-            error = FetchError(f"The request to {url} timed out after {TIMEOUT_SECONDS} seconds.")
+            error = _timed_out(url)
         except OSError as os_error:
             error = FetchError(f"Network error fetching {url}: {os_error}.")
     raise error
+
+
+def _timed_out(url: str) -> FetchError:
+    return FetchError(f"The request to {url} timed out after {TIMEOUT_SECONDS} seconds.")
 
 
 def _decode(body: bytes, charset: str | None) -> str:

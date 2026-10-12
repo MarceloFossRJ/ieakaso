@@ -101,7 +101,7 @@ def test_closed_ad_wordings_are_recognised(sentence: str):
 
 
 def test_an_empty_shell_has_no_ad_content():
-    with pytest.raises(NoAdError, match="no job ad"):
+    with pytest.raises(NoAdError, match="no Job ad"):
         extract(page("empty_shell"), URL)
 
 
@@ -211,3 +211,131 @@ def test_the_comparison_ignores_case_and_spacing():
     )
 
     assert "More from the page" not in extract(html, URL)
+
+
+LONG_AD = "<h1>Chef</h1><p>" + "Cook food for guests every day. " * 20 + "</p>"
+
+
+# Cookie and consent banners are skipped, but never the page itself.
+
+
+def test_a_cookie_class_on_the_body_does_not_hide_the_ad():
+    html = f'<html class="cookie-consent-loaded"><body class="has-cookie-consent"><main>{LONG_AD}</main></body></html>'
+
+    assert "# Chef" in extract(html, URL)
+
+
+def test_a_cookie_banner_inside_the_page_is_still_skipped():
+    html = f'<body><div id="cookie-consent"><p>We use cookies.</p></div><main>{LONG_AD}</main></body>'
+
+    assert "We use cookies" not in extract(html, URL)
+
+
+# Closed ads: the wording counts in a notice or at the top of the page, not anywhere.
+
+
+def test_a_passing_mention_of_closed_applications_further_down_is_not_a_closed_ad():
+    html = f"<main>{LONG_AD}<p>Applications are closed for our 2025 internship programme.</p></main>"
+
+    assert extract(html, URL).startswith("Source: page text")
+
+
+def test_a_closed_notice_far_down_the_page_is_a_closed_ad():
+    html = f'<main>{LONG_AD}<div class="notice"><p>This job is no longer available.</p></div></main>'
+
+    with pytest.raises(UnreadableError, match="closed"):
+        extract(html, URL)
+
+
+def test_a_notice_role_counts_as_a_notice():
+    html = f'<main>{LONG_AD}<div role="alert">This position has been filled.</div></main>'
+
+    with pytest.raises(UnreadableError, match="closed"):
+        extract(html, URL)
+
+
+def test_a_closed_notice_on_a_page_with_structured_data_is_a_closed_ad():
+    html = with_ld_json(
+        '{"@type": "JobPosting", "title": "Cook", "description": "Cook food."}',
+        '<main><div class="notice">This job is no longer available.</div></main>',
+    )
+
+    with pytest.raises(UnreadableError, match="closed"):
+        extract(html, URL)
+
+
+# A JobPosting without a description keeps its details and takes the page text as the body.
+
+
+def test_a_job_posting_without_a_description_uses_the_page_text_as_the_body():
+    html = with_ld_json(
+        '{"@type": "JobPosting", "title": "Chef", "hiringOrganization": {"name": "Acme"}}',
+        f"<main>{LONG_AD}</main>",
+    )
+
+    out = extract(html, URL)
+
+    assert out.startswith("Source: structured data + page text\n\n# Chef\n\n- **Company:** Acme\n")
+    assert "Cook food for guests every day." in out
+
+
+# What the page repeats from the structured data is left out, however its lines are wrapped.
+
+
+def test_a_sentence_wrapped_differently_on_the_page_is_not_repeated():
+    html = with_ld_json(
+        '{"@type": "JobPosting", "title": "Cook", "description": "<p>Cook food.<br>Wash up.</p>"}',
+        "<main><p>Cook food. Wash up.</p></main>",
+    )
+
+    assert "More from the page" not in extract(html, URL)
+
+
+def test_only_the_new_sentences_of_a_partly_repeated_paragraph_are_kept():
+    html = with_ld_json(
+        '{"@type": "JobPosting", "title": "Cook", "description": "<p>Cook food.</p>"}',
+        "<main><p>Cook food. Contact person is Alex.</p></main>",
+    )
+
+    out = extract(html, URL)
+
+    assert out.endswith("## More from the page\n\nContact person is Alex.\n")
+
+
+# Heading levels: the description sits at ### or deeper, below the extra section's ##.
+
+
+def test_description_headings_never_reach_the_level_of_the_extra_section():
+    html = with_ld_json(
+        '{"@type": "JobPosting", "title": "Cook", "description": "<h1>Big</h1><h2>Role</h2><p>Cook food.</p>"}'
+    )
+
+    out = extract(html, URL)
+
+    assert "\n### Big\n" in out
+    assert "\n### Role\n" in out
+
+
+def test_a_heading_with_only_a_deeper_heading_under_it_is_kept():
+    html = with_ld_json(
+        '{"@type": "JobPosting", "title": "Cook", "description": "<p>Cook food.</p>"}',
+        "<main><h3>Benefits</h3><h4>Time off</h4><p>Thirty days.</p></main>",
+    )
+
+    out = extract(html, URL)
+
+    assert "### Benefits\n\n#### Time off\n\nThirty days." in out
+
+
+def test_a_page_over_the_size_cap_is_cut_and_marked(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setattr("ieakaso.job_ad.fetch.MAX_BYTES", 10)
+    opener = Opener(FakeResponse(b"<p>" + b"x" * 50))
+
+    result = fetch_page(URL, opener=opener)
+
+    assert result.truncated
+    assert len(result.html) == 10
+
+
+def test_a_page_under_the_size_cap_is_not_marked():
+    assert not fetch_page(URL, opener=Opener(FakeResponse(b"<p>hi</p>"))).truncated

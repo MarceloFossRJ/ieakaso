@@ -69,3 +69,12 @@ def test_exit_3_when_the_page_has_no_ad(capsys: pytest.CaptureFixture[str]):
     assert code == 3
     assert captured.out == ""
     assert "paste" in captured.err
+
+
+def test_a_page_cut_at_the_size_cap_is_reported_on_stderr(capsys: pytest.CaptureFixture[str]):
+    code = cli.main(["fetch", URL], fetch=lambda requested: Page(url=URL, html=page("jsonld"), truncated=True))
+
+    captured = capsys.readouterr()
+    assert code == 0
+    assert captured.out == expected("jsonld")
+    assert "cut off" in captured.err

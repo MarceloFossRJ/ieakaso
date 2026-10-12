@@ -26,6 +26,8 @@ def main(argv: list[str] | None = None, fetch: Callable[[str], Page] = fetch_pag
 
     try:
         page = fetch(args.url)
+        if page.truncated:
+            print("note: the page was longer than the size limit and was cut off.", file=sys.stderr)
         text = extract(page.html, page.url)
     except JobAdError as error:
         print(error, file=sys.stderr)
