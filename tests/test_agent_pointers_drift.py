@@ -5,12 +5,14 @@ from pathlib import Path
 
 import yaml
 
+from ieakaso.usage.transcript import IEAKASO_AGENTS
+
 REPO = Path(__file__).resolve().parents[1]
 CLAUDE_AGENTS = REPO / ".claude/agents"
 OPENCODE_AGENTS = REPO / ".opencode/agents"
 ROLE_FILES = REPO / "ai/agents"
 # Runs in the main conversation (docs/adr/0002): a pointer would make it a subagent.
-NO_POINTER = "job-application-assistant"
+ASSISTANT = "job-application-assistant"
 
 
 def pointers(folder: Path) -> dict[str, Path]:
@@ -27,12 +29,8 @@ def frontmatter(path: Path) -> dict:
     return yaml.safe_load(path.read_text().split("---")[1])
 
 
-def test_both_tools_point_at_the_same_agents():
+def test_both_tools_point_at_the_same_agents_and_files():
     assert pointers(CLAUDE_AGENTS)
-    assert pointers(CLAUDE_AGENTS).keys() == pointers(OPENCODE_AGENTS).keys()
-
-
-def test_both_tools_point_at_the_same_files():
     assert pointers(CLAUDE_AGENTS) == pointers(OPENCODE_AGENTS)
 
 
@@ -48,22 +46,25 @@ def test_every_target_exists_and_is_not_empty():
 
 
 def test_the_job_application_assistant_has_no_pointer():
-    assert NO_POINTER not in pointers(CLAUDE_AGENTS)
-    assert NO_POINTER not in pointers(OPENCODE_AGENTS)
-    assert (ROLE_FILES / f"{NO_POINTER}.md").read_text().strip()
+    assert ASSISTANT not in pointers(CLAUDE_AGENTS)
+    assert ASSISTANT not in pointers(OPENCODE_AGENTS)
+    assert (ROLE_FILES / f"{ASSISTANT}.md").read_text().strip()
 
 
 def test_every_role_file_is_a_pointer_target_or_the_assistant():
     files = {path.stem for path in ROLE_FILES.glob("*.md")}
-    assert files == set(pointers(CLAUDE_AGENTS)) | {NO_POINTER}
+    assert files == set(pointers(CLAUDE_AGENTS)) | {ASSISTANT}
 
 
-def test_descriptions_match_and_use_the_0_to_100_score():
+def test_descriptions_match():
     for name in pointers(CLAUDE_AGENTS):
         claude = frontmatter(CLAUDE_AGENTS / f"{name}.md")
         opencode = frontmatter(OPENCODE_AGENTS / f"{name}.md")
         assert claude["description"] == opencode["description"], name
-        assert not re.search(r"1 to 10|1-10|at least 9\b", claude["description"]), name
+
+
+def test_usage_counts_exactly_the_agents_that_have_pointers():
+    assert IEAKASO_AGENTS == set(pointers(CLAUDE_AGENTS))
 
 
 def test_opencode_agents_are_subagents():

@@ -35,25 +35,12 @@ If the argument is a URL, fetch it as job-analyzer does (Step 1 of `ai/skills/ie
 
 1. **Reuse** the newest `output/job-analysis/*.md` whose `**Job ad:**` header URL matches the Job ad's URL.
 2. Pasted ad text counts as analysed only if it was analysed earlier in this Session. Otherwise there is no matching analysis.
-3. If there is none, **run job-analyzer** (`ai/skills/ieakaso/modes/job-analyzer.md`) now, **inside this Run**: no separate Run start and no Run summary, like the setup check's init and cv-parser. Its report is the Job analysis. Do not stop after it, even though job-analyzer normally ends with its own chat summary: show that summary and continue.
+3. If there is none, **run job-analyzer** (`ai/skills/ieakaso/modes/job-analyzer.md`) now, **inside this Run**: no separate Run start and no Run summary, like the setup check's init and cv-parser. Its report is the Job analysis. Do not stop after it, even though job-analyzer normally ends with its own chat summary of the analysis (verdict, score, strengths and weaknesses): show that chat summary, not the Run summary, and continue.
 4. Read the Job analysis's **Verdict**. If it is **Stretch** or **Don't apply**, warn the candidate that the analysis advises against applying, name the deciding gap, and ask whether to continue (a choice question if your tool has one). If they decline, stop. The Run summary still follows (see the end).
 
 ### Step 3: Run the Rounds
 
-One **Round** is a fresh Applicant Agent run (the draft) followed by a fresh Seasoned Recruiter run (the Review). Start every Agent run fresh and pass it everything in its list (see `ai/agents/job-application-assistant.md`).
-
-**The Applicant Agent receives:**
-- the Job ad (the text from Step 1)
-- the Job analysis
-- `input/cv.md`, the four memory files, `input/writing-style.md` and `config.yml` (as paths)
-- the latest draft and the latest Review (from Round 2 on)
-
-**The Seasoned Recruiter receives:**
-- the Job ad (the text from Step 1)
-- the Job analysis
-- `input/cv.md`, the four memory files and `config.yml` (as paths)
-- the current draft
-- all earlier Reviews, in order
+One **Round** is a fresh Applicant Agent run (the draft) followed by a fresh Seasoned Recruiter run (the Review). Start and feed every Agent run as `ai/agents/job-application-assistant.md` says: pass each agent everything its INPUTS lists (`ai/agents/applicant.md`, `ai/agents/recruiter.md`).
 
 After each Round, note the draft, the Review score and the Recruiter's handover decision. Keep every one.
 
@@ -67,13 +54,13 @@ Stop at the **first** of these:
 
 Otherwise the Recruiter hands back to the Applicant and the next Round runs.
 
-If a rewrite scores lower than an earlier draft, the **best-scoring draft** is the result (on a tie, the later one), not the last one. Its Review is the final Review.
+The result is the best draft, per the Job Application Assistant's rules. Its Review is the final Review.
 
 ### Step 5: Write the files
 
 Names follow job-analyzer: `<company>_<position>_<yyyymmdd>`, with `<company>` and `<position>` in lowercase kebab-case and today's date (e.g. `output/cover-letter/acme_senior-backend-engineer_20261010`). Use the company and position of the Job analysis. Create `output/cover-letter/` if it does not exist.
 
-If the files already exist, overwrite both and say so in chat: it is a re-run on the same day, or another ad with the same company and position on the same day.
+If the files already exist, overwrite them as the Job Application Assistant's rules say.
 
 **1. The letter:** `output/cover-letter/<company>_<position>_<yyyymmdd>.md`. The final letter only, as the Applicant returned it, ready to copy: contact block, date, recipient, subject line, body, sign-off. No headings, notes or scores in it.
 
@@ -128,18 +115,17 @@ The mode does not submit the letter and does not start an application.
 
 ### Step 7: Follow-ups, in the same Run
 
-**Answers to Questions for the candidate.** A fact the candidate gives only in chat is **never** used: do not pass it to the Applicant. Ask the candidate to add it to the right file first: the Source CV (then the setup check's cv-parser makes `input/cv.md` current) or the memory file the Recruiter named. When they say it is done, run **one more Round** (a fresh Applicant run with the latest draft and the latest Review, then a fresh Recruiter run), update both files, and report again. A Round after the 5 Rounds is allowed here; it is the candidate's request.
+**Answers to Questions for the candidate.** A fact given only in chat is not used (the Job Application Assistant's rules). Ask the candidate to add it to the right file first: the Source CV or the memory file the Recruiter named. When they say it is done:
 
-**Changes the candidate requests** (a different tone, a shorter body, a different emphasis). Start a fresh Applicant Agent run with the change request and the latest draft, then **one** Seasoned Recruiter Review of the result. No automatic loop afterwards. **The candidate's request wins even if the score drops:** the changed draft becomes the final letter. Update both files, add a Round marked "requested by the candidate" to the review log, and set the exit reason to say it. Report the new Review score and any drop.
+1. If they added it to the Source CV, run the cv-parser mode (`ai/skills/ieakaso/modes/cv-parser.md`) now, inside this Run, so `input/cv.md` is current. If it does not end with exit 0, stop and tell the candidate.
+2. Run **one more Round** (Step 3), update both files, and report again. A Round after the 5 Rounds is allowed here; it is the candidate's request.
+
+**Changes the candidate requests** (a different tone, a shorter body, a different emphasis). Start a fresh Applicant Agent run with everything in its INPUTS, plus the change request and the latest draft, then **one** Seasoned Recruiter Review of the result. No automatic loop afterwards. **The candidate's request wins even if the score drops:** the changed draft becomes the current result and the final letter, and the best-draft rule compares only drafts from that point on. Update both files, add a Round marked "requested by the candidate" to the review log, and set the exit reason to say it. Report the new Review score and any drop.
 
 ---
 
 ## RULES
 
-1. **Act as the Job Application Assistant.** You manage; the agents write and review.
-2. **Fresh Agent runs, all context passed in.** Nothing depends on resuming an agent.
-3. **Facts come from the candidate's files only.** A fact given only in chat is never used.
-4. **Keep the best draft.** The result is the highest-scoring one.
-5. **Never fabricate**; the Applicant refuses any suggestion that would need it.
-6. **Draft only.** Never submit an application, send an email or contact anyone.
-7. **No Run start and no Run summary for the job-analyzer run in Step 2**, and none for the Agent runs.
+1. **Act as the Job Application Assistant** and follow its rules for Agent runs, the best draft, overwriting and facts. You manage; the agents write and review.
+2. **Draft only.** Never submit an application, send an email or contact anyone.
+3. **No Run start and no Run summary for the job-analyzer run in Step 2**, and none for the Agent runs.

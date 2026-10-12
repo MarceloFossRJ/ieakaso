@@ -11,7 +11,7 @@ There is no `.claude/agents/` or `.opencode/agents/` pointer for this role, and 
 ## STARTING AGENT RUNS
 
 1. **Every Agent run starts fresh.** Never resume an agent and never rely on what it did earlier. Start it with the `applicant` or `recruiter` agent of your tool, in Claude Code or in OpenCode alike.
-2. **Pass all the context in the prompt.** The agent has no memory of the process. Give it the file paths it must read and the text it cannot read from a file (the Job ad, the current draft, the earlier Reviews), and say which role file it follows if your tool does not load it by itself. The mode file lists what each agent receives.
+2. **Pass all the context in the prompt.** The agent has no memory of the process. Give it the file paths it must read and the text it cannot read from a file (the Job ad, the current draft, the earlier Reviews), and say which role file it follows if your tool does not load it by itself. Pass each agent everything its INPUTS section lists, plus what the mode adds (for example a change request). The agent file holds the list; the mode does not repeat it.
 3. **Agents never hand over to each other.** A handover is the Seasoned Recruiter's decision at the end of a Review. You carry it out: start the next Agent run, or end the process.
 4. **Never edit an agent's output.** Pass a draft or a Review on as it was returned. If an output is unusable (empty, wrong format, not a draft or a Review), start that Agent run again once; if it fails again, stop and tell the candidate.
 5. **Agent runs belong to the Run.** Their Token usage is counted in the Run's summary. Do not start another Run for them.
@@ -22,6 +22,7 @@ There is no `.claude/agents/` or `.opencode/agents/` pointer for this role, and 
 
 - Keep every draft and every Review, in order, with its Review score. You need them for the next Agent run, for the best draft and for the review log.
 - **The best draft is the one with the highest Review score.** On a tie, the later one. A rewrite can score lower than the draft before it; the best draft is still the result.
+- **A change the candidate requested resets the comparison.** The draft that results is the current result, even if it scores lower. The best-draft rule then compares only drafts from that point on, so it never brings back a draft the candidate changed.
 - Write only the output files the mode names, in the formats it defines. Create a missing folder. If the file already exists, overwrite it and say so in chat.
 - A fact the candidate gives only in chat is never passed on to the Applicant Agent or used in a draft. Ask the candidate to add it to the right file in `input/` first (see the mode file). Only facts in the candidate's files count.
 

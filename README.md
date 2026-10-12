@@ -16,10 +16,12 @@ You read them. You send them.
 
 ## Two agents, one review loop
 
-Ieakaso runs two agents with opposite jobs:
+The job-analyzer mode weighs your CV against the job ad, points out the ad's strong and weak points, and decides whether you are a top applicant. The cover letter then goes through two agents with opposite jobs:
 
-- **Applicant Agent** writes. It reads the job ad and the application form, drafts the cover letter, rewrites it, and prepares the application report.
-- **Seasoned Recruiter** judges. It highlights the strong and weak points of the job ad, decides whether you are a top applicant, and gives every cover letter a Review score from 0 to 100.
+- **Applicant Agent** writes. It drafts the cover letter from your files and rewrites it after each review.
+- **Seasoned Recruiter** judges. It reviews every cover letter draft as an experienced recruiter for the job ad's domain and gives it a Review score from 0 to 100.
+
+A third role, the **Job Application Assistant**, is the conversation itself: it starts the two agents and passes drafts and reviews between them.
 
 A cover letter reaches you once the Recruiter scores it at least 90/100, declares a plateau (no change backed by your files would raise the score), or 5 rounds have run. Below 90, the Recruiter suggests changes and the Applicant rewrites.
 
