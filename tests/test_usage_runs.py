@@ -107,8 +107,98 @@ def test_a_command_that_only_mentions_the_marker_does_not_start_a_run(tmp_path):
     assert runs_of(s) == []
 
 
+def test_a_marker_chained_with_other_commands_starts_a_run(tmp_path):
+    s = FakeSession(tmp_path)
+    s.bash("m1", "cd /repo; uv run python -m ieakaso.usage start cover-letter; cat SKILL.md", inp=1)
+    s.bash("m2", "cd /repo && uv run python -m ieakaso.usage start init && cat db/system_status.json", inp=1)
+    s.bash("m3", "true || python -m ieakaso.usage start cv-parser\nls", inp=1)
+    assert [r.mode for r in runs_of(s)] == ["cover-letter", "init", "cv-parser"]
+
+
+def test_a_quoted_marker_inside_a_chain_does_not_start_a_run(tmp_path):
+    s = FakeSession(tmp_path)
+    s.bash("m1", "echo 'x; uv run python -m ieakaso.usage start init'; ls", inp=1)
+    s.bash("m2", 'git commit -m "fix; uv run python -m ieakaso.usage start init"', inp=1)
+    s.bash("m3", "gh issue create --body \"$(cat <<'EOF'\ncd x; uv run python -m ieakaso.usage start m; cat y\nEOF\n)\"", inp=1)
+    s.bash("m4", "echo 'unbalanced; uv run python -m ieakaso.usage start init", inp=1)
+    assert runs_of(s) == []
+
+
+def test_a_message_counts_the_usage_of_its_last_line(tmp_path):
+    # Claude Code writes a streamed message as several lines; the output count grows and only the last is final.
+    s = FakeSession(tmp_path)
+    s.start("cover-letter", "m1", inp=10, out=1)
+    s.assistant("m2", inp=5, outs=[8, 8, 7641])
+    (run,) = runs_of(s)
+    assert run.usage.out == 1 + 7641
+
+
+def test_an_agent_run_counts_the_usage_of_each_message_last_line(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("cover-letter", "m1", inp=1)
+    s.agent_call("m2", "toolu_A", inp=1)
+    s.subagent("a1", "recruiter", "toolu_A", [])
+    log = s.project / s.session_id / "subagents" / "agent-a1.jsonl"
+    s.assistant("s1", inp=3, outs=[16, 16, 451], path=log)
+    (run,) = runs_of(s)
+    assert run.agent_runs[0].usage.out == 451
+
+
 def test_marker_accepts_uv_options_and_surrounding_whitespace(tmp_path):
     s = FakeSession(tmp_path)
     s.bash("m1", "  uv run --quiet python -m ieakaso.usage start cv-parser\n", inp=1)
     s.bash("m2", "python -m ieakaso.usage start init", inp=1)
     assert [r.mode for r in runs_of(s)] == ["cv-parser", "init"]
+
+
+# Output estimates: a background Agent run's transcript often has no final line for a message, so its
+# output_tokens is a mid-stream snapshot. The output is estimated from its visible characters, calibrated on
+# the messages of the same Session that do have a final line.
+
+
+def test_without_enough_final_messages_the_default_ratio_is_used(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("cover-letter", "m1", inp=1, out=0)
+    s.assistant("m2", inp=1, out=8, blocks=s.text(4000), final=False)  # 4000 chars = 1000 visible tokens
+    (run,) = runs_of(s)
+    u = run.usage
+    assert (u.out, u.out - u.out_low_gap, u.out + u.out_high_gap, u.estimated) == (1800, 1400, 3300, True)
+
+
+def test_the_ratio_is_calibrated_on_final_messages(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("cover-letter", "m0", inp=1, out=0)
+    for i, ratio in enumerate([1.5] + [2.0] * 7 + [3.0] * 2):  # ten final messages of 1000 visible tokens each
+        s.assistant(f"f{i}", inp=1, out=int(1000 * ratio), blocks=s.text(4000))
+    s.assistant("m2", inp=1, out=8, blocks=s.text(8000), final=False)
+    (run,) = runs_of(s)
+    estimated = run.usage.out - 21500  # the final messages: 1500 + 7 * 2000 + 2 * 3000
+    assert estimated == 4000  # 2000 visible tokens * the median 2.0
+    assert (run.usage.out_low_gap, run.usage.out_high_gap) == (4000 - 3000, 6000 - 4000)  # p10 1.5, p90 3.0
+
+
+def test_an_estimate_is_never_below_the_recorded_count(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("cover-letter", "m1", inp=1, out=0)
+    s.assistant("m2", inp=1, out=5000, blocks=s.text(400), final=False)
+    (run,) = runs_of(s)
+    assert (run.usage.out, run.usage.out_low_gap, run.usage.out_high_gap) == (5000, 0, 0)
+
+
+def test_final_messages_are_exact(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("cover-letter", "m1", inp=1, out=7)
+    s.assistant("m2", inp=1, out=900, blocks=s.text(4000))
+    (run,) = runs_of(s)
+    assert (run.usage.out, run.usage.estimated) == (907, False)
+
+
+def test_agent_run_messages_are_estimated_too(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("cover-letter", "m1", inp=1)
+    s.agent_call("m2", "toolu_A", inp=1)
+    s.subagent("a1", "applicant", "toolu_A", [])
+    log = s.project / s.session_id / "subagents" / "agent-a1.jsonl"
+    s.assistant("s1", inp=3, out=26, blocks=[s.tool_use("t1", "SubagentHandback", report="x" * 4000)], final=False, path=log)
+    (run,) = runs_of(s)
+    assert run.agent_runs[0].usage.estimated and run.agent_runs[0].usage.out >= 1400

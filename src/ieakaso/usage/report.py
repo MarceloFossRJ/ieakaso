@@ -4,9 +4,13 @@ from ieakaso.usage.runs import split_runs
 from ieakaso.usage.transcript import Transcript, Usage
 
 # Context window sizes of the models we know; the one place to extend. Unknown models show no size.
-CONTEXT_WINDOWS = {"claude-opus-5-5": 200_000, "claude-sonnet-5-5": 200_000}
+CONTEXT_WINDOWS = {"claude-opus-5-5": 1_000_000, "claude-sonnet-5-5": 1_000_000}
 
 NO_RUN = "Ieakaso usage: no Ieakaso Run in this Session yet."
+ESTIMATE_NOTE = (
+    "~ estimated: the transcript did not record the final output count of some messages; "
+    "the range is the 10th-90th percentile"
+)
 
 
 def fmt_tokens(n: int, *, trim: bool = False) -> str:
@@ -30,10 +34,19 @@ def _percent(part: int, whole: int) -> int:
     return round(part * 100 / whole)
 
 
+def _out(usage: Usage) -> str:
+    if not usage.estimated:
+        return fmt_tokens(usage.out)
+    low, high = usage.out - usage.out_low_gap, usage.out + usage.out_high_gap
+    return f"~{fmt_tokens(usage.out)} ({fmt_tokens(low)}–{fmt_tokens(high)})"
+
+
 def _split(usage: Usage) -> str:
-    return (
-        f"in {fmt_tokens(usage.fresh_input)} · out {fmt_tokens(usage.out)} · cache read {fmt_tokens(usage.cache_read)}"
-    )
+    return f"in {fmt_tokens(usage.fresh_input)} · out {_out(usage)} · cache read {fmt_tokens(usage.cache_read)}"
+
+
+def _new(usage: Usage) -> str:
+    return ("~" if usage.estimated else "") + fmt_compact(usage.new)
 
 
 def _latest_turn(transcript: Transcript):
@@ -61,6 +74,8 @@ def summary(transcript: Transcript) -> str:
         lines.append(f"  Agent run  {agent.agent_type} ({', '.join(agent.models)})   {_split(agent.usage)}")
     total = Usage.total(r.usage for r in runs)
     lines.append(f"Session   {len(runs)} {'Run' if len(runs) == 1 else 'Runs'} · {_split(total)}")
+    if total.estimated:
+        lines.append(ESTIMATE_NOTE)
     return "\n".join(lines)
 
 
@@ -91,6 +106,6 @@ def statusline(transcript: Transcript, host_status: dict) -> str:
     if pct is not None:
         parts.append(f"ctx {pct}%")
     if runs:
-        parts.append(f"run {fmt_compact(runs[-1].usage.new)} new")
-        parts.append(f"session {fmt_compact(Usage.total(r.usage for r in runs).new)} new")
+        parts.append(f"run {_new(runs[-1].usage)} new")
+        parts.append(f"session {_new(Usage.total(r.usage for r in runs))} new")
     return " · ".join(parts)

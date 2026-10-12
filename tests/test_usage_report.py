@@ -40,7 +40,7 @@ def test_summary_numbers_are_the_sums_of_the_deduplicated_turns(tmp_path):
 
 def test_summary_context_is_the_latest_main_chain_message(tmp_path):
     s = session_with_runs(tmp_path)
-    assert summary(load(s.path)).splitlines()[3] == "Context   82k / 200k (41%)"
+    assert summary(load(s.path)).splitlines()[3] == "Context   82k / 1M (8%)"
 
 
 def test_summary_context_without_a_known_window_has_no_size(tmp_path):
@@ -86,7 +86,7 @@ def test_statusline_without_runs(tmp_path):
 
 def test_statusline_context_falls_back_to_the_transcript(tmp_path):
     s = FakeSession(tmp_path)
-    s.assistant("m0", model="claude-opus-5-5", inp=84000)
+    s.assistant("m0", model="claude-opus-5-5", inp=420000)
     assert statusline(load(s.path), {"model": {"id": "claude-opus-5-5"}}) == "opus-5-5 · ctx 42%"
     assert statusline(load(s.path), {}) == "opus-5-5 · ctx 42%"
 
@@ -112,8 +112,8 @@ def test_synthetic_message_does_not_change_context_fill(tmp_path):
     s = FakeSession(tmp_path)
     s.start("init", "m1", inp=84000)
     s.synthetic("m2")
-    assert summary(load(s.path)).splitlines()[3] == "Context   84k / 200k (42%)"
-    assert statusline(load(s.path), {}) == "ieakaso ▸ init · opus-5-5 · ctx 42% · run 84k new · session 84k new"
+    assert summary(load(s.path)).splitlines()[3] == "Context   84k / 1M (8%)"
+    assert statusline(load(s.path), {}) == "ieakaso ▸ init · opus-5-5 · ctx 8% · run 84k new · session 84k new"
 
 
 def test_summary_of_a_run_with_no_usable_message_still_renders(tmp_path):
@@ -123,3 +123,30 @@ def test_summary_of_a_run_with_no_usable_message_still_renders(tmp_path):
     assert out.splitlines()[0].startswith("── Ieakaso · init (so far)")
     assert "Context" not in out
     assert statusline(load(s.path), {}) == "ieakaso ▸ init · run 0 new · session 0 new"
+
+
+def estimated_session(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("cover-letter", "m1", inp=1000, out=0)
+    s.assistant("m2", inp=1000, out=8, blocks=s.text(4000), final=False)  # estimated 1.8k (1.4k-3.3k)
+    return s
+
+
+def test_summary_shows_an_estimated_output_with_its_range_and_a_note(tmp_path):
+    lines = summary(load(estimated_session(tmp_path).path)).splitlines()
+    assert lines[2] == "Tokens    in 2.0k · out ~1.8k (1.4k–3.3k) · cache read 0"
+    assert lines[-1] == (
+        "~ estimated: the transcript did not record the final output count of some messages; "
+        "the range is the 10th-90th percentile"
+    )
+
+
+def test_summary_without_estimates_has_no_note(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("init", "m1", inp=1000, out=10)
+    assert not summary(load(s.path)).splitlines()[-1].startswith("~")
+
+
+def test_statusline_marks_an_estimated_total(tmp_path):
+    out = statusline(load(estimated_session(tmp_path).path), {})
+    assert out.endswith("run ~3.8k new · session ~3.8k new")
