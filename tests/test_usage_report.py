@@ -123,3 +123,30 @@ def test_summary_of_a_run_with_no_usable_message_still_renders(tmp_path):
     assert out.splitlines()[0].startswith("── Ieakaso · init (so far)")
     assert "Context" not in out
     assert statusline(load(s.path), {}) == "ieakaso ▸ init · run 0 new · session 0 new"
+
+
+def estimated_session(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("cover-letter", "m1", inp=1000, out=0)
+    s.assistant("m2", inp=1000, out=8, blocks=s.text(4000), final=False)  # estimated 1.8k (1.4k-3.3k)
+    return s
+
+
+def test_summary_shows_an_estimated_output_with_its_range_and_a_note(tmp_path):
+    lines = summary(load(estimated_session(tmp_path).path)).splitlines()
+    assert lines[2] == "Tokens    in 2.0k · out ~1.8k (1.4k–3.3k) · cache read 0"
+    assert lines[-1] == (
+        "~ estimated: the transcript did not record the final output count of some messages; "
+        "the range is the 10th-90th percentile"
+    )
+
+
+def test_summary_without_estimates_has_no_note(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("init", "m1", inp=1000, out=10)
+    assert not summary(load(s.path)).splitlines()[-1].startswith("~")
+
+
+def test_statusline_marks_an_estimated_total(tmp_path):
+    out = statusline(load(estimated_session(tmp_path).path), {})
+    assert out.endswith("run ~3.8k new · session ~3.8k new")

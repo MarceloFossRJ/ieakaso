@@ -26,17 +26,30 @@ class FakeSession:
         self._write({"type": "attachment", "attachment": {}})
 
     def assistant(
-        self, msg_id, model="claude-opus-5-5", inp=0, cc=0, cr=0, out=0, blocks=None, lines=1, outs=None, path=None
+        self,
+        msg_id,
+        model="claude-opus-5-5",
+        inp=0,
+        cc=0,
+        cr=0,
+        out=0,
+        blocks=None,
+        lines=1,
+        outs=None,
+        final=True,
+        path=None,
     ):
         """One API message, written as `lines` lines that share the id (as Claude Code does).
 
         outs: output_tokens per line, as Claude Code writes them while the message streams; only the last is final.
-        Without it, every line carries `out`.
+        Without it, every line carries `out`. final: the last line has a stop_reason, so its usage is the final one;
+        a background Agent run often leaves only mid-stream lines (final=False).
         """
         blocks = blocks or [{"type": "text", "text": "ok"}]
         outs = outs or [out] * lines
         for i, line_out in enumerate(outs):
             block = blocks[i] if i < len(blocks) else {"type": "text", "text": "more"}
+            stop = "end_turn" if final and i == len(outs) - 1 else None
             usage = {
                 "input_tokens": inp,
                 "cache_creation_input_tokens": cc,
@@ -46,7 +59,13 @@ class FakeSession:
             self._write(
                 {
                     "type": "assistant",
-                    "message": {"id": msg_id, "model": model, "usage": usage, "content": [block]},
+                    "message": {
+                        "id": msg_id,
+                        "model": model,
+                        "usage": usage,
+                        "content": [block],
+                        "stop_reason": stop,
+                    },
                 },
                 path,
             )
@@ -63,6 +82,9 @@ class FakeSession:
 
     def agent_call(self, msg_id, tool_use_id, **kw) -> None:
         self.assistant(msg_id, blocks=[self.tool_use(tool_use_id, "Agent", prompt="p")], **kw)
+
+    def text(self, n_chars) -> list[dict]:
+        return [{"type": "text", "text": "x" * n_chars}]
 
     def synthetic(self, msg_id) -> None:
         """Claude Code writes these (e.g. for an interrupted turn): model <synthetic>, zero usage."""

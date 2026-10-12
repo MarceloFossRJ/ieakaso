@@ -1,11 +1,13 @@
 """Read a Claude Code transcript (JSONL) into deduplicated assistant turns and Agent runs."""
 
 import json
+import math
 import os
 import re
 import shlex
+import statistics
 from collections.abc import Iterable
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 
 # Agent types of the Ieakaso agents, from the files in .claude/agents/; other agent types are not Ieakaso.
@@ -15,15 +17,31 @@ IEAKASO_AGENTS = {"recruiter", "applicant"}
 _MARKER = re.compile(r"(?:uv run (?:--\S+ )*)?python -m ieakaso\.usage start ([\w-]+)")
 _OPERATORS = ";&|\n"
 
+# Output estimates for messages without a final line (see _estimate_outputs).
+CHARS_PER_TOKEN = 4
+DEFAULT_OUTPUT_RATIO = (1.4, 1.8, 3.3)  # p10, median, p90 of true output / visible tokens, 68 real messages
+MIN_CALIBRATION_MESSAGES = 10
+MIN_CALIBRATION_CHARS = 400
+
 
 @dataclass(frozen=True)
 class Usage:
     fresh_input: int = 0  # input_tokens + cache_creation_input_tokens (new input plus cache writes)
-    out: int = 0
+    out: int = 0  # exact, or the estimate when `estimated`
     cache_read: int = 0
+    out_low_gap: int = 0  # an estimated out lies in [out - out_low_gap, out + out_high_gap]
+    out_high_gap: int = 0
+    estimated: bool = False
 
     def __add__(self, other: Usage) -> Usage:
-        return Usage(self.fresh_input + other.fresh_input, self.out + other.out, self.cache_read + other.cache_read)
+        return Usage(
+            self.fresh_input + other.fresh_input,
+            self.out + other.out,
+            self.cache_read + other.cache_read,
+            self.out_low_gap + other.out_low_gap,
+            self.out_high_gap + other.out_high_gap,
+            self.estimated or other.estimated,
+        )
 
     @staticmethod
     def total(usages: Iterable[Usage]) -> Usage:
@@ -47,6 +65,8 @@ class Turn:
     usage: Usage
     start_mode: str | None = None  # set when this message runs the Run start marker
     agent_tool_ids: list[str] = field(default_factory=list)
+    final: bool = False  # its last line has a stop_reason, so its output count is final
+    visible_chars: int = 0  # text and tool input; thinking text is empty in transcripts, so it is not seen
 
     @property
     def counts(self) -> bool:
@@ -115,6 +135,14 @@ def _start_mode(command: str) -> str | None:
     return None
 
 
+def _visible_chars(block: dict) -> int:
+    if block.get("type") == "text":
+        return len(str(block.get("text", "")))
+    if block.get("type") == "tool_use":
+        return len(json.dumps(block.get("input") or {}, ensure_ascii=False))
+    return 0
+
+
 def read_turns(path: Path, *, main_chain: bool = True) -> list[Turn]:
     """Deduplicated assistant messages. Subagent files are all sidechain, so they pass main_chain=False."""
     turns: dict[str, Turn] = {}
@@ -131,9 +159,13 @@ def read_turns(path: Path, *, main_chain: bool = True) -> list[Turn]:
         key = msg.get("id") or f"line-{len(turns)}"
         turn = turns.setdefault(key, Turn(key, msg.get("model") or "", usage))
         turn.usage = usage  # a message streams over several lines; only the last line's usage is final
+        turn.final = bool(msg.get("stop_reason"))
         content = msg.get("content")
         for block in content if isinstance(content, list) else []:
-            if not isinstance(block, dict) or block.get("type") != "tool_use":
+            if not isinstance(block, dict):
+                continue
+            turn.visible_chars += _visible_chars(block)
+            if block.get("type") != "tool_use":
                 continue
             if block.get("name") == "Bash":
                 mode = _start_mode(str((block.get("input") or {}).get("command", "")))
@@ -159,8 +191,42 @@ def read_agent_runs(path: Path) -> list[AgentRun]:
     return runs
 
 
+def _quantile(values: list[float], q: float) -> float:
+    ordered = sorted(values)
+    return ordered[max(0, math.ceil(q * len(ordered)) - 1)]
+
+
+def _estimate_outputs(turns: list[Turn]) -> None:
+    """Estimate the output of messages without a final line, from their visible characters.
+
+    True output is visible characters / CHARS_PER_TOKEN times a ratio (hidden thinking makes it above 1). The ratio
+    is the median over this Session's final messages, and its p10-p90 is the margin; with too few of them, the
+    default measured on real Sessions. An estimate is never below the count the transcript recorded.
+    """
+    ratios = [
+        t.usage.out / (t.visible_chars / CHARS_PER_TOKEN)
+        for t in turns
+        if t.final and t.visible_chars >= MIN_CALIBRATION_CHARS and t.counts
+    ]
+    if len(ratios) >= MIN_CALIBRATION_MESSAGES:
+        low, mid, high = _quantile(ratios, 0.1), statistics.median(ratios), _quantile(ratios, 0.9)
+    else:
+        low, mid, high = DEFAULT_OUTPUT_RATIO
+    for t in turns:
+        if t.final or not t.visible_chars or not t.counts:
+            continue
+        visible = t.visible_chars / CHARS_PER_TOKEN
+        recorded = t.usage.out
+        est, est_low, est_high = (max(recorded, round(visible * r)) for r in (mid, low, high))
+        if est == recorded and est_high == recorded:
+            continue
+        t.usage = replace(t.usage, out=est, out_low_gap=est - est_low, out_high_gap=est_high - est, estimated=True)
+
+
 def load(path: Path) -> Transcript:
-    return Transcript(read_turns(path), read_agent_runs(path))
+    transcript = Transcript(read_turns(path), read_agent_runs(path))
+    _estimate_outputs(transcript.turns + [t for run in transcript.agent_runs for t in run.turns])
+    return transcript
 
 
 def find_transcript(session_id: str, claude_dir: Path | None = None) -> Path | None:
