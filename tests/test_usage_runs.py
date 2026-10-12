@@ -107,6 +107,43 @@ def test_a_command_that_only_mentions_the_marker_does_not_start_a_run(tmp_path):
     assert runs_of(s) == []
 
 
+def test_a_marker_chained_with_other_commands_starts_a_run(tmp_path):
+    s = FakeSession(tmp_path)
+    s.bash("m1", "cd /repo; uv run python -m ieakaso.usage start cover-letter; cat SKILL.md", inp=1)
+    s.bash("m2", "cd /repo && uv run python -m ieakaso.usage start init && cat db/system_status.json", inp=1)
+    s.bash("m3", "true || python -m ieakaso.usage start cv-parser\nls", inp=1)
+    assert [r.mode for r in runs_of(s)] == ["cover-letter", "init", "cv-parser"]
+
+
+def test_a_quoted_marker_inside_a_chain_does_not_start_a_run(tmp_path):
+    s = FakeSession(tmp_path)
+    s.bash("m1", "echo 'x; uv run python -m ieakaso.usage start init'; ls", inp=1)
+    s.bash("m2", 'git commit -m "fix; uv run python -m ieakaso.usage start init"', inp=1)
+    s.bash("m3", "gh issue create --body \"$(cat <<'EOF'\ncd x; uv run python -m ieakaso.usage start m; cat y\nEOF\n)\"", inp=1)
+    s.bash("m4", "echo 'unbalanced; uv run python -m ieakaso.usage start init", inp=1)
+    assert runs_of(s) == []
+
+
+def test_a_message_counts_the_usage_of_its_last_line(tmp_path):
+    # Claude Code writes a streamed message as several lines; the output count grows and only the last is final.
+    s = FakeSession(tmp_path)
+    s.start("cover-letter", "m1", inp=10, out=1)
+    s.assistant("m2", inp=5, outs=[8, 8, 7641])
+    (run,) = runs_of(s)
+    assert run.usage.out == 1 + 7641
+
+
+def test_an_agent_run_counts_the_usage_of_each_message_last_line(tmp_path):
+    s = FakeSession(tmp_path)
+    s.start("cover-letter", "m1", inp=1)
+    s.agent_call("m2", "toolu_A", inp=1)
+    s.subagent("a1", "recruiter", "toolu_A", [])
+    log = s.project / s.session_id / "subagents" / "agent-a1.jsonl"
+    s.assistant("s1", inp=3, outs=[16, 16, 451], path=log)
+    (run,) = runs_of(s)
+    assert run.agent_runs[0].usage.out == 451
+
+
 def test_marker_accepts_uv_options_and_surrounding_whitespace(tmp_path):
     s = FakeSession(tmp_path)
     s.bash("m1", "  uv run --quiet python -m ieakaso.usage start cv-parser\n", inp=1)

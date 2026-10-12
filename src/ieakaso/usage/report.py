@@ -4,7 +4,7 @@ from ieakaso.usage.runs import split_runs
 from ieakaso.usage.transcript import Transcript, Usage
 
 # Context window sizes of the models we know; the one place to extend. Unknown models show no size.
-CONTEXT_WINDOWS = {"claude-opus-5-5": 200_000, "claude-sonnet-5-5": 200_000}
+CONTEXT_WINDOWS = {"claude-opus-5-5": 1_000_000, "claude-sonnet-5-5": 1_000_000}
 
 NO_RUN = "Ieakaso usage: no Ieakaso Run in this Session yet."
 

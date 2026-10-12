@@ -3,14 +3,17 @@
 import json
 import os
 import re
+import shlex
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
 
 # Agent types of the Ieakaso agents, from the files in .claude/agents/; other agent types are not Ieakaso.
 IEAKASO_AGENTS = {"recruiter", "applicant"}
-# The Bash command must itself be the start invocation: a grep or echo that mentions it starts no Run.
+# One simple command of the Bash call must itself be the start invocation: a grep or echo that mentions it
+# starts no Run, but `cd repo; uv run python -m ieakaso.usage start <mode>; cat x` does.
 _MARKER = re.compile(r"(?:uv run (?:--\S+ )*)?python -m ieakaso\.usage start ([\w-]+)")
+_OPERATORS = ";&|\n"
 
 
 @dataclass(frozen=True)
@@ -86,6 +89,32 @@ def _lines(path: Path):
             yield obj
 
 
+def _simple_commands(command: str) -> list[str]:
+    """Split a Bash command on ;, &&, ||, | and newlines outside quotes. Unbalanced quotes give no commands."""
+    lexer = shlex.shlex(command, posix=True, punctuation_chars=_OPERATORS)
+    lexer.whitespace = " \t\r"  # a newline separates commands, so it is an operator, not whitespace
+    lexer.whitespace_split = True
+    commands, words = [], []
+    try:
+        for token in lexer:
+            if token and set(token) <= set(_OPERATORS):
+                commands.append(" ".join(words))
+                words = []
+            else:
+                words.append(token)
+    except ValueError:
+        return []
+    return [c for c in [*commands, " ".join(words)] if c]
+
+
+def _start_mode(command: str) -> str | None:
+    for simple in _simple_commands(command):
+        found = _MARKER.fullmatch(simple)
+        if found:
+            return found.group(1)
+    return None
+
+
 def read_turns(path: Path, *, main_chain: bool = True) -> list[Turn]:
     """Deduplicated assistant messages. Subagent files are all sidechain, so they pass main_chain=False."""
     turns: dict[str, Turn] = {}
@@ -101,14 +130,15 @@ def read_turns(path: Path, *, main_chain: bool = True) -> list[Turn]:
         )
         key = msg.get("id") or f"line-{len(turns)}"
         turn = turns.setdefault(key, Turn(key, msg.get("model") or "", usage))
+        turn.usage = usage  # a message streams over several lines; only the last line's usage is final
         content = msg.get("content")
         for block in content if isinstance(content, list) else []:
             if not isinstance(block, dict) or block.get("type") != "tool_use":
                 continue
             if block.get("name") == "Bash":
-                found = _MARKER.fullmatch(str((block.get("input") or {}).get("command", "")).strip())
-                if found:
-                    turn.start_mode = found.group(1)
+                mode = _start_mode(str((block.get("input") or {}).get("command", "")))
+                if mode:
+                    turn.start_mode = mode
             elif block.get("name") == "Agent" and block.get("id"):
                 turn.agent_tool_ids.append(block["id"])
     return list(turns.values())

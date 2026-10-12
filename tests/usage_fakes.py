@@ -25,17 +25,24 @@ class FakeSession:
         self._write({"type": "system", "content": "x"})
         self._write({"type": "attachment", "attachment": {}})
 
-    def assistant(self, msg_id, model="claude-opus-5-5", inp=0, cc=0, cr=0, out=0, blocks=None, lines=1, path=None):
-        """One API message, written as `lines` lines that share the id and usage (as Claude Code does)."""
+    def assistant(
+        self, msg_id, model="claude-opus-5-5", inp=0, cc=0, cr=0, out=0, blocks=None, lines=1, outs=None, path=None
+    ):
+        """One API message, written as `lines` lines that share the id (as Claude Code does).
+
+        outs: output_tokens per line, as Claude Code writes them while the message streams; only the last is final.
+        Without it, every line carries `out`.
+        """
         blocks = blocks or [{"type": "text", "text": "ok"}]
-        usage = {
-            "input_tokens": inp,
-            "cache_creation_input_tokens": cc,
-            "cache_read_input_tokens": cr,
-            "output_tokens": out,
-        }
-        for i in range(lines):
+        outs = outs or [out] * lines
+        for i, line_out in enumerate(outs):
             block = blocks[i] if i < len(blocks) else {"type": "text", "text": "more"}
+            usage = {
+                "input_tokens": inp,
+                "cache_creation_input_tokens": cc,
+                "cache_read_input_tokens": cr,
+                "output_tokens": line_out,
+            }
             self._write(
                 {
                     "type": "assistant",

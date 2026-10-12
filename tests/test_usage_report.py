@@ -40,7 +40,7 @@ def test_summary_numbers_are_the_sums_of_the_deduplicated_turns(tmp_path):
 
 def test_summary_context_is_the_latest_main_chain_message(tmp_path):
     s = session_with_runs(tmp_path)
-    assert summary(load(s.path)).splitlines()[3] == "Context   82k / 200k (41%)"
+    assert summary(load(s.path)).splitlines()[3] == "Context   82k / 1M (8%)"
 
 
 def test_summary_context_without_a_known_window_has_no_size(tmp_path):
@@ -86,7 +86,7 @@ def test_statusline_without_runs(tmp_path):
 
 def test_statusline_context_falls_back_to_the_transcript(tmp_path):
     s = FakeSession(tmp_path)
-    s.assistant("m0", model="claude-opus-5-5", inp=84000)
+    s.assistant("m0", model="claude-opus-5-5", inp=420000)
     assert statusline(load(s.path), {"model": {"id": "claude-opus-5-5"}}) == "opus-5-5 · ctx 42%"
     assert statusline(load(s.path), {}) == "opus-5-5 · ctx 42%"
 
@@ -112,8 +112,8 @@ def test_synthetic_message_does_not_change_context_fill(tmp_path):
     s = FakeSession(tmp_path)
     s.start("init", "m1", inp=84000)
     s.synthetic("m2")
-    assert summary(load(s.path)).splitlines()[3] == "Context   84k / 200k (42%)"
-    assert statusline(load(s.path), {}) == "ieakaso ▸ init · opus-5-5 · ctx 42% · run 84k new · session 84k new"
+    assert summary(load(s.path)).splitlines()[3] == "Context   84k / 1M (8%)"
+    assert statusline(load(s.path), {}) == "ieakaso ▸ init · opus-5-5 · ctx 8% · run 84k new · session 84k new"
 
 
 def test_summary_of_a_run_with_no_usable_message_still_renders(tmp_path):

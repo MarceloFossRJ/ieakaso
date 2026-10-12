@@ -29,7 +29,7 @@ The very first step of every Run, before the setup check, however the mode was c
 uv run python -m ieakaso.usage start <mode>
 ```
 
-That command is how the Run is counted: it only prints a line, so just continue. Do it once per Run. The setup check's init and cv-parser runs are part of the Run that triggered them and do not start another one.
+That command is how the Run is counted: it only prints a line, so just continue. Run it as a Bash call of its own, exactly as written, with nothing chained before or after it (no `cd …;`, no `&& …`). Do it once per Run. The setup check's init and cv-parser runs are part of the Run that triggered them and do not start another one.
 
 ## Run summary
 

@@ -31,10 +31,10 @@ def test_summary_without_a_session_id_or_transcript_is_a_notice_not_an_error(tmp
 
 def test_statusline_reads_stdin(tmp_path):
     s = FakeSession(tmp_path)
-    s.start("init", "m1", inp=2000)
+    s.start("init", "m1", inp=10000)
     stdin = json.dumps({"transcript_path": str(s.path), "model": {"id": "claude-opus-5-5"}})
     code, out = run(["statusline"], tmp_path, stdin=stdin)
-    assert code == 0 and out == "ieakaso ▸ init · opus-5-5 · ctx 1% · run 2k new · session 2k new\n"
+    assert code == 0 and out == "ieakaso ▸ init · opus-5-5 · ctx 1% · run 10k new · session 10k new\n"
 
 
 def test_statusline_never_crashes(tmp_path):
