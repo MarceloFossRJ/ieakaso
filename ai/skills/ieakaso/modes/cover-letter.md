@@ -24,7 +24,7 @@ Each agent's file lists the candidate's files it reads (`ai/agents/applicant.md`
 2. Otherwise use the most recent Job ad from an earlier Run in this Session (a job-analyzer or cover-letter Run). Say which one you are using.
 3. Otherwise ask the candidate with a choice question (if your tool has one): the most recent files in `output/job-analysis/` (newest first, shown as company and position), or "paste a URL or text". **Never pick a file from disk silently.** If the candidate picks a file, its `**Job ad:**` header gives the URL, and the ad's text is in the report's "Job ad (as analysed)" section. That analysis counts as done for Step 2, even if it was made from pasted text.
 
-If the argument is a URL, fetch it as job-analyzer does (Step 1 of `ai/skills/ieakaso/modes/job-analyzer.md`). If the page needs a login, errors or says the ad is closed, ask the candidate to paste the ad text. Never write a letter from a URL or a job title alone. Keep the ad's text; the Applicant and the Recruiter receive it.
+If the argument is a URL, get the ad as job-analyzer does (Step 1 of `ai/skills/ieakaso/modes/job-analyzer.md`): WebFetch first, then, if that fails and the candidate agrees, the Ieakaso job ad fetcher, otherwise the candidate pastes the ad text. Never fetch with `curl` or `wget`. Never write a letter from a URL or a job title alone. Keep the ad's text; the Applicant and the Recruiter receive it.
 
 ### Step 2: Get the Job analysis
 

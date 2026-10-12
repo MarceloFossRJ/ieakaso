@@ -34,9 +34,28 @@ The memory files (the last four) never raise the score. Use them only to find ex
 
 ### Step 1: Read the Job ad
 
-If the argument is a URL, fetch it with WebFetch. If the page is behind a login (LinkedIn, Xing), errors, or says the ad is closed, tell the candidate and ask them to paste the ad text. Never score from the URL or the job title alone.
+If the argument is pasted text, that is the ad. If it is a URL, get the ad in this order:
 
-Keep the ad text: it goes into the report's last section. Pasted text goes in word for word. Fetched text is what WebFetch returned, which may not be the page word for word, so label it as fetched.
+1. **WebFetch.** Fetch the URL with it. If it returns the ad, use that.
+2. **Ask.** If WebFetch fails or refuses (a login wall, an error, a closed ad, a blocked domain), tell the candidate what happened and ask with a choice question (if your tool has one): **"Fetch it with Ieakaso's job ad fetcher"** or **"Paste the ad text"**. A WebFetch refusal may be deliberate, so never go around it without asking.
+3. **The fetcher.** If the candidate picks it, run it. It is code, not you: same page, same text (see the Job ad fetcher in `AGENTS.md`).
+
+   ```
+   uv run python -m ieakaso.job_ad fetch <url>
+   ```
+
+   | Exit | Meaning | What you do |
+   |---|---|---|
+   | 0 | The ad is on stdout, first line `Source: structured data` or `Source: page text` | Use the ad (without that first line) as the ad text. |
+   | 1 | The fetch failed (network error, timeout, HTTP status of 400 or more) | Show the candidate the message from stderr and ask them to paste the ad text. |
+   | 2 | A login wall, or the ad says it is closed or expired | Show the message and ask them to paste the ad text. |
+   | 3 | The page was fetched but holds no ad content | Show the message and ask them to paste the ad text. |
+
+4. **Never fetch with ad-hoc shell commands** (`curl`, `wget`, a script of your own). The fetcher is the only fallback to WebFetch; if it does not give the ad, the candidate pastes it.
+
+Never score from the URL or the job title alone.
+
+Keep the ad text: it goes into the report's last section, with its source. Pasted text goes in word for word. WebFetch text is what WebFetch returned, which may not be the page word for word. Fetcher text is the ad as the fetcher wrote it; it keeps the words and their order but not the page's layout.
 
 Extract:
 - Title, company, seniority level
@@ -206,7 +225,10 @@ Experience the candidate has that `cv.md` does not show, or shows in different w
 
 ## Job ad (as analysed)
 
-["Pasted by the candidate" or "Fetched from [URL]; may differ from the page word for word"]
+[One of these three lines, as the ad was obtained:
+- `Fetched from [URL] by WebFetch (may not be word for word)`
+- `Fetched from [URL] by the Ieakaso fetcher (structured data | page text)`: name the one the fetcher's first line gave
+- `Pasted by the candidate`]
 
 [The ad text]
 ```
