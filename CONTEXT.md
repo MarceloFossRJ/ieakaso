@@ -41,12 +41,48 @@ The job analysis's advice on whether to apply: Top applicant, Apply, Stretch or 
 _Avoid_: suggestion, recommendation
 
 **Run**:
-One `/ieakaso <mode>` call, including the setup check and any init or cv-parser it triggers. It lasts until the next Run or the end of the Session, so follow-up questions about its result belong to it. Its Token usage includes that of its Agent runs.
+One `/ieakaso <mode>` call, including the setup check and any init, cv-parser or job-analyzer it triggers. It lasts until the next Run or the end of the Session, so follow-up questions about its result belong to it. Its Token usage includes that of its Agent runs.
 _Avoid_: execution, invocation, job
 
 **Agent run**:
 One call to an Ieakaso agent (the Applicant Agent or the Seasoned Recruiter) inside a Run.
 _Avoid_: subagent execution, agent call
+
+### Agents
+
+**Job Application Assistant**:
+The role that manages an application process for the candidate: it runs the steps, starts the Agent runs and passes drafts and reviews between them. It is the conversation itself during a mode, never an Agent run.
+_Avoid_: orchestrator, Cover Letter Manager, application agent
+
+**Applicant Agent**:
+The agent that writes the candidate's application drafts, in the candidate's voice and only from the candidate's files.
+_Avoid_: AI candidate, candidate assistant, writer
+
+**Seasoned Recruiter**:
+The agent that reviews the Applicant Agent's drafts as an experienced recruiter for the Job ad's domain.
+_Avoid_: reviewer, grader, recruiter agent
+
+### Cover letters
+
+**Cover letter**:
+A letter from the candidate to the employer for one Job ad, drafted by the Applicant Agent and refined through Review rounds.
+_Avoid_: motivation letter, application letter
+
+**Review**:
+The Seasoned Recruiter's assessment of one Cover letter draft: a Review score, what to remove, rewrite and improve, and questions for the candidate.
+_Avoid_: feedback, critique, grading
+
+**Review score**:
+The 0-100 score a Review gives a draft. A draft is done at 90 or above.
+_Avoid_: rating, grade, Job analysis score
+
+**Round**:
+One draft by the Applicant Agent followed by one Review of it.
+_Avoid_: iteration, cycle, pass
+
+**Plateau**:
+The Seasoned Recruiter's judgment that no change backed by the candidate's files would raise a draft's Review score.
+_Avoid_: cannot be improved, max quality, dead end
 
 **Session**:
 One coding-assistant session, from its start (or `/clear`) to its end; resuming a session continues it. Ieakaso keeps nothing from a Session once it ends.
