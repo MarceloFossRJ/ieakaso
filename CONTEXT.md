@@ -32,6 +32,10 @@ _Avoid_: CV markdown, transcribed CV, living CV
 The ad for one position, as the candidate supplies it: a URL Ieakaso can read, or the ad's text pasted in.
 _Avoid_: job description, JD, posting
 
+**Job ad fetcher**:
+The code that reads a Job ad from a URL when WebFetch can't, and writes it as text. The candidate chooses it over pasting the ad.
+_Avoid_: scraper, crawler, downloader
+
 **Job analysis**:
 The report the job-analyzer mode writes on how well the Parsed CV fits one Job ad, ending in a Verdict.
 _Avoid_: CV score, fit report
