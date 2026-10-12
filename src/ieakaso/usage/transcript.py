@@ -196,28 +196,39 @@ def _quantile(values: list[float], q: float) -> float:
     return ordered[max(0, math.ceil(q * len(ordered)) - 1)]
 
 
+def is_calibration_turn(turn: Turn) -> bool:
+    """A final message long enough for its true output / visible tokens ratio to mean something."""
+    return turn.final and turn.visible_chars >= MIN_CALIBRATION_CHARS and turn.counts
+
+
+def calibrate(turns: list[Turn]) -> tuple[float, float, float]:
+    """(p10, median, p90) of true output / visible tokens over the final messages; the default with too few."""
+    ratios = [t.usage.out / (t.visible_chars / CHARS_PER_TOKEN) for t in turns if is_calibration_turn(t)]
+    if len(ratios) < MIN_CALIBRATION_MESSAGES:
+        return DEFAULT_OUTPUT_RATIO
+    return _quantile(ratios, 0.1), statistics.median(ratios), _quantile(ratios, 0.9)
+
+
+def estimate_output(visible_chars: int, recorded: int, ratio: tuple[float, float, float]) -> tuple[int, int, int]:
+    """(estimate, low, high) output tokens for a message; never below the recorded count."""
+    visible = visible_chars / CHARS_PER_TOKEN
+    low, mid, high = ratio
+    return tuple(max(recorded, round(visible * r)) for r in (mid, low, high))
+
+
 def _estimate_outputs(turns: list[Turn]) -> None:
     """Estimate the output of messages without a final line, from their visible characters.
 
     True output is visible characters / CHARS_PER_TOKEN times a ratio (hidden thinking makes it above 1). The ratio
     is the median over this Session's final messages, and its p10-p90 is the margin; with too few of them, the
-    default measured on real Sessions. An estimate is never below the count the transcript recorded.
+    default measured on real Sessions. `ieakaso.devtools.estimate_backtest` checks it against known counts.
     """
-    ratios = [
-        t.usage.out / (t.visible_chars / CHARS_PER_TOKEN)
-        for t in turns
-        if t.final and t.visible_chars >= MIN_CALIBRATION_CHARS and t.counts
-    ]
-    if len(ratios) >= MIN_CALIBRATION_MESSAGES:
-        low, mid, high = _quantile(ratios, 0.1), statistics.median(ratios), _quantile(ratios, 0.9)
-    else:
-        low, mid, high = DEFAULT_OUTPUT_RATIO
+    ratio = calibrate(turns)
     for t in turns:
         if t.final or not t.visible_chars or not t.counts:
             continue
-        visible = t.visible_chars / CHARS_PER_TOKEN
         recorded = t.usage.out
-        est, est_low, est_high = (max(recorded, round(visible * r)) for r in (mid, low, high))
+        est, est_low, est_high = estimate_output(t.visible_chars, recorded, ratio)
         if est == recorded and est_high == recorded:
             continue
         t.usage = replace(t.usage, out=est, out_low_gap=est - est_low, out_high_gap=est_high - est, estimated=True)
