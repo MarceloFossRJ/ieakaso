@@ -1,28 +1,11 @@
 """The Job ad fetcher's extraction and HTTP call. Pages are synthetic fixtures; no test touches the network."""
 
-import io
 import urllib.error
-from pathlib import Path
 
 import pytest
+from job_ad_fakes import URL, FakeResponse, Opener, expected, http_error, page, with_ld_json
 
 from ieakaso.job_ad import FetchError, NoAdError, UnreadableError, extract, fetch_page
-
-FIXTURES = Path(__file__).parent / "fixtures" / "job_ads"
-URL = "https://careers.example/jobs/1"
-
-
-def page(name: str) -> str:
-    return (FIXTURES / f"{name}.html").read_text("utf-8")
-
-
-def expected(name: str) -> str:
-    return (FIXTURES / "expected" / f"{name}.md").read_text("utf-8")
-
-
-def with_ld_json(data: str, body: str = "") -> str:
-    return f'<html><head><script type="application/ld+json">{data}</script></head><body>{body}</body></html>'
-
 
 # Extraction paths: the expected Markdown is the spec.
 
@@ -133,44 +116,6 @@ def test_a_job_posting_without_a_title_or_description_has_no_ad_content():
 
 
 # The HTTP call: one GET, injectable opener.
-
-
-class FakeResponse:
-    def __init__(self, body: bytes, url: str = URL, charset: str | None = "utf-8"):
-        self._body = body
-        self._url = url
-        self.headers = type("H", (), {"get_content_charset": lambda self_: charset})()
-
-    def read(self, size: int = -1) -> bytes:
-        return self._body
-
-    def geturl(self) -> str:
-        return self._url
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *exc):
-        return False
-
-
-class Opener:
-    """Records requests and replays results (responses or exceptions) in order."""
-
-    def __init__(self, *results):
-        self.results = list(results)
-        self.requests = []
-
-    def __call__(self, request, timeout=None):
-        self.requests.append((request, timeout))
-        result = self.results.pop(0)
-        if isinstance(result, Exception):
-            raise result
-        return result
-
-
-def http_error(code: int) -> urllib.error.HTTPError:
-    return urllib.error.HTTPError(URL, code, "status", {}, io.BytesIO(b""))  # type: ignore[arg-type]
 
 
 def test_fetch_page_sends_one_get_with_a_browser_user_agent_and_a_timeout():

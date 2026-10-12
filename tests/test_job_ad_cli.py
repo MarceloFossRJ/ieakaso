@@ -1,7 +1,7 @@
 """The job_ad command: the Job ad as Markdown on stdout, exit codes 0-3. The page fetch is injected."""
 
 import pytest
-from test_job_ad import URL, expected, page
+from job_ad_fakes import URL, expected, page
 
 from ieakaso.job_ad import FetchError, Page, cli
 
