@@ -58,7 +58,7 @@ Never score from the URL or the Position alone.
 Keep the ad text: it is saved as the Application's `<id>_job-ad.md` (see OUTPUT). Pasted text goes in word for word. WebFetch text is what WebFetch returned, which may not be the page word for word. Fetcher text is the ad as the fetcher wrote it, with its `Source:` and `Page title:` lines; it keeps the words and their order but not the page's layout.
 
 Extract:
-- Title, company, seniority level
+- Position, company, seniority level
 - Location, work mode (onsite / hybrid / remote), required working language(s)
 - **Must-haves** (required, "you have", "minimum") vs **nice-to-haves** ("plus", "ideally", "bonus")
 - Responsibilities
@@ -67,15 +67,15 @@ Extract:
 
 If the company or the Position is missing or unclear (an agency ad, a pasted fragment), ask the candidate for it, with a choice question if your tool has one, offering `unknown-company` / `unknown-position` as a choice.
 
-Note the ad's strong and weak points from an applicant's view, e.g. clear scope, salary stated, realistic must-haves vs. vague Position, a wish list of must-haves, title and responsibilities that don't match.
+Note the ad's strong and weak points from an applicant's view, e.g. clear scope, salary stated, realistic must-haves vs. vague scope, a wish list of must-haves, title and responsibilities that don't match.
 
 ### Step 1b: Find or make the Application
 
 Every Job analysis belongs to an Application, a folder `output/applications/<application-id>/` (terms in `CONTEXT.md`). Now that you have the company, the Position and the ad text, decide which one. The first rule that fits applies. Never merge into an Application silently.
 
-1. **Exact URL match.** The URL equals the `**Job ad:**` URL or any `**Also at:**` URL in an existing `*_job-ad.md` header. If several Applications match, ask which one (most recently modified folder first). Join that Application and overwrite its Job analysis, and say so in chat. If the stored ad text differs from the one just read, see rule 3.
-2. **Same company and Position, or pasted text.** No URL matches, but an Application with the same company and Position exists, or the ad is pasted text and an Application with the same company exists. Ask with a choice question (if your tool has one): "this is Application X" (one choice for each Application with the same company, shown as company and Position) or "new Application". With none to join, make a new one without asking. If the candidate joins one, keep its `*_job-ad.md` as it is, except that a URL of the new ad is added to its `**Also at:**` field. The Job analysis is overwritten.
-3. **Same URL, changed text.** If the requirements or responsibilities changed (your judgement), say so and ask: update this Application (overwrite the Job ad, analyse again, keep the ID) / new Application (with today's date) / stop. Cosmetic differences, such as "posted 3 days ago", do not count: overwrite the stored ad without asking.
+1. **Exact URL match.** The URL equals the `**Job ad:**` URL or any `**Also at:**` URL in an existing `*_job-ad.md` header. If several Applications match, ask which one (most recently modified folder first). Join that Application and overwrite its Job analysis, and say so in chat. If it matched on the `**Job ad:**` URL and the stored ad text differs from the one just read, see rule 3. A match on an `**Also at:**` URL joins that Application without touching `*_job-ad.md` (it is another site's copy); the Job analysis is overwritten as usual.
+2. **Same company and Position, or pasted text.** No URL matches, but an Application with the same company and Position exists, or the ad is pasted text and an Application with the same company exists. Ask with a choice question (if your tool has one): "this is Application X" (one choice for each Application with the same company, shown as company and Position) or "new Application". With none to join, make a new one without asking. If the candidate joins one, keep its `*_job-ad.md` as it is, except that, if the new ad has a URL, it is added to its `**Also at:**` field. The Job analysis is overwritten.
+3. **Same `**Job ad:**` URL, changed text.** If the requirements or responsibilities changed (your judgement), say so and ask: update this Application (overwrite the Job ad, analyse again, keep the ID) / new Application (with today's date) / stop. Cosmetic differences, such as "posted 3 days ago", do not count: overwrite the stored ad without asking.
 4. **None of these.** Make a new Application.
 
 **ID collision.** Whenever a new Application is about to be made (rule 2's or rule 3's "new Application", or rule 4), check its ID. If that ID already exists, a different Job ad would take it. Warn: "possibly the same job posted on another site", and ask: join that Application / stop / new Application with a word the candidate types, in lowercase kebab-case, added to the ID (e.g. `acme_senior-backend-engineer_2026-10-10_berlin`).
@@ -157,7 +157,7 @@ Pick the 3-5 strongest points of this candidate for this ad, and the 3-5 weakest
 
 Write the report in English, whatever the ad's language; quote requirements in the ad's own wording where useful.
 
-Write two files into the Application's folder `output/applications/<application-id>/` (Step 1b), creating the folder if it does not exist. Every file in it starts with the full Application ID. If a file exists, overwrite it and say so in chat, except `<id>_job-ad.md` when the run joined an Application through rule 2 or used the stored copy (see Step 1 and Step 1b).
+Write two files into the Application's folder `output/applications/<application-id>/` (Step 1b), creating the folder if it does not exist. Every file in it starts with the full Application ID. If a file exists, overwrite it and say so in chat. `<id>_job-ad.md` is the exception: after a join through rule 2 or an `**Also at:**` URL, only its `**Also at:**` field may change (rule 2 adds the new ad's URL, if it has one); when the stored copy is used (Step 1), it is left as it is.
 
 **1. The Job ad:** `<id>_job-ad.md`. A header with the URL (or "pasted text") and the date read, then the ad text exactly as obtained, including the fetcher's `Source:` and `Page title:` lines if it came from the fetcher:
 
