@@ -77,7 +77,7 @@ Then ask whether a job ad is worth applying to. Give its URL, or paste its text:
 /ieakaso job-analyzer <job-url or job-ad text>
 ```
 
-It answers in chat with a verdict, a score out of 100, the reason, and your top three strengths and weaknesses for the role. Everything for one job ad goes into its own folder, `output/applications/<company>_<position>_<yyyy-mm-dd>/` (the date of the first analysis). The full job analysis is saved there as `<id>_job-analysis.md`, with the ad itself as `<id>_job-ad.md`, where `<id>` is the folder name.
+It answers in chat with a verdict, a score out of 100, the reason, and your top three strengths and weaknesses for the Position. Everything for one job ad goes into its own folder, `output/applications/<company>_<position>_<yyyy-mm-dd>/` (the date of the first analysis). The full job analysis is saved there as `<id>_job-analysis.md`, with the ad itself as `<id>_job-ad.md`, where `<id>` is the folder name.
 
 | Score | Verdict | Advice |
 |---|---|---|

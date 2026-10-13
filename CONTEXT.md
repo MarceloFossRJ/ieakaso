@@ -41,7 +41,7 @@ Everything Ieakaso holds for the candidate's pursuit of one Job ad, from its fir
 _Avoid_: job ad folder, candidature, application folder
 
 **Application ID**:
-The name of an Application: its company, its Position and the date of its first Job analysis (e.g. `acme_senior-backend-engineer_2026-10-10`). It never changes once given, whatever day later work on the Application happens.
+The name of an Application: its company, its Position and the date of its first Job analysis (e.g. `acme_senior-backend-engineer_2026-10-10`). It never changes once given, whatever day later work on the Application happens. When two Job ads would get the same Application ID, the candidate adds a word to tell them apart (e.g. `acme_senior-backend-engineer_2026-10-10_berlin`).
 _Avoid_: job ad ID, index, slug
 
 **Job ad fetcher**:

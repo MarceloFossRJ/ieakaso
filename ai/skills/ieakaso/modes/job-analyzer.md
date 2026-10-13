@@ -46,18 +46,16 @@ If the argument is pasted text, that is the ad. If it is a URL, get the ad in th
 
    | Exit | Meaning | What you do |
    |---|---|---|
-   | 0 | The ad is on stdout, first line `Source: structured data`, `Source: structured data + page text` or `Source: page text`, then `Page title: <title>` when the page has one | Use the ad (without that first line) as the ad text. The page title often names the company when the ad doesn't. |
-   | 1 | The fetch failed (network error, timeout, HTTP status of 400 or more) | Show the candidate the message from stderr and ask them to paste the ad text. |
-   | 2 | A login wall, or the ad says it is closed or expired | Show the message and ask them to paste the ad text. |
+   | 0 | The ad is on stdout, first line `Source: structured data`, `Source: structured data + page text` or `Source: page text`, then `Page title: <title>` when the page has one | Analyse the ad without the `Source:` line. The page title often names the company when the ad doesn't. The Application's `*_job-ad.md` stores the fetcher output as is, with `Source:` and `Page title:`. |
+   | 1 | The fetch failed (network error, timeout, HTTP status of 400 or more) | Show the candidate the message from stderr. If the status is 404 or 410, treat the ad as closed (see exit 2). Otherwise ask them to paste the ad text. |
+   | 2 | A login wall, or the ad says it is closed or expired | Show the message. If the ad is closed or expired (or gone, see exit 1) and an Application's `*_job-ad.md` has this URL, offer the stored copy or pasting the ad (a choice question if your tool has one); otherwise ask them to paste the ad text. A login wall is not a closed ad: just ask them to paste the ad text. When the stored copy is used, say it is the stored copy, not the live page, and do not rewrite `*_job-ad.md`: it keeps its original Date read. |
    | 3 | The page was fetched but holds no ad content | Show the message and ask them to paste the ad text. |
 
 4. **Never fetch with ad-hoc shell commands** (`curl`, `wget`, a script of your own). The fetcher is the only fallback to WebFetch; if it does not give the ad, the candidate pastes it.
 
-Never score from the URL or the job title alone.
+Never score from the URL or the Position alone.
 
 Keep the ad text: it is saved as the Application's `<id>_job-ad.md` (see OUTPUT). Pasted text goes in word for word. WebFetch text is what WebFetch returned, which may not be the page word for word. Fetcher text is the ad as the fetcher wrote it, with its `Source:` and `Page title:` lines; it keeps the words and their order but not the page's layout.
-
-**If the ad is closed or gone** (the fetcher exits with 2, or the page is no longer there) and `output/applications/` holds an Application whose `*_job-ad.md` has this URL, offer to analyse that stored copy instead (a choice question if your tool has one), and tell the candidate it is the stored copy, not the live page.
 
 Extract:
 - Title, company, seniority level
@@ -75,11 +73,12 @@ Note the ad's strong and weak points from an applicant's view, e.g. clear scope,
 
 Every Job analysis belongs to an Application, a folder `output/applications/<application-id>/` (terms in `CONTEXT.md`). Now that you have the company, the Position and the ad text, decide which one. The first rule that fits applies. Never merge into an Application silently.
 
-1. **Exact URL match.** The URL equals the one in an existing `*_job-ad.md` header. Join that Application and overwrite its Job analysis, and say so in chat. If the stored ad text differs from the one just read, see rule 4.
-2. **Same company and Position, or pasted text.** No URL matches, but an Application with the same company and Position exists, or the ad is pasted text. Ask with a choice question (if your tool has one): "this is Application X" (one choice for each candidate Application) or "new Application".
-3. **ID collision.** A different Job ad would get an Application ID that already exists. Warn: "possibly the same job posted on another site", and ask: join that Application / stop / new Application with a word the candidate types, added to the ID (e.g. `acme_senior-backend-engineer_2026-10-10_berlin`).
-4. **Same URL, changed text.** If the requirements or responsibilities changed (your judgement), say so and ask: update this Application (overwrite the Job ad, analyse again, keep the ID) / new Application (with today's date) / stop. Cosmetic differences, such as "posted 3 days ago", do not count: overwrite the stored ad without asking.
-5. **None of these.** Make a new Application.
+1. **Exact URL match.** The URL equals the one in an existing `*_job-ad.md` header. If several Applications match, ask which one (most recently modified folder first). Join that Application and overwrite its Job analysis, and say so in chat. If the stored ad text differs from the one just read, see rule 3.
+2. **Same company and Position, or pasted text.** No URL matches, but an Application with the same company and Position exists, or the ad is pasted text and at least one Application exists. Ask with a choice question (if your tool has one): "this is Application X" (one choice for each candidate Application) or "new Application". With no Application to join, make a new one without asking.
+3. **Same URL, changed text.** If the requirements or responsibilities changed (your judgement), say so and ask: update this Application (overwrite the Job ad, analyse again, keep the ID) / new Application (with today's date) / stop. Cosmetic differences, such as "posted 3 days ago", do not count: overwrite the stored ad without asking.
+4. **None of these.** Make a new Application.
+
+**ID collision.** Whenever a new Application is about to be made (rule 2's or rule 3's "new Application", or rule 4), check its ID. If that ID already exists, a different Job ad would take it. Warn: "possibly the same job posted on another site", and ask: join that Application / stop / new Application with a word the candidate types, in lowercase kebab-case, added to the ID (e.g. `acme_senior-backend-engineer_2026-10-10_berlin`).
 
 A new Application's ID is `<company>_<position>_<yyyy-mm-dd>`, with `<company>` and `<position>` in lowercase kebab-case and the date of this first Job analysis (e.g. `acme_senior-backend-engineer_2026-10-10`). An ID never changes once given: a later Job analysis of the same Application keeps it, whatever the day.
 
@@ -150,7 +149,7 @@ Round to a whole number. Show the arithmetic in the scorecard.
 
 ### Step 7: Strengths and weaknesses
 
-Pick the 3-5 strongest points of this candidature for this ad, and the 3-5 weakest. Each is one bullet citing the evidence (requirement, dimension, or risk) and its source file. Weaknesses include 🟡 under-sold requirements: the reader should see that the CV, not the candidate, is what is missing.
+Pick the 3-5 strongest points of this candidate for this ad, and the 3-5 weakest. Each is one bullet citing the evidence (requirement, dimension, or risk) and its source file. Weaknesses include 🟡 under-sold requirements: the reader should see that the CV, not the candidate, is what is missing.
 
 ---
 
@@ -165,7 +164,7 @@ Write two files into the Application's folder `output/applications/<application-
 ```markdown
 # Job ad: [Position] @ [Company]
 
-> **Job ad:** [URL, or "pasted text"] | **Date read:** [yyyy-mm-dd]
+> **Job ad:** [URL, or "pasted text"] | **Date read:** [yyyy-mm-dd] | **Read by:** [WebFetch (may not be word for word) / the Ieakaso fetcher / pasted by the candidate]
 
 [The ad text]
 ```
