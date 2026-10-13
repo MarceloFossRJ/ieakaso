@@ -46,28 +46,41 @@ If the argument is pasted text, that is the ad. If it is a URL, get the ad in th
 
    | Exit | Meaning | What you do |
    |---|---|---|
-   | 0 | The ad is on stdout, first line `Source: structured data`, `Source: structured data + page text` or `Source: page text`, then `Page title: <title>` when the page has one | Use the ad (without that first line) as the ad text. The page title often names the company when the ad doesn't. |
-   | 1 | The fetch failed (network error, timeout, HTTP status of 400 or more) | Show the candidate the message from stderr and ask them to paste the ad text. |
-   | 2 | A login wall, or the ad says it is closed or expired | Show the message and ask them to paste the ad text. |
+   | 0 | The ad is on stdout, first line `Source: structured data`, `Source: structured data + page text` or `Source: page text`, then `Page title: <title>` when the page has one | Analyse the ad without the `Source:` line. The page title often names the company when the ad doesn't. The Application's `*_job-ad.md` stores the fetcher output as is, with `Source:` and `Page title:`. |
+   | 1 | The fetch failed (network error, timeout, HTTP status of 400 or more) | Show the candidate the message from stderr. If the status is 404 or 410, treat the ad as closed (see exit 2). Otherwise ask them to paste the ad text. |
+   | 2 | A login wall, or the ad says it is closed or expired | Show the message. If the ad is closed or expired (or gone, see exit 1) and an Application's `*_job-ad.md` has this URL (as its `**Job ad:**` or an `**Also at:**` URL), offer the stored copy or pasting the ad (a choice question if your tool has one); otherwise ask them to paste the ad text. A login wall is not a closed ad: just ask them to paste the ad text. When the stored copy is used, say it is the stored copy, not the live page, and do not rewrite `*_job-ad.md`: it keeps its original Date read. |
    | 3 | The page was fetched but holds no ad content | Show the message and ask them to paste the ad text. |
 
 4. **Never fetch with ad-hoc shell commands** (`curl`, `wget`, a script of your own). The fetcher is the only fallback to WebFetch; if it does not give the ad, the candidate pastes it.
 
-Never score from the URL or the job title alone.
+Never score from the URL or the Position alone.
 
-Keep the ad text: it goes into the report's last section, with its source. Pasted text goes in word for word. WebFetch text is what WebFetch returned, which may not be the page word for word. Fetcher text is the ad as the fetcher wrote it; it keeps the words and their order but not the page's layout.
+Keep the ad text: it is saved as the Application's `<id>_job-ad.md` (see OUTPUT). Pasted text goes in word for word. WebFetch text is what WebFetch returned, which may not be the page word for word. Fetcher text is the ad as the fetcher wrote it, with its `Source:` and `Page title:` lines; it keeps the words and their order but not the page's layout.
 
 Extract:
-- Title, company, seniority level
+- Position, company, seniority level
 - Location, work mode (onsite / hybrid / remote), required working language(s)
 - **Must-haves** (required, "you have", "minimum") vs **nice-to-haves** ("plus", "ideally", "bonus")
 - Responsibilities
 - Salary range, if stated
 - **Knockouts:** non-negotiable requirements the candidate either meets or does not — work permit, required language level, mandatory degree or certification, location without relocation
 
-If the company or the position name is missing or unclear (an agency ad, a pasted fragment), ask the candidate for it, with a choice question if your tool has one, offering `unknown-company` / `unknown-position` as a choice.
+If the company or the Position is missing or unclear (an agency ad, a pasted fragment), ask the candidate for it, with a choice question if your tool has one, offering `unknown-company` / `unknown-position` as a choice.
 
-Note the ad's strong and weak points from an applicant's view, e.g. clear scope, salary stated, realistic must-haves vs. vague role, a wish list of must-haves, title and responsibilities that don't match.
+Note the ad's strong and weak points from an applicant's view, e.g. clear scope, salary stated, realistic must-haves vs. vague scope, a wish list of must-haves, title and responsibilities that don't match.
+
+### Step 1b: Find or make the Application
+
+Every Job analysis belongs to an Application, a folder `output/applications/<application-id>/` (terms in `CONTEXT.md`). Now that you have the company, the Position and the ad text, decide which one. The first rule that fits applies. Never merge into an Application silently.
+
+1. **Exact URL match.** The URL equals the `**Job ad:**` URL or any `**Also at:**` URL in an existing `*_job-ad.md` header. If several Applications match, ask which one (most recently modified folder first). Join that Application and overwrite its Job analysis, and say so in chat. If it matched on the `**Job ad:**` URL and the stored ad text differs from the one just read, see rule 3. A match on an `**Also at:**` URL joins that Application without touching `*_job-ad.md` (it is another site's copy); the Job analysis is overwritten as usual.
+2. **Same company and Position, or pasted text.** No URL matches, but an Application with the same company and Position exists, or the ad is pasted text and an Application with the same company exists. Ask with a choice question (if your tool has one): "this is Application X" (one choice for each Application with the same company, shown as company and Position) or "new Application". With none to join, make a new one without asking. If the candidate joins one, keep its `*_job-ad.md` as it is, except that, if the new ad has a URL, it is added to its `**Also at:**` field. The Job analysis is overwritten.
+3. **Same `**Job ad:**` URL, changed text.** If the requirements or responsibilities changed (your judgement), say so and ask: update this Application (overwrite the Job ad, analyse again, keep the ID) / new Application (with today's date) / stop. Cosmetic differences, such as "posted 3 days ago", do not count: overwrite the stored ad without asking.
+4. **None of these.** Make a new Application.
+
+**ID collision.** Whenever a new Application is about to be made (rule 2's or rule 3's "new Application", or rule 4), check its ID. If that ID already exists, a different Job ad would take it. Warn: "possibly the same job posted on another site", and ask: join that Application (like a join through rule 2: its `*_job-ad.md` is kept, and if the new ad has a URL, it is added to `**Also at:**`) / stop / new Application with a word the candidate types, in lowercase kebab-case, added to the ID (e.g. `acme_senior-backend-engineer_2026-10-10_berlin`).
+
+A new Application's ID is `<company>_<position>_<yyyy-mm-dd>`, with `<company>` and `<position>` in lowercase kebab-case and the date of this first Job analysis (e.g. `acme_senior-backend-engineer_2026-10-10`). An ID never changes once given: a later Job analysis of the same Application keeps it, whatever the day.
 
 ### Step 2: Build the requirement match matrix
 
@@ -92,11 +105,11 @@ Score from `cv.md` and `config.yml` only.
 | Experience relevance | 25% | Seniority, scope, team size, industry, similar problems solved |
 | Skills & keywords | 20% | Tool, stack, and domain coverage, including whether `cv.md` uses the ad's own wording (what an ATS or a skimming recruiter matches on) |
 | Role & context fit | 10% | Location, work mode, language, level, and the candidate's stated preferences from `config.yml` (target positions, search location) |
-| Trajectory | 10% | Whether this role is a logical next step from the career path in `cv.md` |
+| Trajectory | 10% | Whether this Position is a logical next step from the career path in `cv.md` |
 
 For each dimension give the score, 2-3 evidence bullets with source files, and one risk line (what is uncertain or likely to be questioned).
 
-Use these weights. Change them only when the ad clearly calls for it (e.g. an entry-level role where trajectory matters more), and state the change and reason in the report.
+Use these weights. Change them only when the ad clearly calls for it (e.g. an entry-level Position where trajectory matters more), and state the change and reason in the report.
 
 ### Step 4: Screener risks
 
@@ -106,8 +119,8 @@ List what a recruiter skimming the CV would hesitate on, each with a deduction a
 |---|---|
 | Unexplained gap > 12 months | −3 to −5 |
 | Several tenures < 1 year without explanation (contract, layoff) | −3 to −5 |
-| Over-qualified (level clearly above the role) | −2 to −5 |
-| Under-qualified (level or years clearly below the role) | −3 to −5 |
+| Over-qualified (level clearly above the Position) | −2 to −5 |
+| Under-qualified (level or years clearly below the Position) | −3 to −5 |
 | Ad's core keywords absent from `cv.md` | −1 to −3 |
 
 Total deductions are capped at −15. The mitigation is a CV reformulation or a cover letter line, never a fabricated explanation.
@@ -136,7 +149,7 @@ Round to a whole number. Show the arithmetic in the scorecard.
 
 ### Step 7: Strengths and weaknesses
 
-Pick the 3-5 strongest points of this candidature for this ad, and the 3-5 weakest. Each is one bullet citing the evidence (requirement, dimension, or risk) and its source file. Weaknesses include 🟡 under-sold requirements: the reader should see that the CV, not the candidate, is what is missing.
+Pick the 3-5 strongest points of this candidate for this ad, and the 3-5 weakest. Each is one bullet citing the evidence (requirement, dimension, or risk) and its source file. Weaknesses include 🟡 under-sold requirements: the reader should see that the CV, not the candidate, is what is missing.
 
 ---
 
@@ -144,7 +157,21 @@ Pick the 3-5 strongest points of this candidature for this ad, and the 3-5 weake
 
 Write the report in English, whatever the ad's language; quote requirements in the ad's own wording where useful.
 
-Save it to `output/job-analysis/<company>_<position>_<yyyymmdd>.md`, with `<company>` and `<position>` in lowercase kebab-case and today's date (e.g. `output/job-analysis/acme_senior-backend-engineer_20261010.md`). Create the folder if it does not exist. If a file with that name exists, overwrite it and say so in chat: it is a re-run on the same day, or another ad with the same company and position on the same day.
+Write two files into the Application's folder `output/applications/<application-id>/` (Step 1b), creating the folder if it does not exist. Every file in it starts with the full Application ID. If a file exists, overwrite it and say so in chat. `<id>_job-ad.md` is the exception: after a join through rule 2, an `**Also at:**` URL or the ID collision check, only its `**Also at:**` field may change (rule 2 adds the new ad's URL, if it has one); when the stored copy is used (Step 1), it is left as it is.
+
+**1. The Job ad:** `<id>_job-ad.md`. A header with the URL (or "pasted text") and the date read, then the ad text exactly as obtained, including the fetcher's `Source:` and `Page title:` lines if it came from the fetcher:
+
+```markdown
+# Job ad: [Position] @ [Company]
+
+> **Job ad:** [URL, or "pasted text"] | **Also at:** [other URLs the same Application was joined from, comma-separated; omit the field when none] | **Date read:** [yyyy-mm-dd] | **Read by:** [WebFetch (may not be word for word) / the Ieakaso fetcher / pasted by the candidate]
+
+[The ad text]
+```
+
+When an existing `<id>_job-ad.md` is rewritten, keep its `**Also at:**` URLs.
+
+**2. The Job analysis:** `<id>_job-analysis.md`:
 
 ```markdown
 # Job analysis: [Position] @ [Company]
@@ -222,21 +249,12 @@ Experience the candidate has that `cv.md` does not show, or shows in different w
 
 1. [Apply or not, per the verdict]
 2. [What to prepare: Source CV changes, cover letter focus, application form]
-
-## Job ad (as analysed)
-
-[One of these three lines, as the ad was obtained:
-- `Fetched from [URL] by WebFetch (may not be word for word)`
-- `Fetched from [URL] by the Ieakaso fetcher (structured data | page text | structured data + page text)`: name the one the fetcher's first line gave
-- `Pasted by the candidate`]
-
-[The ad text]
 ```
 
 Then show the candidate, in chat:
 - the verdict and score, with the one-line reason
 - the top 3 strengths and top 3 weaknesses
-- the report's file path
+- the path of the Application's folder, and whether it is new or joined
 
 The mode ends there; it does not start an application.
 

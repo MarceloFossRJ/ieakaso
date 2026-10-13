@@ -29,8 +29,20 @@ _Avoid_: original CV, uploaded CV, main document
 _Avoid_: CV markdown, transcribed CV, living CV
 
 **Job ad**:
-The ad for one position, as the candidate supplies it: a URL Ieakaso can read, or the ad's text pasted in.
+The ad for one Position, as the candidate supplies it: a URL Ieakaso can read, or the ad's text pasted in. When the requirements or responsibilities at the same URL change, the candidate decides whether it is still the same Job ad; the same job posted on another site is a different Job ad unless the candidate says otherwise.
 _Avoid_: job description, JD, posting
+
+**Position**:
+The job a Job ad offers, as named in the ad (e.g. Senior Backend Engineer).
+_Avoid_: role, job title
+
+**Application**:
+Everything Ieakaso holds for the candidate's pursuit of one Job ad, from its first Job analysis on, whether or not the candidate ever applies. A later Job analysis of the same Job ad belongs to the same Application.
+_Avoid_: job ad folder, candidature, application folder
+
+**Application ID**:
+The name of an Application: its company, its Position and the date of its first Job analysis (e.g. `acme_senior-backend-engineer_2026-10-10`). It never changes once given, whatever day later work on the Application happens. When two Job ads would get the same Application ID, the candidate adds a word to tell them apart (e.g. `acme_senior-backend-engineer_2026-10-10_berlin`).
+_Avoid_: job ad ID, index, slug
 
 **Job ad fetcher**:
 The code that reads a Job ad from a URL when WebFetch can't, and writes it as text. The candidate chooses it over pasting the ad.
