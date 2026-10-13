@@ -78,7 +78,7 @@ Every Job analysis belongs to an Application, a folder `output/applications/<app
 3. **Same `**Job ad:**` URL, changed text.** If the requirements or responsibilities changed (your judgement), say so and ask: update this Application (overwrite the Job ad, analyse again, keep the ID) / new Application (with today's date) / stop. Cosmetic differences, such as "posted 3 days ago", do not count: overwrite the stored ad without asking.
 4. **None of these.** Make a new Application.
 
-**ID collision.** Whenever a new Application is about to be made (rule 2's or rule 3's "new Application", or rule 4), check its ID. If that ID already exists, a different Job ad would take it. Warn: "possibly the same job posted on another site", and ask: join that Application / stop / new Application with a word the candidate types, in lowercase kebab-case, added to the ID (e.g. `acme_senior-backend-engineer_2026-10-10_berlin`).
+**ID collision.** Whenever a new Application is about to be made (rule 2's or rule 3's "new Application", or rule 4), check its ID. If that ID already exists, a different Job ad would take it. Warn: "possibly the same job posted on another site", and ask: join that Application (like a join through rule 2: its `*_job-ad.md` is kept, and if the new ad has a URL, it is added to `**Also at:**`) / stop / new Application with a word the candidate types, in lowercase kebab-case, added to the ID (e.g. `acme_senior-backend-engineer_2026-10-10_berlin`).
 
 A new Application's ID is `<company>_<position>_<yyyy-mm-dd>`, with `<company>` and `<position>` in lowercase kebab-case and the date of this first Job analysis (e.g. `acme_senior-backend-engineer_2026-10-10`). An ID never changes once given: a later Job analysis of the same Application keeps it, whatever the day.
 
@@ -157,7 +157,7 @@ Pick the 3-5 strongest points of this candidate for this ad, and the 3-5 weakest
 
 Write the report in English, whatever the ad's language; quote requirements in the ad's own wording where useful.
 
-Write two files into the Application's folder `output/applications/<application-id>/` (Step 1b), creating the folder if it does not exist. Every file in it starts with the full Application ID. If a file exists, overwrite it and say so in chat. `<id>_job-ad.md` is the exception: after a join through rule 2 or an `**Also at:**` URL, only its `**Also at:**` field may change (rule 2 adds the new ad's URL, if it has one); when the stored copy is used (Step 1), it is left as it is.
+Write two files into the Application's folder `output/applications/<application-id>/` (Step 1b), creating the folder if it does not exist. Every file in it starts with the full Application ID. If a file exists, overwrite it and say so in chat. `<id>_job-ad.md` is the exception: after a join through rule 2, an `**Also at:**` URL or the ID collision check, only its `**Also at:**` field may change (rule 2 adds the new ad's URL, if it has one); when the stored copy is used (Step 1), it is left as it is.
 
 **1. The Job ad:** `<id>_job-ad.md`. A header with the URL (or "pasted text") and the date read, then the ad text exactly as obtained, including the fetcher's `Source:` and `Page title:` lines if it came from the fetcher:
 
@@ -168,6 +168,8 @@ Write two files into the Application's folder `output/applications/<application-
 
 [The ad text]
 ```
+
+When an existing `<id>_job-ad.md` is rewritten, keep its `**Also at:**` URLs.
 
 **2. The Job analysis:** `<id>_job-analysis.md`:
 
