@@ -1,6 +1,7 @@
+Page title: Engineering Manager at Tradepoint Amsterdam | Example ATS
+
 # Engineering Manager
 
-Page title: Engineering Manager at Tradepoint Amsterdam | Example ATS
 
 - Full Time
 - Hybrid

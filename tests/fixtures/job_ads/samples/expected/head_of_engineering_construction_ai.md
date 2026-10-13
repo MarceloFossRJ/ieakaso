@@ -1,8 +1,21 @@
-# Head of Engineering
-
 Page title: Head of Engineering @ Beamworks Technology
 
-TL;DR
+# Head of Engineering
+
+Location
+Berlin
+
+Employment Type
+Full time
+
+Location Type
+On-site
+
+Department
+Product & Engineering
+
+
+tl;dr
  - After 12 years in construction tech, Mara &amp; Tobias are building the intelligence layer for the construction industry
  - The largest construction enterprises in Europe — with a combined project volume of over €25bn annually — rely on Beamworks every day to automate workflows and make faster, better decisions
  - We are looking for a Head of Engineering to own technical direction and execution — and build out our team in Berlin.
