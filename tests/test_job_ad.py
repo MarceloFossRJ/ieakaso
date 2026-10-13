@@ -191,7 +191,7 @@ def test_only_http_and_https_addresses_are_fetched():
 
 
 def test_lines_already_in_the_ad_are_not_repeated_in_more_from_the_page():
-    out = extract(page("jsonld_extra"), URL)
+    out = extract(page("jsonld_extra"), URL).split("\n# ", 1)[1]  # the ad, after the Source and Page title lines
 
     assert out.count("Lead a team of eight engineers") == 1
     assert out.count("Engineering Manager, Platform") == 1
@@ -339,3 +339,78 @@ def test_a_page_over_the_size_cap_is_cut_and_marked(monkeypatch: pytest.MonkeyPa
 
 def test_a_page_under_the_size_cap_is_not_marked():
     assert not fetch_page(URL, opener=Opener(FakeResponse(b"<p>hi</p>"))).truncated
+
+
+# The page's <title> follows the Source line: it often names the company when the ad doesn't.
+
+
+def test_the_page_title_is_the_second_line():
+    html = f"<html><head><title>Chef @ Example Bistro</title></head><body><main>{LONG_AD}</main></body></html>"
+
+    assert extract(html, URL).split("\n")[:3] == ["Source: page text", "", "Page title: Chef @ Example Bistro"]
+
+
+def test_the_page_title_is_written_with_structured_data_too():
+    data = '{"@type": "JobPosting", "title": "Chef", "description": "<p>Cook food for guests every day.</p>"}'
+    html = with_ld_json(data).replace("<head>", "<head><title>Chef | Example Bistro Careers</title>")
+
+    assert extract(html, URL).split("\n")[2] == "Page title: Chef | Example Bistro Careers"
+
+
+def test_the_page_title_is_whitespace_normalized():
+    html = f"<html><head><title>\n  Chef\n  - Example   Bistro </title></head><body>{LONG_AD}</body></html>"
+
+    assert "Page title: Chef - Example Bistro\n" in extract(html, URL)
+
+
+def test_no_page_title_line_without_a_title():
+    html = f"<html><head><title>  </title></head><body>{LONG_AD}</body></html>"
+
+    assert "Page title:" not in extract(html, URL)
+
+
+# A page header can hold the ad's title and details; its navigation is still skipped.
+
+
+def test_a_page_header_is_read():
+    html = (
+        f"<body><header><h1>Chef</h1><p>Full time</p></header><p>{'Cook food for guests every day. ' * 20}</p></body>"
+    )
+
+    out = extract(html, URL)
+
+    assert "# Chef" in out
+    assert "Full time" in out
+
+
+def test_navigation_inside_a_header_is_still_skipped():
+    html = f'<body><header><nav><a href="/">Home</a></nav></header>{LONG_AD}</body>'
+
+    assert "Home" not in extract(html, URL)
+
+
+# Inline elements that touch keep their words apart, as a browser shows them laid out.
+
+
+def test_touching_inline_elements_get_a_space_between_their_words():
+    html = f"<body>{LONG_AD}<p><span>Cost Centers</span><span>Technology</span><span>T4B</span></p></body>"
+
+    assert "Cost Centers Technology T4B" in extract(html, URL)
+
+
+def test_text_glued_to_a_tag_stays_glued():
+    html = f'<body>{LONG_AD}<p>See <a href="#">our values</a>. Join <b>us</b>!</p></body>'
+
+    assert "See our values. Join us!" in extract(html, URL)
+
+
+def test_an_element_glued_to_punctuation_stays_glued():
+    html = f"<body>{LONG_AD}<p><b>Salary:</b><span>(EUR)</span></p></body>"
+
+    assert "Salary:(EUR)" in extract(html, URL)
+
+
+def test_only_the_first_title_element_is_the_page_title():
+    html = f"<html><head><title>Chef @ Example Bistro</title></head><body>{LONG_AD}<svg><title>Icon</title></svg></body></html>"
+
+    assert "Page title: Chef @ Example Bistro\n" in extract(html, URL)

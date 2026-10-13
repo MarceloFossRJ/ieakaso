@@ -1,7 +1,7 @@
+Page title: Software Engineering Manager (m/f/d) am Standort Berlin - Northpress Karriere
 
 # Software Engineering Manager (m/f/d)
 
-Page title: Software Engineering Manager (m/f/d) am Standort Berlin - Northpress Karriere
 
 Berlin
 Managers

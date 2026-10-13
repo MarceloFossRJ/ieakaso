@@ -26,7 +26,8 @@ CLOSED = re.compile(
 
 def extract(page_html: str, url: str = "") -> str:
     """The Job ad as Markdown. The first line is `Source: structured data`, `Source: page text` or
-    `Source: structured data + page text` (the JobPosting plus a "More from the page" section).
+    `Source: structured data + page text` (the JobPosting plus a "More from the page" section), then
+    `Page title: <title>` when the page has one (it often names the company when the ad doesn't).
 
     Raises UnreadableError (login wall, closed ad) or NoAdError (no ad content found).
     """
@@ -53,12 +54,20 @@ def extract(page_html: str, url: str = "") -> str:
         if not data.has_description and len(extra) < MIN_TEXT:
             raise NoAdError(_NO_AD)
         if extra:
-            return f"Source: structured data + page text\n\n{data.markdown}\n\n## More from the page\n\n{extra}\n"
-        return f"Source: structured data\n\n{data.markdown}\n"
+            return _ad(
+                "structured data + page text", page.title, f"{data.markdown}\n\n## More from the page\n\n{extra}"
+            )
+        return _ad("structured data", page.title, data.markdown)
 
     if len(text) < MIN_TEXT:
         raise NoAdError(_NO_AD)
-    return f"Source: page text\n\n{text}\n"
+    return _ad("page text", page.title, text)
+
+
+def _ad(source: str, title: str, body: str) -> str:
+    """The fetcher's output: the Source line, the page title if any, then the ad."""
+    title_line = f"Page title: {title}\n\n" if title else ""
+    return f"Source: {source}\n\n{title_line}{body}\n"
 
 
 _NO_AD = (

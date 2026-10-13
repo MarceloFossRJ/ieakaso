@@ -1,6 +1,7 @@
+Page title: Engineering Manager, T4B @ Tripscout
+
 # Engineering Manager, T4B
 
-Page title: Engineering Manager, T4B @ Tripscout
 Location
 Berlin Office
 

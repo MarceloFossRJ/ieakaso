@@ -1,6 +1,7 @@
+Page title: Director of Engineering, Frontend technologies, Marketplace Technologies | Loopmarket Careers
+
 # Director of Engineering, Frontend technologies, Marketplace Technologies
 
-Page title: Director of Engineering, Frontend technologies, Marketplace Technologies | Loopmarket Careers
 Engineering
 Berlin, Germany
 Loopmarket Marketplace

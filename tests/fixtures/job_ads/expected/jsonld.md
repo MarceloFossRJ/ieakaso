@@ -1,5 +1,7 @@
 Source: structured data
 
+Page title: Engineering Manager, Platform | Brightfield Labs Careers
+
 # Engineering Manager, Platform
 
 - **Company:** Brightfield Labs

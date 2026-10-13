@@ -7,7 +7,7 @@ from html.parser import HTMLParser
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 SKIP = {
     "script", "style", "head", "title", "noscript", "template", "svg", "iframe", "button", "select",
-    "nav", "header", "footer", "aside", "form",
+    "nav", "footer", "aside", "form",
 }  # fmt: skip
 BLOCK = {
     "p", "div", "section", "article", "main", "blockquote", "pre", "table", "tr", "dl", "dt", "dd", "figure",
@@ -31,6 +31,7 @@ class MarkdownConverter(HTMLParser):
 
     Headings are at least `min_level` deep (a structured description sits under the ad's own title).
     `notices` holds the text of elements that look like a notice (role alert or status, or a name saying so).
+    `title` is the page's <title>, whitespace-normalized ("" without one).
     """
 
     def __init__(self, min_level: int = 1):
@@ -50,6 +51,14 @@ class MarkdownConverter(HTMLParser):
         self._lists: list[_List] = []
         self._list_lines: list[str] = []
         self._marker: str | None = None
+        self._title: list[str] = []
+        self._titles_seen = 0  # <title> elements opened; only the first is the page's (an <svg> can have its own)
+        self._closed_inline = False  # an inline element just closed, with no text since
+        self._touching = False  # ...and another element opened right after it
+
+    @property
+    def title(self) -> str:
+        return " ".join("".join(self._title).split())
 
     @property
     def readable_blocks(self) -> list[str]:
@@ -66,6 +75,10 @@ class MarkdownConverter(HTMLParser):
             self._stack.append(tag)
             if tag not in PAGE_ROOTS:
                 self._open_special(tag, attributes)
+        if tag == "title":
+            self._titles_seen += 1
+        self._touching = self._touching or self._closed_inline
+        self._closed_inline = False
         if self._skip_from is not None:
             return
         level = _heading_level(tag)
@@ -99,6 +112,8 @@ class MarkdownConverter(HTMLParser):
             return
         if self._skip_from is None:
             self._close(tag)
+        self._closed_inline = tag not in BLOCK and not _heading_level(tag) and tag not in ("li", "ul", "ol")
+        self._touching = False
         while self._stack:
             if self._stack.pop() == tag:
                 break
@@ -109,10 +124,15 @@ class MarkdownConverter(HTMLParser):
             self._notice_from = None
 
     def handle_data(self, data):
+        if self._stack and self._stack[-1] == "title" and self._titles_seen == 1:
+            self._title.append(data)
         if self._notice_from is not None:
             self._notice_text.append(data)
         if self._skip_from is None:
+            if self._touching and data[:1].isalnum() and "".join(self._inline)[-1:].isalnum():
+                self._inline.append(" ")  # </span><span>: separate elements, separate words
             self._inline.append(data)
+        self._closed_inline = self._touching = False
 
     # Output
 

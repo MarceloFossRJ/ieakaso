@@ -1,5 +1,7 @@
 Source: page text
 
+Page title: Data Analyst - Copperline Retail
+
 # Data Analyst
 
 Copperline Retail is looking for a Data Analyst in Harbor Town.

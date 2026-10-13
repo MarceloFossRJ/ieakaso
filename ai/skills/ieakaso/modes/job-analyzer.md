@@ -46,7 +46,7 @@ If the argument is pasted text, that is the ad. If it is a URL, get the ad in th
 
    | Exit | Meaning | What you do |
    |---|---|---|
-   | 0 | The ad is on stdout, first line `Source: structured data`, `Source: structured data + page text` or `Source: page text` | Use the ad (without that first line) as the ad text. |
+   | 0 | The ad is on stdout, first line `Source: structured data`, `Source: structured data + page text` or `Source: page text`, then `Page title: <title>` when the page has one | Use the ad (without that first line) as the ad text. The page title often names the company when the ad doesn't. |
    | 1 | The fetch failed (network error, timeout, HTTP status of 400 or more) | Show the candidate the message from stderr and ask them to paste the ad text. |
    | 2 | A login wall, or the ad says it is closed or expired | Show the message and ask them to paste the ad text. |
    | 3 | The page was fetched but holds no ad content | Show the message and ask them to paste the ad text. |

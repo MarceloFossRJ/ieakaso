@@ -1,6 +1,7 @@
+Page title: Senior Engineering Manager - Advisor Audit - Ledgerly
+
 # Senior Engineering Manager - Advisor Audit
 
-Page title: Senior Engineering Manager - Advisor Audit - Ledgerly
 
 ## Ledgerly is the financial copilot for entrepreneurs and small business owners.
 

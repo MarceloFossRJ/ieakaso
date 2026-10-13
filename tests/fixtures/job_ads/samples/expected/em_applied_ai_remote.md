@@ -1,6 +1,7 @@
+Page title: Engineering Manager | Applied AI @ Lexwell
+
 # Engineering Manager | Applied AI
 
-Page title: Engineering Manager | Applied AI @ Lexwell
 Location
 Germany; Portugal; Romania; Spain; United Kingdom
 

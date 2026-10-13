@@ -1,6 +1,10 @@
+Page title: Head of Engineering (f/m/d) @ Fernleaf
+
 # Head of Engineering (f/m/d)
 
-Page title: Head of Engineering (f/m/d) @ Fernleaf
+
+Location
+Berlin; Munich; Warsaw
 
 Employment Type
 Full time
