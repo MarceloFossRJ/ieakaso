@@ -5,6 +5,7 @@
 
 An expected output is the spec: review each new or changed file against its page before committing it.
 Pages the fetcher refuses (login wall, closed ad, empty shell) have no expected output.
+It never touches the Sample pages in samples/: their expected outputs are written by hand.
 """
 
 import sys
