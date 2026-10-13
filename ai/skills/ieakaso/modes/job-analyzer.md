@@ -55,7 +55,9 @@ If the argument is pasted text, that is the ad. If it is a URL, get the ad in th
 
 Never score from the URL or the job title alone.
 
-Keep the ad text: it goes into the report's last section, with its source. Pasted text goes in word for word. WebFetch text is what WebFetch returned, which may not be the page word for word. Fetcher text is the ad as the fetcher wrote it; it keeps the words and their order but not the page's layout.
+Keep the ad text: it is saved as the Application's `<id>_job-ad.md` (see OUTPUT). Pasted text goes in word for word. WebFetch text is what WebFetch returned, which may not be the page word for word. Fetcher text is the ad as the fetcher wrote it, with its `Source:` and `Page title:` lines; it keeps the words and their order but not the page's layout.
+
+**If the ad is closed or gone** (the fetcher exits with 2, or the page is no longer there) and `output/applications/` holds an Application whose `*_job-ad.md` has this URL, offer to analyse that stored copy instead (a choice question if your tool has one), and tell the candidate it is the stored copy, not the live page.
 
 Extract:
 - Title, company, seniority level
@@ -68,6 +70,18 @@ Extract:
 If the company or the position name is missing or unclear (an agency ad, a pasted fragment), ask the candidate for it, with a choice question if your tool has one, offering `unknown-company` / `unknown-position` as a choice.
 
 Note the ad's strong and weak points from an applicant's view, e.g. clear scope, salary stated, realistic must-haves vs. vague role, a wish list of must-haves, title and responsibilities that don't match.
+
+### Step 1b: Find or make the Application
+
+Every Job analysis belongs to an Application, a folder `output/applications/<application-id>/` (terms in `CONTEXT.md`). Now that you have the company, the Position and the ad text, decide which one. The first rule that fits applies. Never merge into an Application silently.
+
+1. **Exact URL match.** The URL equals the one in an existing `*_job-ad.md` header. Join that Application and overwrite its Job analysis, and say so in chat. If the stored ad text differs from the one just read, see rule 4.
+2. **Same company and Position, or pasted text.** No URL matches, but an Application with the same company and Position exists, or the ad is pasted text. Ask with a choice question (if your tool has one): "this is Application X" (one choice for each candidate Application) or "new Application".
+3. **ID collision.** A different Job ad would get an Application ID that already exists. Warn: "possibly the same job posted on another site", and ask: join that Application / stop / new Application with a word the candidate types, added to the ID (e.g. `acme_senior-backend-engineer_2026-10-10_berlin`).
+4. **Same URL, changed text.** If the requirements or responsibilities changed (your judgement), say so and ask: update this Application (overwrite the Job ad, analyse again, keep the ID) / new Application (with today's date) / stop. Cosmetic differences, such as "posted 3 days ago", do not count: overwrite the stored ad without asking.
+5. **None of these.** Make a new Application.
+
+A new Application's ID is `<company>_<position>_<yyyy-mm-dd>`, with `<company>` and `<position>` in lowercase kebab-case and the date of this first Job analysis (e.g. `acme_senior-backend-engineer_2026-10-10`). An ID never changes once given: a later Job analysis of the same Application keeps it, whatever the day.
 
 ### Step 2: Build the requirement match matrix
 
@@ -144,7 +158,19 @@ Pick the 3-5 strongest points of this candidature for this ad, and the 3-5 weake
 
 Write the report in English, whatever the ad's language; quote requirements in the ad's own wording where useful.
 
-Save it to `output/job-analysis/<company>_<position>_<yyyymmdd>.md`, with `<company>` and `<position>` in lowercase kebab-case and today's date (e.g. `output/job-analysis/acme_senior-backend-engineer_20261010.md`). Create the folder if it does not exist. If a file with that name exists, overwrite it and say so in chat: it is a re-run on the same day, or another ad with the same company and position on the same day.
+Write two files into the Application's folder `output/applications/<application-id>/` (Step 1b), creating the folder if it does not exist. Every file in it starts with the full Application ID. If a file exists, overwrite it and say so in chat.
+
+**1. The Job ad:** `<id>_job-ad.md`. A header with the URL (or "pasted text") and the date read, then the ad text exactly as obtained, including the fetcher's `Source:` and `Page title:` lines if it came from the fetcher:
+
+```markdown
+# Job ad: [Position] @ [Company]
+
+> **Job ad:** [URL, or "pasted text"] | **Date read:** [yyyy-mm-dd]
+
+[The ad text]
+```
+
+**2. The Job analysis:** `<id>_job-analysis.md`:
 
 ```markdown
 # Job analysis: [Position] @ [Company]
@@ -222,21 +248,12 @@ Experience the candidate has that `cv.md` does not show, or shows in different w
 
 1. [Apply or not, per the verdict]
 2. [What to prepare: Source CV changes, cover letter focus, application form]
-
-## Job ad (as analysed)
-
-[One of these three lines, as the ad was obtained:
-- `Fetched from [URL] by WebFetch (may not be word for word)`
-- `Fetched from [URL] by the Ieakaso fetcher (structured data | page text | structured data + page text)`: name the one the fetcher's first line gave
-- `Pasted by the candidate`]
-
-[The ad text]
 ```
 
 Then show the candidate, in chat:
 - the verdict and score, with the one-line reason
 - the top 3 strengths and top 3 weaknesses
-- the report's file path
+- the path of the Application's folder, and whether it is new or joined
 
 The mode ends there; it does not start an application.
 

@@ -77,7 +77,7 @@ Then ask whether a job ad is worth applying to. Give its URL, or paste its text:
 /ieakaso job-analyzer <job-url or job-ad text>
 ```
 
-It answers in chat with a verdict, a score out of 100, the reason, and your top three strengths and weaknesses for the role. The full job analysis is saved as `output/job-analysis/<company>_<position>_<yyyymmdd>.md`.
+It answers in chat with a verdict, a score out of 100, the reason, and your top three strengths and weaknesses for the role. Everything for one job ad goes into its own folder, `output/applications/<company>_<position>_<yyyy-mm-dd>/` (the date of the first analysis). The full job analysis is saved there as `<id>_job-analysis.md`, with the ad itself as `<id>_job-ad.md`, where `<id>` is the folder name.
 
 | Score | Verdict | Advice |
 |---|---|---|
@@ -96,7 +96,7 @@ When the job is worth it, write the cover letter:
 /ieakaso cover-letter [<job-url or job-ad text>]
 ```
 
-Without an argument it uses the last job ad of the session, or asks. It runs the job analysis first if there is none for that ad. Then the Applicant drafts the letter and the Recruiter reviews it, Round after Round, until the score is 90/100, the Recruiter sees no way to raise it from your files, or 5 Rounds have run. The final letter is saved as `output/cover-letter/<company>_<position>_<yyyymmdd>.md` (one A4 page, body of at most 350 words) and every Round's draft and Review as `..._review.md`. Facts you only tell it in chat are never used: add them to your files and it runs another Round.
+Without an argument it uses the last job ad of the session, or asks. It runs the job analysis first if there is none for that ad. Then the Applicant drafts the letter and the Recruiter reviews it, Round after Round, until the score is 90/100, the Recruiter sees no way to raise it from your files, or 5 Rounds have run. The final letter is saved in the same folder as `<id>_cover-letter.md` (one A4 page, body of at most 350 words) and every Round's draft and Review as `<id>_cover-letter-review.md`. Facts you only tell it in chat are never used: add them to your files and it runs another Round.
 
 The first runs are rough. It does not know you yet.
 Talk to it: what you want, what you refuse.

@@ -20,7 +20,7 @@ Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` s
 ## Requirements (source: `docs/flows.excalidraw`)
 
 - **Runtime:** runs locally, driven from a coding-assistant CLI (Claude Code, OpenCode) rather than its own UI.
-- **Storage:** file-based, using Markdown files in a structured folder tree. Application status is the folder an application sits in: `Applied` → `Interviewing` → `Not selected` / `Offer`.
+- **Storage:** file-based, using Markdown files in a structured folder tree. Application status is the folder an application sits in: `Applied` → `Interviewing` → `Not selected` / `Offer`. **Open, to be decided with the applications tracker.** For now each Application's files live in `output/applications/<application-id>/`, a folder that does not move.
 - **Memory:** on first run, the user provides their CV, a professional "about me", key projects, biggest achievements, and a personal SWOT. The agent should compound learnings from each application process back into memory.
 - **Two agents:** an *Applicant Agent* that writes the drafts and a *Seasoned Recruiter* that reviews them. A third role, the *Job Application Assistant*, is the main conversation: it starts the two agents and passes work between them (`docs/adr/0002-job-application-assistant-in-main-conversation.md`). Role files are in `ai/agents/`; the Applicant and the Recruiter have pointers in `.claude/agents/` and `.opencode/agents/` (the same agents and targets in both, checked by `tests/test_agent_pointers_drift.py`), the Assistant never does.
 - **Application flow:**
