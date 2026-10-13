@@ -48,7 +48,7 @@ If the argument is pasted text, that is the ad. If it is a URL, get the ad in th
    |---|---|---|
    | 0 | The ad is on stdout, first line `Source: structured data`, `Source: structured data + page text` or `Source: page text`, then `Page title: <title>` when the page has one | Analyse the ad without the `Source:` line. The page title often names the company when the ad doesn't. The Application's `*_job-ad.md` stores the fetcher output as is, with `Source:` and `Page title:`. |
    | 1 | The fetch failed (network error, timeout, HTTP status of 400 or more) | Show the candidate the message from stderr. If the status is 404 or 410, treat the ad as closed (see exit 2). Otherwise ask them to paste the ad text. |
-   | 2 | A login wall, or the ad says it is closed or expired | Show the message. If the ad is closed or expired (or gone, see exit 1) and an Application's `*_job-ad.md` has this URL, offer the stored copy or pasting the ad (a choice question if your tool has one); otherwise ask them to paste the ad text. A login wall is not a closed ad: just ask them to paste the ad text. When the stored copy is used, say it is the stored copy, not the live page, and do not rewrite `*_job-ad.md`: it keeps its original Date read. |
+   | 2 | A login wall, or the ad says it is closed or expired | Show the message. If the ad is closed or expired (or gone, see exit 1) and an Application's `*_job-ad.md` has this URL (as its `**Job ad:**` or an `**Also at:**` URL), offer the stored copy or pasting the ad (a choice question if your tool has one); otherwise ask them to paste the ad text. A login wall is not a closed ad: just ask them to paste the ad text. When the stored copy is used, say it is the stored copy, not the live page, and do not rewrite `*_job-ad.md`: it keeps its original Date read. |
    | 3 | The page was fetched but holds no ad content | Show the message and ask them to paste the ad text. |
 
 4. **Never fetch with ad-hoc shell commands** (`curl`, `wget`, a script of your own). The fetcher is the only fallback to WebFetch; if it does not give the ad, the candidate pastes it.
@@ -65,16 +65,16 @@ Extract:
 - Salary range, if stated
 - **Knockouts:** non-negotiable requirements the candidate either meets or does not — work permit, required language level, mandatory degree or certification, location without relocation
 
-If the company or the position name is missing or unclear (an agency ad, a pasted fragment), ask the candidate for it, with a choice question if your tool has one, offering `unknown-company` / `unknown-position` as a choice.
+If the company or the Position is missing or unclear (an agency ad, a pasted fragment), ask the candidate for it, with a choice question if your tool has one, offering `unknown-company` / `unknown-position` as a choice.
 
-Note the ad's strong and weak points from an applicant's view, e.g. clear scope, salary stated, realistic must-haves vs. vague role, a wish list of must-haves, title and responsibilities that don't match.
+Note the ad's strong and weak points from an applicant's view, e.g. clear scope, salary stated, realistic must-haves vs. vague Position, a wish list of must-haves, title and responsibilities that don't match.
 
 ### Step 1b: Find or make the Application
 
 Every Job analysis belongs to an Application, a folder `output/applications/<application-id>/` (terms in `CONTEXT.md`). Now that you have the company, the Position and the ad text, decide which one. The first rule that fits applies. Never merge into an Application silently.
 
-1. **Exact URL match.** The URL equals the one in an existing `*_job-ad.md` header. If several Applications match, ask which one (most recently modified folder first). Join that Application and overwrite its Job analysis, and say so in chat. If the stored ad text differs from the one just read, see rule 3.
-2. **Same company and Position, or pasted text.** No URL matches, but an Application with the same company and Position exists, or the ad is pasted text and at least one Application exists. Ask with a choice question (if your tool has one): "this is Application X" (one choice for each candidate Application) or "new Application". With no Application to join, make a new one without asking.
+1. **Exact URL match.** The URL equals the `**Job ad:**` URL or any `**Also at:**` URL in an existing `*_job-ad.md` header. If several Applications match, ask which one (most recently modified folder first). Join that Application and overwrite its Job analysis, and say so in chat. If the stored ad text differs from the one just read, see rule 3.
+2. **Same company and Position, or pasted text.** No URL matches, but an Application with the same company and Position exists, or the ad is pasted text and an Application with the same company exists. Ask with a choice question (if your tool has one): "this is Application X" (one choice for each Application with the same company, shown as company and Position) or "new Application". With none to join, make a new one without asking. If the candidate joins one, keep its `*_job-ad.md` as it is, except that a URL of the new ad is added to its `**Also at:**` field. The Job analysis is overwritten.
 3. **Same URL, changed text.** If the requirements or responsibilities changed (your judgement), say so and ask: update this Application (overwrite the Job ad, analyse again, keep the ID) / new Application (with today's date) / stop. Cosmetic differences, such as "posted 3 days ago", do not count: overwrite the stored ad without asking.
 4. **None of these.** Make a new Application.
 
@@ -105,11 +105,11 @@ Score from `cv.md` and `config.yml` only.
 | Experience relevance | 25% | Seniority, scope, team size, industry, similar problems solved |
 | Skills & keywords | 20% | Tool, stack, and domain coverage, including whether `cv.md` uses the ad's own wording (what an ATS or a skimming recruiter matches on) |
 | Role & context fit | 10% | Location, work mode, language, level, and the candidate's stated preferences from `config.yml` (target positions, search location) |
-| Trajectory | 10% | Whether this role is a logical next step from the career path in `cv.md` |
+| Trajectory | 10% | Whether this Position is a logical next step from the career path in `cv.md` |
 
 For each dimension give the score, 2-3 evidence bullets with source files, and one risk line (what is uncertain or likely to be questioned).
 
-Use these weights. Change them only when the ad clearly calls for it (e.g. an entry-level role where trajectory matters more), and state the change and reason in the report.
+Use these weights. Change them only when the ad clearly calls for it (e.g. an entry-level Position where trajectory matters more), and state the change and reason in the report.
 
 ### Step 4: Screener risks
 
@@ -119,8 +119,8 @@ List what a recruiter skimming the CV would hesitate on, each with a deduction a
 |---|---|
 | Unexplained gap > 12 months | −3 to −5 |
 | Several tenures < 1 year without explanation (contract, layoff) | −3 to −5 |
-| Over-qualified (level clearly above the role) | −2 to −5 |
-| Under-qualified (level or years clearly below the role) | −3 to −5 |
+| Over-qualified (level clearly above the Position) | −2 to −5 |
+| Under-qualified (level or years clearly below the Position) | −3 to −5 |
 | Ad's core keywords absent from `cv.md` | −1 to −3 |
 
 Total deductions are capped at −15. The mitigation is a CV reformulation or a cover letter line, never a fabricated explanation.
@@ -157,14 +157,14 @@ Pick the 3-5 strongest points of this candidate for this ad, and the 3-5 weakest
 
 Write the report in English, whatever the ad's language; quote requirements in the ad's own wording where useful.
 
-Write two files into the Application's folder `output/applications/<application-id>/` (Step 1b), creating the folder if it does not exist. Every file in it starts with the full Application ID. If a file exists, overwrite it and say so in chat.
+Write two files into the Application's folder `output/applications/<application-id>/` (Step 1b), creating the folder if it does not exist. Every file in it starts with the full Application ID. If a file exists, overwrite it and say so in chat, except `<id>_job-ad.md` when the run joined an Application through rule 2 or used the stored copy (see Step 1 and Step 1b).
 
 **1. The Job ad:** `<id>_job-ad.md`. A header with the URL (or "pasted text") and the date read, then the ad text exactly as obtained, including the fetcher's `Source:` and `Page title:` lines if it came from the fetcher:
 
 ```markdown
 # Job ad: [Position] @ [Company]
 
-> **Job ad:** [URL, or "pasted text"] | **Date read:** [yyyy-mm-dd] | **Read by:** [WebFetch (may not be word for word) / the Ieakaso fetcher / pasted by the candidate]
+> **Job ad:** [URL, or "pasted text"] | **Also at:** [other URLs the same Application was joined from, comma-separated; omit the field when none] | **Date read:** [yyyy-mm-dd] | **Read by:** [WebFetch (may not be word for word) / the Ieakaso fetcher / pasted by the candidate]
 
 [The ad text]
 ```
