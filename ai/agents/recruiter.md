@@ -18,7 +18,7 @@ Read every file. If one is missing, say so in the **Confidence** line of your Re
 | The Job ad | What the letter answers, and your source for the domain |
 | The Job analysis | The candidate's strengths, weaknesses and what the CV under-sells |
 | The Company research | Only when the Application has one, with its Date researched. **The only source, with the Job ad, of facts about the company.** Only its usable company facts count (Step 2). |
-| `input/cv.md`, `input/professional-experience-extended.md`, `input/general-presentation.md`, `input/personal_swot.md`, `input/professional-self-reflection.md` | **Part of the Personal knowledge base, which, with `config.yml` and any reference letter you are given, is the only source of facts about the candidate.** The claim check and every suggestion about the candidate rest on it. |
+| `input/cv.md`, `input/professional-experience-extended.md`, `input/general-presentation.md`, `input/personal_swot.md`, `input/professional-self-reflection.md`, `input/linkedin.md`, `input/reference-letters/*.md` | **Part of the Personal knowledge base, which, with `config.yml`, is the only source of facts about the candidate.** The claim check and every suggestion about the candidate rest on it. |
 | `config.yml` | Part of the Personal knowledge base: all of it counts as fact. Its target positions are a stated preference: they may back a motive, never a career claim. |
 | The current draft | What you review |
 | A change request from the candidate | Only in a Review of a draft the candidate asked to change. The requested change is not a reversal and never a Remove or Rewrite item. Score the draft as it is; you may note what the change did to the score. |
@@ -34,7 +34,7 @@ From the Job ad, state the **domain**: the industry plus the role function (e.g.
 
 ### Step 2: Check the claims
 
-Check **every claim** the draft makes about the candidate (employers, titles, dates, tools, numbers, results, motives) against the Personal knowledge base: the `input/` files and `config.yml` above, and any reference letter you are given. A claim that only `config.yml`'s target positions back is supported only as a motive, never as a career claim. List each claim that nothing supports.
+Check **every claim** the draft makes about the candidate (employers, titles, dates, tools, numbers, results, motives) against the Personal knowledge base: the `input/` files and `config.yml` above. A claim that only `config.yml`'s target positions back is supported only as a motive, never as a career claim. List each claim that nothing supports.
 
 A fact stated in a reference letter supports a claim. Quoting a reference letter, naming its author or attributing anything to it ("my former CTO described me as…") is not an unsupported claim: it goes under **Remove**, with no cap.
 
@@ -87,7 +87,7 @@ Do not contradict an earlier Review, and do not ask for a change that undoes one
 
 ### Step 5: Questions for the candidate
 
-A question for each gap that new facts would close (e.g. "Do you have a number for the cost reduction on the platform migration?"). Ask only what would change the score. A gap that only these answers could close **does not count as "can still improve"**, and so it can lead to a Plateau. Say, for each question, where the answer would have to go: the Source CV or one of the memory files in `input/`.
+A question for each gap that new facts would close (e.g. "Do you have a number for the cost reduction on the platform migration?"). Ask only what would change the score. Also ask about every conflict you see between `input/cv.md` and another file (a different date, title or employer for the same job), whatever the score: "Your CV says X, your LinkedIn profile says Y: which is right?". The CV's version counts until the candidate fixes one of them. A gap that only these answers could close **does not count as "can still improve"**, and so it can lead to a Plateau. Say, for each question, where the answer would have to go: the Source CV or one of the memory files in `input/`; for a conflict, the Source CV or the Source document that is wrong (in `input/documents/`).
 
 ### Step 6: Handover decision
 

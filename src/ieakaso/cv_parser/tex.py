@@ -130,22 +130,22 @@ class _Renderer:
             where = f" near line {line}" if line else ""
             raise CvParseError(
                 f"{self.name} could not be read as TeX{where}: {error.msg}. "
-                "Check that it compiles, or export your CV as PDF or DOCX instead."
+                "Check that it compiles, or export it as PDF or DOCX instead."
             ) from None
         body = _find_document(nodes)
         if body is None:
             raise CvParseError(
                 f"{self.name} has no \\begin{{document}} … \\end{{document}} body. "
-                "Use the full TeX file that produces your CV, or export it as PDF or DOCX instead."
+                "Use the full TeX file that produces the document, or export it as PDF or DOCX instead."
             )
         try:
             md = self.blocks(body.nodelist)
         except _Unsupported as error:
             line = self.text.count("\n", 0, error.pos) + 1
             if error.what.lstrip("\\") in INCLUDES:
-                hint = "Put the included file's content into the main file, or export your CV as PDF or DOCX instead."
+                hint = "Put the included file's content into the main file, or export it as PDF or DOCX instead."
             else:
-                hint = "Ieakaso reads only common TeX commands. Export your CV as PDF or DOCX instead."
+                hint = "Ieakaso reads only common TeX commands. Export it as PDF or DOCX instead."
             raise CvParseError(f"{self.name} uses {error.what} on line {line}, which Ieakaso can't read. {hint}") from None
         return md
 

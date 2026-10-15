@@ -48,7 +48,7 @@ def parse(source: Path) -> str:
     if suffix not in READERS:
         raise CvParseError(
             f"{source.name} is not a format Ieakaso can read. "
-            f"Save your CV as one of {', '.join(ACCEPTED)}."
+            f"Save it as one of {', '.join(ACCEPTED)}."
         )
     text = READERS[suffix](source)
     if suffix == COPIED_AS_IS:
@@ -60,4 +60,4 @@ def parse(source: Path) -> str:
 
 
 def _empty(source: Path) -> CvParseError:
-    return CvParseError(f"{source.name} is empty. Add your CV's text to it, or use another file.")
+    return CvParseError(f"{source.name} is empty. Add its text to it, or use another file.")

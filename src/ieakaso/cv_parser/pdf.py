@@ -32,7 +32,7 @@ def read_pdf(source: Path) -> str:
         raise CvParseError(
             f"{source.name} has no text layer: it looks like a scanned image. "
             "Ieakaso does not read text from images. Export a text-based PDF from the program "
-            "you wrote the CV in, or use a DOCX or TXT file instead."
+            "you wrote it in, or use a DOCX or TXT file instead."
         )
     return "\n\n".join(pages)
 

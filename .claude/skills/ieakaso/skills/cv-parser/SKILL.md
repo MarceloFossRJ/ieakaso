@@ -1,6 +1,6 @@
 ---
 name: cv-parser
-description: "Ieakaso cv-parser: Writes `input/cv.md` from the candidate's CV, word for word"
+description: "Ieakaso cv-parser: Writes `input/cv.md` and the other Parsed documents from the candidate's documents, word for word"
 disable-model-invocation: true
 ---
 

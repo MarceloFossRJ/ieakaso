@@ -71,7 +71,7 @@ Init also turns your CV into `input/cv.md`, word for word: nothing reworded, add
 /ieakaso cv-parser
 ```
 
-Edit your CV, not `input/cv.md`: it is regenerated from the CV.
+It does the same for your LinkedIn PDF (`input/linkedin.md`) and each reference letter (`input/reference-letters/`), so Ieakaso can use them when it writes for you. Edit your documents, not these Markdown files: they are regenerated from the documents.
 
 Then ask whether a job ad is worth applying to. Give its URL, or paste its text:
 
