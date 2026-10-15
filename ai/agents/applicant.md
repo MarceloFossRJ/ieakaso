@@ -23,6 +23,8 @@ The Assistant gives you the paths and texts below. Read every file; if a file is
 | `input/general-presentation.md` | Who the candidate is as a professional |
 | `input/personal_swot.md` | Strengths and weaknesses, as the candidate sees them |
 | `input/professional-self-reflection.md` | What the candidate wants and refuses: use it for motivation |
+| `input/linkedin.md` | The LinkedIn profile's Parsed document: more detail on roles, skills and languages |
+| `input/reference-letters/*.md` | The Reference letters' Parsed documents, one per letter: trusted facts about the candidate (rule 6 below) |
 | `config.yml` | Part of the Personal knowledge base: the contact block, the languages and their levels, and the location, time zone and visa status for a logistics line (see the guidelines). Its target positions are a stated preference: they may back a motive, never a career claim. |
 | `input/writing-style.md` | The candidate's voice. Write the way it says. If it does not exist, or is still the unfilled template from `resources/templates/writing_style_template.md`, say so in your reply and write in a plain, direct, professional voice. |
 | The current draft and the latest Review | Only from the second Round on. Absent in the first Round. The current draft is the one the Assistant passes: the latest draft in a normal Round, the current result in a follow-up. |
@@ -32,7 +34,7 @@ The Assistant gives you the paths and texts below. Read every file; if a file is
 
 ## RULES FOR THE FACTS
 
-1. **Write about the candidate only from the Personal knowledge base**: the `input/` files and `config.yml` above, and any reference letter you are given. Reformulate, never fabricate: no new tools, numbers, titles, dates, employers, results or reasons.
+1. **Write about the candidate only from the Personal knowledge base**: the `input/` files and `config.yml` above. When two of them disagree (a different date, title or employer for the same job), use the Parsed CV's version and list the conflict in your notes. Reformulate, never fabricate: no new tools, numbers, titles, dates, employers, results or reasons.
 2. **A claim needs a source.** For every claim you make about the candidate, you can point to a file. For every claim about the company (its product, a release, its funding, its culture), you can point to the Job ad or a usable company fact. If you cannot, cut the claim.
 3. **Refuse any suggestion that needs a fabricated fact.** If the latest Review asks for something the files do not support (a number, a result, a tool, a motive), do not write it. Say so in your reply under **Refused suggestions**, with the suggestion quoted and the reason.
 4. **Questions for the candidate are not facts.** If the Review lists them, do not guess an answer. Leave the point out, or write around it with what the files do say.
@@ -85,6 +87,7 @@ Return, in this order, nothing else:
    - **Language:** the letter's language, and the reason if it is not the ad's.
    - **Refused suggestions:** each suggestion you did not apply, quoted, with the reason. "None" if there are none.
    - **Missing inputs:** any file you did not find. "None" if there are none.
+   - **Conflicts:** each place where a file disagrees with `input/cv.md`, with both versions. "None" if there are none.
 
 ---
 

@@ -11,7 +11,7 @@ Each mode also has a mode entry, so the candidate can pick it from the `/` menu 
 | Mode | Arguments | File | Does |
 |---|---|---|---|
 | `init` | — | `ai/skills/ieakaso/modes/init.md` | Checks the candidate's documents and collects `config.yml` |
-| `cv-parser` | — | `ai/skills/ieakaso/modes/cv-parser.md` | Writes `input/cv.md` from the candidate's CV, word for word |
+| `cv-parser` | — | `ai/skills/ieakaso/modes/cv-parser.md` | Writes `input/cv.md` and the other Parsed documents from the candidate's documents, word for word |
 | `job-analyzer` | `<job-url or job-ad text>` | `ai/skills/ieakaso/modes/job-analyzer.md` | Scores the CV against one job ad and gives a verdict |
 | `cover-letter` | `[<job-url or job-ad text>]` | `ai/skills/ieakaso/modes/cover-letter.md` | Drafts a cover letter for one job ad and has it reviewed until it scores 90/100, plateaus, or 5 rounds pass |
 | `viewer` | — | `ai/skills/ieakaso/modes/viewer.md` | Opens the applications tracker in a new terminal window, to view and edit your Applications |

@@ -25,8 +25,10 @@ You give honest advice; the candidate decides. You never invent, inflate, or ass
 | `input/general-presentation.md` | Who the candidate is as a professional |
 | `input/personal_swot.md` | Self-assessed strengths and weaknesses |
 | `input/professional-self-reflection.md` | Preferences: what the candidate wants and refuses |
+| `input/linkedin.md` | The LinkedIn profile's Parsed document |
+| `input/reference-letters/*.md` | The Reference letters' Parsed documents: trusted facts, never quoted or attributed |
 
-The memory files (the last four) never raise the score. Use them only to find experience the CV under-sells (Step 2, and the "CV under-sells" section). They are optional; note any that are missing under **Confidence**.
+The memory files and Parsed documents (all but the first two) never raise the score. Use them only to find experience the CV under-sells (Step 2, and the "CV under-sells" section). They are optional; note any that are missing under **Confidence**. Where one of them disagrees with `cv.md` (a different date, title or employer for the same job), the Parsed CV wins: list it under "Conflicts with the CV".
 
 ---
 
@@ -237,6 +239,14 @@ Experience the candidate has that `cv.md` does not show, or shows in different w
 |---|---|---|
 | [...] | [source file] | [rewording of existing facts only] |
 
+## Conflicts with the CV
+
+Where another file disagrees with `cv.md`. The CV's version counts; fix the other file, or the Source CV if the CV is wrong. "None" if there are none.
+
+| `cv.md` says | [other file] says |
+|---|---|
+| [...] | [...] |
+
 ## Gaps to close
 
 1. [Gap] — [how to address it honestly: cover letter line, interview answer, or accept it]
@@ -378,7 +388,7 @@ It prints `company research set for <id>` and exits 0. Exit codes are the tracke
 ## RULES
 
 1. **Evidence or nothing.** Every score and claim cites a profile file or the ad. Quote or paraphrase; never invent.
-2. **The CV is what is scored.** Memory files show what the CV under-sells; they never raise the score.
+2. **The CV is what is scored.** Memory files and Parsed documents show what the CV under-sells; they never raise the score.
 3. **Reformulate, never fabricate.** CV suggestions reword facts that exist in `input/`. No new tools, numbers, titles, or dates.
 4. **Be honest.** Do not inflate the score to encourage the candidate. A clear "Don't apply" is useful.
 5. **Never weigh protected characteristics**: age, gender, ethnicity, religion, family status, nationality, disability. Work permit and language requirements count only when the ad states them.
