@@ -43,7 +43,7 @@ def test_cli_dry_run_changes_nothing(repo: Path, backups: Path, capsys):
 
 
 @pytest.mark.parametrize("args", [["restore"], ["list"], ["clean", "20261010-143005"]])
-def test_cli_rejects_the_removed_commands_and_a_backup_name(repo: Path, backups: Path, args: list[str]):
+def test_cli_rejects_unknown_commands_and_a_backup_name(repo: Path, backups: Path, args: list[str]):
     before = snapshot(repo)
 
     with pytest.raises(SystemExit) as exit:

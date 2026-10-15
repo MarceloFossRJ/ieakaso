@@ -1,4 +1,4 @@
-"""Development-only cleaner: returns the repo to a fresh state (no user data), or to the Set-up state (no Applications).
+"""Development-only cleaner: returns the repo to a fresh state (no user data), or the Set-up state (no Applications).
 
 Never exposed to the candidate: not an `ieakaso` command, not a `/ieakaso` mode.
 """
@@ -12,19 +12,35 @@ from datetime import datetime
 from pathlib import Path
 
 from ieakaso.repo import find_root, is_ieakaso_repo
+from ieakaso.tracker.store import DB_PATH
 
 # User data outside input/ and output/. Must stay in sync with .gitignore
 # (tests/test_cleaner_drift.py checks it against the real repo).
-USER_FILES = ("config.yml", "db/system_status.json", "db/ieakaso_db.json")
+USER_FILES = ("config.yml", "db/system_status.json", DB_PATH.as_posix())
 USER_PATTERNS = ("db/.*.tmp",)  # temp files an interrupted atomic write leaves behind
 USER_FOLDERS = ("input", "output")
-# The Applications' share of the user data: what `clean --applications` deletes, leaving the Set-up state.
-APPLICATION_FILES = ("db/ieakaso_db.json",)
-APPLICATION_PATTERNS = ("db/.ieakaso_db.json.*.tmp",)
-APPLICATION_FOLDERS = ("output/applications",)
 KEEP_NAMES = (".gitkeep",)
 KEEP_FILES = ("input/documents/README.md",)
 DEFAULT_BACKUP_DIR = Path.home() / ".ieakaso-backups"
+
+
+@dataclass(frozen=True)
+class Scope:
+    """What a clean deletes: files, glob patterns, and folders whose contents go (placeholders kept)."""
+
+    files: tuple[str, ...]
+    patterns: tuple[str, ...]
+    folders: tuple[str, ...]
+
+
+FRESH = Scope(USER_FILES, USER_PATTERNS, USER_FOLDERS)
+# The Applications' share of the user data; deleting it leaves the Set-up state.
+# The pattern matches the tracker's temp files (tracker/store.py, `save`).
+APPLICATIONS = Scope(
+    (DB_PATH.as_posix(),),
+    (f"{DB_PATH.parent.as_posix()}/.{DB_PATH.name}.*.tmp",),
+    ("output/applications",),
+)
 
 
 @dataclass
@@ -35,11 +51,11 @@ class CleanReport:
 
 
 def user_data(root: Path, applications_only: bool = False) -> list[Path]:
-    """The user data files under root, relative to it, sorted. Only the Applications' files when applications_only."""
-    files, patterns, folders = _scope(applications_only)
-    found = [Path(rel) for rel in files if (root / rel).is_file()]
-    found += [p.relative_to(root) for pattern in patterns for p in root.glob(pattern) if p.is_file()]
-    for folder in folders:
+    """The user data files under root, relative to it, sorted. Only the Applications' when applications_only."""
+    scope = APPLICATIONS if applications_only else FRESH
+    found = [Path(rel) for rel in scope.files if (root / rel).is_file()]
+    found += [p.relative_to(root) for pattern in scope.patterns for p in root.glob(pattern) if p.is_file()]
+    for folder in scope.folders:
         for path in sorted((root / folder).rglob("*")):
             rel = path.relative_to(root)
             if path.is_file() and path.name not in KEEP_NAMES and rel.as_posix() not in KEEP_FILES:
@@ -50,9 +66,13 @@ def user_data(root: Path, applications_only: bool = False) -> list[Path]:
 def clean(
     root: Path, backup_dir: Path | None = None, dry_run: bool = False, applications_only: bool = False
 ) -> CleanReport:
-    """Delete the user data under root (only the Applications' when applications_only), backing it up to backup_dir first when given."""
+    """Delete the user data under root, or only the Applications' when applications_only.
+
+    Backs it up to backup_dir first when given.
+    """
     deleted = user_data(root, applications_only)
-    report = CleanReport(deleted=deleted, removed_dirs=_dirs_left_empty(root, deleted, applications_only))
+    folders = (APPLICATIONS if applications_only else FRESH).folders
+    report = CleanReport(deleted=deleted, removed_dirs=_dirs_left_empty(root, deleted, folders))
     if dry_run:
         return report
     if backup_dir is not None and (deleted or report.removed_dirs):
@@ -65,17 +85,11 @@ def clean(
     return report
 
 
-def _scope(applications_only: bool) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
-    if applications_only:
-        return APPLICATION_FILES, APPLICATION_PATTERNS, APPLICATION_FOLDERS
-    return USER_FILES, USER_PATTERNS, USER_FOLDERS
-
-
-def _dirs_left_empty(root: Path, deleted: list[Path], applications_only: bool = False) -> list[Path]:
-    """Folders under the scope's folders that hold nothing once `deleted` is gone."""
+def _dirs_left_empty(root: Path, deleted: list[Path], folders: tuple[str, ...]) -> list[Path]:
+    """Folders under `folders` that hold nothing once `deleted` is gone."""
     gone = {root / rel for rel in deleted}
     dirs = []
-    for folder in _scope(applications_only)[2]:
+    for folder in folders:
         for path in (root / folder).rglob("*"):
             if path.is_dir() and all(p in gone or p.is_dir() for p in path.rglob("*")):
                 dirs.append(path.relative_to(root))
@@ -110,7 +124,7 @@ def _copy(src_root: Path, dst_root: Path, rel: Path) -> None:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="python -m ieakaso.devtools.cleaner",
-        description="Development only: return the repo to a fresh state. Always backs up first.",
+        description="Development only: return the repo to a fresh state, or the Set-up state. Always backs up first.",
     )
     parser.add_argument("command", choices=["clean"])
     parser.add_argument(
