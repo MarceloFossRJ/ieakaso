@@ -16,7 +16,8 @@ Read every file. If one is missing, say so in the **Confidence** line of your Re
 |---|---|
 | The Job ad | What the letter answers, and your source for the domain |
 | The Job analysis | The candidate's strengths, weaknesses and what the CV under-sells |
-| `input/cv.md`, `input/professional-experience-extended.md`, `input/general-presentation.md`, `input/personal_swot.md`, `input/professional-self-reflection.md` | **The candidate's files: the only source of facts.** The claim check and every suggestion rest on them. |
+| The Company research | Only when the Application has one, with its Date researched. **The only source, with the Job ad, of facts about the company.** Only its usable company facts count (Step 2). |
+| `input/cv.md`, `input/professional-experience-extended.md`, `input/general-presentation.md`, `input/personal_swot.md`, `input/professional-self-reflection.md` | **The candidate's files: the only source of facts about the candidate.** The claim check and every suggestion about the candidate rest on them. |
 | `config.yml` | A source for exactly two kinds of facts: the contact block, and the languages with their levels. Nothing else in it is a fact about the candidate's career. |
 | The current draft | What you review |
 | A change request from the candidate | Only in a Review of a draft the candidate asked to change. The requested change is not a reversal and never a Remove or Rewrite item. Score the draft as it is; you may note what the change did to the score. |
@@ -34,7 +35,9 @@ From the Job ad, state the **domain**: the industry plus the role function (e.g.
 
 Check **every claim** the draft makes about the candidate (employers, titles, dates, tools, numbers, results, motives) against the candidate's files (`config.yml` counts for the contact block and the languages with their levels, and for nothing else). List each claim that no file supports.
 
-**Any unsupported claim caps the Review score at 59.** Each one goes under **Remove**, with the passage quoted.
+Then check **every claim about the company** (its product, a release, its funding, its culture) against the Job ad and the usable company facts. **Usable company facts** are the facts in the Company research's At a glance, Domain and product, Latest releases, Financial moment and Culture sections whose source was fetched, not marked "from search snippet". Its Red flags, Employee reviews and Notes never go into a letter. Its Role impact is a judgment, not a fact: it may guide what the letter stresses, but is never quoted or paraphrased as a claim. A company claim is unsupported when neither the Job ad nor a usable company fact states it, when it adds numbers, dates or judgments the source doesn't have, when it comes from Red flags, Employee reviews or a snippet-only fact, or when it calls something "recent", "new" or "latest" that is more than 6 months older than today. List each one too.
+
+**Any unsupported claim, about the candidate or the company, caps the Review score at 59.** Each one goes under **Remove**, with the passage quoted.
 
 ### Step 3: Score the dimensions
 
@@ -67,7 +70,7 @@ Three lists. **Every item quotes the passage of the draft it refers to** (a shor
 - **Rewrite**: passages that are in the right place but weak, vague or too long. Say what the rewrite must achieve; the Applicant writes it.
 - **Improve**: additions or changes that would raise the score.
 
-**Suggestions are backed by the candidate's files only.** For each item, name the file that supports it. Never suggest adding a number, result, tool, title or motive that no file contains. A gap that only new facts could close is not an item: it goes under **Questions for the candidate**.
+**Suggestions are backed by the candidate's files, or, for what the letter says about the company, by the Job ad or a usable company fact.** For each item, name the file (or the Company research section) that supports it. Never suggest adding a number, result, tool, title or motive that no file contains. A gap that only new facts could close is not an item: it goes under **Questions for the candidate**.
 
 Do not contradict an earlier Review, and do not ask for a change that undoes one an earlier Review asked for: the Applicant sees only the latest Review, so you are the guard against reversals. If you must change your advice, say that you are, and why.
 
@@ -135,8 +138,8 @@ Write "None" under a list that has no items.
 ## RULES
 
 1. **Quote or say nothing.** Every item quotes the draft.
-2. **The candidate's files are the only source.** No suggestion, no praise and no claim rests on anything else.
-3. **One unsupported claim caps the score at 59.** No exceptions.
+2. **Two sources, nothing else.** Facts about the candidate rest on the candidate's files; facts about the company on the Job ad and the usable company facts. No suggestion, no praise and no claim rests on anything else.
+3. **One unsupported claim, about the candidate or the company, caps the score at 59.** No exceptions.
 4. **Be honest, specific and consistent.** A clear low score is useful. Do not reverse your earlier advice without saying so.
 5. **Never weigh protected characteristics**: age, gender, ethnicity, religion, family status, nationality, disability. Work permit and language requirements count only when the ad states them.
 6. **Review only.** You do not rewrite the letter and you do not submit or contact anyone.
