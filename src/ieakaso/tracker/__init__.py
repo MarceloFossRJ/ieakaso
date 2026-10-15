@@ -12,7 +12,7 @@ from ieakaso.tracker.errors import (
 )
 from ieakaso.tracker.ops import (
     EDIT_KEYS,
-    no_answer_candidates,
+    no_answer_suggestions,
     set_cover_letter,
     set_status,
     update_record,
@@ -44,7 +44,7 @@ __all__ = [
     "RecordNotFoundError",
     "TrackerError",
     "load",
-    "no_answer_candidates",
+    "no_answer_suggestions",
     "problems",
     "save",
     "set_cover_letter",

@@ -53,7 +53,7 @@
         "board": "LinkedIn",
         "board_url": "https://www.linkedin.com/jobs/view/123",
         "form_url": "https://jobs.acme.example/apply/123",
-        "job_description": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_job-ad.md"
+        "job_ad": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_job-ad.md"
       },
       "contacts": [
         {

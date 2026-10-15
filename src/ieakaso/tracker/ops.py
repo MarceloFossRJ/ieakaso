@@ -33,7 +33,7 @@ def _get(db: Db, record_id: str) -> dict:
     return record
 
 
-def _replace(db: Db, record: dict, new: dict) -> dict:
+def _replace(record: dict, new: dict) -> dict:
     validate(new)
     record.clear()
     record.update(new)
@@ -75,10 +75,10 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
             "company": incoming["company"],
             "position": incoming["position"],
             "status": "lead",
-            "status_history": [{"status": "lead", "on": analysis.get("on")}],
+            "status_history": [{"status": "lead", "on": today.isoformat()}],
             "stage": 0,
             "stages": [],
-            "created_at": analysis.get("on"),
+            "created_at": today.isoformat(),
             "analysis": analysis,
             "applied_on": None,
             "home_office": incoming["home_office"],
@@ -101,13 +101,15 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
     for key in ("city", "country"):
         if _empty(new["location"].get(key)):
             new["location"][key] = incoming["location"][key]
-    for key in ("board", "board_url", "job_description"):
+    for key in ("board", "board_url", "job_ad"):
         if _empty(new["source"].get(key)) and key in incoming["source"]:
             new["source"][key] = incoming["source"][key]
-    return _replace(db, existing, new), False
+    return _replace(existing, new), False
 
 
 def _change_status(record: dict, status: str, today: date) -> None:
+    if status not in STATUSES:
+        raise InvalidRecordError(f"status must be one of {', '.join(STATUSES)}")
     if status == record["status"]:
         return
     record["status"] = status
@@ -119,18 +121,16 @@ def _change_status(record: dict, status: str, today: date) -> None:
 def set_status(db: Db, record_id: str, status: str, today: date) -> dict:
     """Set the Application status (any to any), appending to `status_history`; `applied` fills an empty `applied_on`."""
     record = _get(db, record_id)
-    if status not in STATUSES:
-        raise InvalidRecordError(f"status must be one of {', '.join(STATUSES)}")
     new = copy.deepcopy(record)
     _change_status(new, status, today)
-    return _replace(db, record, new)
+    return _replace(record, new)
 
 
 def set_cover_letter(db: Db, record_id: str, path: str) -> dict:
     record = _get(db, record_id)
     new = copy.deepcopy(record)
     new["cover_letter"] = path
-    return _replace(db, record, new)
+    return _replace(record, new)
 
 
 def update_record(db: Db, record_id: str, changes: dict, today: date) -> dict:
@@ -150,13 +150,11 @@ def update_record(db: Db, record_id: str, changes: dict, today: date) -> dict:
         else:
             new[key] = copy.deepcopy(value)
     if "status" in changes:
-        if changes["status"] not in STATUSES:
-            raise InvalidRecordError(f"status must be one of {', '.join(STATUSES)}")
         _change_status(new, changes["status"], today)
-    return _replace(db, record, new)
+    return _replace(record, new)
 
 
-def no_answer_candidates(db: Db, today: date) -> list[dict]:
+def no_answer_suggestions(db: Db, today: date) -> list[dict]:
     """Applied records whose application is more than 30 days old: the viewer suggests No answer for them."""
     found = []
     for record in db.records:

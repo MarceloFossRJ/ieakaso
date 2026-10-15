@@ -123,7 +123,7 @@ The status line at the bottom of Claude Code shows the same, live: `opus-5-5 · 
 
 Every application lives on your machine. Its files (the ad, the job analysis, the cover letter) sit in its own folder, `output/applications/<id>/`, and the folder never moves. Where the application stands is not a folder but a field in the tracker, `db/ieakaso_db.json` (the fields are in [`docs/database.md`](docs/database.md)).
 
-The status is one of Lead (analysed, not applied yet), Desisted, Applied, No answer, Interviewing, Offer or Not selected. A new application starts as Lead, and you can change it to any status at any time. Ieakaso suggests No answer for applications sent more than 30 days ago, and only you confirm it.
+The status is one of Lead (analysed, not applied yet), Desisted, Applied, No answer, Interviewing, Offer or Not selected. A new application starts as Lead, and you can change it to any status at any time. Ieakaso suggests No answer for applications you made more than 30 days ago, and only you confirm it.
 
 ## The viewer
 

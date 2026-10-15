@@ -4,6 +4,8 @@ import re
 from datetime import date
 from typing import Any
 
+from ieakaso.tracker.errors import InvalidRecordError
+
 SCHEMA_VERSION = 1
 STATUSES = ("lead", "desisted", "applied", "no_answer", "interviewing", "offer", "not_selected")
 CLOSED_STATUSES = ("desisted", "not_selected")
@@ -31,7 +33,7 @@ RECORD_KEYS = (
     "notes",
 )
 ANALYSIS_KEYS = ("on", "doc", "score", "verdict")
-SOURCE_KEYS = ("board", "board_url", "form_url", "job_description")
+SOURCE_KEYS = ("board", "board_url", "form_url", "job_ad")
 LOCATION_KEYS = ("city", "country")
 SALARY_KEYS = ("period", "min", "max", "currency")
 CONTACT_KEYS = ("contact_type", "name", "linkedin_url", "email")
@@ -95,7 +97,7 @@ def problems(record: Any) -> list[str]:
     get = record.get
 
     if "id" in record and not (isinstance(get("id"), str) and _ID.fullmatch(get("id"))):
-        out.append("id must be lowercase kebab-case text: <company>_<position>_<yyyy-mm-dd>")
+        out.append("id must be lowercase text: <company>_<position>_<yyyy-mm-dd>, each part in kebab-case")
     for key in ("company", "position"):
         if key in record and not _is_text(get(key)):
             out.append(f"{key} must be non-empty text")
@@ -200,8 +202,8 @@ def _source(value: Any, present: bool, out: list[str]) -> None:
     _keys("source", value, SOURCE_KEYS, out)
     for key in ("board", "board_url", "form_url"):
         _optional_text(f"source.{key}", value.get(key), out)
-    if "job_description" in value and not _is_path(value["job_description"]):
-        out.append("source.job_description must be a repo-relative path")
+    if "job_ad" in value and not _is_path(value["job_ad"]):
+        out.append("source.job_ad must be a repo-relative path")
 
 
 def _contacts(value: Any, present: bool, out: list[str]) -> None:
@@ -225,8 +227,6 @@ def _contacts(value: Any, present: bool, out: list[str]) -> None:
 
 def validate(record: Any) -> None:
     """Raise InvalidRecordError naming what is wrong, if anything."""
-    from ieakaso.tracker.errors import InvalidRecordError
-
     found = problems(record)
     if found:
         who = record.get("id") if isinstance(record, dict) else None

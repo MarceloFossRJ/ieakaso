@@ -10,7 +10,7 @@ from ieakaso.tracker import (
     InvalidRecordError,
     RecordNotFoundError,
     load,
-    no_answer_candidates,
+    no_answer_suggestions,
     problems,
     set_cover_letter,
     set_status,
@@ -32,8 +32,9 @@ def test_a_new_application_becomes_a_lead(db_path: Path):
     assert created
     assert db.records == [rec]
     assert rec["status"] == "lead"
-    assert rec["status_history"] == [{"status": "lead", "on": "2026-10-10"}]
-    assert rec["created_at"] == "2026-10-10"
+    assert rec["status_history"] == [{"status": "lead", "on": "2026-10-15"}]
+    assert rec["created_at"] == "2026-10-15"
+    assert rec["analysis"]["on"] == "2026-10-10"
     assert rec["stage"] == 0 and rec["stages"] == []
     assert rec["applied_on"] is None and rec["salary_expectation"] is None and rec["cover_letter"] is None
     assert rec["source"]["form_url"] is None
@@ -48,8 +49,6 @@ def test_the_analysis_date_defaults_to_today(db_path: Path):
     rec, _ = upsert_from_analysis(load(db_path), data, TODAY)
 
     assert rec["analysis"]["on"] == "2026-10-15"
-    assert rec["created_at"] == "2026-10-15"
-    assert rec["status_history"] == [{"status": "lead", "on": "2026-10-15"}]
 
 
 def test_optional_fields_of_the_payload_may_be_left_out(db_path: Path):
@@ -120,7 +119,7 @@ def test_a_rerun_never_overwrites_a_value_already_there(db_path: Path):
         position="Other",
         home_office="fully remote",
         location={"city": "Munich", "country": "DE"},
-        source={"board": "Indeed", "board_url": "https://indeed.example/1", "job_description": "other/ad.md"},
+        source={"board": "Indeed", "board_url": "https://indeed.example/1", "job_ad": "other/ad.md"},
     )
 
     rec, _ = upsert_from_analysis(db, again, TODAY)
@@ -130,7 +129,7 @@ def test_a_rerun_never_overwrites_a_value_already_there(db_path: Path):
     assert rec["location"] == {"city": "Berlin", "country": "DE"}
     assert rec["source"]["board"] == "LinkedIn"
     assert rec["source"]["board_url"] == "https://www.linkedin.com/jobs/view/123"
-    assert rec["source"]["job_description"] == f"{FOLDER}/{ID}_job-ad.md"
+    assert rec["source"]["job_ad"] == f"{FOLDER}/{ID}_job-ad.md"
 
 
 def test_a_rerun_fills_fields_still_empty(db_path: Path):
@@ -270,7 +269,7 @@ def test_update_record_edits_the_editable_source_fields_only(db_path: Path):
     assert rec["source"]["form_url"] == "https://x.example/apply"
     assert rec["source"]["board"] == "LinkedIn"
     with pytest.raises(InvalidRecordError):
-        update_record(load(db_path), ID, {"source": {"job_description": "other.md"}}, TODAY)
+        update_record(load(db_path), ID, {"source": {"job_ad": "other.md"}}, TODAY)
 
 
 @pytest.mark.parametrize(
@@ -325,7 +324,7 @@ def test_update_record_applied_on_given_with_applied_wins_over_today(db_path: Pa
 # No answer suggestions
 
 
-def test_no_answer_candidates_are_applied_records_more_than_30_days_old(db_path: Path):
+def test_no_answer_suggestions_are_applied_records_more_than_30_days_old(db_path: Path):
     write_db(
         db_path,
         record(id="old", applied_on="2026-09-14"),  # 31 days
@@ -336,6 +335,6 @@ def test_no_answer_candidates_are_applied_records_more_than_30_days_old(db_path:
         record(id="no-date", applied_on=None),
     )
 
-    found = no_answer_candidates(load(db_path), TODAY)
+    found = no_answer_suggestions(load(db_path), TODAY)
 
     assert [r["id"] for r in found] == ["old"]

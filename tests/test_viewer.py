@@ -342,7 +342,7 @@ async def test_read_only_fields_have_no_inputs(root: Path):
     async with make_app(root).run_test(size=SIZE) as pilot:
         await open_detail(pilot)
         input_ids = {w.id for w in pilot.app.screen.query(Input)}
-        assert not input_ids & {"id", "created_at", "analysis", "status_history", "job_description", "cover_letter"}
+        assert not input_ids & {"id", "created_at", "analysis", "status_history", "job_ad", "cover_letter"}
         text = " ".join(str(w.render()) for w in pilot.app.screen.query(Static))
         assert ID in text and "2026-10-10" in text and "Apply, 84/100" in text
 
@@ -372,6 +372,7 @@ async def test_an_edit_after_the_watcher_reloaded_keeps_the_other_changes(root: 
         write_db(db_file(root), record(notes="written elsewhere"))
         await pilot.pause(0.3)
         assert pilot.app.screen.query_one("#notes", Input).value == "written elsewhere"
+        assert any("changed in another window" in n.message for n in pilot.app._notifications)
         await type_into(pilot, "company", "Mine")
         assert stored(root)[0]["company"] == "Mine"
         assert stored(root)[0]["notes"] == "written elsewhere"
@@ -444,7 +445,7 @@ async def test_no_dialog_without_candidates(root: Path):
 def with_files(root: Path, *rec: dict) -> None:
     write_db(db_file(root), *rec)
     for item in rec:
-        for rel in (item["source"]["job_description"], item["analysis"]["doc"], item["cover_letter"]):
+        for rel in (item["source"]["job_ad"], item["analysis"]["doc"], item["cover_letter"]):
             if rel:
                 (root / rel).parent.mkdir(parents=True, exist_ok=True)
                 (root / rel).write_text("x")

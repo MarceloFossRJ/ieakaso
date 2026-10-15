@@ -19,12 +19,12 @@ from ieakaso.tracker import (
     InvalidRecordError,
     TrackerError,
     load,
-    no_answer_candidates,
+    no_answer_suggestions,
     save,
     set_status,
     update_record,
 )
-from ieakaso.viewer.screens import DetailScreen, NoAnswerScreen
+from ieakaso.viewer.screens import DetailScreen, NoAnswerScreen, label
 
 STATUS_STYLES = {
     "lead": "cyan",
@@ -38,15 +38,11 @@ STATUS_STYLES = {
 VERDICT_STYLES = {"Top applicant": "bold green", "Apply": "green", "Stretch": "yellow", "Don't apply": "red"}
 COLUMNS = ("Company", "Position", "Status", "Stage", "Verdict / score", "Location", "Analysed", "Applied")
 DOCUMENTS = {  # key -> (what the candidate sees, where the path is in the record)
-    "ad": ("Job ad", lambda record: record["source"]["job_description"]),
+    "ad": ("Job ad", lambda record: record["source"]["job_ad"]),
     "analysis": ("Job analysis", lambda record: record["analysis"]["doc"]),
     "letter": ("Cover letter", lambda record: record["cover_letter"]),
 }
 NO_FILE_HINT = "No Applications yet. Run `/ieakaso job-analyzer <job ad>` in your coding assistant to track one."
-
-
-def status_label(status: str) -> str:
-    return status.replace("_", " ").capitalize()
 
 
 def location_label(record: dict) -> str:
@@ -96,7 +92,7 @@ class ViewerApp(App):
         self.table.add_columns(*COLUMNS)
         self.reload()
         self.set_interval(self.poll_interval, self._poll)
-        found = no_answer_candidates(self.tracker_db, self.today()) if not self.tracker_db.error else []
+        found = no_answer_suggestions(self.tracker_db, self.today()) if not self.tracker_db.error else []
         if found:
             self.push_screen(NoAnswerScreen(found), self._mark_no_answer)
 
@@ -139,7 +135,7 @@ class ViewerApp(App):
         return [
             record["company"],
             record["position"],
-            Text(status_label(record["status"]), style=STATUS_STYLES[record["status"]]),
+            Text(label(record["status"]), style=STATUS_STYLES[record["status"]]),
             stage,
             Text(f"{analysis['verdict']} {analysis['score']}", style=VERDICT_STYLES[analysis["verdict"]]),
             location_label(record),

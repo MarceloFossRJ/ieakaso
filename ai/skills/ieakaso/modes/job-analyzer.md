@@ -262,7 +262,7 @@ uv run python -m ieakaso.tracker upsert <<'JSON'
   "analysis": {"on": "<yyyy-mm-dd, today>", "doc": "output/applications/<id>/<id>_job-analysis.md", "score": <final score>, "verdict": "<Top applicant / Apply / Stretch / Don't apply>"},
   "home_office": "<the ad's own words on office or remote work, or null>",
   "location": {"city": "<city or null>", "country": "<ISO 3166-1 alpha-2 code such as DE, or null>"},
-  "source": {"board": "<site where the ad was found, e.g. LinkedIn, or null>", "board_url": "<the ad's URL, or null for pasted text>", "job_description": "output/applications/<id>/<id>_job-ad.md"},
+  "source": {"board": "<site where the ad was found, e.g. LinkedIn, or null>", "board_url": "<the ad's URL, or null for pasted text>", "job_ad": "output/applications/<id>/<id>_job-ad.md"},
   "contacts": []
 }
 JSON

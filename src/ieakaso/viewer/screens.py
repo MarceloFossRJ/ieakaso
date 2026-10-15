@@ -19,7 +19,8 @@ SALARY_FIELDS = {"sal_min", "sal_max", "sal_currency", "sal_period"}
 ITEM_ID = re.compile(r"(stage|contact)_(\d+)_([a-z_]+)")
 
 
-def _label(value: str) -> str:
+def label(value: str) -> str:
+    """A value as the candidate reads it: `not_selected` is "Not selected"."""
     return value.replace("_", " ").capitalize()
 
 
@@ -47,7 +48,7 @@ class NoAnswerScreen(ModalScreen[list[str]]):
         with Vertical(id="no-answer"):
             yield Label("No answer after 30 days?", classes="title")
             yield Static(
-                "These Applications were sent more than 30 days ago. Tick the ones that got no answer "
+                "You applied to these Applications more than 30 days ago. Tick the ones that got no answer "
                 "(space ticks); ticked ones become No answer. The others are suggested again next time."
             )
             yield SelectionList(
@@ -135,7 +136,7 @@ class DetailScreen(Screen):
 
     @staticmethod
     def _options(values) -> list[tuple[str, str]]:
-        return [(_label(value), value) for value in values]
+        return [(label(value), value) for value in values]
 
     @staticmethod
     def _row(label: str, widget):
@@ -152,7 +153,7 @@ class DetailScreen(Screen):
             ("Created", record["created_at"]),
             ("Job analysis", f"{analysis['on']}: {analysis['verdict']}, {analysis['score']}/100"),
             ("Job analysis file", analysis["doc"]),
-            ("Job ad file", source["job_description"]),
+            ("Job ad file", source["job_ad"]),
             ("Cover letter file", record["cover_letter"] or "none yet"),
             ("Status history", history),
         ):
@@ -342,6 +343,10 @@ class DetailScreen(Screen):
             self.notify("This Application is no longer in the file.", severity="warning")
             self._rebuild()
         elif self.record != self._shown:
+            self.notify(
+                "This Application changed in another window and was reloaded; if an edit was not saved, do your edit again.",
+                severity="warning",
+            )
             self._rebuild()
 
     def action_back(self) -> None:

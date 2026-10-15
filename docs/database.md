@@ -48,7 +48,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
         "board": "LinkedIn",
         "board_url": "https://www.linkedin.com/jobs/view/123",
         "form_url": "https://jobs.acme.example/apply/123",
-        "job_description": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_job-ad.md"
+        "job_ad": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_job-ad.md"
       },
       "contacts": [
         { "contact_type": "recruiter", "name": "Jane Doe", "linkedin_url": "https://www.linkedin.com/in/janedoe", "email": null }
@@ -80,7 +80,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 | `status_history` | list | tracker | no | Every status the record has had, oldest first: `{status, on}`. A change of `status` appends an entry. |
 | `stage` | integer | candidate | yes | The current Interview stage: `0` before the interview process starts, otherwise a 1-based position in `stages`. Never more than the number of `stages`. |
 | `stages` | list | candidate | yes | The company's interview process, in order: `{name, description}`. Empty until the candidate learns it. |
-| `created_at` | date | analyzer | no | The date of the first Job analysis; the same date as in the `id`. |
+| `created_at` | date | tracker | no | The day the record was created, by the first Job analysis; the same date as in the `id`. Never changes, unlike `analysis.on`. |
 | `analysis` | object | analyzer | no | The latest Job analysis; see below. |
 | `applied_on` | date or `null` | candidate | yes | When the candidate sent the application. Filled with today when `status` becomes `applied` and it is empty. |
 | `home_office` | string or `null` | analyzer, candidate | yes | Free text on how often the Position needs the office (e.g. "twice a week", "fully remote"). |
@@ -118,7 +118,7 @@ Only job-analyzer writes it, on every run.
 | `board` | string or `null` | analyzer, candidate | yes | The site where the candidate found the ad (e.g. LinkedIn, the company site). |
 | `board_url` | URL or `null` | analyzer, candidate | yes | The ad's URL on that site; `null` for a pasted ad. Other copies of the same ad stay in the Job ad file's `**Also at:**` field. |
 | `form_url` | URL or `null` | candidate | yes | Where the candidate applies. The same as `board_url` when they apply on the board itself. |
-| `job_description` | path | analyzer | no | The Job ad file, `<id>_job-ad.md`. |
+| `job_ad` | path | analyzer | no | The Job ad file, `<id>_job-ad.md`. |
 
 ### `contacts[]`
 
@@ -151,7 +151,7 @@ A later Job analysis of an existing Application updates `analysis` and fills fie
 
 - **Validation.** Every record is checked before a save, and again when the file is read: all keys of the record are required, no other keys are allowed, and every key is snake_case. A file with an invalid record, a different `schema_version`, or invalid JSON is not used and not overwritten; the viewer shows why.
 - **Same status.** Setting the status a record already has changes nothing and adds no `status_history` entry.
-- **New records.** `created_at` and the first `status_history` entry take the date of the first Job analysis (`analysis.on`, today when the payload leaves it out).
+- **New records.** `created_at` and the first `status_history` entry are the day the record is created. `analysis.on` is today when the payload leaves it out.
 - **Status and `applied_on`.** An edit that sets `applied_on` and `status: applied` together keeps the `applied_on` it was given.
 - **Placeholders.** The viewer adds a stage as `New stage` and a contact as `New contact` (type `other`), saved at once, because a stage and a contact must have a name.
 - **Salary expectation.** The viewer saves it once the period, both amounts and the currency are filled, and sets it to `null` when all four are empty.

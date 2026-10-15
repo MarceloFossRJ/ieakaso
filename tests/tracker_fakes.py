@@ -22,7 +22,7 @@ def payload(**overrides) -> dict:
         "source": {
             "board": "LinkedIn",
             "board_url": "https://www.linkedin.com/jobs/view/123",
-            "job_description": f"{FOLDER}/{ID}_job-ad.md",
+            "job_ad": f"{FOLDER}/{ID}_job-ad.md",
         },
         "contacts": [],
     }
@@ -54,7 +54,7 @@ def record(**overrides) -> dict:
             "board": "LinkedIn",
             "board_url": "https://www.linkedin.com/jobs/view/123",
             "form_url": "https://jobs.acme.example/apply/123",
-            "job_description": f"{FOLDER}/{ID}_job-ad.md",
+            "job_ad": f"{FOLDER}/{ID}_job-ad.md",
         },
         "contacts": [
             {
