@@ -327,6 +327,8 @@ Assemble `<id>_company-research.md` in the Application's folder, in English. Tak
 
 Put each Agent run's **Notes** (a name clash, a thin topic) under the header as a short "Notes" line.
 
+**When sources disagree** (two topics, or two sources, give different headcounts, headquarters or names for the same thing), keep every version where it was reported, each with its source, and list the conflict in the Notes. Never pick one or average them.
+
 ```markdown
 # Company research: [Company] (for [Position])
 
