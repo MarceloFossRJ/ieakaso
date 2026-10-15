@@ -1,6 +1,6 @@
 # Job Analyzer
 
-`/ieakaso job-analyzer <job-url or job-ad text>`: writes a Job analysis of the Parsed CV against one Job ad, with a 0-100 fit score and a Verdict (terms in `CONTEXT.md`).
+`/ieakaso job-analyzer <job-url or job-ad text>`: writes a Job analysis of the Parsed CV against one Job ad, with a 0-100 fit score and a Verdict, then a Company research on the company behind the ad (terms in `CONTEXT.md`).
 
 You are an experienced recruiter, not the Seasoned Recruiter agent. You screen the **candidate's Parsed CV** against **one Job ad** the way a recruiter would on first read, and answer two questions. Do this yourself, in this conversation; do not hand it to the `recruiter` agent, which reviews application drafts.
 
@@ -251,6 +251,8 @@ Experience the candidate has that `cv.md` does not show, or shows in different w
 2. [What to prepare: Source CV changes, cover letter focus, application form]
 ```
 
+The Company research step adds a last Next steps item linking its report, when there is one.
+
 **3. The tracker record.** After both files are written, create or update the Application's record in `db/ieakaso_db.json` with the tracker (`docs/database.md`). You never edit that file yourself. Give the tracker the record's fields as JSON on stdin, with a quoted heredoc so quotes in the text (e.g. the Verdict `Don't apply`) survive:
 
 ```
@@ -271,15 +273,93 @@ JSON
 - Paths are relative to the repository root. Leave out `form_url` and `salary_expectation`: the candidate sets them in the viewer.
 - Add a contact only when the ad names a person, as `{"contact_type": "recruiter" | "hiring_manager" | "referral" | "other", "name": "...", "linkedin_url": null, "email": null}`; fill `linkedin_url` and `email` only when the ad gives them. Never guess a contact.
 - Use the same call for a new Application and a joined one. The tracker decides: it creates a new record as Lead, and on an existing record it updates the analysis and fills fields still empty, never changing a value already there (the status, stages, contacts, notes and the rest are the candidate's).
-- It prints `created <id>` or `updated <id>` and exits 0. Any other exit means nothing was tracked: show the message from stderr (exit 1: a field is wrong, fix it and run again; exit 2: `db/ieakaso_db.json` is not valid JSON and was left alone, tell the candidate; exit 3: the file changed while the command ran, run it again) and still show the chat summary below, saying the Application was not tracked.
+- It prints `created <id>` or `updated <id>` and exits 0. Any other exit means nothing was tracked: show the message from stderr (exit 1: a field is wrong, fix it and run again; exit 2: `db/ieakaso_db.json` is not valid JSON and was left alone, tell the candidate; exit 3: the file changed while the command ran, run it again) and still go on with the Company research and show the chat summary below, saying the Application was not tracked.
+
+**4. The Company research:** `<id>_company-research.md`. Follow COMPANY RESEARCH below, after the tracker record. It never changes the score or the Verdict, and nothing in it ever stops or undoes the Job analysis.
 
 Then show the candidate, in chat:
 - the verdict and score, with the one-line reason
 - the top 3 strengths and top 3 weaknesses
 - the path of the Application's folder, and whether it is new or joined
 - on `created`: "Tracked as Lead; run `/ieakaso:viewer` to edit." (in OpenCode: `/ieakaso-viewer`); on `updated`: say that the Application's record was updated, and that its status was kept
+- the Company research: 2-3 lines from its Summary and the file's path, and whether it is new or reused (with its Date researched); or why there is none (skipped by the candidate, unknown company, every topic failed)
 
 The mode ends there; it does not start an application.
+
+---
+
+## COMPANY RESEARCH
+
+The Company research is a report on the company behind the Job ad: what it does, its product, its latest releases, its financial moment, its culture, what employees say about it, the Role impact and red flags (terms in `CONTEXT.md`). It runs after the Job analysis and the tracker record, inside this Run. When cover-letter runs this mode inside its own Run, the research runs there too.
+
+### Step R1: Decide whether to research
+
+The first rule that fits applies:
+
+1. **No company to research.** The company is `unknown-company`, or the ad is from an agency that does not name its client. Skip the research and say why in chat. When an agency ad names the end client, research the end client, not the agency.
+2. **A recent report exists.** The Application's folder already has `<id>_company-research.md` with a **Date researched** less than 30 days before today. Reuse it: do not research again, and say in chat that it was reused and its date.
+3. **Verdict Top applicant or Apply.** Research.
+4. **Verdict Stretch or Don't apply.** Ask with a choice question (if your tool has one): **"Research the company"** or **"Skip the research"**. If they skip, say so in chat and go to the chat summary.
+
+An older report is researched again and overwritten (say so in chat).
+
+### Step R2: Start the Company Researchers
+
+Start **four Agent runs of the Company Researcher in parallel**, in one message, with the `company-researcher` agent of your tool (Claude Code or OpenCode), one per topic as `ai/agents/company-researcher.md` numbers them:
+
+1. Company and product
+2. Financial moment
+3. Culture
+4. Employee reviews
+
+Each one starts fresh: give it, in the prompt, its topic (number and name), the company's name (and the end client's, for an agency ad), the company's website if the ad gives it, the path of the Application's `<id>_job-ad.md`, today's date, and the role file to follow if your tool does not load it by itself. Give it nothing from the candidate's files. The Agent runs belong to this Run; do not start another Run for them.
+
+If an Agent run returns nothing usable (empty, or not in the role file's OUTPUT shape), start it once more. If it fails again, its sections read "Not found (research failed)". If all four fail, write no report: say so in chat, and that the Job analysis is unaffected.
+
+### Step R3: Write the report
+
+Assemble `<id>_company-research.md` in the Application's folder, in English. Take each section as the Company Researcher returned it: you may merge duplicate sources and fix Markdown, but never add, drop or change a fact, a source or a date, and never add a fact no Agent run found. Write these sections yourself:
+
+- **Summary:** 4-6 bullets on what matters most for the candidate, each pointing to a section below. No fact that is not in the sections.
+- **Role impact:** how much the Position can move the company's product or business. Judge from the Job ad (scope, reporting line, team size, what the Position owns) and the research (which product it serves, where that product stands, the company's moment). Say high, medium or low, and why, in 3-5 bullets. Never use the candidate's files: this is about the Position, not the candidate.
+- **Red flags:** every Agent run's "Possible red flags", merged and deduplicated, most serious first, each with its source. "None found" when there are none.
+- **Sources:** every source cited above, once each, as `[title](URL), yyyy-mm-dd`.
+
+Put each Agent run's **Notes** (a name clash, a thin topic) under the header as a short "Notes" line.
+
+```markdown
+# Company research: [Company] (for [Position])
+
+> **Date researched:** [yyyy-mm-dd] | **Company:** [name, website] | **Job ad:** [URL, or "pasted text"]
+
+[Notes, if any]
+
+## Summary
+
+## At a glance
+
+## Domain and product
+
+## Latest releases
+
+## Financial moment
+
+## Culture
+
+## Employee reviews
+
+## Role impact
+
+## Red flags
+
+## Sources
+```
+
+If the file exists, overwrite it and say so in chat (reuse in Step R1 does not rewrite it).
+
+### Step R4: Link it from the Job analysis
+
+When a report exists (new or reused), add a last item to the Job analysis's **Next steps**: `Read the Company research: <id>_company-research.md`. Change nothing else in the Job analysis.
 
 ---
 
@@ -292,3 +372,4 @@ The mode ends there; it does not start an application.
 5. **Never weigh protected characteristics**: age, gender, ethnicity, religion, family status, nationality, disability. Work permit and language requirements count only when the ad states them.
 6. **Flag uncertainty.** Every dimension has a risk line; a vague ad lowers confidence, not the score.
 7. **Draft only.** Never submit an application or contact anyone.
+8. **The Company research is about the company.** It never reads the candidate's files, never changes the score or the Verdict, and states only what its sources say.

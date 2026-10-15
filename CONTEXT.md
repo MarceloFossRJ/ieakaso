@@ -96,6 +96,14 @@ _Avoid_: scraper, crawler, downloader
 The report the job-analyzer mode writes on how well the Parsed CV fits one Job ad, ending in a Verdict.
 _Avoid_: CV score, fit report
 
+**Company research**:
+The report on the company behind an Application's Job ad: what it does, its product, its latest releases, its financial moment, its culture, what employees say about it, the Role impact and red flags, each fact with a dated source. The job-analyzer mode makes it after the Job analysis; the candidate never asks for it on its own. It never changes the Job analysis's score or Verdict.
+_Avoid_: company report, company profile, due diligence
+
+**Role impact**:
+The part of the Company research that judges how much the Position can move the company's product or business, from the Job ad and the research alone, never from the candidate's files.
+_Avoid_: fit, role fit, relation to the role
+
 **Verdict**:
 The job analysis's advice on whether to apply: Top applicant, Apply, Stretch or Don't apply. Stretch and Don't apply advise against applying; the candidate can override either.
 _Avoid_: suggestion, recommendation
@@ -105,7 +113,7 @@ One `/ieakaso <mode>` call, including the setup check and any init, cv-parser or
 _Avoid_: execution, invocation, job
 
 **Agent run**:
-One call to an Ieakaso agent (the Applicant Agent or the Seasoned Recruiter) inside a Run.
+One call to an Ieakaso agent (the Applicant Agent, the Seasoned Recruiter or the Company Researcher) inside a Run.
 _Avoid_: subagent execution, agent call
 
 ### Agents
@@ -121,6 +129,10 @@ _Avoid_: AI candidate, candidate assistant, writer
 **Seasoned Recruiter**:
 The agent that reviews the Applicant Agent's drafts as an experienced recruiter for the Job ad's domain.
 _Avoid_: reviewer, grader, recruiter agent
+
+**Company Researcher**:
+The agent that researches one topic of a Company research on the web and reports dated, sourced findings; several run in parallel, one per topic, and the job-analyzer mode assembles them. It never reads the candidate's files.
+_Avoid_: researcher, scout, company agent
 
 ### Cover letters
 

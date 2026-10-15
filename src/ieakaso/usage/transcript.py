@@ -11,7 +11,7 @@ from dataclasses import dataclass, field, replace
 from pathlib import Path
 
 # Agent types of the Ieakaso agents, from the files in .claude/agents/; other agent types are not Ieakaso.
-IEAKASO_AGENTS = {"recruiter", "applicant"}
+IEAKASO_AGENTS = {"recruiter", "applicant", "company-researcher"}
 # One simple command of the Bash call must itself be the start invocation: a grep or echo that mentions it
 # starts no Run, but `cd repo; uv run python -m ieakaso.usage start <mode>; cat x` does.
 _MARKER = re.compile(r"(?:uv run (?:--\S+ )*)?python -m ieakaso\.usage start ([\w-]+)")
