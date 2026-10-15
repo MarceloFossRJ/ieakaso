@@ -161,8 +161,8 @@ _Avoid_: researcher, scout, company agent
 ### Cover letters
 
 **Cover letter**:
-A letter from the candidate to the employer for one Job ad, drafted by the Applicant Agent and refined through Review rounds.
-_Avoid_: motivation letter, application letter
+A one-page A4 letter from the candidate to the employer for one Job ad, drafted by the Applicant Agent and refined through Review rounds. It is the only format Ieakaso writes: no short form-field or email message, no outreach note to a hiring manager or founder.
+_Avoid_: motivation letter, application letter, short message, positioning note
 
 **Review**:
 The Seasoned Recruiter's assessment of one Cover letter draft: a Review score, what to remove, rewrite and improve, and questions for the candidate.
