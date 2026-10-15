@@ -5,7 +5,7 @@ A local job-search assistant that drafts applications for a candidate; the candi
 ## Language
 
 **User data**:
-The candidate's own files, which are gitignored and never leave their machine: `config.yml`, `db/system_status.json`, `db/ieakaso_db.json`, temporary files left in `db/` by an interrupted write, and everything in `input/` and `output/` except the tracked placeholders (`.gitkeep` files and `input/documents/README.md`).
+The candidate's own data, which is gitignored and never leaves their machine: `config.yml`, `db/system_status.json`, `db/ieakaso_db.json`, temporary files left in `db/` by an interrupted write, and everything in `input/` and `output/` except the tracked placeholders (`.gitkeep` files and `input/documents/README.md`).
 _Avoid_: personal data, private files
 
 **Fresh state**:
@@ -101,7 +101,7 @@ The report on the company behind an Application's Job ad: what it does, its prod
 _Avoid_: company report, company profile, due diligence
 
 **Role impact**:
-The part of the Company research that judges how much the Position can move the company's product or business, from the Job ad and the research alone, never from the candidate's files.
+The part of the Company research that judges how much the Position can move the company's product or business, from the Job ad and the research alone, never from the Personal knowledge base.
 _Avoid_: fit, role fit, relation to the role
 
 **Verdict**:
@@ -131,7 +131,7 @@ The role that manages an application process for the candidate: it runs the step
 _Avoid_: orchestrator, Cover Letter Manager, application agent
 
 **Applicant Agent**:
-The agent that writes the candidate's application drafts, in the candidate's voice: what it says about the candidate comes only from the candidate's files, and what it says about the company only from the Job ad and the Company research.
+The agent that writes the candidate's application drafts, in the candidate's voice: what it says about the candidate comes only from the Personal knowledge base, and what it says about the company only from the Job ad and the Company research.
 _Avoid_: AI candidate, candidate assistant, writer
 
 **Seasoned Recruiter**:
@@ -139,7 +139,7 @@ The agent that reviews the Applicant Agent's drafts as an experienced recruiter 
 _Avoid_: reviewer, grader, recruiter agent
 
 **Company Researcher**:
-The agent that researches one topic of a Company research on the web and reports dated, sourced findings; several run in parallel, one per topic, and the job-analyzer mode assembles them. It never reads the candidate's files.
+The agent that researches one topic of a Company research on the web and reports dated, sourced findings; several run in parallel, one per topic, and the job-analyzer mode assembles them. It never reads the Personal knowledge base.
 _Avoid_: researcher, scout, company agent
 
 ### Cover letters
@@ -165,7 +165,7 @@ One draft by the Applicant Agent followed by one Review of it.
 _Avoid_: iteration, cycle, pass
 
 **Plateau**:
-The Seasoned Recruiter's judgment that no change backed by the candidate's files would raise a draft's Review score.
+The Seasoned Recruiter's judgment that no change backed by the Personal knowledge base would raise a draft's Review score.
 _Avoid_: cannot be improved, max quality, dead end
 
 **Session**:

@@ -7,7 +7,7 @@ You are an experienced recruiter, not the Seasoned Recruiter agent. You screen t
 1. How well does the CV fit this Job ad (0-100)?
 2. Is the candidate a top applicant, and should they apply?
 
-You give honest advice; the candidate decides. You never invent, inflate, or assume experience: every claim you make about the candidate must come from their files.
+You give honest advice; the candidate decides. You never invent, inflate, or assume experience: every claim you make about the candidate must come from their Personal knowledge base.
 
 ---
 
@@ -312,7 +312,7 @@ Start **four Agent runs of the Company Researcher in parallel**, in one message,
 3. Culture
 4. Employee reviews
 
-Each one starts fresh: give it, in the prompt, its topic (number and name), the company's name (and the end client's, for an agency ad), the company's website if the ad gives it, the path of the Application's `<id>_job-ad.md`, today's date, and the role file to follow if your tool does not load it by itself. Give it nothing from the candidate's files. The Agent runs belong to this Run; do not start another Run for them.
+Each one starts fresh: give it, in the prompt, its topic (number and name), the company's name (and the end client's, for an agency ad), the company's website if the ad gives it, the path of the Application's `<id>_job-ad.md`, today's date, and the role file to follow if your tool does not load it by itself. Give it nothing from the Personal knowledge base. The Agent runs belong to this Run; do not start another Run for them.
 
 If an Agent run returns nothing usable (empty, or not in the role file's OUTPUT shape), start it once more. If it fails again, its sections read "Not found (research failed)". If all four fail, write no report: say so in chat, and that the Job analysis is unaffected.
 
@@ -321,7 +321,7 @@ If an Agent run returns nothing usable (empty, or not in the role file's OUTPUT 
 Assemble `<id>_company-research.md` in the Application's folder, in English. Take each section as the Company Researcher returned it: you may merge duplicate sources and fix Markdown, but never add, drop or change a fact, a source or a date, and never add a fact no Agent run found. Write these sections yourself:
 
 - **Summary:** 4-6 bullets on what matters most for the candidate, each pointing to a section below. No fact that is not in the sections.
-- **Role impact:** how much the Position can move the company's product or business. Judge from the Job ad (scope, reporting line, team size, what the Position owns) and the research (which product it serves, where that product stands, the company's moment). Say high, medium or low, and why, in 3-5 bullets. Never use the candidate's files: this is about the Position, not the candidate.
+- **Role impact:** how much the Position can move the company's product or business. Judge from the Job ad (scope, reporting line, team size, what the Position owns) and the research (which product it serves, where that product stands, the company's moment). Say high, medium or low, and why, in 3-5 bullets. Never use the Personal knowledge base: this is about the Position, not the candidate.
 - **Red flags:** every Agent run's "Possible red flags", merged and deduplicated, most serious first, each with its source. "None found" when there are none.
 - **Sources:** every source cited above, once each, as `[title](URL), yyyy-mm-dd`.
 
@@ -384,4 +384,4 @@ It prints `company research set for <id>` and exits 0. Exit codes are the tracke
 5. **Never weigh protected characteristics**: age, gender, ethnicity, religion, family status, nationality, disability. Work permit and language requirements count only when the ad states them.
 6. **Flag uncertainty.** Every dimension has a risk line; a vague ad lowers confidence, not the score.
 7. **Draft only.** Never submit an application or contact anyone.
-8. **The Company research is about the company.** It never reads the candidate's files, never changes the score or the Verdict, and states only what its sources say.
+8. **The Company research is about the company.** It never reads the Personal knowledge base, never changes the score or the Verdict, and states only what its sources say.

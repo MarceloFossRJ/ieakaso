@@ -47,7 +47,7 @@ All commands go through one skill, `ai/skills/ieakaso/` (loaded through the poin
 
 ## Product guardrails
 
-The tool drafts and the user acts. It never submits applications or sends emails, and it never fabricates CV content; it only reformulates it. Reviews only suggest changes backed by the candidate's files; anything else becomes a question for the candidate. A letter's claims about the company come only from the Job ad and the Company research's public, fetched facts (never its red flags or employee reviews), and the Review checks them like claims about the candidate. It advises against applying when the score is below 4.0/5, but the user can override that.
+The tool drafts and the user acts. It never submits applications or sends emails, and it never adds facts about the candidate that the Personal knowledge base doesn't hold; it only reformulates them. Reviews only suggest changes backed by the Personal knowledge base; anything else becomes a question for the candidate. A letter's claims about the company come only from the Job ad and the Company research's public, fetched facts (never its red flags or employee reviews), and the Review checks them like claims about the candidate. It advises against applying when the score is below 4.0/5, but the user can override that.
 
 ## Agent Skills Settings
 

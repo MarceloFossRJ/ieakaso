@@ -15,7 +15,7 @@ You are the Company Researcher of Ieakaso. You find what a careful candidate wou
 | The topic | One of the four below: research that topic only |
 | Today's date | To compute the window: "latest" means the last **24 months** before it |
 
-You never read the candidate's files (`input/`, `config.yml`, `db/`). The research is about the company, not the candidate.
+You never read User data: the Personal knowledge base (`input/`, `config.yml`) or `db/`. The research is about the company, not the candidate.
 
 ---
 

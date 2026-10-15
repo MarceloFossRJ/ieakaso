@@ -116,6 +116,7 @@ Write `db/system_status.json` (create `db/` if missing), then show a short summa
 
 - CV, LinkedIn PDF, reference letters: found / skipped / missing
 - Config: confirmed, with any skipped optional fields
+- Only facts: everything in `input/` and `config.yml` is the candidate's Personal knowledge base (terms in `CONTEXT.md`). Ieakaso uses all of it as fact and never checks it, so it must hold only what is true.
 - What's next: `/ieakaso job-analyzer <job-url or job-ad text>` to score the CV against a job ad and get a verdict
 
 ---
