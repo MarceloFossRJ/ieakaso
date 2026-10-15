@@ -342,7 +342,15 @@ async def test_read_only_fields_have_no_inputs(root: Path):
     async with make_app(root).run_test(size=SIZE) as pilot:
         await open_detail(pilot)
         input_ids = {w.id for w in pilot.app.screen.query(Input)}
-        assert not input_ids & {"id", "created_at", "analysis", "status_history", "job_ad", "cover_letter"}
+        assert not input_ids & {
+            "id",
+            "created_at",
+            "analysis",
+            "status_history",
+            "job_ad",
+            "cover_letter",
+            "company_research",
+        }
         text = " ".join(str(w.render()) for w in pilot.app.screen.query(Static))
         assert ID in text and "2026-10-10" in text and "Apply, 84/100" in text
 
@@ -445,7 +453,7 @@ async def test_no_dialog_without_candidates(root: Path):
 def with_files(root: Path, *rec: dict) -> None:
     write_db(db_file(root), *rec)
     for item in rec:
-        for rel in (item["source"]["job_ad"], item["analysis"]["doc"], item["cover_letter"]):
+        for rel in (item["source"]["job_ad"], item["analysis"]["doc"], item["cover_letter"], item["company_research"]):
             if rel:
                 (root / rel).parent.mkdir(parents=True, exist_ok=True)
                 (root / rel).write_text("x")
@@ -457,9 +465,14 @@ async def test_keys_open_the_documents_of_the_selected_application(root: Path):
 
     async with make_app(root, opened).run_test(size=SIZE) as pilot:
         await pilot.pause()
-        await pilot.press("a", "j", "c")
+        await pilot.press("a", "j", "c", "r")
         await pilot.pause()
-    assert [p.name for p in opened] == [f"{ID}_job-ad.md", f"{ID}_job-analysis.md", f"{ID}_cover-letter.md"]
+    assert [p.name for p in opened] == [
+        f"{ID}_job-ad.md",
+        f"{ID}_job-analysis.md",
+        f"{ID}_cover-letter.md",
+        f"{ID}_company-research.md",
+    ]
     assert all(p.is_relative_to(root) for p in opened)
 
 
@@ -470,22 +483,24 @@ async def test_the_detail_buttons_open_the_documents(root: Path):
     async with make_app(root, opened).run_test(size=SIZE) as pilot:
         await open_detail(pilot)
         await press(pilot, "open_letter")
-    assert [p.name for p in opened] == [f"{ID}_cover-letter.md"]
+        await press(pilot, "open_research")
+    assert [p.name for p in opened] == [f"{ID}_cover-letter.md", f"{ID}_company-research.md"]
 
 
-async def test_a_missing_cover_letter_or_file_opens_nothing(root: Path):
+async def test_a_missing_document_or_file_opens_nothing(root: Path):
     with_files(root, lead())
     opened: list[Path] = []
 
     async with make_app(root, opened).run_test(size=SIZE) as pilot:
         await pilot.pause()
-        await pilot.press("c")
+        await pilot.press("c", "r")
         (root / lead()["analysis"]["doc"]).unlink()
         await pilot.press("j")
         await pilot.pause()
         messages = [n.message for n in pilot.app._notifications]
     assert opened == []
     assert any("no Cover letter" in m for m in messages)
+    assert any("no Company research" in m for m in messages)
     assert any("missing" in m for m in messages)
 
 
@@ -497,3 +512,14 @@ async def test_the_viewer_never_creates_or_deletes_records(root: Path):
         await pilot.press("n", "d", "delete", "ctrl+n")
         await pilot.pause()
     assert [r["id"] for r in stored(root)] == ["old", "new"]
+
+
+async def test_the_viewer_backfills_company_research_from_its_repo_when_migrating(root: Path):
+    rec = record()
+    write_db(db_file(root), {k: v for k, v in rec.items() if k != "company_research"}, version=1)
+    (root / rec["company_research"]).parent.mkdir(parents=True, exist_ok=True)
+    (root / rec["company_research"]).write_text("x")
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        assert pilot.app.tracker_db.records[0]["company_research"] == rec["company_research"]
