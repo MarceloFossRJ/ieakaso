@@ -27,6 +27,7 @@ USER_DATA = {
     "config.yml": "candidate:\n  name: Real\n",
     "db/system_status.json": '{"init": {"status": "completed"}}\n',
     "db/ieakaso_db.json": "{}\n",
+    "db/.ieakaso_db.json.k3x9q.tmp": "{}\n",
     "input/cv.md": "# CV\n",
     "input/writing-style.md": "voice\n",
     "input/documents/cv/cv_en.pdf": "%PDF cv",
@@ -34,6 +35,8 @@ USER_DATA = {
     "input/documents/reference_letters/letter.docx": "letter",
     "input/documents/xing/nested/profile.pdf": "%PDF xing",
     "output/acme/cover_letter.md": "Dear Acme\n",
+    "output/applications/acme_em_2026-10-15/acme_em_2026-10-15_job-ad.md": "Acme job ad\n",
+    "output/applications/acme_em_2026-10-15/acme_em_2026-10-15_cover-letter.md": "Dear Acme\n",
 }
 
 

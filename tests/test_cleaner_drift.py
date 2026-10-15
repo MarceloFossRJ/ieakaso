@@ -5,7 +5,7 @@ from pathlib import Path
 
 from conftest import TRACKED
 
-from ieakaso.devtools.cleaner import USER_FILES, USER_FOLDERS, user_data
+from ieakaso.devtools.cleaner import USER_FILES, USER_FOLDERS, USER_PATTERNS, user_data
 
 REPO = Path(__file__).resolve().parents[1]
 
@@ -20,7 +20,11 @@ def ignored(paths: list[str]) -> set[str]:
 
 def test_everything_the_cleaner_deletes_is_gitignored():
     # Probe paths make this meaningful even when the real repo is already clean.
-    probes = [*USER_FILES, *(f"{folder}/probe/file.pdf" for folder in USER_FOLDERS)]
+    probes = [
+        *USER_FILES,
+        *(pattern.replace("*", "probe") for pattern in USER_PATTERNS),
+        *(f"{folder}/probe/file.pdf" for folder in USER_FOLDERS),
+    ]
     found = [rel.as_posix() for rel in user_data(REPO)]
 
     assert set(probes + found) - ignored(probes + found) == set()
