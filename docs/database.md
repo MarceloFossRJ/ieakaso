@@ -146,3 +146,12 @@ The usual path is `lead` → `applied` or `desisted`, then `applied` → `no_ans
 ## When job-analyzer runs again
 
 A later Job analysis of an existing Application updates `analysis` and fills fields that are still empty. It never overwrites a value that's already there, and never touches `status`, `stage`, `stages`, `contacts`, `notes` or `salary_expectation`.
+
+## How the tracker treats the file
+
+- **Validation.** Every record is checked before a save, and again when the file is read: all keys of the record are required, no other keys are allowed, and every key is snake_case. A file with an invalid record, a different `schema_version`, or invalid JSON is not used and not overwritten; the viewer shows why.
+- **Same status.** Setting the status a record already has changes nothing and adds no `status_history` entry.
+- **New records.** `created_at` and the first `status_history` entry take the date of the first Job analysis (`analysis.on`, today when the payload leaves it out).
+- **Status and `applied_on`.** An edit that sets `applied_on` and `status: applied` together keeps the `applied_on` it was given.
+- **Placeholders.** The viewer adds a stage as `New stage` and a contact as `New contact` (type `other`), saved at once, because a stage and a contact must have a name.
+- **Salary expectation.** The viewer saves it once the period, both amounts and the currency are filled, and sets it to `null` when all four are empty.
