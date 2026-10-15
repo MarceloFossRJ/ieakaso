@@ -12,6 +12,8 @@ Act as the Job Application Assistant: read `ai/agents/job-application-assistant.
 
 **Job analysis:** found or made in Step 2.
 
+**Company research:** found or made in Step 2b, when there is one.
+
 Each agent's file lists the candidate's files it reads (`ai/agents/applicant.md`, `ai/agents/recruiter.md`); this mode does not repeat them.
 
 ---
@@ -34,6 +36,16 @@ Get the ad as job-analyzer does (Step 1 of `ai/skills/ieakaso/modes/job-analyzer
 2. Pasted ad text counts as analysed only if it was analysed earlier in this Session, or the candidate picked its Application in Step 1. Otherwise there is no matching analysis.
 3. If there is none, **run job-analyzer** (`ai/skills/ieakaso/modes/job-analyzer.md`) now, **inside this Run**: no separate Run start and no Run summary, like the setup check's init and cv-parser. Its report is the Job analysis. Do not stop after it, even though job-analyzer normally ends with its own chat summary of the analysis (verdict, score, strengths and weaknesses): show that chat summary, not the Run summary, and continue. If the candidate picks "stop" in job-analyzer, the cover-letter Run stops there; the Run summary still follows. Pass job-analyzer the ad text you got in Step 1, with its URL and how it was read, so it uses them instead of getting the ad again.
 4. Read the Job analysis's **Verdict**. If it is **Stretch** or **Don't apply**, warn the candidate that the analysis advises against applying, name the deciding gap, and ask whether to continue (a choice question if your tool has one). If they decline, stop. The Run summary still follows (see the end).
+
+### Step 2b: Get the Company research
+
+The Applicant Agent and the Seasoned Recruiter use the Application's Company research for facts about the company (terms in `CONTEXT.md`; the rules are in their agent files). Find it as follows:
+
+1. **job-analyzer ran in Step 2.3.** Its Company research step already ran inside this Run: use the report it wrote or reused, or go without one if it skipped the research or every topic failed. Do not ask again.
+2. **The Application's folder has `<id>_company-research.md`.** Use it. If its **Date researched** is more than 30 days before today, use it anyway and tell the candidate its age.
+3. **There is none.** Ask with a choice question (if your tool has one): **"Research the company first"** or **"Write without it"**. To research, run job-analyzer's COMPANY RESEARCH Steps R1 to R5 (`ai/skills/ieakaso/modes/job-analyzer.md`) now, inside this Run, without its Verdict question in R1 (the candidate just chose). Its Agent runs belong to this Run. If it ends without a report (unknown company, every topic failed), say so and write without it.
+
+Pass the report's path and its Date researched to every Agent run, as their INPUTS list it. Without a report, pass nothing and say in chat that the letter's company specifics come from the Job ad only.
 
 ### Step 3: Run the Rounds
 
@@ -66,7 +78,7 @@ If the files already exist, overwrite them as the Job Application Assistant's ru
 ```markdown
 # Cover letter review log: [Position] @ [Company]
 
-> **Date:** [yyyy-mm-dd] | **Job ad:** [URL, or "pasted text"] | **Final Review score:** [X]/100 | **Rounds:** [N] | **Exit:** [Review score 90 or above / Plateau / 5 Rounds / change requested by the candidate / Round after the candidate's answers]
+> **Date:** [yyyy-mm-dd] | **Job ad:** [URL, or "pasted text"] | **Company research:** [its Date researched, or "none"] | **Final Review score:** [X]/100 | **Rounds:** [N] | **Exit:** [Review score 90 or above / Plateau / 5 Rounds / change requested by the candidate / Round after the candidate's answers]
 
 After a follow-up (Step 7), the header's Final Review score, Rounds and Exit describe the current result.
 

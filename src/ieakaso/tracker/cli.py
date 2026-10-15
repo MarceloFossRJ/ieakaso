@@ -1,8 +1,10 @@
-"""`uv run python -m ieakaso.tracker upsert [--json <payload>] | set-cover-letter <id> <path>`.
+"""`uv run python -m ieakaso.tracker upsert [--json <payload>] | set-cover-letter <id> <path>
+| set-company-research <id> <path>`.
 
 upsert: create or update the record of a Job analysis; the JSON payload comes from --json or stdin. Writes
 `created <id>` or `updated <id>` to stdout.
 set-cover-letter: set a record's Cover letter path.
+set-company-research: set a record's Company research path.
 
 Exit codes: 0 done, 1 invalid payload or path, 2 db/ieakaso_db.json is not valid JSON (it is left alone),
 3 the file changed while the command ran (run it again), 4 no tracked Application has that ID.
@@ -18,12 +20,12 @@ from typing import TextIO
 
 from ieakaso.repo import find_root
 from ieakaso.tracker.errors import InvalidDbError, InvalidRecordError, TrackerError
-from ieakaso.tracker.ops import set_cover_letter, upsert_from_analysis
+from ieakaso.tracker.ops import set_company_research, set_cover_letter, upsert_from_analysis
 from ieakaso.tracker.store import DB_PATH, Db, load, save
 
 
-def _read(db_path: Path) -> Db:
-    db = load(db_path)
+def _read(root: Path) -> Db:
+    db = load(root / DB_PATH, root=root)
     if db.error:
         raise InvalidDbError(db.error)
     return db
@@ -48,12 +50,15 @@ def main(
     cover = commands.add_parser("set-cover-letter", help="set the Cover letter path of a record")
     cover.add_argument("id", help="the Application ID")
     cover.add_argument("path", help="the kept draft, relative to the repo root")
+    research = commands.add_parser("set-company-research", help="set the Company research path of a record")
+    research.add_argument("id", help="the Application ID")
+    research.add_argument("path", help="the report, relative to the repo root")
     args = parser.parse_args(argv)
 
     root = (args.root or find_root(Path.cwd()) or Path.cwd()).resolve()
     today = today or date.today()  # noqa: DTZ011 - the candidate's local day
     try:
-        db = _read(root / DB_PATH)
+        db = _read(root)
         if args.command == "upsert":
             try:
                 payload = json.loads(args.json if args.json is not None else stdin.read())
@@ -61,9 +66,12 @@ def main(
                 raise InvalidRecordError(f"the payload is not valid JSON: {error}") from error
             record, created = upsert_from_analysis(db, payload, today)
             message = f"{'created' if created else 'updated'} {record['id']}"
-        else:
+        elif args.command == "set-cover-letter":
             set_cover_letter(db, args.id, args.path)
             message = f"cover letter set for {args.id}"
+        else:
+            set_company_research(db, args.id, args.path)
+            message = f"company research set for {args.id}"
         save(db)
     except TrackerError as error:
         print(error, file=err)

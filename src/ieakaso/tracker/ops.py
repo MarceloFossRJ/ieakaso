@@ -85,6 +85,7 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
             "location": incoming["location"],
             "salary_expectation": None,
             "cover_letter": None,
+            "company_research": None,
             "source": {**incoming["source"], "form_url": None},
             "contacts": copy.deepcopy(payload.get("contacts") or []),
             "notes": "",
@@ -126,11 +127,19 @@ def set_status(db: Db, record_id: str, status: str, today: date) -> dict:
     return _replace(record, new)
 
 
-def set_cover_letter(db: Db, record_id: str, path: str) -> dict:
+def _set_path(db: Db, record_id: str, key: str, path: str) -> dict:
     record = _get(db, record_id)
     new = copy.deepcopy(record)
-    new["cover_letter"] = path
+    new[key] = path
     return _replace(record, new)
+
+
+def set_cover_letter(db: Db, record_id: str, path: str) -> dict:
+    return _set_path(db, record_id, "cover_letter", path)
+
+
+def set_company_research(db: Db, record_id: str, path: str) -> dict:
+    return _set_path(db, record_id, "company_research", path)
 
 
 def update_record(db: Db, record_id: str, changes: dict, today: date) -> dict:

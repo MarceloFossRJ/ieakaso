@@ -12,6 +12,7 @@ from ieakaso.tracker.errors import ConflictError, InvalidDbError
 from ieakaso.tracker.schema import SCHEMA_VERSION, problems, validate
 
 DB_PATH = Path("db/ieakaso_db.json")
+COMPANY_RESEARCH_PATH = "output/applications/{id}/{id}_company-research.md"
 
 
 @dataclass
@@ -37,8 +38,12 @@ def _signature(path: Path) -> str | None:
         return None
 
 
-def load(path: Path) -> Db:
-    """Read the file. A missing file is an empty db; an unusable one comes back with `error` set and no records."""
+def load(path: Path, root: Path | None = None) -> Db:
+    """Read the file. A missing file is an empty db; an unusable one comes back with `error` set and no records.
+
+    `root` is the repo root the records' paths are relative to. An older file is upgraded on load (`_migrate`), and
+    the upgrade looks there for files to fill in; without a root it fills in nothing.
+    """
     try:
         raw = path.read_bytes()
     except FileNotFoundError:
@@ -50,14 +55,33 @@ def load(path: Path) -> Db:
         data = json.loads(raw)
     except ValueError as error:
         return Db(path, signature=signature, error=f"{path.name} is not valid JSON: {error}")
+    _migrate(data, root)
     reason = _structure_problem(data)
     if reason:
         return Db(path, signature=signature, error=f"{path.name} {reason}")
     return Db(path, records=data["records"], signature=signature)
 
 
+def _is_tracker_file(data: Any) -> bool:
+    return isinstance(data, dict) and isinstance(data.get("meta"), dict) and isinstance(data.get("records"), list)
+
+
+def _migrate(data: Any, root: Path | None) -> None:
+    """Upgrade an older file in memory to SCHEMA_VERSION; the next save writes it. Anything else is left as it is.
+
+    Version 1 had no `company_research`: it is the report's path when the report is in `root`, otherwise null.
+    """
+    if not _is_tracker_file(data) or data["meta"].get("schema_version") != 1:
+        return
+    for record in data["records"]:
+        if isinstance(record, dict) and "company_research" not in record:
+            report = COMPANY_RESEARCH_PATH.format(id=record.get("id"))
+            record["company_research"] = report if root and (root / report).is_file() else None
+    data["meta"]["schema_version"] = SCHEMA_VERSION
+
+
 def _structure_problem(data: Any) -> str | None:
-    if not (isinstance(data, dict) and isinstance(data.get("meta"), dict) and isinstance(data.get("records"), list)):
+    if not _is_tracker_file(data):
         return 'is not a tracker file: it needs "meta" and a list of "records"'
     if data["meta"].get("schema_version") != SCHEMA_VERSION:
         return f"has schema_version {data['meta'].get('schema_version')!r}, this tracker reads {SCHEMA_VERSION}"

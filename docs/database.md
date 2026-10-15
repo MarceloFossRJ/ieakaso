@@ -8,7 +8,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 
 - **One record per Application.** The candidate applies at most once per Application. Two Job ads joined through `**Also at:**` are still one record.
 - **Records are created only by modes.** job-analyzer creates a record as `lead`. The viewer edits records; it never creates or deletes them.
-- **No text, only paths.** The ad, the Job analysis and the Cover letter stay in `output/applications/<id>/`; the db holds their paths, relative to the repo root.
+- **No text, only paths.** The ad, the Job analysis, the Cover letter and the Company research stay in `output/applications/<id>/`; the db holds their paths, relative to the repo root.
 - **Nothing derived is stored.** Counts by status or stage are computed when needed.
 - **Keys are snake_case.** Dates are `yyyy-mm-dd`. A value not known yet is `null`.
 
@@ -16,7 +16,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 
 ```jsonc
 {
-  "meta": { "schema_version": 1 },
+  "meta": { "schema_version": 2 },
   "records": [
     {
       "id": "acme_senior-backend-engineer_2026-10-10",
@@ -44,6 +44,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
       "location": { "city": "Berlin", "country": "DE" },
       "salary_expectation": { "period": "yearly", "min": 95000, "max": 105000, "currency": "EUR" },
       "cover_letter": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_cover-letter.md",
+      "company_research": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_company-research.md",
       "source": {
         "board": "LinkedIn",
         "board_url": "https://www.linkedin.com/jobs/view/123",
@@ -61,13 +62,13 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 
 ## Fields
 
-"Written by" says who sets the field: **analyzer** (the job-analyzer mode), **cover-letter** (the cover-letter mode), **candidate** (in the viewer) or **tracker** (automatically). Fields marked "no" in the Editable column are shown in the viewer but can't be changed there.
+"Written by" says who sets the field: **analyzer** (the job-analyzer mode, including its Company research step), **cover-letter** (the cover-letter mode), **candidate** (in the viewer) or **tracker** (automatically). Fields marked "no" in the Editable column are shown in the viewer but can't be changed there.
 
 ### `meta`
 
 | Field | Type | Written by | Meaning |
 |---|---|---|---|
-| `schema_version` | integer | tracker | Version of this model. Currently `1`. |
+| `schema_version` | integer | tracker | Version of this model. Currently `2`; see [Schema versions](#schema-versions). |
 
 ### Record
 
@@ -87,6 +88,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 | `location` | object | analyzer, candidate | yes | `{city, country}`; `country` is an ISO 3166-1 alpha-2 code (`DE`). Either may be `null`. |
 | `salary_expectation` | object or `null` | candidate | yes | The Salary expectation the candidate gave in the application form; see below. Never the salary the ad offers (that is in the Job analysis). |
 | `cover_letter` | path or `null` | cover-letter | no | The kept Cover letter draft. |
+| `company_research` | path or `null` | analyzer | no | The Company research, `<id>_company-research.md`. Set when job-analyzer writes or reuses the report; left as it is when the research is skipped or fails. |
 | `source` | object | analyzer, candidate | partly | Where the ad was found and where to apply; see below. |
 | `contacts` | list | analyzer, candidate | yes | People at the company or agency; see below. The analyzer adds one only when the ad names a person. |
 | `notes` | string | candidate | yes | Free text, e.g. why the candidate desisted. |
@@ -143,13 +145,22 @@ Only job-analyzer writes it, on every run.
 
 The usual path is `lead` → `applied` or `desisted`, then `applied` → `no_answer`, `interviewing` or `not_selected`, then `interviewing` → `offer`, `not_selected` or `desisted`. These paths are guidance only: the viewer allows any change, so mistakes can be corrected.
 
+## Schema versions
+
+| Version | Change |
+|---|---|
+| 1 | First version. |
+| 2 | Adds `company_research`. |
+
+The tracker reads version 2, and upgrades a version 1 file when it loads it: every record gets `company_research`, set to `output/applications/<id>/<id>_company-research.md` when that file exists and `null` otherwise. Loading writes nothing; the next save writes the file as version 2. Any other version is refused and left alone.
+
 ## When job-analyzer runs again
 
 A later Job analysis of an existing Application updates `analysis` and fills fields that are still empty. It never overwrites a value that's already there, and never touches `status`, `stage`, `stages`, `contacts`, `notes` or `salary_expectation`.
 
 ## How the tracker treats the file
 
-- **Validation.** Every record is checked before a save, and again when the file is read: all keys of the record are required, no other keys are allowed, and every key is snake_case. A file with an invalid record, a different `schema_version`, or invalid JSON is not used and not overwritten; the viewer shows why.
+- **Validation.** Every record is checked before a save, and again when the file is read (after any upgrade, see [Schema versions](#schema-versions)): all keys of the record are required, no other keys are allowed, and every key is snake_case. A file with an invalid record, a `schema_version` the tracker can't read or upgrade, or invalid JSON is not used and not overwritten; the viewer shows why.
 - **Same status.** Setting the status a record already has changes nothing and adds no `status_history` entry.
 - **New records.** `created_at` and the first `status_history` entry are the day the record is created. `analysis.on` is today when the payload leaves it out.
 - **Status and `applied_on`.** An edit that sets `applied_on` and `status: applied` together keeps the `applied_on` it was given.

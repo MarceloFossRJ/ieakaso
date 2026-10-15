@@ -13,6 +13,7 @@ from ieakaso.tracker.errors import (
 from ieakaso.tracker.ops import (
     EDIT_KEYS,
     no_answer_suggestions,
+    set_company_research,
     set_cover_letter,
     set_status,
     update_record,
@@ -47,6 +48,7 @@ __all__ = [
     "no_answer_suggestions",
     "problems",
     "save",
+    "set_company_research",
     "set_cover_letter",
     "set_status",
     "update_record",

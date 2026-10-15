@@ -23,6 +23,8 @@ The job-analyzer mode weighs your CV against the job ad, points out the ad's str
 
 A third role, the **Job Application Assistant**, is the conversation itself: it starts the two agents and passes drafts and Reviews between them.
 
+A fourth, the **Company Researcher**, works for the job-analyzer mode: four of them research the company on the web in parallel, one topic each, and never see your files.
+
 A cover letter reaches you once the Recruiter scores it at least 90/100, declares a plateau (no change backed by your files would raise the score), or 5 Rounds have run. Below 90, the Recruiter suggests changes and the Applicant rewrites.
 
 ```mermaid
@@ -90,13 +92,15 @@ The advice is yours to override. A missing must-have, like a required work permi
 
 The score reads only your CV, as a recruiter would. Your other memory files never raise it: they show what your CV under-sells, with wording you can add to your CV to score higher next time. If the URL can't be read, it asks you to paste the ad. Running it again for the same company and position on the same day replaces that day's analysis.
 
+Then it researches the company: what it does, its product and latest releases, its financial moment (funding, acquisitions, profit, layoffs), its culture, what employees say about it, how much impact the Position can have, and red flags. Every fact has a dated source from the last 24 months; anything it can't find says "Not found". It runs on its own for Top applicant and Apply, and asks first for Stretch and Don't apply. The report is saved as `<id>_company-research.md` and reused for 30 days. It never changes the score.
+
 When the job is worth it, write the cover letter:
 
 ```
 /ieakaso cover-letter [<job-url or job-ad text>]
 ```
 
-Without an argument it uses the last job ad of the session, or asks. It runs the job analysis first if there is none for that ad. Then the Applicant drafts the letter and the Recruiter reviews it, Round after Round, until the score is 90/100, the Recruiter sees no way to raise it from your files, or 5 Rounds have run. The final letter is saved in the same folder as `<id>_cover-letter.md` (one A4 page, body of at most 350 words) and every Round's draft and Review as `<id>_cover-letter-review.md`. The tracker keeps the letter's path. Facts you only tell it in chat are never used: add them to your files and it runs another Round.
+Without an argument it uses the last job ad of the session, or asks. It runs the job analysis first if there is none for that ad. Then the Applicant drafts the letter and the Recruiter reviews it, Round after Round, until the score is 90/100, the Recruiter sees no way to raise it from your files, or 5 Rounds have run. The final letter is saved in the same folder as `<id>_cover-letter.md` (one A4 page, body of at most 350 words) and every Round's draft and Review as `<id>_cover-letter-review.md`. The tracker keeps the letter's path. When the Application has a company research, the letter can use its public facts (the product, a recent release, funding, culture) to make the motivation specific; it never uses the red flags or employee reviews, and the Recruiter checks every company claim against the research like it checks claims about you. With no research yet, it asks whether to research the company first. Facts you only tell it in chat are never used: add them to your files and it runs another Round.
 
 The first runs are rough. It does not know you yet.
 Talk to it: what you want, what you refuse.
@@ -121,7 +125,7 @@ The status line at the bottom of Claude Code shows the same, live: `opus-5-5 · 
 
 ## Your data
 
-Every application lives on your machine. Its files (the ad, the job analysis, the cover letter) sit in its own folder, `output/applications/<id>/`, and the folder never moves. Where the application stands is not a folder but a field in the tracker, `db/ieakaso_db.json` (the fields are in [`docs/database.md`](docs/database.md)).
+Every application lives on your machine. Its files (the ad, the job analysis, the cover letter, the company research) sit in its own folder, `output/applications/<id>/`, and the folder never moves. Where the application stands is not a folder but a field in the tracker, `db/ieakaso_db.json` (the fields are in [`docs/database.md`](docs/database.md)).
 
 The status is one of Lead (analysed, not applied yet), Desisted, Applied, No answer, Interviewing, Offer or Not selected. A new application starts as Lead, and you can change it to any status at any time. Ieakaso suggests No answer for applications you made more than 30 days ago, and only you confirm it.
 
@@ -131,7 +135,7 @@ The status is one of Lead (analysed, not applied yet), Desisted, Applied, No ans
 /ieakaso viewer
 ```
 
-Opens a table of your applications in a new terminal window (if it can't, it gives you the command: `uv run ieakaso-viewer`, from the repo). It shows company, position, status, interview stage, verdict and score, location and the dates, newest first. Press Enter on a row to edit its fields: status, interview stages, contacts, the salary expectation you entered in the form, notes. Each edit is saved at once. `h` hides Desisted and Not selected applications, `a`, `j` and `c` open the job ad, the job analysis and the cover letter, `q` quits. On launch it lists applications with no answer after 30 days, and you tick which become No answer.
+Opens a table of your applications in a new terminal window (if it can't, it gives you the command: `uv run ieakaso-viewer`, from the repo). It shows company, position, status, interview stage, verdict and score, location and the dates, newest first. Press Enter on a row to edit its fields: status, interview stages, contacts, the salary expectation you entered in the form, notes. Each edit is saved at once. `h` hides Desisted and Not selected applications, `a`, `j`, `c` and `r` open the job ad, the job analysis, the cover letter and the company research, `q` quits. On launch it lists applications with no answer after 30 days, and you tick which become No answer.
 
 The viewer only edits: applications are created by `job-analyzer`, and nothing is deleted. If you change the file elsewhere while the viewer is open, it reloads.
 
