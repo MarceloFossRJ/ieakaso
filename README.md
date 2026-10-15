@@ -23,6 +23,8 @@ The job-analyzer mode weighs your CV against the job ad, points out the ad's str
 
 A third role, the **Job Application Assistant**, is the conversation itself: it starts the two agents and passes drafts and Reviews between them.
 
+A fourth, the **Company Researcher**, works for the job-analyzer mode: four of them research the company on the web in parallel, one topic each, and never see your files.
+
 A cover letter reaches you once the Recruiter scores it at least 90/100, declares a plateau (no change backed by your files would raise the score), or 5 Rounds have run. Below 90, the Recruiter suggests changes and the Applicant rewrites.
 
 ```mermaid
@@ -89,6 +91,8 @@ It answers in chat with a verdict, a score out of 100, the reason, and your top 
 The advice is yours to override. A missing must-have, like a required work permit or language, caps the score at 59.
 
 The score reads only your CV, as a recruiter would. Your other memory files never raise it: they show what your CV under-sells, with wording you can add to your CV to score higher next time. If the URL can't be read, it asks you to paste the ad. Running it again for the same company and position on the same day replaces that day's analysis.
+
+Then it researches the company: what it does, its product and latest releases, its financial moment (funding, acquisitions, profit, layoffs), its culture, what employees say about it, how much impact the Position can have, and red flags. Every fact has a dated source from the last 24 months; anything it can't find says "Not found". It runs on its own for Top applicant and Apply, and asks first for Stretch and Don't apply. The report is saved as `<id>_company-research.md` and reused for 30 days. It never changes the score.
 
 When the job is worth it, write the cover letter:
 
