@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "counts": {
+      ...
+    },
+    "by_status": {
+      ...
+    },
+    "by_stage": {
+      ...
+    },
+    "field_mapping": {
+      ...
+    }
+  },
+  "records": [
+    {
+      "id": "company01_Engineering-Manager-Data-Analytics_2026-09-01",
+      "source_row": 2,
+      "company": "Company01",
+      "position": "Engineering Manager, Data & Analytics",
+      "status": "applied", // lead | desisted | applied | no_answer | interviewing | offer | not_selected
+      "stage": "1", // analysis: 0, application: 1, 2, 3,...
+      "analysis_on": "2026-07-18",
+      "analysis_doc": "",
+      "applied_on": "2026-07-18",
+      "home-office": "2/5", // 1/5 | 2/5 | 3/5 | 4/5 | 5/5 (remote/fully flexible)
+      "location": {
+        "city": "Berlin",
+        "country": "DE"
+      },
+      "compensation": {
+        "period": "yearly",
+        "min": 105000,
+        "max": 105000,
+        "currency": "EUR",
+      },
+      "cover_letter": "",
+      "source": {
+        "board": "LinkedIn",
+        "job_description": "...",
+        "board_url": " ",
+        "listing_url": "..."
+      },
+      "contacts" : [
+        {
+          "contact_type": "recruiter", // recruiter | hiring_manager | ...
+          "name": "...",
+          "linkedin_url": "...",
+          "email": null
+        },
+      ],
+      "signals": {
+        "top_applicant": true,
+        "assessed_chances": "low"
+      }
+    }
+  ]
+}
