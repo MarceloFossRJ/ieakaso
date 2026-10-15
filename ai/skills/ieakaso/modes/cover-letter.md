@@ -97,6 +97,14 @@ After a follow-up (Step 7), the header's Final Review score, Rounds and Exit des
 [Which exit condition ended the process, and in one line why. Name the best-scoring Round if it is not the last.]
 ```
 
+**3. The tracker record.** Once the letter file is written, set the Application's `cover_letter` path with the tracker, which is the only writer of `db/ieakaso_db.json`:
+
+```
+uv run python -m ieakaso.tracker set-cover-letter <id> output/applications/<id>/<id>_cover-letter.md
+```
+
+Do it after every write of the letter, including a follow-up (Step 7), since the path may have been overwritten. Exit 0 means it is set. Exit 4 means the Application has no record (it was analysed before the tracker existed): tell the candidate, and offer to run job-analyzer on its Job ad to create one. For any other exit, show the message from stderr (2: `db/ieakaso_db.json` is not valid JSON and was left alone; 3: the file changed while the command ran, run it again). A failure here does not stop the mode: the letter and the review log are already written.
+
 ### Step 6: Report in chat
 
 Show the candidate:
