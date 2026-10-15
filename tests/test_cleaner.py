@@ -27,7 +27,7 @@ def test_clean_removes_status_and_db_and_keeps_examples(repo: Path):
     assert not (repo / "db/system_status.json").exists()
     assert not (repo / "db/ieakaso_db.json").exists()
     assert sorted(p.name for p in (repo / "db").iterdir()) == [
-        "ieakaso_db_structure.json",
+        "ieakaso_db_example.json",
         "system_status_example.json",
     ]
 
