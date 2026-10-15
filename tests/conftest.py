@@ -8,7 +8,7 @@ TRACKED = {
     "ai/skills/ieakaso/SKILL.md": "# Ieakaso\n",
     "config_example.yml": "candidate:\n  name: John\n",
     "db/system_status_example.json": '{"init": {"status": "not_started"}}\n',
-    "db/ieakaso_db_example.json": '{"meta": {"schema_version": 1}, "records": []}\n',
+    "db/ieakaso_db_example.json": '{"meta": {"schema_version": 2}, "records": []}\n',
     "input/.gitkeep": "",
     "input/documents/.gitkeep": "",
     "input/documents/README.md": "# documents\n",

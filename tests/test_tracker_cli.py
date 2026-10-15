@@ -1,4 +1,4 @@
-"""The tracker command: upsert and set-cover-letter, exit codes 0-4. Fake repo, injected today."""
+"""The tracker command: upsert, set-cover-letter and set-company-research, exit codes 0-4. Fake repo, injected today."""
 
 import io
 import json
@@ -31,7 +31,7 @@ def test_upsert_from_the_json_argument_creates_the_db_and_the_record(root: Path)
     assert (code, err) == (0, "")
     assert out == f"created {ID}\n"
     data = json.loads(db_file(root).read_text())
-    assert data["meta"] == {"schema_version": 1}
+    assert data["meta"] == {"schema_version": 2}
     assert data["records"][0]["status"] == "lead"
 
 
@@ -114,3 +114,33 @@ def test_exit_3_when_the_file_changes_while_the_command_runs(root: Path, monkeyp
     code, _, err = run(root, "set-cover-letter", ID, "a.md")
 
     assert code == 3 and "changed" in err
+
+
+def test_set_company_research(root: Path):
+    write_db(db_file(root), lead())
+    path = f"{FOLDER}/{ID}_company-research.md"
+
+    code, out, _ = run(root, "set-company-research", ID, path)
+
+    assert (code, out) == (0, f"company research set for {ID}\n")
+    assert json.loads(db_file(root).read_text())["records"][0]["company_research"] == path
+
+
+def test_set_company_research_exits_4_for_an_unknown_id_and_1_for_a_bad_path(root: Path):
+    write_db(db_file(root), lead())
+
+    assert run(root, "set-company-research", "nope", "a.md")[0] == 4
+    assert run(root, "set-company-research", ID, "/abs.md")[0] == 1
+
+
+def test_a_version_1_db_is_backfilled_from_the_repo_and_saved_as_version_2(root: Path):
+    rec = lead(company_research=f"{FOLDER}/{ID}_company-research.md")
+    write_db(db_file(root), {k: v for k, v in rec.items() if k != "company_research"}, version=1)
+    (root / rec["company_research"]).parent.mkdir(parents=True, exist_ok=True)
+    (root / rec["company_research"]).write_text("x")
+
+    code, _, _ = run(root, "set-cover-letter", ID, f"{FOLDER}/{ID}_cover-letter.md")
+
+    data = json.loads(db_file(root).read_text())
+    assert code == 0 and data["meta"] == {"schema_version": 2}
+    assert data["records"][0]["company_research"] == rec["company_research"]

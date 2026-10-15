@@ -297,7 +297,7 @@ The Company research is a report on the company behind the Job ad: what it does,
 The first rule that fits applies:
 
 1. **No company to research.** The company is `unknown-company`, or the ad is from an agency that does not name its client. Skip the research and say why in chat. When an agency ad names the end client, research the end client, not the agency.
-2. **A recent report exists.** The Application's folder already has `<id>_company-research.md` with a **Date researched** less than 30 days before today. Reuse it: do not research again, and say in chat that it was reused and its date.
+2. **A recent report exists.** The Application's folder already has `<id>_company-research.md` with a **Date researched** less than 30 days before today. Reuse it: skip Steps R2 and R3, say in chat that it was reused and its date, and go on with Steps R4 and R5.
 3. **Verdict Top applicant or Apply.** Research.
 4. **Verdict Stretch or Don't apply.** Ask with a choice question (if your tool has one): **"Research the company"** or **"Skip the research"**. If they skip, say so in chat and go to the chat summary.
 
@@ -362,6 +362,16 @@ If the file exists, overwrite it and say so in chat (reuse in Step R1 does not r
 ### Step R4: Link it from the Job analysis
 
 When a report exists (new or reused), add a last item to the Job analysis's **Next steps**: `Read the Company research: <id>_company-research.md`. Change nothing else in the Job analysis.
+
+### Step R5: Record it in the tracker
+
+When a report exists (new or reused), set its path on the Application's record with the tracker (`docs/database.md`):
+
+```
+uv run python -m ieakaso.tracker set-company-research <application-id> output/applications/<id>/<id>_company-research.md
+```
+
+It prints `company research set for <id>` and exits 0. Exit codes are the tracker's (step 3 of OUTPUT); on any other exit, show the message from stderr and say in the chat summary that the Company research was not recorded in the tracker (the report itself is still there). When there is no report (skipped, unknown company, every topic failed), do not run it: the record keeps what it had.
 
 ---
 

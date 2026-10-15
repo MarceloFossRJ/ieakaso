@@ -131,6 +131,7 @@ class DetailScreen(Screen):
                 yield Button("Open Job ad", id="open_ad")
                 yield Button("Open Job analysis", id="open_analysis")
                 yield Button("Open Cover letter", id="open_letter")
+                yield Button("Open Company research", id="open_research")
                 yield Button("Back", id="back")
         yield Footer()
 
@@ -155,6 +156,7 @@ class DetailScreen(Screen):
             ("Job analysis file", analysis["doc"]),
             ("Job ad file", source["job_ad"]),
             ("Cover letter file", record["cover_letter"] or "none yet"),
+            ("Company research file", record["company_research"] or "none yet"),
             ("Status history", history),
         ):
             yield Static(f"{name}: {value}", classes="readonly")

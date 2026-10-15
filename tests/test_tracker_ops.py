@@ -1,4 +1,5 @@
-"""The tracker's operations on a loaded db: upsert from a Job analysis, status, cover letter, edits, No answer."""
+"""The tracker's operations on a loaded db: upsert from a Job analysis, status, cover letter, company research,
+edits, No answer."""
 
 from datetime import date
 from pathlib import Path
@@ -12,6 +13,7 @@ from ieakaso.tracker import (
     load,
     no_answer_suggestions,
     problems,
+    set_company_research,
     set_cover_letter,
     set_status,
     update_record,
@@ -80,7 +82,9 @@ def test_an_invalid_payload_changes_nothing(db_path: Path):
     assert db.records == []
 
 
-@pytest.mark.parametrize("key", ["status", "stage", "stages", "notes", "salary_expectation", "cover_letter"])
+@pytest.mark.parametrize(
+    "key", ["status", "stage", "stages", "notes", "salary_expectation", "cover_letter", "company_research"]
+)
 def test_the_payload_cannot_set_what_the_analyzer_does_not_own(db_path: Path, key: str):
     with pytest.raises(InvalidRecordError):
         upsert_from_analysis(load(db_path), payload(**{key: "x"}), TODAY)
@@ -280,6 +284,7 @@ def test_update_record_edits_the_editable_source_fields_only(db_path: Path):
         {"analysis": {"on": "2026-01-01", "doc": "a", "score": 1, "verdict": "Apply"}},
         {"status_history": []},
         {"cover_letter": "x.md"},
+        {"company_research": "x.md"},
         {"surprise": 1},
     ],
 )
@@ -338,3 +343,27 @@ def test_no_answer_suggestions_are_applied_records_more_than_30_days_old(db_path
     found = no_answer_suggestions(load(db_path), TODAY)
 
     assert [r["id"] for r in found] == ["old"]
+
+
+def test_set_company_research(db_path: Path):
+    write_db(db_path, lead())
+
+    rec = set_company_research(load(db_path), ID, f"{FOLDER}/{ID}_company-research.md")
+
+    assert rec["company_research"] == f"{FOLDER}/{ID}_company-research.md"
+    assert problems(rec) == []
+
+
+def test_set_company_research_refuses_a_path_outside_the_repo_and_an_unknown_id(db_path: Path):
+    write_db(db_path, lead())
+
+    with pytest.raises(InvalidRecordError):
+        set_company_research(load(db_path), ID, "../outside.md")
+    with pytest.raises(RecordNotFoundError):
+        set_company_research(load(db_path), "nope", "a.md")
+
+
+def test_a_new_lead_has_no_company_research(db_path: Path):
+    rec, _ = upsert_from_analysis(load(db_path), payload(), TODAY)
+
+    assert rec["company_research"] is None

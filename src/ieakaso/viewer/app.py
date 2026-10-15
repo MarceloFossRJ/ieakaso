@@ -41,6 +41,7 @@ DOCUMENTS = {  # key -> (what the candidate sees, where the path is in the recor
     "ad": ("Job ad", lambda record: record["source"]["job_ad"]),
     "analysis": ("Job analysis", lambda record: record["analysis"]["doc"]),
     "letter": ("Cover letter", lambda record: record["cover_letter"]),
+    "research": ("Company research", lambda record: record["company_research"]),
 }
 NO_FILE_HINT = "No Applications yet. Run `/ieakaso job-analyzer <job ad>` in your coding assistant to track one."
 
@@ -61,6 +62,7 @@ class ViewerApp(App):
         Binding("a", "open_document('ad')", "Job ad"),
         Binding("j", "open_document('analysis')", "Job analysis"),
         Binding("c", "open_document('letter')", "Cover letter"),
+        Binding("r", "open_document('research')", "Company research"),
         Binding("q", "quit", "Quit"),
     ]
 
@@ -99,7 +101,7 @@ class ViewerApp(App):
     # reading
 
     def reload(self) -> None:
-        self.tracker_db = load(self.root / DB_PATH)
+        self.tracker_db = load(self.root / DB_PATH, root=self.root)
         self.refresh_table()
 
     def _poll(self) -> None:

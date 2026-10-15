@@ -5,6 +5,8 @@ import json
 from datetime import date
 from pathlib import Path
 
+from ieakaso.tracker.schema import SCHEMA_VERSION
+
 TODAY = date(2026, 10, 15)
 ID = "acme_senior-backend-engineer_2026-10-10"
 FOLDER = f"output/applications/{ID}"
@@ -50,6 +52,7 @@ def record(**overrides) -> dict:
         "location": {"city": "Berlin", "country": "DE"},
         "salary_expectation": {"period": "yearly", "min": 95000, "max": 105000, "currency": "EUR"},
         "cover_letter": f"{FOLDER}/{ID}_cover-letter.md",
+        "company_research": f"{FOLDER}/{ID}_company-research.md",
         "source": {
             "board": "LinkedIn",
             "board_url": "https://www.linkedin.com/jobs/view/123",
@@ -80,6 +83,7 @@ def lead(**overrides) -> dict:
         applied_on=None,
         salary_expectation=None,
         cover_letter=None,
+        company_research=None,
         contacts=[],
         home_office=None,
     )
@@ -88,7 +92,7 @@ def lead(**overrides) -> dict:
     return base
 
 
-def write_db(path: Path, *records: dict) -> Path:
+def write_db(path: Path, *records: dict, version: int = SCHEMA_VERSION) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps({"meta": {"schema_version": 1}, "records": list(records)}, indent=2) + "\n")
+    path.write_text(json.dumps({"meta": {"schema_version": version}, "records": list(records)}, indent=2) + "\n")
     return path

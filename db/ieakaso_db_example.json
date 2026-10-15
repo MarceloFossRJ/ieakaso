@@ -1,6 +1,6 @@
 {
   "meta": {
-    "schema_version": 1
+    "schema_version": 2
   },
   "records": [
     {
@@ -49,6 +49,7 @@
         "currency": "EUR"
       },
       "cover_letter": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_cover-letter.md",
+      "company_research": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_company-research.md",
       "source": {
         "board": "LinkedIn",
         "board_url": "https://www.linkedin.com/jobs/view/123",

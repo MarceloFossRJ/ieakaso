@@ -125,7 +125,7 @@ The status line at the bottom of Claude Code shows the same, live: `opus-5-5 · 
 
 ## Your data
 
-Every application lives on your machine. Its files (the ad, the job analysis, the cover letter) sit in its own folder, `output/applications/<id>/`, and the folder never moves. Where the application stands is not a folder but a field in the tracker, `db/ieakaso_db.json` (the fields are in [`docs/database.md`](docs/database.md)).
+Every application lives on your machine. Its files (the ad, the job analysis, the cover letter, the company research) sit in its own folder, `output/applications/<id>/`, and the folder never moves. Where the application stands is not a folder but a field in the tracker, `db/ieakaso_db.json` (the fields are in [`docs/database.md`](docs/database.md)).
 
 The status is one of Lead (analysed, not applied yet), Desisted, Applied, No answer, Interviewing, Offer or Not selected. A new application starts as Lead, and you can change it to any status at any time. Ieakaso suggests No answer for applications you made more than 30 days ago, and only you confirm it.
 
@@ -135,7 +135,7 @@ The status is one of Lead (analysed, not applied yet), Desisted, Applied, No ans
 /ieakaso viewer
 ```
 
-Opens a table of your applications in a new terminal window (if it can't, it gives you the command: `uv run ieakaso-viewer`, from the repo). It shows company, position, status, interview stage, verdict and score, location and the dates, newest first. Press Enter on a row to edit its fields: status, interview stages, contacts, the salary expectation you entered in the form, notes. Each edit is saved at once. `h` hides Desisted and Not selected applications, `a`, `j` and `c` open the job ad, the job analysis and the cover letter, `q` quits. On launch it lists applications with no answer after 30 days, and you tick which become No answer.
+Opens a table of your applications in a new terminal window (if it can't, it gives you the command: `uv run ieakaso-viewer`, from the repo). It shows company, position, status, interview stage, verdict and score, location and the dates, newest first. Press Enter on a row to edit its fields: status, interview stages, contacts, the salary expectation you entered in the form, notes. Each edit is saved at once. `h` hides Desisted and Not selected applications, `a`, `j`, `c` and `r` open the job ad, the job analysis, the cover letter and the company research, `q` quits. On launch it lists applications with no answer after 30 days, and you tick which become No answer.
 
 The viewer only edits: applications are created by `job-analyzer`, and nothing is deleted. If you change the file elsewhere while the viewer is open, it reloads.
 

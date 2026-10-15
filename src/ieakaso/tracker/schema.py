@@ -6,7 +6,7 @@ from typing import Any
 
 from ieakaso.tracker.errors import InvalidRecordError
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 STATUSES = ("lead", "desisted", "applied", "no_answer", "interviewing", "offer", "not_selected")
 CLOSED_STATUSES = ("desisted", "not_selected")
 VERDICTS = ("Top applicant", "Apply", "Stretch", "Don't apply")
@@ -28,6 +28,7 @@ RECORD_KEYS = (
     "location",
     "salary_expectation",
     "cover_letter",
+    "company_research",
     "source",
     "contacts",
     "notes",
@@ -135,8 +136,9 @@ def problems(record: Any) -> list[str]:
         _optional_text("home_office", get("home_office"), out)
     if "notes" in record and not isinstance(get("notes"), str):
         out.append("notes must be text")
-    if "cover_letter" in record and get("cover_letter") is not None and not _is_path(get("cover_letter")):
-        out.append("cover_letter must be a repo-relative path or null")
+    for key in ("cover_letter", "company_research"):
+        if key in record and get(key) is not None and not _is_path(get(key)):
+            out.append(f"{key} must be a repo-relative path or null")
 
     _analysis(get("analysis"), "analysis" in record, out)
     _location(get("location"), "location" in record, out)
