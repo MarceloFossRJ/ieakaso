@@ -37,12 +37,52 @@ The job a Job ad offers, as named in the ad (e.g. Senior Backend Engineer).
 _Avoid_: role, job title
 
 **Application**:
-Everything Ieakaso holds for the candidate's pursuit of one Job ad, from its first Job analysis on, whether or not the candidate ever applies. A later Job analysis of the same Job ad belongs to the same Application.
+Everything Ieakaso holds for the candidate's pursuit of one Job ad, from its first Job analysis on, whether or not the candidate ever applies. A later Job analysis of the same Job ad belongs to the same Application. The candidate applies at most once per Application, wherever the ad was found and wherever the application form is.
 _Avoid_: job ad folder, candidature, application folder
 
 **Application ID**:
 The name of an Application: its company, its Position and the date of its first Job analysis (e.g. `acme_senior-backend-engineer_2026-10-10`). It never changes once given, whatever day later work on the Application happens. When two Job ads would get the same Application ID, the candidate adds a word to tell them apart (e.g. `acme_senior-backend-engineer_2026-10-10_berlin`).
 _Avoid_: job ad ID, index, slug
+
+**Application status**:
+Where an Application stands, set by the candidate: Lead, Desisted, Applied, No answer, Interviewing, Offer or Not selected. A new Application starts as Lead. Any status can be changed to any other, so mistakes can be corrected.
+_Avoid_: state, phase, folder
+
+**Lead**:
+An Application whose Job ad the candidate found promising enough to have analysed, and has not applied to yet.
+_Avoid_: prospect, candidate job, opportunity
+
+**Applied**:
+The Application's status once the candidate has actually sent the application.
+_Avoid_: submitted, sent
+
+**Interviewing**:
+The company has contacted the candidate to start or continue its interview process.
+_Avoid_: in process, screening
+
+**Offer**:
+The company has made the candidate an offer.
+_Avoid_: accepted, hired
+
+**Not selected**:
+The company decided not to go on with the candidate's application.
+_Avoid_: rejected, declined
+
+**Desisted**:
+The candidate stopped pursuing the Application, at any point: before applying, after applying, or during interviews, including when an attempt to apply failed.
+_Avoid_: withdrawn, cancelled, abandoned
+
+**No answer**:
+The company has given no feedback 30 days after the candidate applied. Ieakaso suggests it; only the candidate sets it.
+_Avoid_: ghosted, no response, stale
+
+**Interview stage**:
+One named step of a company's interview process for an Application (e.g. recruiter screening), as the company describes it. An Application's current stage is its position in that list, 0 before the process starts.
+_Avoid_: round, step, phase
+
+**Salary expectation**:
+The pay the candidate stated in an application form's expected-salary question, as an amount or a range for a period. It is never the salary the Job ad offers.
+_Avoid_: compensation, salary, pay
 
 **Job ad fetcher**:
 The code that reads a Job ad from a URL when WebFetch can't, and writes it as text. The candidate chooses it over pasting the ad.

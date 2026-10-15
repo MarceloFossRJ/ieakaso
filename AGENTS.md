@@ -41,7 +41,7 @@ All commands go through one skill, `ai/skills/ieakaso/` (loaded through the poin
 - **Claude Code plugin:** `.claude/skills/ieakaso/.claude-plugin/plugin.json` makes that folder a project-local plugin, which is what gives the `ieakaso:` prefix. It loads only in a trusted folder and only when Claude Code starts at the repo root; `claude plugin validate .claude/skills/ieakaso` checks it.
 - **OpenCode:** reads the pointer `.claude/skills/ieakaso/SKILL.md` as a skill; its `metadata: opencode/slash: "true"` is what makes `/ieakaso` a slash command there. Keep it.
 - **First run:** every mode except `init` checks `db/system_status.json` first and runs `/ieakaso init` if setup is missing or incomplete. `init` is idempotent.
-- **User data:** `config.yml` (candidate data, format in `config_example.yml`), `db/system_status.json` (setup state, starting point in `db/system_status_example.json`), `db/ieakaso_db.json`, and the contents of `input/` and `output/` are gitignored and stay on the user's machine. The only mandatory document is the CV in `input/documents/cv/`.
+- **User data:** `config.yml` (candidate data, format in `config_example.yml`), `db/system_status.json` (setup state, starting point in `db/system_status_example.json`), `db/ieakaso_db.json` (the applications tracker; model in `docs/database.md`), and the contents of `input/` and `output/` are gitignored and stay on the user's machine. The only mandatory document is the CV in `input/documents/cv/`.
 
 ## Product guardrails
 
