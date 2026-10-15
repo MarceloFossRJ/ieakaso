@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "schema_version": 1
+  },
+  "records": [
+    {
+      "id": "acme_senior-backend-engineer_2026-10-10",
+      "company": "Acme",
+      "position": "Senior Backend Engineer",
+      "status": "applied",
+      "status_history": [
+        {
+          "status": "lead",
+          "on": "2026-10-10"
+        },
+        {
+          "status": "applied",
+          "on": "2026-10-12"
+        }
+      ],
+      "stage": 1,
+      "stages": [
+        {
+          "name": "recruiter screening",
+          "description": "30 min call"
+        },
+        {
+          "name": "technical interview",
+          "description": ""
+        }
+      ],
+      "created_at": "2026-10-10",
+      "analysis": {
+        "on": "2026-10-10",
+        "doc": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_job-analysis.md",
+        "score": 84,
+        "verdict": "Apply"
+      },
+      "applied_on": "2026-10-12",
+      "home_office": "twice a week in the office",
+      "location": {
+        "city": "Berlin",
+        "country": "DE"
+      },
+      "salary_expectation": {
+        "period": "yearly",
+        "min": 95000,
+        "max": 105000,
+        "currency": "EUR"
+      },
+      "cover_letter": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_cover-letter.md",
+      "source": {
+        "board": "LinkedIn",
+        "board_url": "https://www.linkedin.com/jobs/view/123",
+        "form_url": "https://jobs.acme.example/apply/123",
+        "job_ad": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_job-ad.md"
+      },
+      "contacts": [
+        {
+          "contact_type": "recruiter",
+          "name": "Jane Doe",
+          "linkedin_url": "https://www.linkedin.com/in/janedoe",
+          "email": null
+        }
+      ],
+      "notes": ""
+    }
+  ]
+}

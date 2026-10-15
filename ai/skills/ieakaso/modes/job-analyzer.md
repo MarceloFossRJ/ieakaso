@@ -251,10 +251,33 @@ Experience the candidate has that `cv.md` does not show, or shows in different w
 2. [What to prepare: Source CV changes, cover letter focus, application form]
 ```
 
+**3. The tracker record.** After both files are written, create or update the Application's record in `db/ieakaso_db.json` with the tracker (`docs/database.md`). You never edit that file yourself. Give the tracker the record's fields as JSON on stdin, with a quoted heredoc so quotes in the text (e.g. the Verdict `Don't apply`) survive:
+
+```
+uv run python -m ieakaso.tracker upsert <<'JSON'
+{
+  "id": "<application-id>",
+  "company": "<company as named in the ad>",
+  "position": "<Position as named in the ad>",
+  "analysis": {"on": "<yyyy-mm-dd, today>", "doc": "output/applications/<id>/<id>_job-analysis.md", "score": <final score>, "verdict": "<Top applicant / Apply / Stretch / Don't apply>"},
+  "home_office": "<the ad's own words on office or remote work, or null>",
+  "location": {"city": "<city or null>", "country": "<ISO 3166-1 alpha-2 code such as DE, or null>"},
+  "source": {"board": "<site where the ad was found, e.g. LinkedIn, or null>", "board_url": "<the ad's URL, or null for pasted text>", "job_ad": "output/applications/<id>/<id>_job-ad.md"},
+  "contacts": []
+}
+JSON
+```
+
+- Paths are relative to the repository root. Leave out `form_url` and `salary_expectation`: the candidate sets them in the viewer.
+- Add a contact only when the ad names a person, as `{"contact_type": "recruiter" | "hiring_manager" | "referral" | "other", "name": "...", "linkedin_url": null, "email": null}`; fill `linkedin_url` and `email` only when the ad gives them. Never guess a contact.
+- Use the same call for a new Application and a joined one. The tracker decides: it creates a new record as Lead, and on an existing record it updates the analysis and fills fields still empty, never changing a value already there (the status, stages, contacts, notes and the rest are the candidate's).
+- It prints `created <id>` or `updated <id>` and exits 0. Any other exit means nothing was tracked: show the message from stderr (exit 1: a field is wrong, fix it and run again; exit 2: `db/ieakaso_db.json` is not valid JSON and was left alone, tell the candidate; exit 3: the file changed while the command ran, run it again) and still show the chat summary below, saying the Application was not tracked.
+
 Then show the candidate, in chat:
 - the verdict and score, with the one-line reason
 - the top 3 strengths and top 3 weaknesses
 - the path of the Application's folder, and whether it is new or joined
+- on `created`: "Tracked as Lead; run `/ieakaso:viewer` to edit." (in OpenCode: `/ieakaso-viewer`); on `updated`: say that the Application's record was updated, and that its status was kept
 
 The mode ends there; it does not start an application.
 

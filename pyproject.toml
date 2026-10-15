@@ -11,7 +11,12 @@ dependencies = [
     "pylatexenc>=2.11",
     "pymupdf>=1.28.2",
     "python-docx>=1.2.0",
+    "rich>=15.0.0",
+    "textual>=8.2.8",
 ]
+
+[project.scripts]
+ieakaso-viewer = "ieakaso.viewer.cli:main"
 
 [build-system]
 requires = ["uv_build>=0.13.0,<0.14.0"]
@@ -20,12 +25,14 @@ build-backend = "uv_build"
 [dependency-groups]
 dev = [
     "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
     "pyyaml>=6.0.3",
     "ruff>=0.17.0",
 ]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+asyncio_mode = "auto"
 pythonpath = ["tests"]
 # PyMuPDF's SWIG bindings trip a Python 3.14 deprecation on import; not ours to fix.
 filterwarnings = ["ignore:builtin type swig:DeprecationWarning", "ignore:builtin type Swig:DeprecationWarning"]
