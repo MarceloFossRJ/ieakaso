@@ -1,6 +1,8 @@
 config.yml
 db/system_status.json
 db/ieakaso_db.json
+# temp files an interrupted atomic write leaves in db/
+db/.*.tmp
 
 # input/ and output/: track the folder structure, never the candidate's documents
 input/**

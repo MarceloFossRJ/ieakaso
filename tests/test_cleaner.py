@@ -1,10 +1,10 @@
 from datetime import datetime
 from pathlib import Path
 
-from conftest import TRACKED, folders, snapshot
+from conftest import TRACKED, USER_DATA, snapshot
 
 from ieakaso.devtools import cleaner
-from ieakaso.devtools.cleaner import clean, list_backups, restore
+from ieakaso.devtools.cleaner import clean, user_data
 
 
 def test_clean_empties_input_but_keeps_placeholders(repo: Path):
@@ -88,23 +88,7 @@ def test_clean_skips_the_backup_when_there_is_nothing_to_delete(repo: Path, back
     clean(repo)
 
     assert clean(repo, backup_dir=backups).backup is None
-    assert list_backups(backups) == []
-
-
-def test_backup_round_trip_restores_the_repo_byte_for_byte(repo: Path, backups: Path):
-    (repo / "input/documents/empty_by_hand").mkdir()
-    before, before_folders = snapshot(repo), folders(repo)
-    first = clean(repo, backup_dir=backups)
-    (repo / "config.yml").write_text("from a test init\n")
-
-    report = restore(repo, first.backup, backup_dir=backups)
-
-    assert (snapshot(repo), folders(repo)) == (before, before_folders)
-    assert report.backup == first.backup
-    assert Path("config.yml") in report.cleaned.deleted
-    newest = list_backups(backups)[-1]
-    assert newest != first.backup
-    assert (newest / "config.yml").read_text() == "from a test init\n"
+    assert not backups.exists()
 
 
 def test_two_backups_in_the_same_second_get_a_suffix(repo: Path, backups: Path, monkeypatch):
@@ -115,15 +99,7 @@ def test_two_backups_in_the_same_second_get_a_suffix(repo: Path, backups: Path, 
 
     assert first.backup.name == "20261010-143005"
     assert second.backup.name == "20261010-143005-2"
-    assert list_backups(backups) == [first.backup, second.backup]
-
-
-def test_list_backups_ignores_folders_that_are_not_backups(repo: Path, backups: Path):
-    (backups / "old").mkdir(parents=True)
-    (backups / "notes.txt").write_text("x")
-    report = clean(repo, backup_dir=backups)
-
-    assert list_backups(backups) == [report.backup]
+    assert sorted(backups.iterdir()) == [first.backup, second.backup]
 
 
 def test_clean_backs_up_a_repo_whose_only_user_data_is_an_empty_folder(repo: Path, backups: Path):
@@ -135,24 +111,44 @@ def test_clean_backs_up_a_repo_whose_only_user_data_is_an_empty_folder(repo: Pat
     assert report.backup is not None and (report.backup / "output/empty").is_dir()
 
 
-def test_restore_dry_run_reports_what_it_would_restore_and_changes_nothing(repo: Path, backups: Path):
-    first = clean(repo, backup_dir=backups)
-    before, count = snapshot(repo), len(list_backups(backups))
+def test_clean_applications_leaves_the_set_up_state(repo: Path):
+    clean(repo, applications_only=True)
 
-    report = restore(repo, first.backup, backup_dir=backups, dry_run=True)
+    kept = [
+        "config.yml",
+        "db/system_status.json",
+        "input/cv.md",
+        "input/writing-style.md",
+        "input/documents/cv/cv_en.pdf",
+        "input/documents/linkedin/Profile.pdf",
+        "input/documents/reference_letters/letter.docx",
+        "input/documents/xing/nested/profile.pdf",
+        "output/acme/cover_letter.md",
+    ]
+    setup = {rel: USER_DATA[rel] for rel in kept}
+    assert snapshot(repo) == {k: v.encode() for k, v in {**TRACKED, **setup}.items()}
+    assert not (repo / "output/applications/acme_em_2026-10-15").exists()
+
+
+def test_clean_applications_backs_up_only_what_it_deletes(repo: Path, backups: Path):
+    report = clean(repo, backup_dir=backups, applications_only=True)
+
+    backed_up = sorted(p.relative_to(report.backup) for p in report.backup.rglob("*") if p.is_file())
+    assert backed_up == report.deleted
+    assert Path("db/ieakaso_db.json") in backed_up
+    assert Path("config.yml") not in backed_up
+
+
+def test_clean_applications_dry_run_changes_nothing(repo: Path, backups: Path):
+    before = snapshot(repo)
+
+    report = clean(repo, backup_dir=backups, dry_run=True, applications_only=True)
 
     assert snapshot(repo) == before
-    assert len(list_backups(backups)) == count
-    assert report.restored == first.deleted
+    assert not backups.exists()
+    assert Path("db/.ieakaso_db.json.k3x9q.tmp") in report.deleted
+    assert Path("output/applications/acme_em_2026-10-15") in report.removed_dirs
 
 
-def test_list_backups_orders_suffixes_numerically(backups: Path):
-    for name in ["20261010-143005-10", "20261010-143005", "20261010-143005-2", "20261009-090000"]:
-        (backups / name).mkdir(parents=True)
-
-    assert [p.name for p in list_backups(backups)] == [
-        "20261009-090000",
-        "20261010-143005",
-        "20261010-143005-2",
-        "20261010-143005-10",
-    ]
+def test_the_applications_data_is_part_of_the_user_data(repo: Path):
+    assert set(user_data(repo, applications_only=True)) < set(user_data(repo))

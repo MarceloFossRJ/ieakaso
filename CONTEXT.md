@@ -5,12 +5,16 @@ A local job-search assistant that drafts applications for a candidate; the candi
 ## Language
 
 **User data**:
-The candidate's own files, which are gitignored and never leave their machine: `config.yml`, `db/system_status.json`, `db/ieakaso_db.json`, and everything in `input/` and `output/` except the tracked placeholders (`.gitkeep` files and `input/documents/README.md`).
+The candidate's own files, which are gitignored and never leave their machine: `config.yml`, `db/system_status.json`, `db/ieakaso_db.json`, temporary files left in `db/` by an interrupted write, and everything in `input/` and `output/` except the tracked placeholders (`.gitkeep` files and `input/documents/README.md`).
 _Avoid_: personal data, private files
 
 **Fresh state**:
 The repo with no user data, exactly as after a clone and before the first `/ieakaso init`. The development cleaner (`ieakaso.devtools.cleaner`) returns a repo to it.
 _Avoid_: clean install, reset state, empty repo
+
+**Set-up state**:
+The repo with the candidate's setup (`config.yml`, `db/system_status.json`, everything in `input/`) and no Applications: exactly as after a complete `/ieakaso init` and before the first Job analysis. The development cleaner returns a repo to it with `clean --applications`.
+_Avoid_: post-init state, half-clean, soft reset
 
 **Mode**:
 One candidate-facing action of the `/ieakaso` skill, such as init, cv-parser, job-analyzer or cover-letter. Development tools are never modes.
