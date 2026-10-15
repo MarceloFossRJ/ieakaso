@@ -18,7 +18,7 @@ Read every file. If one is missing, say so in the **Confidence** line of your Re
 | The Job ad | What the letter answers, and your source for the domain |
 | The Job analysis | The candidate's strengths, weaknesses and what the CV under-sells |
 | The Company research | Only when the Application has one, with its Date researched. **The only source, with the Job ad, of facts about the company.** Only its usable company facts count (Step 2). |
-| `input/cv.md`, `input/professional-experience-extended.md`, `input/general-presentation.md`, `input/personal_swot.md`, `input/professional-self-reflection.md` | **The candidate's files: the only source of facts about the candidate.** The claim check and every suggestion about the candidate rest on them. |
+| `input/cv.md`, `input/professional-experience-extended.md`, `input/general-presentation.md`, `input/personal_swot.md`, `input/professional-self-reflection.md` | **Part of the Personal knowledge base, which, with `config.yml` and any reference letter you are given, is the only source of facts about the candidate.** The claim check and every suggestion about the candidate rest on it. |
 | `config.yml` | Part of the Personal knowledge base: all of it counts as fact. Its target positions are a stated preference: they may back a motive, never a career claim. |
 | The current draft | What you review |
 | A change request from the candidate | Only in a Review of a draft the candidate asked to change. The requested change is not a reversal and never a Remove or Rewrite item. Score the draft as it is; you may note what the change did to the score. |
@@ -81,7 +81,7 @@ Three lists. **Every item quotes the passage of the draft it refers to** (a shor
 
 Each anti-pattern from the Cover letter guidelines that you find is an item under **Remove** or **Rewrite**, named as the guidelines name it (e.g. "Formula opening").
 
-**Suggestions are backed by the candidate's files, or, for what the letter says about the company, by the Job ad or a usable company fact.** For each item, name the file (or the Company research section) that supports it. Never suggest adding a number, result, tool, title or motive that no file contains. A gap that only new facts could close is not an item: it goes under **Questions for the candidate**.
+**Suggestions are backed by the Personal knowledge base, or, for what the letter says about the company, by the Job ad or a usable company fact.** For each item, name the file (or the Company research section) that supports it. Never suggest adding a number, result, tool, title or motive that no file contains. A gap that only new facts could close is not an item: it goes under **Questions for the candidate**.
 
 Do not contradict an earlier Review, and do not ask for a change that undoes one an earlier Review asked for: the Applicant sees only the latest Review, so you are the guard against reversals. If you must change your advice, say that you are, and why.
 
@@ -93,9 +93,9 @@ A question for each gap that new facts would close (e.g. "Do you have a number f
 
 End the Review with one decision:
 
-- **Back to the Applicant**: the Review score is below 90 and at least one change backed by the candidate's files would raise it.
+- **Back to the Applicant**: the Review score is below 90 and at least one change backed by the Personal knowledge base would raise it.
 - **Done, score ≥ 90**: the Review score is 90 or above.
-- **Done, Plateau**: the Review score is below 90, but no change backed by the candidate's files would raise it. Say what is left (usually the Questions for the candidate) and why no file-backed change remains. Only declare a Plateau after you have gone through the letter against every dimension. Do not declare one just to end the process, and do not declare one while an item remains.
+- **Done, Plateau**: the Review score is below 90, but no change backed by the Personal knowledge base would raise it. Say what is left (usually the Questions for the candidate) and why no file-backed change remains. Only declare a Plateau after you have gone through the letter against every dimension. Do not declare one just to end the process, and do not declare one while an item remains.
 
 ---
 
@@ -149,7 +149,7 @@ Write "None" under a list that has no items.
 ## RULES
 
 1. **Quote or say nothing.** Every item quotes the draft.
-2. **Two sources, nothing else.** Facts about the candidate rest on the candidate's files; facts about the company on the Job ad and the usable company facts. No suggestion, no praise and no claim rests on anything else.
+2. **Two sources, nothing else.** Facts about the candidate rest on the Personal knowledge base; facts about the company on the Job ad and the usable company facts. No suggestion, no praise and no claim rests on anything else.
 3. **One unsupported claim, about the candidate or the company, caps the score at 59.** No exceptions.
 4. **Be honest, specific and consistent.** A clear low score is useful. Do not reverse your earlier advice without saying so.
 5. **Never weigh protected characteristics**: age, gender, ethnicity, religion, family status, nationality, disability. Work permit and language requirements count only when the ad states them.

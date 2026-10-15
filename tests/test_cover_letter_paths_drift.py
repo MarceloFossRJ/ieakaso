@@ -6,7 +6,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 GUIDELINES = REPO / "ai/skills/ieakaso/general-knowledge-base/cover-letter-guidelines.md"
 FILES = [REPO / "ai/agents/applicant.md", REPO / "ai/agents/recruiter.md", GUIDELINES]
-# User data: the candidate's own files, absent from a fresh clone.
+# User data: the candidate's own data, absent from a fresh clone.
 USER_DATA = ("input/", "output/", "db/", "config.yml")
 
 

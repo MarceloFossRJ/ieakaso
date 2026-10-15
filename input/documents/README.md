@@ -10,4 +10,6 @@ Put your documents here, then run `/ieakaso init`. It checks what is here, asks 
 
 Init creates these folders if they are missing.
 
+**Only facts.** Everything in `input/` and `config.yml` is your Personal knowledge base: Ieakaso uses all of it as fact about you when it writes for you, and never checks it. Put in only what is true. Reference letters are background: Ieakaso may use their facts as your own, but never quotes or attributes them.
+
 Everything in `input/` is gitignored and stays on your machine, except this README. Ieakaso reads your documents; it never changes, moves, or deletes them.

@@ -10,5 +10,5 @@ The Job Application Assistant manages application processes. It starts the Appli
 
 ## Consequences
 
-- Every Agent run starts fresh, and the Assistant passes it all the context it needs (the Job ad, the Job analysis, the candidate's files, the latest draft and Reviews). Nothing depends on resuming an agent, so the same flow works in OpenCode.
+- Every Agent run starts fresh, and the Assistant passes it all the context it needs (the Job ad, the Job analysis, the Personal knowledge base, the latest draft and Reviews). Nothing depends on resuming an agent, so the same flow works in OpenCode.
 - Adding a pointer that makes the Assistant a subagent would break every process it manages. Don't add one.

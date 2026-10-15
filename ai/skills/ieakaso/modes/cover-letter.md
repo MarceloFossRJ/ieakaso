@@ -14,7 +14,7 @@ Act as the Job Application Assistant: read `ai/agents/job-application-assistant.
 
 **Company research:** found or made in Step 2b, when there is one.
 
-Each agent's file lists the candidate's files it reads (`ai/agents/applicant.md`, `ai/agents/recruiter.md`); this mode does not repeat them.
+Each agent's file lists the files of the Personal knowledge base it reads (`ai/agents/applicant.md`, `ai/agents/recruiter.md`); this mode does not repeat them.
 
 ---
 
