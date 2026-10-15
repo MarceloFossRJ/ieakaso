@@ -97,7 +97,7 @@ The report the job-analyzer mode writes on how well the Parsed CV fits one Job a
 _Avoid_: CV score, fit report
 
 **Company research**:
-The report on the company behind an Application's Job ad: what it does, its product, its latest releases, its financial moment, its culture, what employees say about it, the Role impact and red flags, each fact with a dated source. The job-analyzer mode makes it after the Job analysis; the candidate never asks for it on its own. It never changes the Job analysis's score or Verdict.
+The report on the company behind an Application's Job ad: what it does, its product, its latest releases, its financial moment, its culture, what employees say about it, the Role impact and red flags, each fact with a dated source. The job-analyzer mode makes it after the Job analysis, and the cover-letter mode can run the same steps when an Application has none; the candidate never asks for it on its own. It never changes the Job analysis's score or Verdict. A Cover letter may use its public, fetched facts about the company, never its red flags or employee reviews.
 _Avoid_: company report, company profile, due diligence
 
 **Role impact**:
@@ -123,7 +123,7 @@ The role that manages an application process for the candidate: it runs the step
 _Avoid_: orchestrator, Cover Letter Manager, application agent
 
 **Applicant Agent**:
-The agent that writes the candidate's application drafts, in the candidate's voice and only from the candidate's files.
+The agent that writes the candidate's application drafts, in the candidate's voice: what it says about the candidate comes only from the candidate's files, and what it says about the company only from the Job ad and the Company research.
 _Avoid_: AI candidate, candidate assistant, writer
 
 **Seasoned Recruiter**:

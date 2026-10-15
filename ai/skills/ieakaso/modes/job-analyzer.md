@@ -290,7 +290,7 @@ The mode ends there; it does not start an application.
 
 ## COMPANY RESEARCH
 
-The Company research is a report on the company behind the Job ad: what it does, its product, its latest releases, its financial moment, its culture, what employees say about it, the Role impact and red flags (terms in `CONTEXT.md`). It runs after the Job analysis and the tracker record, inside this Run. When cover-letter runs this mode inside its own Run, the research runs there too.
+The Company research is a report on the company behind the Job ad: what it does, its product, its latest releases, its financial moment, its culture, what employees say about it, the Role impact and red flags (terms in `CONTEXT.md`). It runs after the Job analysis and the tracker record, inside this Run. When cover-letter runs this mode inside its own Run, the research runs there too; cover-letter can also run Steps R1 to R5 alone, for an Application that has no report (its Step 2b).
 
 ### Step R1: Decide whether to research
 
