@@ -14,11 +14,12 @@ Read every file. If one is missing, say so in the **Confidence** line of your Re
 
 | Input | Use |
 |---|---|
+| `ai/skills/ieakaso/general-knowledge-base/cover-letter-guidelines.md` | The Cover letter guidelines: what you judge each dimension against (Step 3) and the anti-patterns you flag (Step 4). Where they and this file disagree, this file wins. |
 | The Job ad | What the letter answers, and your source for the domain |
 | The Job analysis | The candidate's strengths, weaknesses and what the CV under-sells |
 | The Company research | Only when the Application has one, with its Date researched. **The only source, with the Job ad, of facts about the company.** Only its usable company facts count (Step 2). |
 | `input/cv.md`, `input/professional-experience-extended.md`, `input/general-presentation.md`, `input/personal_swot.md`, `input/professional-self-reflection.md` | **The candidate's files: the only source of facts about the candidate.** The claim check and every suggestion about the candidate rest on them. |
-| `config.yml` | A source for exactly two kinds of facts: the contact block, and the languages with their levels. Nothing else in it is a fact about the candidate's career. |
+| `config.yml` | Part of the Personal knowledge base: all of it counts as fact. Its target positions are a stated preference: they may back a motive, never a career claim. |
 | The current draft | What you review |
 | A change request from the candidate | Only in a Review of a draft the candidate asked to change. The requested change is not a reversal and never a Remove or Rewrite item. Score the draft as it is; you may note what the change did to the score. |
 | All earlier Reviews | So you can see a Plateau coming and not reverse your own advice. Absent in the first Round. |
@@ -33,7 +34,9 @@ From the Job ad, state the **domain**: the industry plus the role function (e.g.
 
 ### Step 2: Check the claims
 
-Check **every claim** the draft makes about the candidate (employers, titles, dates, tools, numbers, results, motives) against the candidate's files (`config.yml` counts for the contact block and the languages with their levels, and for nothing else). List each claim that no file supports.
+Check **every claim** the draft makes about the candidate (employers, titles, dates, tools, numbers, results, motives) against the Personal knowledge base: the `input/` files and `config.yml` above, and any reference letter you are given. A claim that only `config.yml`'s target positions back is supported only as a motive, never as a career claim. List each claim that nothing supports.
+
+A fact stated in a reference letter supports a claim. Quoting a reference letter, naming its author or attributing anything to it ("my former CTO described me as…") is not an unsupported claim: it goes under **Remove**, with no cap.
 
 Then check **every claim about the company** (its product, a release, its funding, its culture) against the Job ad and the usable company facts. **Usable company facts** are the facts in the Company research's At a glance, Domain and product, Latest releases, Financial moment and Culture sections whose source was fetched, not marked "from search snippet". Its Red flags, Employee reviews and Notes never go into a letter. Its Role impact is a judgment, not a fact: it may guide what the letter stresses, but is never quoted or paraphrased as a claim. A company claim is unsupported when neither the Job ad nor a usable company fact states it, when it adds numbers, dates or judgments the source doesn't have, when it comes from Red flags, Employee reviews or a snippet-only fact, or when it calls something "recent", "new" or "latest" that is more than 6 months older than today. List each one too.
 
@@ -41,7 +44,13 @@ Then check **every claim about the company** (its product, a release, its fundin
 
 ### Step 3: Score the dimensions
 
-Score each dimension from 0 to 100, with one or two lines of reasons:
+Score each dimension from 0 to 100, with one or two lines of reasons. Judge each one against its part of the Cover letter guidelines:
+
+- **Fit**: the ad's top needs (its "what you'll do" tasks more than its requirements list) are the ones the letter answers, with the emphasis for the role function.
+- **Evidence**: each point is a situation, what the candidate did, the result, **and why it is relevant to this role**. Adjectives are not evidence.
+- **Motivation**: real or nothing. A specific, true reason tied to a motive the Personal knowledge base states, or a focus on the role itself; never empty praise.
+- **Structure**: hook, book, took; the most important information in the first paragraph; paragraphs, not bullets.
+- **Concision and tone**: the 200–300-word target (between 300 and 350, every paragraph must earn its place), the candidate's voice, no AI tells, the ad's own terms and register.
 
 | Dimension | Weight |
 |---|---|
@@ -69,6 +78,8 @@ Three lists. **Every item quotes the passage of the draft it refers to** (a shor
 - **Remove**: unsupported claims, filler, repetition, anything that hurts the letter.
 - **Rewrite**: passages that are in the right place but weak, vague or too long. Say what the rewrite must achieve; the Applicant writes it.
 - **Improve**: additions or changes that would raise the score.
+
+Each anti-pattern from the Cover letter guidelines that you find is an item under **Remove** or **Rewrite**, named as the guidelines name it (e.g. "Formula opening").
 
 **Suggestions are backed by the candidate's files, or, for what the letter says about the company, by the Job ad or a usable company fact.** For each item, name the file (or the Company research section) that supports it. Never suggest adding a number, result, tool, title or motive that no file contains. A gap that only new facts could close is not an item: it goes under **Questions for the candidate**.
 

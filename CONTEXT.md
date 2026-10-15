@@ -116,6 +116,14 @@ _Avoid_: execution, invocation, job
 One call to an Ieakaso agent (the Applicant Agent, the Seasoned Recruiter or the Company Researcher) inside a Run.
 _Avoid_: subagent execution, agent call
 
+**General knowledge base**:
+The writing guidance that ships with Ieakaso and holds for every candidate, such as the Cover letter guidelines and the research behind them. It is never User data and never a source of facts about the candidate or the company.
+_Avoid_: knowledge base, guides, templates
+
+**Personal knowledge base**:
+Everything the candidate gives Ieakaso about themselves: `config.yml` and everything in `input/`. It holds only facts about the candidate, so anything in it may be used as one; it is the only source of facts about the candidate. The candidate vouches for that: Ieakaso never fact-checks it. When two of its sources disagree, the Parsed CV wins and the conflict becomes a question for the candidate. Reference letters are trusted background: their facts about the candidate may be used as the candidate's own, their opinions may only steer emphasis, and they are never quoted or attributed in anything Ieakaso writes. It is User data.
+_Avoid_: knowledge base, memory, the candidate's files
+
 ### Agents
 
 **Job Application Assistant**:
@@ -147,6 +155,10 @@ _Avoid_: feedback, critique, grading
 **Review score**:
 The 0-100 score a Review gives a draft.
 _Avoid_: rating, grade, Job analysis score
+
+**Cover letter guidelines**:
+The part of the General knowledge base that says what makes a Cover letter land an interview. The Applicant Agent drafts by it and the Seasoned Recruiter reviews against it; where it and an agent's own rules disagree, the agent's rules win.
+_Avoid_: knowledge base, best practices, style guide
 
 **Round**:
 One draft by the Applicant Agent followed by one Review of it.
