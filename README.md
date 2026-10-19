@@ -65,6 +65,8 @@ To set up, put your CV in `input/documents/cv/` and run:
 
 It checks your documents, strongly recommends your LinkedIn "Save to PDF" export (`input/documents/linkedin/`), suggests reference letters (`input/documents/reference_letters/`), and asks you to confirm your details, target positions, and search location. It saves them in `config.yml`. Run it again any time to review or update them. Other modes run it for you if setup is incomplete.
 
+At the end, init compares your LinkedIn PDF, your reference letters and `config.yml` with your CV, and lists where they disagree: a different title, date, number or language level, each rated High, Medium or Low by how likely a recruiter is to notice. Your CV counts as the right version. Each run saves a new report in `output/conflict-reports/`, named with its date and time, and keeps the older ones. Fix the document that disagrees, put it back in its folder, and run init again to check.
+
 Init also turns your CV into `input/cv.md`, word for word: nothing reworded, added, or left out. When you change your CV, the next mode you run updates `input/cv.md` for you, or run it yourself:
 
 ```

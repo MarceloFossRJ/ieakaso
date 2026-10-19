@@ -1,6 +1,6 @@
 # Init
 
-Sets the candidate up for a job search: checks their documents, collects `config.yml`, and records the result in `db/system_status.json`.
+Sets the candidate up for a job search: checks their documents, collects `config.yml`, records the result in `db/system_status.json`, and writes a Conflict report of where the other documents disagree with the CV.
 
 Runs when the user calls `/ieakaso init`, and from the setup check in `ai/skills/ieakaso/SKILL.md` when setup is missing or incomplete.
 
@@ -118,6 +118,83 @@ Write `db/system_status.json` (create `db/` if missing), then show a short summa
 - Config: confirmed, with any skipped optional fields
 - Only facts: everything in `input/` and `config.yml` is the candidate's Personal knowledge base (terms in `CONTEXT.md`). Ieakaso uses all of it as fact and never checks it, so it must hold only what is true.
 - What's next: `/ieakaso job-analyzer <job-url or job-ad text>` to score the CV against a job ad and get a verdict
+
+Then run Step 5. Its chat part comes after this summary, as the last thing init shows.
+
+## Step 5: Conflict report
+
+Compare the candidate's documents with the Parsed CV and write a Conflict report (terms in `CONTEXT.md`). Do this yourself; it takes judgement (the same job under two titles, a date written two ways), so it is not part of the CV parser. Run it on every init, including a re-run where no document changed. It never blocks init, never changes `init.status`, and never edits a document or `config.yml`.
+
+### What to compare
+
+The Parsed CV `input/cv.md` is the reference. Compare it with:
+
+1. **The LinkedIn profile's Parsed document** `input/linkedin.md`: employers, titles, dates, locations, team sizes, budgets and other numbers, achievements, education, certifications, languages, the headline and summary.
+2. **Each Reference letter's Parsed document** `input/reference-letters/*.md`: titles, dates, team sizes and claimed results.
+3. **`config.yml`**: name, last name, email, phone, location, LinkedIn, GitHub, portfolio and languages (`candidate.*`), where the CV states them.
+
+Compare only the Parsed documents that exist: one the parser could not write (a warning in Step 2) is left out, and the report's header says so. Never read the Source documents, and leave the memory files out (`professional-self-reflection.md` and the others): job-analyzer checks those against the CV on every run.
+
+**No Parsed CV:** when `input/cv.md` does not exist (the parser could not write it in Step 2), write no report, and say in chat that the check runs once the CV is parsed.
+
+**Nothing to compare:** when there is no `input/linkedin.md` and no file in `input/reference-letters/`, write no report, and say in chat that there was nothing to compare the CV with yet, and that adding the LinkedIn PDF or reference letters and running `/ieakaso init` again will check them.
+
+### What counts
+
+- **A conflict:** the same fact, stated differently. The same job with a different title, employer or dates; a different number for the same thing; a different language level. Treat the CV as right and the other document as the one to fix.
+- **Only on one side:** a fact one document holds and the other does not (a degree, a job, a certification, an achievement). A gap, not a conflict.
+- **Different positioning:** the LinkedIn headline or summary presents the candidate differently from the CV's summary (e.g. one leads with AI/ML, the other does not).
+
+Report only what the documents say: quote or closely paraphrase each side, and never guess which side is true or why they differ.
+
+Rate each conflict:
+
+| Relevance | When | Examples |
+|---|---|---|
+| High | A recruiter or a background check would catch it | Different job titles or employers; dates more than a month apart; numbers that don't match (a 1M€ budget against a 9-figure one) |
+| Medium | The same fact, with a different scope or level | Team size; countries; a language level |
+| Low | Cosmetic | A one-month date shift; a typo; the same title worded differently |
+
+### Write the report
+
+Write a new file `output/conflict-reports/<yyyy-mm-dd>T<hh-mm>_conflicts.md`, with the local date and time of this run (create the folder if missing). Never overwrite a report: if that name exists (two runs in the same minute), add `-2`, `-3` and so on before `_conflicts`. Older reports stay as they are, as the history of past checks.
+
+```markdown
+# Conflict report
+
+> **Checked:** [yyyy-mm-dd hh:mm] | **CV:** `input/cv.md` (from [Source CV path]) | **Compared with:** `input/linkedin.md` (from [LinkedIn PDF path]), `input/reference-letters/[name].md` (from [letter path]), `config.yml`
+
+[Documents left out, if any: which, and why]
+
+The CV is the reference: fix the other document to match it, or the Source CV if the CV is wrong.
+
+## Conflicts
+
+| # | Relevance | Topic | CV says | Other document says | Why it matters |
+|---|---|---|---|---|---|
+| 1 | High / Medium / Low | [...] | [...] | [document]: [...] | [one line] |
+
+## Only on one side
+
+| Only in [document] | Only in the CV |
+|---|---|
+| [...] | [...] |
+
+## Different positioning
+
+- **CV:** [...]
+- **[document]:** [...]
+```
+
+Order the conflicts High first, then Medium, then Low, and number them in that order. A section with nothing in it reads "None found". When there are no conflicts, gaps or positioning differences at all, still write the file, with "No conflicts found." under the header, so the candidate can see the check ran.
+
+### Show it in chat
+
+After the Step 4 summary:
+
+- The High and Medium conflicts, one line each (relevance, topic, the two versions), and how many Low ones there are; or "No conflicts found."
+- The report's path
+- The next step, when there is a conflict: fix the document that disagrees with the CV (or the Source CV, if the CV is wrong), put the new file in its folder under `input/documents/`, and run `/ieakaso init` again, which writes a new report
 
 ---
 

@@ -140,6 +140,10 @@ _Avoid_: knowledge base, guides, templates
 Everything the candidate gives Ieakaso about themselves: `config.yml` and everything in `input/`. It holds only facts about the candidate, so anything in it may be used as one; it is the only source of facts about the candidate. The candidate vouches for that: Ieakaso never fact-checks it. When two of its sources disagree, the Parsed CV wins and the conflict becomes a question for the candidate. Reference letters are trusted background (see Reference letter). It is User data.
 _Avoid_: knowledge base, memory, the candidate's files
 
+**Conflict report**:
+The list of places where the LinkedIn profile, a Reference letter or `config.yml` disagrees with the Parsed CV, each rated High, Medium or Low by how likely a recruiter is to notice it, plus the facts only one side holds. Init writes a new one on every run, as `output/conflict-reports/<yyyy-mm-dd>T<hh-mm>_conflicts.md`, and never overwrites an older one. The Parsed CV is the reference: the report tells the candidate which other document to fix. It never blocks init and never changes a document.
+_Avoid_: consistency check, discrepancy report, diff
+
 ### Agents
 
 **Job Application Assistant**:
