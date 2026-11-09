@@ -58,13 +58,22 @@ def _sync(root: Path, targets: dict[str, PurePosixPath], old: list[dict], force:
     for source_rel, output_rel in targets.items():
         if not (root / source_rel).is_file():
             continue
-        record = _parse_one(root, source_rel, output_rel, previous.pop(source_rel, None), force, now)
+        last = previous.pop(source_rel, None) or _pop_replaced(previous, targets, output_rel)
+        record = _parse_one(root, source_rel, output_rel, last, force, now)
         if record:
             records.append(record)
     for record in previous.values():
         if _keep_after_source_is_gone(root, record, force):
             records.append(record)
     return records
+
+
+def _pop_replaced(previous: dict, targets: dict[str, PurePosixPath], output_rel: PurePosixPath) -> dict | None:
+    """The record of a source that is no longer a target but wrote output_rel (the LinkedIn PDF under a new name)."""
+    for source_rel, record in previous.items():
+        if source_rel not in targets and record.get("output_path") == output_rel.as_posix():
+            return previous.pop(source_rel)
+    return None
 
 
 def _parse_one(
