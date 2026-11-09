@@ -147,6 +147,57 @@ def test_a_hand_edited_parsed_document_whose_source_is_gone_is_kept_unless_force
     assert not (repo / LETTER_OUT).exists()
 
 
+# --- a new source for the same parsed document ----------------------------------------
+
+NEW_LINKEDIN_PATH = "input/documents/linkedin/Profile-2026.md"
+
+
+def replace_linkedin_source(repo: Path) -> None:
+    (repo / LINKEDIN_PATH).unlink()
+    write_files(repo, {NEW_LINKEDIN_PATH: "# Jordan Example\n\nDirector\n"})
+    set_documents(repo, linkedin={"path": NEW_LINKEDIN_PATH})
+
+
+def test_a_new_linkedin_source_replaces_the_parsed_document(repo: Path, capsys):
+    run(repo)
+    replace_linkedin_source(repo)
+    capsys.readouterr()
+
+    assert run(repo) == 0
+    assert (repo / LINKEDIN_OUT).read_text() == "# Jordan Example\n\nDirector\n"
+    assert documents(repo)["linkedin"]["parsed"]["source_path"] == NEW_LINKEDIN_PATH
+    out = capsys.readouterr().out
+    assert "Warning:" not in out
+    assert "Removed" not in out
+
+
+def test_a_new_linkedin_source_is_parsed_when_the_old_parsed_document_is_missing(repo: Path, capsys):
+    run(repo)
+    (repo / LINKEDIN_OUT).unlink()
+    replace_linkedin_source(repo)
+    capsys.readouterr()
+
+    assert run(repo) == 0
+    assert (repo / LINKEDIN_OUT).read_text() == "# Jordan Example\n\nDirector\n"
+    assert documents(repo)["linkedin"]["parsed"]["source_path"] == NEW_LINKEDIN_PATH
+    assert "Warning:" not in capsys.readouterr().out
+
+
+def test_a_new_linkedin_source_keeps_a_hand_edited_parsed_document_unless_forced(repo: Path, capsys):
+    run(repo)
+    (repo / LINKEDIN_OUT).write_text("my own version\n")
+    replace_linkedin_source(repo)
+    capsys.readouterr()
+
+    assert run(repo) == 0
+    assert (repo / LINKEDIN_OUT).read_text() == "my own version\n"
+    assert "--force" in capsys.readouterr().out
+
+    assert run(repo, "--force") == 0
+    assert (repo / LINKEDIN_OUT).read_text() == "# Jordan Example\n\nDirector\n"
+    assert documents(repo)["linkedin"]["parsed"]["source_path"] == NEW_LINKEDIN_PATH
+
+
 # --- hand edits -------------------------------------------------------------------
 
 
