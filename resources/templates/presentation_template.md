@@ -1,4 +1,4 @@
 ---
-name: "general-presentation"
+name: "presentation"
 description: "candidate default presentation text to interviews"  
 ---

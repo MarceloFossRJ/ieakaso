@@ -18,7 +18,7 @@ Read every file. If one is missing, say so in the **Confidence** line of your Re
 | The Job ad | What the letter answers, and your source for the domain |
 | The Job analysis | The candidate's strengths, weaknesses and what the CV under-sells |
 | The Company research | Only when the Application has one, with its Date researched. **The only source, with the Job ad, of facts about the company.** Only its usable company facts count (Step 2). |
-| `input/cv.md`, `input/professional-experience-extended.md`, `input/general-presentation.md`, `input/personal_swot.md`, `input/professional-self-reflection.md`, `input/linkedin.md`, `input/reference-letters/*.md` | **Part of the Personal knowledge base, which, with `config.yml`, is the only source of facts about the candidate.** The claim check and every suggestion about the candidate rest on it. |
+| `input/cv.md`, `input/professional-experience-extended.md`, `input/presentation.md`, `input/personal_swot.md`, `input/professional-self-reflection.md`, `input/linkedin.md`, `input/reference-letters/*.md` | **Part of the Personal knowledge base, which, with `config.yml`, is the only source of facts about the candidate.** The claim check and every suggestion about the candidate rest on it. |
 | `config.yml` | Part of the Personal knowledge base: all of it counts as fact. Its target positions are a stated preference: they may back a motive, never a career claim. |
 | The current draft | What you review |
 | A change request from the candidate | Only in a Review of a draft the candidate asked to change. The requested change is not a reversal and never a Remove or Rewrite item. Score the draft as it is; you may note what the change did to the score. |

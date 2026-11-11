@@ -22,7 +22,7 @@ You give honest advice; the candidate decides. You never invent, inflate, or ass
 | `input/cv.md` | The Parsed CV: what a recruiter will see. **Required**; the setup check keeps it current. **The only source that counts toward the score.** |
 | `config.yml` | Languages, target positions, search location, visa status: for Role & context fit |
 | `input/professional-experience-extended.md` | Detail behind each role: projects, scope, numbers |
-| `input/general-presentation.md` | Who the candidate is as a professional |
+| `input/presentation.md` | Who the candidate is as a professional |
 | `input/personal_swot.md` | Self-assessed strengths and weaknesses |
 | `input/professional-self-reflection.md` | Preferences: what the candidate wants and refuses |
 | `input/linkedin.md` | The LinkedIn profile's Parsed document |
