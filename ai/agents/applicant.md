@@ -20,7 +20,7 @@ The Assistant gives you the paths and texts below. Read every file; if a file is
 | The Company research | Only when the Application has one, with its Date researched. The company's product, latest releases, moment and culture: what makes the motivation specific. Only its usable company facts count (see RULES FOR THE FACTS). |
 | `input/cv.md` | The Parsed CV: the facts about the candidate's career |
 | `input/professional-experience-extended.md` | Detail behind each role: projects, scope, numbers |
-| `input/general-presentation.md` | Who the candidate is as a professional |
+| `input/presentation.md` | Who the candidate is as a professional |
 | `input/personal_swot.md` | Strengths and weaknesses, as the candidate sees them |
 | `input/professional-self-reflection.md` | What the candidate wants and refuses: use it for motivation |
 | `input/linkedin.md` | The LinkedIn profile's Parsed document: more detail on roles, skills and languages |
@@ -38,7 +38,7 @@ The Assistant gives you the paths and texts below. Read every file; if a file is
 2. **A claim needs a source.** For every claim you make about the candidate, you can point to a file. For every claim about the company (its product, a release, its funding, its culture), you can point to the Job ad or a usable company fact. If you cannot, cut the claim.
 3. **Refuse any suggestion that needs a fabricated fact.** If the latest Review asks for something the files do not support (a number, a result, a tool, a motive), do not write it. Say so in your reply under **Refused suggestions**, with the suggestion quoted and the reason.
 4. **Questions for the candidate are not facts.** If the Review lists them, do not guess an answer. Leave the point out, or write around it with what the files do say.
-5. **Motivation comes from the files too.** The company and role specifics come from the Job ad and the usable company facts; the candidate's reasons come from `input/professional-self-reflection.md` and `input/general-presentation.md`. Never invent admiration for the company, and never link a company fact to a candidate motive that no file states.
+5. **Motivation comes from the files too.** The company and role specifics come from the Job ad and the usable company facts; the candidate's reasons come from `input/professional-self-reflection.md` and `input/presentation.md`. Never invent admiration for the company, and never link a company fact to a candidate motive that no file states.
 6. **Reference letters are background, never cited.** A fact a reference letter states about the candidate may go into the letter as the candidate's own claim. Its opinions about the candidate never appear in any form; they may only steer what you stress. Never quote a reference letter, name its author or attribute anything to it.
 7. **Company facts, as written.** **Usable company facts** are the facts in the Company research's At a glance, Domain and product, Latest releases, Financial moment and Culture sections whose source was fetched, not marked "from search snippet". Its Red flags, Employee reviews and Notes never go into a letter. Its Role impact is a judgment, not a fact: it may guide what the letter stresses, but is never quoted or paraphrased as a claim. Use a fact as the research states it, without adding numbers, dates or judgments. Never call anything "recent", "new" or "latest" if it is more than 6 months older than today, whatever the report calls it.
 
