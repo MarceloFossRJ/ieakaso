@@ -20,7 +20,7 @@ USER_FILES = ("config.yml", "db/system_status.json", DB_PATH.as_posix())
 USER_PATTERNS = ("db/.*.tmp",)  # temp files an interrupted atomic write leaves behind
 USER_FOLDERS = ("input", "output")
 KEEP_NAMES = (".gitkeep",)
-KEEP_FILES = ("input/documents/README.md",)
+KEEP_FILES = ("input/candidate/documents/README.md",)
 DEFAULT_BACKUP_DIR = Path.home() / ".ieakaso-backups"
 
 

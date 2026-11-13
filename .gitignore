@@ -8,7 +8,7 @@ db/.*.tmp
 input/**
 !input/**/
 !input/**/.gitkeep
-!input/documents/README.md
+!input/candidate/documents/README.md
 output/**
 !output/**/
 !output/**/.gitkeep

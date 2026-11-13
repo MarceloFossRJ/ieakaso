@@ -27,7 +27,7 @@ def test_the_example_in_db_validates():
         cv_version(
             id="cv_2026-10-12",
             label="cv_for_acme",
-            path="input/documents/cv/cv_2026-10-12/cv_for_acme.pdf",
+            path="input/candidate/documents/cv/cv_2026-10-12/cv_for_acme.pdf",
             captured_at="2026-10-12",
             tailored_for=ID,
         ),

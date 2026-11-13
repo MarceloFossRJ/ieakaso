@@ -1,4 +1,4 @@
-"""Turns the Source CV into the Parsed CV (`input/cv.md`), deterministically.
+"""Turns the Source CV into the Parsed CV (`input/parsed-documents/cv.md`), deterministically.
 
 Same words in the same order; only structure the file declares (headings, lists, links,
 tables, footnotes) is added. The one exception to the order: footnote text follows the

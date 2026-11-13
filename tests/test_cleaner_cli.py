@@ -12,7 +12,7 @@ def run(repo: Path, backups: Path, *args: str) -> int:
 
 
 def test_find_root_walks_up_from_a_subfolder(repo: Path):
-    assert find_root(repo / "input/documents/cv") == repo
+    assert find_root(repo / "input/candidate/documents/cv") == repo
 
 
 def test_find_root_returns_none_outside_the_repo(tmp_path: Path):

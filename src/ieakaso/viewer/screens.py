@@ -101,7 +101,7 @@ class CvVersionsScreen(Screen):
         yield Static("CV versions (the label is yours to change)", classes="title")
         with VerticalScroll():
             if not versions:
-                yield Static("No CV versions yet. Save your CV in input/documents/cv/ and run /ieakaso cv-parser.")
+                yield Static("No CV versions yet. Save your CV in input/candidate/documents/cv/ and run /ieakaso cv-parser.")
             for version in versions:
                 kind = describe_cv_version(version)
                 with Horizontal(classes="row"):

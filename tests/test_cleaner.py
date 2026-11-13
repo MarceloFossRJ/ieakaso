@@ -47,10 +47,10 @@ def test_clean_empties_output_but_keeps_gitkeep(repo: Path):
 def test_clean_removes_leftover_folders_without_gitkeep(repo: Path):
     report = clean(repo)
 
-    assert not (repo / "input/documents/xing/nested").exists()
+    assert not (repo / "input/candidate/documents/xing/nested").exists()
     assert not (repo / "output/acme").exists()
-    assert (repo / "input/documents/xing").is_dir()
-    assert Path("input/documents/xing/nested") in report.removed_dirs
+    assert (repo / "input/candidate/documents/xing").is_dir()
+    assert Path("input/candidate/documents/xing/nested") in report.removed_dirs
 
 
 def test_clean_leaves_a_fresh_repo_as_a_fresh_clone(repo: Path):
@@ -83,7 +83,7 @@ def test_clean_backs_up_user_data_before_deleting(repo: Path, backups: Path):
 
     assert report.backup is not None and report.backup.parent == backups
     assert (report.backup / "config.yml").read_text() == "candidate:\n  name: Real\n"
-    assert (report.backup / "input/documents/xing/nested/profile.pdf").exists()
+    assert (report.backup / "input/candidate/documents/xing/nested/profile.pdf").exists()
     assert sorted(p.relative_to(report.backup) for p in report.backup.rglob("*") if p.is_file()) == report.deleted
 
 
@@ -120,12 +120,15 @@ def test_clean_applications_leaves_the_set_up_state(repo: Path):
     kept = [
         "config.yml",
         "db/system_status.json",
-        "input/cv.md",
-        "input/writing-style.md",
-        "input/documents/cv/cv_en.pdf",
-        "input/documents/linkedin/Profile.pdf",
-        "input/documents/reference_letters/letter.docx",
-        "input/documents/xing/nested/profile.pdf",
+        "input/parsed-documents/cv.md",
+        "input/parsed-documents/linkedin.md",
+        "input/parsed-documents/reference-letters/letter.docx.md",
+        "input/parsed-documents/cv-versions/cv_2026-10-01.md",
+        "input/candidate/writing-style.md",
+        "input/candidate/documents/cv/cv_en.pdf",
+        "input/candidate/documents/linkedin/Profile.pdf",
+        "input/candidate/documents/reference_letters/letter.docx",
+        "input/candidate/documents/xing/nested/profile.pdf",
         "output/acme/cover_letter.md",
     ]
     setup = {rel: USER_DATA[rel] for rel in kept}
@@ -170,8 +173,8 @@ def with_versions(repo: Path) -> None:
     write_files(
         repo,
         {
-            "input/documents/cv/cv_2026-10-01/cv_en_333.pdf": "%PDF cv",
-            "input/documents/cv/cv_2026-10-01/parsed-cv.md": "# CV\n",
+            "input/candidate/documents/cv/cv_2026-10-01/cv_en_333.pdf": "%PDF cv",
+            "input/parsed-documents/cv-versions/cv_2026-10-01.md": "# CV\n",
         },
     )
 
@@ -185,7 +188,7 @@ def test_clean_applications_keeps_the_cv_versions_and_empties_the_records(repo: 
     assert data["records"] == []
     assert [v["id"] for v in data["cv_versions"]] == ["cv_2026-10-01", "cv_2026-10-09"]
     assert data["meta"] == {"schema_version": 3}
-    assert (repo / "input/documents/cv/cv_2026-10-01/cv_en_333.pdf").exists()
+    assert (repo / "input/candidate/documents/cv/cv_2026-10-01/cv_en_333.pdf").exists()
     assert Path("db/ieakaso_db.json") in report.emptied
     assert Path("db/ieakaso_db.json") not in report.deleted
     assert not (repo / "output/applications/acme_em_2026-10-15").exists()
@@ -245,4 +248,4 @@ def test_a_full_clean_removes_the_cv_versions_too(repo: Path):
     clean(repo)
 
     assert not (repo / "db/ieakaso_db.json").exists()
-    assert not (repo / "input/documents/cv/cv_2026-10-01").exists()
+    assert not (repo / "input/candidate/documents/cv/cv_2026-10-01").exists()

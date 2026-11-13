@@ -1,5 +1,6 @@
-"""CV versions (docs/adr/0005-cv-versions.md): `input/documents/cv/` is an inbox, and each Source CV with new content
-is moved into its own folder `input/documents/cv/<version-id>/`, next to a frozen copy of its Parsed CV.
+"""CV versions (docs/adr/0005-cv-versions.md): `input/candidate/documents/cv/` is an inbox, and each Source CV with new
+content is moved into its own folder `input/candidate/documents/cv/<version-id>/`; the frozen copy of its Parsed CV
+goes to `input/parsed-documents/cv-versions/<version-id>.md` (docs/adr/0006-input-split-by-who-writes.md).
 
 Everything here is deterministic. What the candidate has to decide (which new file is the main CV, which is a
 Tailored CV, which is not a CV) is decided by the mode and handed to the command as flags. The tracker is the only
@@ -13,6 +14,7 @@ from pathlib import Path, PurePosixPath
 
 from ieakaso import cv_parser
 from ieakaso.cv_parser.files import sha, write_atomic
+from ieakaso.cv_parser.layout import FROZEN, INBOX
 from ieakaso.tracker import (
     Db,
     TrackerError,
@@ -22,9 +24,6 @@ from ieakaso.tracker import (
     save,
 )
 
-INBOX = PurePosixPath("input/documents/cv")
-PARSED_NAME = "parsed-cv.md"  # the frozen Parsed CV in a version's folder
-PARSED_NAME_IF_TAKEN = "parsed-cv.frozen.md"  # when the Source CV itself is named parsed-cv.md
 DB_UNUSABLE = 5  # exit codes of the command (cli.py): the tracker db can't be used or changed
 BAD_REQUEST = 6  # a flag names a file not waiting in the inbox, or an unknown Application
 
@@ -87,7 +86,7 @@ def capture(
     tailored_for: str | None = None,
     link_applied: bool = False,
 ) -> tuple[dict, list[str]]:
-    """Move the Source CV into its version folder with a frozen Parsed CV, record the version, and save the db.
+    """Move the Source CV into its version folder, write its frozen Parsed CV, record the version, and save the db.
 
     Returns the version and the IDs of the records linked to it (`link_applied`: those past Lead). Nothing is moved
     when the file can't be parsed (CvParseError) or the db can't be saved; the file then stays in the inbox.
@@ -97,10 +96,11 @@ def capture(
     version_id = next_cv_version_id(db, captured_on)
     folder = root / INBOX / version_id
     target_rel = (INBOX / version_id / source.name).as_posix()
+    frozen = root / FROZEN / f"{version_id}.md"
     try:
         folder.mkdir(parents=True)
         shutil.copy2(source, root / target_rel)
-        write_atomic(folder / (PARSED_NAME if source.name != PARSED_NAME else PARSED_NAME_IF_TAKEN), parsed)
+        write_atomic(frozen, parsed)
         count = len(db.cv_versions)
         try:
             version = add_cv_version(db, version_id, source.stem, target_rel, captured_on, tailored_for)
@@ -111,6 +111,7 @@ def capture(
             raise VersionError(f"{error} Nothing was moved; run the CV parser again.", DB_UNUSABLE) from error
     except BaseException:
         shutil.rmtree(folder, ignore_errors=True)
+        frozen.unlink(missing_ok=True)
         raise
     source.unlink()
     return version, linked
