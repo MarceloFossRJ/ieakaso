@@ -21,10 +21,11 @@ from ieakaso.tracker import (
     load,
     no_answer_suggestions,
     save,
+    set_cv_version_label,
     set_status,
     update_record,
 )
-from ieakaso.viewer.screens import DetailScreen, NoAnswerScreen, label
+from ieakaso.viewer.screens import CvVersionsScreen, DetailScreen, NoAnswerScreen, label
 
 STATUS_STYLES = {
     "lead": "cyan",
@@ -36,7 +37,7 @@ STATUS_STYLES = {
     "not_selected": "red",
 }
 VERDICT_STYLES = {"Top applicant": "bold green", "Apply": "green", "Stretch": "yellow", "Don't apply": "red"}
-COLUMNS = ("Company", "Position", "Status", "Stage", "Verdict / score", "Location", "Analysed", "Applied")
+COLUMNS = ("Company", "Position", "Status", "Stage", "Verdict / score", "Location", "Analysed", "Applied", "CV")
 DOCUMENTS = {  # key -> (what the candidate sees, where the path is in the record)
     "ad": ("Job ad", lambda record: record["source"]["job_ad"]),
     "analysis": ("Job analysis", lambda record: record["analysis"]["doc"]),
@@ -63,6 +64,7 @@ class ViewerApp(App):
         Binding("j", "open_document('analysis')", "Job analysis"),
         Binding("c", "open_document('letter')", "Cover letter"),
         Binding("r", "open_document('research')", "Company research"),
+        Binding("v", "cv_versions", "CV versions"),
         Binding("q", "quit", "Quit"),
     ]
 
@@ -143,7 +145,13 @@ class ViewerApp(App):
             location_label(record),
             analysis["on"],
             record["applied_on"] or "",
+            self.cv_label(record["cv_version"]),
         ]
+
+    def cv_label(self, version_id: str | None) -> str:
+        """The label of a CV version, or nothing for an Application without one."""
+        version = self.tracker_db.find_cv_version(version_id) if version_id else None
+        return version["label"] if version else ""
 
     def _set_hint(self, has_rows: bool) -> None:
         db = self.tracker_db
@@ -192,6 +200,9 @@ class ViewerApp(App):
     def apply(self, record_id: str, changes: dict) -> bool:
         return self.write(lambda db: update_record(db, record_id, changes, self.today()))
 
+    def set_label(self, version_id: str, new_label: str) -> bool:
+        return self.write(lambda db: set_cv_version_label(db, version_id, new_label))
+
     def _mark_no_answer(self, ids: list[str] | None) -> None:
         if not ids:
             return
@@ -208,6 +219,10 @@ class ViewerApp(App):
     @on(DataTable.RowSelected)
     def _open_detail(self, event: DataTable.RowSelected) -> None:
         self.push_screen(DetailScreen(event.row_key.value))
+
+    def action_cv_versions(self) -> None:
+        if len(self.screen_stack) == 1 and not self.tracker_db.error:
+            self.push_screen(CvVersionsScreen())
 
     def action_toggle_closed(self) -> None:
         self.hide_closed = not self.hide_closed

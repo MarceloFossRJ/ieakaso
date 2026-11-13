@@ -5,11 +5,11 @@ from pathlib import Path
 
 import pytest
 from textual.widgets import Button, DataTable, Input, Select, SelectionList, Static
-from tracker_fakes import ID, TODAY, lead, record, write_db
+from tracker_fakes import ID, TODAY, cv_version, lead, record, write_db
 
 from ieakaso.tracker import DB_PATH
 from ieakaso.viewer import ViewerApp
-from ieakaso.viewer.screens import DetailScreen, NoAnswerScreen
+from ieakaso.viewer.screens import CvVersionsScreen, DetailScreen, NoAnswerScreen
 
 SIZE = (200, 60)
 
@@ -74,6 +74,7 @@ async def test_the_table_lists_the_fields_newest_first(root: Path):
             "Berlin, DE",
             "2026-10-10",
             "2026-10-12",
+            "",
         ]
         assert rows(app)[1][2:5] == ["Lead", "-", "Apply 84"]
         assert rows(app)[1][7] == ""
@@ -523,3 +524,120 @@ async def test_the_viewer_backfills_company_research_from_its_repo_when_migratin
     async with make_app(root).run_test(size=SIZE) as pilot:
         await pilot.pause()
         assert pilot.app.tracker_db.records[0]["company_research"] == rec["company_research"]
+
+
+# CV versions
+
+MAIN = "cv_2026-10-01"
+NEWER = "cv_2026-10-08"
+TAILORED = "cv_2026-10-09"
+
+
+def with_versions(root: Path, *records: dict) -> None:
+    write_db(
+        db_file(root),
+        *records,
+        cv_versions=[
+            cv_version(),
+            cv_version(id=NEWER, label="cv_en_334", captured_at="2026-10-08"),
+            cv_version(id=TAILORED, label="cv_for_acme", captured_at="2026-10-09", tailored_for=ID),
+        ],
+    )
+
+
+async def test_the_cv_column_shows_the_label_of_the_version_sent(root: Path):
+    with_versions(root, record(cv_version=NEWER), lead(id="b_c_2026-10-01", created_at="2026-10-01"))
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        assert pilot.app.query_one(DataTable).columns and "CV" in [
+            str(c.label) for c in pilot.app.query_one(DataTable).columns.values()
+        ]
+        assert [row[-1] for row in rows(pilot.app)] == ["cv_en_334", ""]
+
+
+async def test_the_picker_lists_the_versions_with_their_id_and_date(root: Path):
+    with_versions(root, record(cv_version=MAIN))
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        screen = await open_detail(pilot)
+        picker = screen.query_one("#cv_version", Select)
+        assert picker.value == MAIN
+        assert [prompt for prompt, _ in picker._options if _ is not Select.NULL] == [
+            "cv_en_333 (cv_2026-10-01, 2026-10-01)",
+            "cv_en_334 (cv_2026-10-08, 2026-10-08)",
+            "cv_for_acme (cv_2026-10-09, 2026-10-09)",
+        ]
+
+
+async def test_a_tailored_version_is_offered_on_its_own_application_only(root: Path):
+    with_versions(root, record(), lead(id="other_job_2026-10-11", created_at="2026-10-11"))
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        screen = await open_detail(pilot)  # the newest first: other_job
+        assert screen.record_id == "other_job_2026-10-11"
+        values = [value for _, value in screen.query_one("#cv_version", Select)._options]
+        assert TAILORED not in values and MAIN in values
+
+
+async def test_choosing_a_version_is_saved_at_once(root: Path):
+    with_versions(root, record(cv_version=MAIN))
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        screen = await open_detail(pilot)
+        screen.query_one("#cv_version", Select).value = TAILORED
+        await pilot.pause()
+        await pilot.pause()
+        assert stored(root)[0]["cv_version"] == TAILORED
+        assert rows(pilot.app)[0][-1] == "cv_for_acme"
+
+
+async def test_the_picker_can_be_cleared(root: Path):
+    with_versions(root, record(cv_version=MAIN))
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        screen = await open_detail(pilot)
+        screen.query_one("#cv_version", Select).value = Select.NULL
+        await pilot.pause()
+        await pilot.pause()
+        assert stored(root)[0]["cv_version"] is None
+
+
+async def test_setting_applied_in_the_viewer_fills_the_current_version(root: Path):
+    with_versions(root, lead())
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        screen = await open_detail(pilot)
+        screen.query_one("#status", Select).value = "applied"
+        await pilot.pause()
+        await pilot.pause()
+        assert stored(root)[0]["cv_version"] == NEWER
+        assert pilot.app.screen.query_one("#cv_version", Select).value == NEWER
+
+
+async def test_v_opens_the_versions_and_a_label_edit_is_saved_at_once(root: Path):
+    with_versions(root, record(cv_version=MAIN))
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await pilot.press("v")
+        await pilot.pause()
+        assert isinstance(pilot.app.screen, CvVersionsScreen)
+        await type_into(pilot, f"label_{MAIN}", "Main CV, English")
+        data = json.loads(db_file(root).read_text())
+        assert data["cv_versions"][0]["label"] == "Main CV, English"
+        await pilot.press("escape")
+        await pilot.pause()
+        assert rows(pilot.app)[0][-1] == "Main CV, English"
+
+
+async def test_an_empty_label_is_not_saved(root: Path):
+    with_versions(root, record(cv_version=MAIN))
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await pilot.press("v")
+        await pilot.pause()
+        await type_into(pilot, f"label_{MAIN}", "")
+        assert json.loads(db_file(root).read_text())["cv_versions"][0]["label"] == "cv_en_333"
+        assert pilot.app.screen.query_one(f"#label_{MAIN}", Input).value == "cv_en_333"
