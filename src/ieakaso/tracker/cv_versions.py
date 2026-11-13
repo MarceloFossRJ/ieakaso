@@ -1,4 +1,4 @@
-"""CV versions in the tracker (docs/database.md, docs/adr/0005-cv-versions.md): adding one, its label, which one a record
+"""CV versions in the tracker (docs/database.md, docs/adr/0005-cv-versions.md): adding one, its label, its path, which one a record
 holds. Like the other operations, each validates first and changes nothing when it refuses."""
 
 import copy
@@ -61,6 +61,17 @@ def set_cv_version_label(db: Db, version_id: str, label: str) -> dict:
     if found:
         raise InvalidRecordError("; ".join(found))
     version["label"] = new["label"]
+    return version
+
+
+def set_cv_version_path(db: Db, version_id: str, path: str) -> dict:
+    """Point a version at its Source CV's new place (the CV parser moves files when the folder layout changes)."""
+    version = _version(db, version_id)
+    new = {**version, "path": path}
+    found = cv_version_problems(new)
+    if found:
+        raise InvalidRecordError("; ".join(found))
+    version["path"] = path
     return version
 
 

@@ -22,14 +22,14 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
     {
       "id": "cv_2026-10-01",
       "label": "cv_en_333",
-      "path": "input/documents/cv/cv_2026-10-01/cv_en_333.pdf",
+      "path": "input/candidate/documents/cv/cv_2026-10-01/cv_en_333.pdf",
       "captured_at": "2026-10-01",
       "tailored_for": null
     },
     {
       "id": "cv_2026-10-12",
       "label": "cv_for_acme",
-      "path": "input/documents/cv/cv_2026-10-12/cv_for_acme.pdf",
+      "path": "input/candidate/documents/cv/cv_2026-10-12/cv_for_acme.pdf",
       "captured_at": "2026-10-12",
       "tailored_for": "acme_senior-backend-engineer_2026-10-10"
     }
@@ -94,7 +94,7 @@ One entry per CV version, oldest first. Written by the CV parser through the tra
 
 | Field | Type | Meaning |
 |---|---|---|
-| `id` | string | `cv_<yyyy-mm-dd>` (the day it was captured), with `_2`, `_3` for further versions captured the same day. Never changes. Also the name of the version's folder in `input/documents/cv/`. |
+| `id` | string | `cv_<yyyy-mm-dd>` (the day it was captured), with `_2`, `_3` for further versions captured the same day. Never changes. Also the name of the version's folder in `input/candidate/documents/cv/`. |
 | `label` | string | What the candidate calls it. Defaults to the Source CV's file name without its extension (e.g. `cv_en_333`); the candidate edits it in the viewer. |
 | `path` | path | The Source CV, as the candidate supplied it, in the version's folder. Its fingerprint (SHA-256 of the file) is the version's identity. |
 | `captured_at` | date | The day the parser captured it. |
@@ -186,7 +186,7 @@ The usual path is `lead` → `applied` or `desisted`, then `applied` → `no_ans
 | 2 | Adds `company_research`. |
 | 3 | Adds the top-level `cv_versions` list and the record's `cv_version`. |
 
-The tracker reads version 3, and upgrades older files when it loads them. Version 1: every record gets `company_research`, set to `output/applications/<id>/<id>_company-research.md` when that file exists and `null` otherwise. Version 2: `cv_versions` is `[]` and every record's `cv_version` is `null`; the CV parser then captures the Source CV lying in `input/documents/cv/` as the first CV version and gives it to every record with `applied_on` set (Leads stay `null`). Loading writes nothing; the next save writes the file as version 3. Any other version is refused and left alone.
+The tracker reads version 3, and upgrades older files when it loads them. Version 1: every record gets `company_research`, set to `output/applications/<id>/<id>_company-research.md` when that file exists and `null` otherwise. Version 2: `cv_versions` is `[]` and every record's `cv_version` is `null`; the CV parser then captures the Source CV lying in `input/candidate/documents/cv/` as the first CV version and gives it to every record with `applied_on` set (Leads stay `null`). Loading writes nothing; the next save writes the file as version 3. Any other version is refused and left alone.
 
 ## When job-analyzer runs again
 

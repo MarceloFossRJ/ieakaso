@@ -1,6 +1,6 @@
 """The Parsed documents of the LinkedIn profile and the reference letters (docs/adr/0004-parsed-documents.md).
 
-Init records their Source documents in db/system_status.json; each gets a Parsed document in input/,
+Init records their Source documents in db/system_status.json; each gets a Parsed document in input/parsed-documents/,
 recorded next to its source. Nothing here ever blocks the CV: every problem is a warning on stdout.
 """
 
@@ -9,9 +9,7 @@ from pathlib import Path, PurePosixPath
 from ieakaso import cv_parser
 from ieakaso.cv_parser.errors import CvParseError
 from ieakaso.cv_parser.files import sha, write_atomic
-
-LINKEDIN_OUTPUT = PurePosixPath("input/linkedin.md")
-LETTERS_OUTPUT = PurePosixPath("input/reference-letters")
+from ieakaso.layout import LETTERS_OUTPUT, LINKEDIN_OUTPUT, PARSED
 
 
 def sync(root: Path, status: dict, force: bool, now: str) -> bool:
@@ -122,7 +120,7 @@ def _parse_one(
 def _keep_after_source_is_gone(root: Path, record: dict, force: bool) -> bool:
     """Remove the Parsed document of a source that is gone; True when it must stay recorded (hand-edited)."""
     output_rel = record.get("output_path")
-    if not isinstance(output_rel, str) or not output_rel.startswith("input/") or not output_rel.endswith(".md"):
+    if not isinstance(output_rel, str) or not output_rel.startswith(f"{PARSED}/") or not output_rel.endswith(".md"):
         return False
     output = root / output_rel
     if not output.is_file():

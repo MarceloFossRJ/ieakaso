@@ -15,6 +15,7 @@ from ieakaso.tracker import (
     next_cv_version_id,
     save,
     set_cv_version_label,
+    set_cv_version_path,
     set_record_cv_version,
     set_status,
     update_record,
@@ -70,9 +71,9 @@ def test_the_first_id_of_a_day_is_cv_and_the_date(db_path: Path):
 def test_further_ids_of_the_same_day_count_up_from_2(db_path: Path):
     db = load(db_path)
     assert next_cv_version_id(db, TODAY) == "cv_2026-10-15"
-    add_cv_version(db, "cv_2026-10-15", "a", "input/documents/cv/cv_2026-10-15/a.pdf", TODAY)
+    add_cv_version(db, "cv_2026-10-15", "a", "input/candidate/documents/cv/cv_2026-10-15/a.pdf", TODAY)
     assert next_cv_version_id(db, TODAY) == "cv_2026-10-15_2"
-    add_cv_version(db, "cv_2026-10-15_2", "b", "input/documents/cv/cv_2026-10-15_2/b.pdf", TODAY)
+    add_cv_version(db, "cv_2026-10-15_2", "b", "input/candidate/documents/cv/cv_2026-10-15_2/b.pdf", TODAY)
 
     assert next_cv_version_id(db, TODAY) == "cv_2026-10-15_3"
 
@@ -83,12 +84,12 @@ def test_further_ids_of_the_same_day_count_up_from_2(db_path: Path):
 def test_add_a_main_cv_version(db_path: Path):
     db = load(db_path)
 
-    added = add_cv_version(db, MAIN, "cv_en_333", f"input/documents/cv/{MAIN}/cv_en_333.pdf", TODAY)
+    added = add_cv_version(db, MAIN, "cv_en_333", f"input/candidate/documents/cv/{MAIN}/cv_en_333.pdf", TODAY)
 
     assert added == {
         "id": MAIN,
         "label": "cv_en_333",
-        "path": f"input/documents/cv/{MAIN}/cv_en_333.pdf",
+        "path": f"input/candidate/documents/cv/{MAIN}/cv_en_333.pdf",
         "captured_at": "2026-10-15",
         "tailored_for": None,
     }
@@ -101,7 +102,7 @@ def test_adding_a_tailored_cv_links_it_to_its_application(db_path: Path):
     write_db(db_path, lead(), cv_versions=[cv_version()])
     db = load(db_path)
 
-    added = add_cv_version(db, TAILORED, "cv_for_acme", f"input/documents/cv/{TAILORED}/c.pdf", TODAY, tailored_for=ID)
+    added = add_cv_version(db, TAILORED, "cv_for_acme", f"input/candidate/documents/cv/{TAILORED}/c.pdf", TODAY, tailored_for=ID)
 
     assert added["tailored_for"] == ID
     assert db.find(ID)["cv_version"] == TAILORED
@@ -111,7 +112,7 @@ def test_a_tailored_cv_for_an_unknown_application_is_refused_and_changes_nothing
     db = load(db_path)
 
     with pytest.raises(RecordNotFoundError):
-        add_cv_version(db, TAILORED, "x", f"input/documents/cv/{TAILORED}/c.pdf", TODAY, tailored_for="nope")
+        add_cv_version(db, TAILORED, "x", f"input/candidate/documents/cv/{TAILORED}/c.pdf", TODAY, tailored_for="nope")
 
     assert db.cv_versions == []
 
@@ -121,11 +122,37 @@ def test_an_id_already_used_or_an_invalid_one_is_refused(db_path: Path):
     db = load(db_path)
 
     with pytest.raises(InvalidRecordError):
-        add_cv_version(db, MAIN, "again", "input/documents/cv/x/a.pdf", TODAY)
+        add_cv_version(db, MAIN, "again", "input/candidate/documents/cv/x/a.pdf", TODAY)
     with pytest.raises(InvalidRecordError):
-        add_cv_version(db, "nope", "x", "input/documents/cv/x/a.pdf", TODAY)
+        add_cv_version(db, "nope", "x", "input/candidate/documents/cv/x/a.pdf", TODAY)
 
     assert len(db.cv_versions) == 1
+
+
+# paths
+
+
+def test_set_a_version_path(db_path: Path):
+    write_db(db_path, lead(), cv_versions=[cv_version()])
+    db = load(db_path)
+
+    changed = set_cv_version_path(db, MAIN, "input/candidate/documents/cv/cv_2026-10-01/moved.pdf")
+
+    assert changed["path"] == "input/candidate/documents/cv/cv_2026-10-01/moved.pdf"
+    assert db.find_cv_version(MAIN)["path"] == changed["path"]
+
+
+def test_an_invalid_path_or_an_unknown_version_is_refused_and_changes_nothing(db_path: Path):
+    write_db(db_path, lead(), cv_versions=[cv_version()])
+    db = load(db_path)
+    before = db.find_cv_version(MAIN)["path"]
+
+    with pytest.raises(InvalidRecordError):
+        set_cv_version_path(db, MAIN, "/abs/path.pdf")
+    with pytest.raises(RecordNotFoundError):
+        set_cv_version_path(db, "cv_2000-01-01", "input/x.pdf")
+
+    assert db.find_cv_version(MAIN)["path"] == before
 
 
 # labels

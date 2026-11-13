@@ -11,6 +11,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 
+from ieakaso.layout import DOCUMENTS
 from ieakaso.repo import find_root, is_ieakaso_repo
 from ieakaso.tracker.store import DB_PATH, load, save
 
@@ -20,7 +21,7 @@ USER_FILES = ("config.yml", "db/system_status.json", DB_PATH.as_posix())
 USER_PATTERNS = ("db/.*.tmp",)  # temp files an interrupted atomic write leaves behind
 USER_FOLDERS = ("input", "output")
 KEEP_NAMES = (".gitkeep",)
-KEEP_FILES = ("input/documents/README.md",)
+KEEP_FILES = (f"{DOCUMENTS}/README.md",)
 DEFAULT_BACKUP_DIR = Path.home() / ".ieakaso-backups"
 
 

@@ -1,5 +1,6 @@
-"""`uv run python -m ieakaso.cv_parser [--main FILE | --tailored FILE --for ID] [--force]`: captures the CV versions
-waiting in the inbox `input/documents/cv/` (versions.py), writes the Parsed CV `input/cv.md` from the current
+"""`uv run python -m ieakaso.cv_parser [--main FILE | --tailored FILE --for ID] [--force] [--move-only]`: first moves a repo
+laid out before ADR 0006 to the split layout (relocate.py; `--move-only` stops there), then captures the CV versions
+waiting in the inbox `input/candidate/documents/cv/` (versions.py), writes the Parsed CV `input/parsed-documents/cv.md` from the current
 version, and writes the Parsed documents of the LinkedIn profile and reference letters (documents.py).
 
 A new file is never captured on its own (except the migration of a Source CV recorded and parsed before CV
@@ -8,7 +9,7 @@ FILE is a file name in the inbox, or its path from the repo root. A file the can
 it is and is reported on every run.
 
 Exit codes: 0 written or already up to date, 1 the Source CV can't be parsed, 2 no CV or setup is missing (run
-/ieakaso init), 3 input/cv.md was edited by hand (diff printed; --force overwrites), 4 new CV files wait for the
+/ieakaso init), 3 input/parsed-documents/cv.md was edited by hand (diff printed; --force overwrites), 4 new CV files wait for the
 candidate's choice (stdout: one `New CV file: <path>` line each; the Parsed CV was still written from the current
 version), 5 the tracker db can't be used or changed while capturing (nothing was moved), 6 a flag names a file
 that is not waiting in the inbox, or an unknown Application. The first of 1, 2, 3 that applies wins over 4.
@@ -25,31 +26,32 @@ import sys
 from datetime import UTC, date, datetime
 from pathlib import Path
 
-from ieakaso.cv_parser import PARSER_VERSION, CvParseError, documents, parse, versions
+from ieakaso.cv_parser import PARSER_VERSION, CvParseError, documents, parse, relocate, versions
 from ieakaso.cv_parser.files import sha as _sha
 from ieakaso.cv_parser.files import write_atomic as _write_atomic
+from ieakaso.layout import INBOX, PARSED_CV, STATUS
 from ieakaso.repo import find_root, is_ieakaso_repo
 from ieakaso.tracker import DB_PATH, Db, current_cv_version, describe_cv_version, load
 
-STATUS = Path("db/system_status.json")
-OUTPUT = Path("input/cv.md")
+OUTPUT = Path(PARSED_CV)
 WAITING = 4  # new CV files wait for the candidate's choice; the other codes are in the module docstring
 NO_CV = (
-    "No CV found. Save your CV in input/documents/cv/ and run /ieakaso cv-parser again, "
+    f"No CV found. Save your CV in {INBOX}/ and run /ieakaso cv-parser again, "
     "or run /ieakaso init if the setup is missing."
 )
-CORRECT_FILE = "Put the corrected file in input/documents/cv/ and run /ieakaso cv-parser again."
+CORRECT_FILE = f"Put the corrected file in {INBOX}/ and run /ieakaso cv-parser again."
 
 
 def main(argv: list[str] | None = None, today: date | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="python -m ieakaso.cv_parser",
-        description="Capture the CV versions waiting in input/documents/cv/ and write the Parsed CV (input/cv.md).",
+        description=f"Capture the CV versions waiting in {INBOX}/ and write the Parsed CV ({PARSED_CV}).",
     )
     parser.add_argument("--main", metavar="FILE", help="capture this new file as the new main CV")
     parser.add_argument("--tailored", metavar="FILE", help="capture this new file as a Tailored CV (needs --for)")
     parser.add_argument("--for", dest="tailored_for", metavar="ID", help="the Application ID of the Tailored CV")
-    parser.add_argument("--force", action="store_true", help="overwrite input/cv.md even if it was edited by hand")
+    parser.add_argument("--force", action="store_true", help=f"overwrite {PARSED_CV} even if it was edited by hand")
+    parser.add_argument("--move-only", action="store_true", help="only move a repo laid out before ADR 0006 to the new layout")
     parser.add_argument("--root", type=Path, help="repo root (default: found from the current folder)")
     args = parser.parse_args(argv)
 
@@ -58,6 +60,9 @@ def main(argv: list[str] | None = None, today: date | None = None) -> int:
         print(f"error: {root} is not the ieakaso repo; nothing changed", file=sys.stderr)
         return 2
 
+    relocate.run(root)  # before anything reads a path: a repo from before ADR 0006 is moved first
+    if args.move_only:
+        return 0
     status = _read_status(root)
     if not status:
         print(NO_CV, file=sys.stderr)

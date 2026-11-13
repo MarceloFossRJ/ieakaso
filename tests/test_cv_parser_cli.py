@@ -1,4 +1,4 @@
-"""The cv_parser command: captures CV versions from the inbox input/documents/cv/, writes input/cv.md from the
+"""The cv_parser command: captures CV versions from the inbox input/candidate/documents/cv/, writes input/parsed-documents/cv.md from the
 current version, and records both (docs/adr/0005-cv-versions.md)."""
 
 import hashlib
@@ -12,11 +12,12 @@ from tracker_fakes import ID, TODAY, lead, record, write_db
 from ieakaso.cv_parser import PARSER_VERSION, cli
 from ieakaso.tracker import DB_PATH, current_cv_version, load
 
-INBOX = "input/documents/cv"
+INBOX = "input/candidate/documents/cv"
+FROZEN_DIR = "input/parsed-documents/cv-versions"
 CV_PATH = f"{INBOX}/cv.txt"
 VERSION = "cv_2026-10-15"
 CAPTURED = f"{INBOX}/{VERSION}/cv.txt"
-FROZEN = f"{INBOX}/{VERSION}/parsed-cv.md"
+FROZEN = f"{FROZEN_DIR}/{VERSION}.md"
 CV_TEXT = "Jordan Example\r\nEngineer\r\n"
 CV_PARSED = "Jordan Example\nEngineer\n"
 
@@ -54,7 +55,7 @@ def sha(data: bytes) -> str:
 
 def test_first_run_writes_the_parsed_cv(repo: Path):
     assert run(repo, "--main", "cv.txt") == 0
-    assert (repo / "input/cv.md").read_bytes() == CV_PARSED.encode()
+    assert (repo / "input/parsed-documents/cv.md").read_bytes() == CV_PARSED.encode()
 
 
 def test_first_run_records_the_parse_in_the_status_file(repo: Path):
@@ -65,7 +66,7 @@ def test_first_run_records_the_parse_in_the_status_file(repo: Path):
     assert cv["path"] == CAPTURED and cv["status"] == "found"
     assert parsed["source_path"] == CAPTURED
     assert parsed["source_sha256"] == sha((repo / CAPTURED).read_bytes())
-    assert parsed["output_sha256"] == sha((repo / "input/cv.md").read_bytes())
+    assert parsed["output_sha256"] == sha((repo / "input/parsed-documents/cv.md").read_bytes())
     assert parsed["parser_version"] == PARSER_VERSION
     assert parsed["parsed_at"]
 
@@ -97,10 +98,10 @@ def test_a_new_parser_version_parses_again(repo: Path, monkeypatch):
 
 def test_a_missing_parsed_cv_is_written_again(repo: Path):
     run(repo, "--main", "cv.txt")
-    (repo / "input/cv.md").unlink()
+    (repo / "input/parsed-documents/cv.md").unlink()
 
     assert run(repo) == 0
-    assert (repo / "input/cv.md").read_text() == CV_PARSED
+    assert (repo / "input/parsed-documents/cv.md").read_text() == CV_PARSED
 
 
 # --- capturing a CV version ------------------------------------------------------
@@ -136,10 +137,19 @@ def test_the_file_is_moved_not_copied_and_its_bytes_are_kept(repo: Path):
     assert (repo / CAPTURED).read_bytes() == CV_TEXT.encode()
 
 
-def test_a_frozen_parsed_cv_is_written_next_to_the_source(repo: Path):
+def test_a_frozen_parsed_cv_is_written_to_the_parsed_documents(repo: Path):
     run(repo, "--main", "cv.txt")
 
     assert (repo / FROZEN).read_text() == CV_PARSED
+
+
+def test_a_version_folder_holds_only_the_candidates_file(repo: Path):
+    write_files(repo, {f"{INBOX}/parsed-cv.md": "# A CV that happens to be named like the old frozen copy\n"})
+
+    run(repo, "--main", "parsed-cv.md")
+
+    assert sorted(p.name for p in (repo / INBOX / VERSION).iterdir()) == ["parsed-cv.md"]
+    assert (repo / FROZEN).is_file()
 
 
 def test_the_label_is_the_file_name_without_its_extension(repo: Path):
@@ -185,10 +195,10 @@ def test_main_makes_a_new_file_the_new_main_cv_and_regenerates_the_parsed_cv(rep
 
     assert run(repo, "--main", "other.txt") == 0
 
-    assert (repo / "input/cv.md").read_text() == "Other CV\n"
+    assert (repo / "input/parsed-documents/cv.md").read_text() == "Other CV\n"
     assert [v["id"] for v in versions(repo)] == [VERSION, f"{VERSION}_2"]
     assert current_cv_version(load(repo / DB_PATH))["id"] == f"{VERSION}_2"
-    assert (repo / f"{INBOX}/{VERSION}_2/parsed-cv.md").read_text() == "Other CV\n"
+    assert (repo / f"{FROZEN_DIR}/{VERSION}_2.md").read_text() == "Other CV\n"
     assert not (repo / f"{INBOX}/other.txt").exists()
     assert read_status(repo)["documents"]["cv"]["path"] == f"{INBOX}/{VERSION}_2/other.txt"
 
@@ -203,7 +213,7 @@ def test_main_takes_a_repo_relative_path_too(repo: Path):
 def test_with_several_new_files_only_the_chosen_one_is_captured(repo: Path, capsys):
     write_files(repo, {f"{INBOX}/b.txt": "B CV\n"})
     assert run(repo) == 4
-    assert not (repo / "input/cv.md").exists()
+    assert not (repo / "input/parsed-documents/cv.md").exists()
     captured = capsys.readouterr()
     assert f"New CV file: {CV_PATH}" in captured.out and f"New CV file: {INBOX}/b.txt" in captured.out
     assert captured.err == ""
@@ -212,7 +222,7 @@ def test_with_several_new_files_only_the_chosen_one_is_captured(repo: Path, caps
 
     assert [v["label"] for v in versions(repo)] == ["b"]
     assert (repo / CV_PATH).read_bytes() == CV_TEXT.encode()
-    assert (repo / "input/cv.md").read_text() == "B CV\n"
+    assert (repo / "input/parsed-documents/cv.md").read_text() == "B CV\n"
 
 
 def test_a_tailored_cv_belongs_to_its_application_and_never_becomes_current(repo: Path):
@@ -227,8 +237,8 @@ def test_a_tailored_cv_belongs_to_its_application_and_never_becomes_current(repo
     db = load(repo / DB_PATH)
     assert db.find(ID)["cv_version"] == tailored["id"]
     assert current_cv_version(db)["id"] == VERSION
-    assert (repo / "input/cv.md").read_text() == CV_PARSED
-    assert (repo / INBOX / tailored["id"] / "parsed-cv.md").read_text() == "Tailored for Acme\n"
+    assert (repo / "input/parsed-documents/cv.md").read_text() == CV_PARSED
+    assert (repo / FROZEN_DIR / f"{tailored['id']}.md").read_text() == "Tailored for Acme\n"
 
 
 def test_a_tailored_cv_for_an_unknown_application_changes_nothing(repo: Path, capsys):
@@ -300,7 +310,7 @@ def test_a_file_that_is_not_a_cv_stays_and_is_reported_again_on_later_runs(repo:
 
     assert (repo / f"{INBOX}/invoice.txt").read_text() == "Invoice 42\n"
     assert len(versions(repo)) == 1
-    assert (repo / "input/cv.md").read_text() == CV_PARSED  # the current CV is still written
+    assert (repo / "input/parsed-documents/cv.md").read_text() == CV_PARSED  # the current CV is still written
 
 
 def test_files_that_are_not_cv_formats_and_placeholders_are_ignored(repo: Path, capsys):
@@ -319,7 +329,7 @@ def test_a_new_file_that_cannot_be_parsed_is_not_captured(repo: Path, capsys):
     assert snapshot(repo) == before
     err = capsys.readouterr().err
     assert "UTF-8" in err
-    assert "input/documents/cv/" in err
+    assert "input/candidate/documents/cv/" in err
 
 
 def test_a_folder_the_parser_did_not_create_gets_one_warning_and_nothing_else(repo: Path, capsys):
@@ -381,7 +391,7 @@ def test_raising_the_parser_version_is_not_a_new_version_and_leaves_the_frozen_c
     assert run(repo) == 0
     assert len(versions(repo)) == 1
     assert (repo / FROZEN).read_text() == "frozen as the agents read it then\n"
-    assert (repo / "input/cv.md").read_text() == CV_PARSED
+    assert (repo / "input/parsed-documents/cv.md").read_text() == CV_PARSED
 
 
 def test_an_unusable_tracker_db_stops_before_anything_is_moved(repo: Path, capsys):
@@ -425,7 +435,7 @@ OLD_PARSED = {
 
 def old_repo(repo: Path, *records: dict) -> None:
     """The repo as it was before CV versions: the Source CV in the inbox, recorded and parsed, a schema 2 db."""
-    write_files(repo, {"db/system_status.json": status(CV_PATH, OLD_PARSED), "input/cv.md": CV_PARSED})
+    write_files(repo, {"db/system_status.json": status(CV_PATH, OLD_PARSED), "input/parsed-documents/cv.md": CV_PARSED})
     write_db(repo / DB_PATH, *[{k: v for k, v in r.items() if k != "cv_version"} for r in records], version=2)
 
 
@@ -463,12 +473,12 @@ def test_the_migration_links_every_record_past_lead_and_no_lead(repo: Path):
 
 def test_the_migration_keeps_the_parsed_cv_as_the_agents_read_it(repo: Path):
     old_repo(repo)
-    write_files(repo, {"input/cv.md": CV_PARSED})
+    write_files(repo, {"input/parsed-documents/cv.md": CV_PARSED})
     parsed = dict(OLD_PARSED, source_sha256=sha(CV_TEXT.encode()), output_sha256=sha(CV_PARSED.encode()))
     write_files(repo, {"db/system_status.json": status(CV_PATH, parsed)})
 
     assert run(repo) == 0
-    assert (repo / "input/cv.md").read_text() == CV_PARSED
+    assert (repo / "input/parsed-documents/cv.md").read_text() == CV_PARSED
 
 
 def test_another_file_in_the_inbox_during_the_migration_waits_for_a_choice(repo: Path, capsys):
@@ -494,36 +504,36 @@ def test_a_repo_that_was_never_parsed_does_not_migrate_but_captures_today(repo: 
 
 def test_a_hand_edited_parsed_cv_is_not_overwritten(repo: Path, capsys):
     run(repo, "--main", "cv.txt")
-    (repo / "input/cv.md").write_text("Jordan Example\nEngineer\nMy own note\n")
+    (repo / "input/parsed-documents/cv.md").write_text("Jordan Example\nEngineer\nMy own note\n")
     write_files(repo, {f"{INBOX}/new.txt": "Jordan Example\nStaff Engineer\n"})
     capsys.readouterr()
     assert run(repo, "--main", "new.txt") == 3
 
-    assert (repo / "input/cv.md").read_text() == "Jordan Example\nEngineer\nMy own note\n"
+    assert (repo / "input/parsed-documents/cv.md").read_text() == "Jordan Example\nEngineer\nMy own note\n"
     out = capsys.readouterr().out
     assert "-My own note" in out
     assert "+Staff Engineer" in out
     assert "--force" in out
-    assert len(versions(repo)) == 2  # the new version is captured already; only input/cv.md waits for the answer
+    assert len(versions(repo)) == 2  # the new version is captured already; only input/parsed-documents/cv.md waits for the answer
 
 
 def test_force_overwrites_a_hand_edited_parsed_cv(repo: Path):
     run(repo, "--main", "cv.txt")
-    (repo / "input/cv.md").write_text("edited\n")
+    (repo / "input/parsed-documents/cv.md").write_text("edited\n")
 
     assert run(repo, "--force") == 0
-    assert (repo / "input/cv.md").read_text() == CV_PARSED
+    assert (repo / "input/parsed-documents/cv.md").read_text() == CV_PARSED
 
 
 def test_an_existing_parsed_cv_without_a_record_counts_as_hand_edited(repo: Path):
-    write_files(repo, {"input/cv.md": "# My CV, typed by hand\n"})
+    write_files(repo, {"input/parsed-documents/cv.md": "# My CV, typed by hand\n"})
 
     assert run(repo, "--main", "cv.txt") == 3
-    assert (repo / "input/cv.md").read_text() == "# My CV, typed by hand\n"
+    assert (repo / "input/parsed-documents/cv.md").read_text() == "# My CV, typed by hand\n"
 
 
 def test_an_existing_parsed_cv_that_already_matches_is_just_recorded(repo: Path):
-    write_files(repo, {"input/cv.md": CV_PARSED})
+    write_files(repo, {"input/parsed-documents/cv.md": CV_PARSED})
 
     assert run(repo, "--main", "cv.txt") == 0
     assert "parsed" in read_status(repo)["documents"]["cv"]

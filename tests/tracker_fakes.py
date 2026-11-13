@@ -79,7 +79,7 @@ def cv_version(**overrides) -> dict:
     data = {
         "id": "cv_2026-10-01",
         "label": "cv_en_333",
-        "path": "input/documents/cv/cv_2026-10-01/cv_en_333.pdf",
+        "path": "input/candidate/documents/cv/cv_2026-10-01/cv_en_333.pdf",
         "captured_at": "2026-10-01",
         "tailored_for": None,
     }

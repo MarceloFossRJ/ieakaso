@@ -10,6 +10,7 @@ from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.screen import ModalScreen, Screen
 from textual.widgets import Button, Footer, Input, Label, Select, SelectionList, Static
 
+from ieakaso.layout import INBOX
 from ieakaso.tracker import (
     CONTACT_TYPES,
     PERIODS,
@@ -101,7 +102,7 @@ class CvVersionsScreen(Screen):
         yield Static("CV versions (the label is yours to change)", classes="title")
         with VerticalScroll():
             if not versions:
-                yield Static("No CV versions yet. Save your CV in input/documents/cv/ and run /ieakaso cv-parser.")
+                yield Static(f"No CV versions yet. Save your CV in {INBOX}/ and run /ieakaso cv-parser.")
             for version in versions:
                 kind = describe_cv_version(version)
                 with Horizontal(classes="row"):

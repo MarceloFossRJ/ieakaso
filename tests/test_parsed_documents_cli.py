@@ -11,11 +11,11 @@ from conftest import TRACKED, snapshot, write_files
 
 from ieakaso.cv_parser import PARSER_VERSION, cli
 
-CV_PATH = "input/documents/cv/cv.txt"
-LINKEDIN_PATH = "input/documents/linkedin/Profile.md"
-LETTER_PATH = "input/documents/reference_letters/acme.txt"
-LINKEDIN_OUT = "input/linkedin.md"
-LETTER_OUT = "input/reference-letters/acme.txt.md"
+CV_PATH = "input/candidate/documents/cv/cv.txt"
+LINKEDIN_PATH = "input/candidate/documents/linkedin/Profile.md"
+LETTER_PATH = "input/candidate/documents/reference_letters/acme.txt"
+LINKEDIN_OUT = "input/parsed-documents/linkedin.md"
+LETTER_OUT = "input/parsed-documents/reference-letters/acme.txt.md"
 
 
 def status(linkedin: str | None = LINKEDIN_PATH, letters: list[str] | None = None) -> str:
@@ -104,13 +104,13 @@ def test_documents_are_parsed_even_when_the_parsed_cv_is_up_to_date(repo: Path):
 
 
 def test_documents_not_recorded_by_init_are_not_parsed(repo: Path):
-    write_files(repo, {"input/documents/xing/profile.txt": "Xing profile\n"})
+    write_files(repo, {"input/candidate/documents/xing/profile.txt": "Xing profile\n"})
     set_documents(repo, linkedin={"status": "skipped", "path": None}, reference_letters={"paths": []})
 
     assert run(repo) == 0
     assert not (repo / LINKEDIN_OUT).exists()
-    assert not (repo / "input/reference-letters").exists()
-    assert sorted(p.name for p in (repo / "input").glob("*.md")) == ["cv.md"]
+    assert not (repo / "input/parsed-documents/reference-letters").exists()
+    assert sorted(p.name for p in (repo / "input/parsed-documents").glob("*.md")) == ["cv.md"]
 
 
 # --- a document whose source is gone ---------------------------------------------
@@ -150,7 +150,7 @@ def test_a_hand_edited_parsed_document_whose_source_is_gone_is_kept_unless_force
 
 # --- a new source for the same parsed document ----------------------------------------
 
-NEW_LINKEDIN_PATH = "input/documents/linkedin/Profile-2026.md"
+NEW_LINKEDIN_PATH = "input/candidate/documents/linkedin/Profile-2026.md"
 
 
 def replace_linkedin_source(repo: Path) -> None:
@@ -230,7 +230,7 @@ def test_an_unreadable_document_is_a_warning_and_never_blocks_the_cv(repo: Path,
     (repo / LETTER_PATH).write_bytes(b"")
 
     assert run(repo) == 0
-    assert (repo / "input/cv.md").is_file()
+    assert (repo / "input/parsed-documents/cv.md").is_file()
     assert not (repo / LETTER_OUT).exists()
     out = capsys.readouterr().out
     assert "Warning:" in out and LETTER_PATH in out
