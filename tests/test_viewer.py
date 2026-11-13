@@ -516,7 +516,7 @@ async def test_the_viewer_never_creates_or_deletes_records(root: Path):
 
 async def test_the_viewer_backfills_company_research_from_its_repo_when_migrating(root: Path):
     rec = record()
-    write_db(db_file(root), {k: v for k, v in rec.items() if k != "company_research"}, version=1)
+    write_db(db_file(root), {k: v for k, v in rec.items() if k not in ("company_research", "cv_version")}, version=1)
     (root / rec["company_research"]).parent.mkdir(parents=True, exist_ok=True)
     (root / rec["company_research"]).write_text("x")
 

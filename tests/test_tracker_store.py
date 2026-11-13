@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 import pytest
-from tracker_fakes import lead, record, write_db
+from tracker_fakes import cv_version, lead, record, write_db
 
 from ieakaso.tracker import ConflictError, InvalidDbError, InvalidRecordError, load, save
 
@@ -25,7 +25,7 @@ def test_a_missing_file_loads_as_empty(db_path: Path):
 def test_the_first_save_creates_the_file_and_its_folder(db_path: Path):
     save(load(db_path))
 
-    assert json.loads(db_path.read_text()) == {"meta": {"schema_version": 2}, "records": []}
+    assert json.loads(db_path.read_text()) == {"meta": {"schema_version": 3}, "cv_versions": [], "records": []}
 
 
 def test_records_round_trip(db_path: Path):
@@ -122,10 +122,10 @@ def test_changed_returns_true_only_when_the_file_differs_from_what_was_read(db_p
 
 def v1(rec: dict) -> dict:
     """The record as schema_version 1 stored it: no company_research."""
-    return {key: value for key, value in rec.items() if key != "company_research"}
+    return {key: value for key, value in rec.items() if key not in ("company_research", "cv_version")}
 
 
-def test_a_version_1_file_is_migrated_on_load_and_written_as_version_2_on_save(db_path: Path):
+def test_a_version_1_file_is_migrated_on_load_and_written_as_version_3_on_save(db_path: Path):
     write_db(db_path, v1(lead()), version=1)
 
     db = load(db_path)
@@ -134,7 +134,7 @@ def test_a_version_1_file_is_migrated_on_load_and_written_as_version_2_on_save(d
     assert db.records == [lead()]
     assert json.loads(db_path.read_text())["meta"]["schema_version"] == 1  # loading alone writes nothing
     save(db)
-    assert json.loads(db_path.read_text()) == {"meta": {"schema_version": 2}, "records": [lead()]}
+    assert json.loads(db_path.read_text()) == {"meta": {"schema_version": 3}, "cv_versions": [], "records": [lead()]}
 
 
 def with_report(root: Path, rec: dict) -> None:
@@ -191,7 +191,7 @@ def test_a_migrated_file_can_be_saved_without_a_conflict(db_path: Path):
     assert load(db_path).records == [lead()]
 
 
-@pytest.mark.parametrize("version", [0, 3, "2", None])
+@pytest.mark.parametrize("version", [0, 4, "3", None])
 def test_any_other_schema_version_is_refused_and_left_alone(db_path: Path, version):
     write_db(db_path, lead(), version=version)
     before = db_path.read_text()
@@ -208,3 +208,69 @@ def test_an_invalid_version_1_record_is_still_an_error(db_path: Path):
     write_db(db_path, v1(lead(status="nope")), version=1)
 
     assert "invalid record" in load(db_path).error
+
+
+def v2(rec: dict) -> dict:
+    """The record as schema_version 2 stored it: no cv_version."""
+    return {key: value for key, value in rec.items() if key != "cv_version"}
+
+
+def test_a_version_2_file_gets_no_cv_versions_and_a_null_cv_version_on_every_record(db_path: Path):
+    db_path.parent.mkdir(parents=True)
+    db_path.write_text(json.dumps({"meta": {"schema_version": 2}, "records": [v2(record()), v2(lead(id="b_c_2026-10-11"))]}))
+
+    db = load(db_path)
+
+    assert db.error is None
+    assert db.cv_versions == []
+    assert [r["cv_version"] for r in db.records] == [None, None]
+    assert json.loads(db_path.read_text())["meta"]["schema_version"] == 2  # loading alone writes nothing
+    save(db)
+    saved = json.loads(db_path.read_text())
+    assert saved["meta"] == {"schema_version": 3} and saved["cv_versions"] == []
+
+
+def test_cv_versions_round_trip(db_path: Path):
+    write_db(db_path, record(cv_version="cv_2026-10-01"), cv_versions=[cv_version(), cv_version(id="cv_2026-10-01_2")])
+
+    db = load(db_path)
+    save(db)
+
+    assert db.error is None
+    assert [v["id"] for v in load(db_path).cv_versions] == ["cv_2026-10-01", "cv_2026-10-01_2"]
+
+
+@pytest.mark.parametrize(
+    "bad",
+    [
+        cv_version(label=""),
+        cv_version(id="2026-10-01"),
+        cv_version(captured_at="yesterday"),
+        cv_version(path="/etc/cv.pdf"),
+        cv_version(tailored_for=3),
+        {key: value for key, value in cv_version().items() if key != "label"},
+        {**cv_version(), "extra": 1},
+    ],
+)
+def test_an_invalid_cv_version_is_an_error(db_path: Path, bad: dict):
+    write_db(db_path, lead(), cv_versions=[bad])
+
+    assert "cv version" in (load(db_path).error or "").lower()
+
+
+def test_two_cv_versions_with_the_same_id_are_an_error(db_path: Path):
+    write_db(db_path, lead(), cv_versions=[cv_version(), cv_version(label="other")])
+
+    assert "cv_2026-10-01" in (load(db_path).error or "")
+
+
+def test_a_record_pointing_at_an_unknown_cv_version_is_an_error(db_path: Path):
+    write_db(db_path, record(cv_version="cv_2030-01-01"), cv_versions=[cv_version()])
+
+    assert "cv_2030-01-01" in (load(db_path).error or "")
+
+
+def test_a_record_cv_version_must_be_text_or_null(db_path: Path):
+    write_db(db_path, record(cv_version=3))
+
+    assert "cv_version" in (load(db_path).error or "")

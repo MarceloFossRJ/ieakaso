@@ -8,8 +8,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from ieakaso.tracker.errors import ConflictError, InvalidDbError
-from ieakaso.tracker.schema import SCHEMA_VERSION, problems, validate
+from ieakaso.tracker.errors import ConflictError, InvalidDbError, InvalidRecordError
+from ieakaso.tracker.schema import SCHEMA_VERSION, cv_version_problems, links_problem, problems, validate
 
 DB_PATH = Path("db/ieakaso_db.json")
 COMPANY_RESEARCH_PATH = "output/applications/{id}/{id}_company-research.md"
@@ -21,6 +21,7 @@ class Db:
 
     path: Path
     records: list[dict] = field(default_factory=list)
+    cv_versions: list[dict] = field(default_factory=list)
     signature: str | None = None
     error: str | None = None
 
@@ -29,6 +30,14 @@ class Db:
 
     def find(self, record_id: str) -> dict | None:
         return next((r for r in self.records if r.get("id") == record_id), None)
+
+    def find_cv_version(self, version_id: str) -> dict | None:
+        return next((v for v in self.cv_versions if v.get("id") == version_id), None)
+
+
+def current_cv_version(db: Db) -> dict | None:
+    """The most recently captured CV version that is not a Tailored CV. Derived on every call, never stored."""
+    return next((v for v in reversed(db.cv_versions) if v["tailored_for"] is None), None)
 
 
 def _signature(path: Path) -> str | None:
@@ -59,7 +68,7 @@ def load(path: Path, root: Path | None = None) -> Db:
     reason = _structure_problem(data)
     if reason:
         return Db(path, signature=signature, error=f"{path.name} {reason}")
-    return Db(path, records=data["records"], signature=signature)
+    return Db(path, records=data["records"], cv_versions=data["cv_versions"], signature=signature)
 
 
 def _is_tracker_file(data: Any) -> bool:
@@ -70,14 +79,23 @@ def _migrate(data: Any, root: Path | None) -> None:
     """Upgrade an older file in memory to SCHEMA_VERSION; the next save writes it. Anything else is left as it is.
 
     Version 1 had no `company_research`: it is the report's path when the report is in `root`, otherwise null.
+    Version 2 had no CV versions: the file gets an empty list and every record a null `cv_version`; the CV parser
+    then captures the Source CV and links the Applications past Lead to it.
     """
-    if not _is_tracker_file(data) or data["meta"].get("schema_version") != 1:
+    if not _is_tracker_file(data):
         return
-    for record in data["records"]:
-        if isinstance(record, dict) and "company_research" not in record:
-            report = COMPANY_RESEARCH_PATH.format(id=record.get("id"))
-            record["company_research"] = report if root and (root / report).is_file() else None
-    data["meta"]["schema_version"] = SCHEMA_VERSION
+    if data["meta"].get("schema_version") == 1:
+        for record in data["records"]:
+            if isinstance(record, dict) and "company_research" not in record:
+                report = COMPANY_RESEARCH_PATH.format(id=record.get("id"))
+                record["company_research"] = report if root and (root / report).is_file() else None
+        data["meta"]["schema_version"] = 2
+    if data["meta"].get("schema_version") == 2:
+        data["cv_versions"] = []
+        for record in data["records"]:
+            if isinstance(record, dict):
+                record.setdefault("cv_version", None)
+        data["meta"]["schema_version"] = SCHEMA_VERSION
 
 
 def _structure_problem(data: Any) -> str | None:
@@ -85,23 +103,37 @@ def _structure_problem(data: Any) -> str | None:
         return 'is not a tracker file: it needs "meta" and a list of "records"'
     if data["meta"].get("schema_version") != SCHEMA_VERSION:
         return f"has schema_version {data['meta'].get('schema_version')!r}, this tracker reads {SCHEMA_VERSION}"
+    if not isinstance(data.get("cv_versions"), list):
+        return 'is not a tracker file: it needs a list of "cv_versions"'
+    for version in data["cv_versions"]:
+        found = cv_version_problems(version)
+        if found:
+            return f"has an invalid CV version: {'; '.join(found)}"
     for record in data["records"]:
         found = problems(record)
         if found:
             who = record.get("id") if isinstance(record, dict) else record
             return f"has an invalid record {who!r}: {'; '.join(found)}"
-    return None
+    return links_problem(data["records"], data["cv_versions"])
 
 
 def save(db: Db) -> None:
     """Write the records atomically. Refuses a db that couldn't be read, an invalid record, or a file that changed."""
     if db.error:
         raise InvalidDbError(f"not saving: {db.error}")
+    for version in db.cv_versions:
+        found = cv_version_problems(version)
+        if found:
+            raise InvalidRecordError("; ".join(found))
     for record in db.records:
         validate(record)
+    linked = links_problem(db.records, db.cv_versions)
+    if linked:
+        raise InvalidRecordError(f"{db.path.name} {linked}")
     if db.changed_on_disk():
         raise ConflictError(f"{db.path.name} changed on disk since it was read; nothing was saved")
-    text = json.dumps({"meta": {"schema_version": SCHEMA_VERSION}, "records": db.records}, indent=2, ensure_ascii=False)
+    data = {"meta": {"schema_version": SCHEMA_VERSION}, "cv_versions": db.cv_versions, "records": db.records}
+    text = json.dumps(data, indent=2, ensure_ascii=False)
     db.path.parent.mkdir(parents=True, exist_ok=True)
     handle, temp = tempfile.mkstemp(dir=db.path.parent, prefix=f".{db.path.name}.", suffix=".tmp")
     try:

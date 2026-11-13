@@ -1,6 +1,6 @@
 # Database model
 
-`db/ieakaso_db.json` holds one record per Application (terms in `CONTEXT.md`). It is User data: gitignored, never committed. A valid example lives in `db/ieakaso_db_example.json`.
+`db/ieakaso_db.json` holds one record per Application and the list of CV versions (terms in `CONTEXT.md`). It is User data: gitignored, never committed. A valid example lives in `db/ieakaso_db_example.json`.
 
 Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Modes call its CLI; the viewer imports it. Agents never edit the JSON by hand. The tracker creates the file on its first write.
 
@@ -8,15 +8,32 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 
 - **One record per Application.** The candidate applies at most once per Application. Two Job ads joined through `**Also at:**` are still one record.
 - **Records are created only by modes.** job-analyzer creates a record as `lead`. The viewer edits records; it never creates or deletes them.
+- **CV versions are created only by the CV parser.** It captures each new Source CV (`docs/adr/0005-cv-versions.md`). They are never changed or deleted, except for the label, which the candidate edits in the viewer. A record holds the ID of the CV version its application was sent with.
 - **No text, only paths.** The ad, the Job analysis, the Cover letter and the Company research stay in `output/applications/<id>/`; the db holds their paths, relative to the repo root.
-- **Nothing derived is stored.** Counts by status or stage are computed when needed.
+- **Nothing derived is stored.** Counts by status or stage are computed when needed, and so is the current CV version.
 - **Keys are snake_case.** Dates are `yyyy-mm-dd`. A value not known yet is `null`.
 
 ## Structure
 
 ```jsonc
 {
-  "meta": { "schema_version": 2 },
+  "meta": { "schema_version": 3 },
+  "cv_versions": [
+    {
+      "id": "cv_2026-10-01",
+      "label": "cv_en_333",
+      "path": "input/documents/cv/cv_2026-10-01/cv_en_333.pdf",
+      "captured_at": "2026-10-01",
+      "tailored_for": null
+    },
+    {
+      "id": "cv_2026-10-12",
+      "label": "cv_for_acme",
+      "path": "input/documents/cv/cv_2026-10-12/cv_for_acme.pdf",
+      "captured_at": "2026-10-12",
+      "tailored_for": "acme_senior-backend-engineer_2026-10-10"
+    }
+  ],
   "records": [
     {
       "id": "acme_senior-backend-engineer_2026-10-10",
@@ -54,7 +71,8 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
       "contacts": [
         { "contact_type": "recruiter", "name": "Jane Doe", "linkedin_url": "https://www.linkedin.com/in/janedoe", "email": null }
       ],
-      "notes": ""
+      "notes": "",
+      "cv_version": "cv_2026-10-12"
     }
   ]
 }
@@ -68,7 +86,21 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 
 | Field | Type | Written by | Meaning |
 |---|---|---|---|
-| `schema_version` | integer | tracker | Version of this model. Currently `2`; see [Schema versions](#schema-versions). |
+| `schema_version` | integer | tracker | Version of this model. Currently `3`; see [Schema versions](#schema-versions). |
+
+### `cv_versions[]`
+
+One entry per CV version, oldest first. Written by the CV parser through the tracker; the viewer edits only `label`.
+
+| Field | Type | Meaning |
+|---|---|---|
+| `id` | string | `cv_<yyyy-mm-dd>` (the day it was captured), with `_2`, `_3` for further versions captured the same day. Never changes. Also the name of the version's folder in `input/documents/cv/`. |
+| `label` | string | What the candidate calls it. Defaults to the Source CV's file name without its extension (e.g. `cv_en_333`); the candidate edits it in the viewer. |
+| `path` | path | The Source CV, as the candidate supplied it, in the version's folder. Its fingerprint (SHA-256 of the file) is the version's identity. |
+| `captured_at` | date | The day the parser captured it. |
+| `tailored_for` | Application ID or `null` | `null` for a main CV; the Application ID for a Tailored CV, which belongs to that Application only and is never the current version. |
+
+The **current version** is the most recently captured one that is not a Tailored CV (the last such entry). It is derived whenever it is needed and never stored.
 
 ### Record
 
@@ -92,6 +124,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 | `source` | object | analyzer, candidate | partly | Where the ad was found and where to apply; see below. |
 | `contacts` | list | analyzer, candidate | yes | People at the company or agency; see below. The analyzer adds one only when the ad names a person. |
 | `notes` | string | candidate | yes | Free text, e.g. why the candidate desisted. |
+| `cv_version` | CV version ID or `null` | tracker, CV parser, candidate | yes (picker) | The CV version the application was sent with. Filled with the current version when `status` becomes `applied` and it is empty (the same rule as `applied_on`); set to a Tailored CV when the parser captures one for this Application. The candidate can change it in the viewer and explains why in `notes`. `null` for a Lead. A Tailored CV can only be set on its own Application. |
 
 ### `analysis`
 
@@ -151,8 +184,9 @@ The usual path is `lead` → `applied` or `desisted`, then `applied` → `no_ans
 |---|---|
 | 1 | First version. |
 | 2 | Adds `company_research`. |
+| 3 | Adds the top-level `cv_versions` list and the record's `cv_version`. |
 
-The tracker reads version 2, and upgrades a version 1 file when it loads it: every record gets `company_research`, set to `output/applications/<id>/<id>_company-research.md` when that file exists and `null` otherwise. Loading writes nothing; the next save writes the file as version 2. Any other version is refused and left alone.
+The tracker reads version 3, and upgrades older files when it loads them. Version 1: every record gets `company_research`, set to `output/applications/<id>/<id>_company-research.md` when that file exists and `null` otherwise. Version 2: `cv_versions` is `[]` and every record's `cv_version` is `null`; the CV parser then captures the Source CV lying in `input/documents/cv/` as the first CV version and gives it to every record with `applied_on` set (Leads stay `null`). Loading writes nothing; the next save writes the file as version 3. Any other version is refused and left alone.
 
 ## When job-analyzer runs again
 
@@ -161,8 +195,9 @@ A later Job analysis of an existing Application updates `analysis` and fills fie
 ## How the tracker treats the file
 
 - **Validation.** Every record is checked before a save, and again when the file is read (after any upgrade, see [Schema versions](#schema-versions)): all keys of the record are required, no other keys are allowed, and every key is snake_case. A file with an invalid record, a `schema_version` the tracker can't read or upgrade, or invalid JSON is not used and not overwritten; the viewer shows why.
+- **CV versions.** A save is refused when a `cv_versions` entry is invalid, two share an ID, or a record's `cv_version` is not the ID of one. A `tailored_for` is not checked against the records: `clean --applications` empties the records and keeps the CV versions.
 - **Same status.** Setting the status a record already has changes nothing and adds no `status_history` entry.
 - **New records.** `created_at` and the first `status_history` entry are the day the record is created. `analysis.on` is today when the payload leaves it out.
-- **Status and `applied_on`.** An edit that sets `applied_on` and `status: applied` together keeps the `applied_on` it was given.
+- **Status and `applied_on`.** An edit that sets `applied_on` and `status: applied` together keeps the `applied_on` it was given. `status: applied` also fills an empty `cv_version` with the current CV version, when there is one.
 - **Placeholders.** The viewer adds a stage as `New stage` and a contact as `New contact` (type `other`), saved at once, because a stage and a contact must have a name.
 - **Salary expectation.** The viewer saves it once the period, both amounts and the currency are filled, and sets it to `null` when all four are empty.

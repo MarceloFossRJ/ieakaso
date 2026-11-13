@@ -3,6 +3,13 @@
 Deterministic code like the CV parser. Modes call its command line; the viewer imports it.
 """
 
+from ieakaso.tracker.cv_versions import (
+    add_cv_version,
+    link_applied_records,
+    next_cv_version_id,
+    set_cv_version_label,
+    set_record_cv_version,
+)
 from ieakaso.tracker.errors import (
     ConflictError,
     InvalidDbError,
@@ -28,7 +35,7 @@ from ieakaso.tracker.schema import (
     problems,
     validate,
 )
-from ieakaso.tracker.store import DB_PATH, Db, load, save
+from ieakaso.tracker.store import DB_PATH, Db, current_cv_version, load, save
 
 __all__ = [
     "CLOSED_STATUSES",
@@ -44,12 +51,18 @@ __all__ = [
     "InvalidRecordError",
     "RecordNotFoundError",
     "TrackerError",
+    "add_cv_version",
+    "current_cv_version",
+    "link_applied_records",
     "load",
+    "next_cv_version_id",
     "no_answer_suggestions",
     "problems",
     "save",
     "set_company_research",
     "set_cover_letter",
+    "set_cv_version_label",
+    "set_record_cv_version",
     "set_status",
     "update_record",
     "upsert_from_analysis",

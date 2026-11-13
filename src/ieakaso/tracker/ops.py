@@ -5,7 +5,7 @@ from datetime import date
 
 from ieakaso.tracker.errors import InvalidRecordError, RecordNotFoundError
 from ieakaso.tracker.schema import STATUSES, is_date, validate
-from ieakaso.tracker.store import Db
+from ieakaso.tracker.store import Db, current_cv_version
 
 EDIT_KEYS = (
     "company",
@@ -89,6 +89,7 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
             "source": {**incoming["source"], "form_url": None},
             "contacts": copy.deepcopy(payload.get("contacts") or []),
             "notes": "",
+            "cv_version": None,
         }
         validate(record)
         db.records.append(record)
@@ -108,7 +109,7 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
     return _replace(existing, new), False
 
 
-def _change_status(record: dict, status: str, today: date) -> None:
+def _change_status(record: dict, status: str, today: date, current_version: dict | None) -> None:
     if status not in STATUSES:
         raise InvalidRecordError(f"status must be one of {', '.join(STATUSES)}")
     if status == record["status"]:
@@ -117,13 +118,18 @@ def _change_status(record: dict, status: str, today: date) -> None:
     record["status_history"].append({"status": status, "on": today.isoformat()})
     if status == "applied" and _empty(record["applied_on"]):
         record["applied_on"] = today.isoformat()
+    if status == "applied" and _empty(record["cv_version"]) and current_version:
+        record["cv_version"] = current_version["id"]
 
 
 def set_status(db: Db, record_id: str, status: str, today: date) -> dict:
-    """Set the Application status (any to any), appending to `status_history`; `applied` fills an empty `applied_on`."""
+    """Set the Application status (any to any), appending to `status_history`.
+
+    `applied` fills an empty `applied_on` with today and an empty `cv_version` with the current CV version.
+    """
     record = _get(db, record_id)
     new = copy.deepcopy(record)
-    _change_status(new, status, today)
+    _change_status(new, status, today, current_cv_version(db))
     return _replace(record, new)
 
 
@@ -159,7 +165,7 @@ def update_record(db: Db, record_id: str, changes: dict, today: date) -> dict:
         else:
             new[key] = copy.deepcopy(value)
     if "status" in changes:
-        _change_status(new, changes["status"], today)
+        _change_status(new, changes["status"], today, current_cv_version(db))
     return _replace(record, new)
 
 

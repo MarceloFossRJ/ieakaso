@@ -1,7 +1,23 @@
 {
   "meta": {
-    "schema_version": 2
+    "schema_version": 3
   },
+  "cv_versions": [
+    {
+      "id": "cv_2026-10-01",
+      "label": "cv_en_333",
+      "path": "input/documents/cv/cv_2026-10-01/cv_en_333.pdf",
+      "captured_at": "2026-10-01",
+      "tailored_for": null
+    },
+    {
+      "id": "cv_2026-10-12",
+      "label": "cv_for_acme",
+      "path": "input/documents/cv/cv_2026-10-12/cv_for_acme.pdf",
+      "captured_at": "2026-10-12",
+      "tailored_for": "acme_senior-backend-engineer_2026-10-10"
+    }
+  ],
   "records": [
     {
       "id": "acme_senior-backend-engineer_2026-10-10",
@@ -64,7 +80,8 @@
           "email": null
         }
       ],
-      "notes": ""
+      "notes": "",
+      "cv_version": "cv_2026-10-12"
     }
   ]
 }

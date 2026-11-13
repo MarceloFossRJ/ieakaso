@@ -39,6 +39,7 @@ def test_a_new_application_becomes_a_lead(db_path: Path):
     assert rec["analysis"]["on"] == "2026-10-10"
     assert rec["stage"] == 0 and rec["stages"] == []
     assert rec["applied_on"] is None and rec["salary_expectation"] is None and rec["cover_letter"] is None
+    assert rec["cv_version"] is None
     assert rec["source"]["form_url"] is None
     assert rec["notes"] == ""
     assert problems(rec) == []
