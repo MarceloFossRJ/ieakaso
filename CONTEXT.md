@@ -45,7 +45,7 @@ One content of the Source CV, as Ieakaso captured it when parsing: the file exac
 _Avoid_: CV revision, CV edition, CV release
 
 **Tailored CV**:
-A CV version the candidate made for one Application, such as a variant in another language or one shaped for that Job ad. It belongs to that Application only and never becomes the current version.
+A CV version the candidate made for one Application, such as a version in another language or one shaped for that Job ad. It belongs to that Application only and never becomes the current version.
 _Avoid_: custom CV, job-specific CV, CV variant
 
 **LinkedIn profile**:

@@ -251,11 +251,29 @@ def cv_version_problems(version: Any) -> list[str]:
     return out
 
 
+def fits_application(version: dict, record_id: str) -> bool:
+    """A main CV fits every Application; a Tailored CV only the one it was made for."""
+    return version["tailored_for"] in (None, record_id)
+
+
+def describe_cv_version(version: dict) -> str:
+    return f"Tailored CV for {version['tailored_for']}" if version["tailored_for"] else "main CV"
+
+
+def cv_versions_problem(cv_versions: list) -> str | None:
+    """The first thing wrong with the CV versions as a list (each one valid, no ID twice), or None."""
+    for version in cv_versions:
+        found = cv_version_problems(version)
+        if found:
+            return "; ".join(found)
+    ids = [v["id"] for v in cv_versions]
+    duplicates = sorted({i for i in ids if ids.count(i) > 1})
+    return f"two CV versions have the ID {duplicates[0]!r}" if duplicates else None
+
+
 def links_problem(records: list[dict], cv_versions: list[dict]) -> str | None:
     """What is wrong between the records and the CV versions (valid on their own), or None."""
     ids = [v["id"] for v in cv_versions]
-    for found in sorted({i for i in ids if ids.count(i) > 1}):
-        return f"has two CV versions with the ID {found!r}"
     for record in records:
         version = record["cv_version"]
         if version is not None and version not in ids:

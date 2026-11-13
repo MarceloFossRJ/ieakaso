@@ -32,6 +32,8 @@ from ieakaso.tracker.schema import (
     PERIODS,
     STATUSES,
     VERDICTS,
+    describe_cv_version,
+    fits_application,
     problems,
     validate,
 )
@@ -53,6 +55,8 @@ __all__ = [
     "TrackerError",
     "add_cv_version",
     "current_cv_version",
+    "describe_cv_version",
+    "fits_application",
     "link_applied_records",
     "load",
     "next_cv_version_id",

@@ -5,8 +5,8 @@ import copy
 from datetime import date
 
 from ieakaso.tracker.errors import InvalidRecordError, RecordNotFoundError
-from ieakaso.tracker.ops import _empty, _get, _replace
-from ieakaso.tracker.schema import cv_version_problems
+from ieakaso.tracker.ops import get_record, is_empty, replace_record
+from ieakaso.tracker.schema import cv_version_problems, fits_application
 from ieakaso.tracker.store import Db
 
 
@@ -47,7 +47,7 @@ def add_cv_version(
         raise InvalidRecordError("; ".join(found))
     if db.find_cv_version(version_id):
         raise InvalidRecordError(f"a CV version with the ID {version_id!r} already exists")
-    record = _get(db, tailored_for) if tailored_for else None
+    record = get_record(db, tailored_for) if tailored_for else None
     db.cv_versions.append(version)
     if record is not None:
         record["cv_version"] = version_id
@@ -66,16 +66,16 @@ def set_cv_version_label(db: Db, version_id: str, label: str) -> dict:
 
 def set_record_cv_version(db: Db, record_id: str, version_id: str | None) -> dict:
     """Set the CV version an Application was sent with (`None` clears it). A Tailored CV fits its own Application only."""
-    record = _get(db, record_id)
+    record = get_record(db, record_id)
     if version_id is not None:
         version = _version(db, version_id)
-        if version["tailored_for"] not in (None, record_id):
+        if not fits_application(version, record_id):
             raise InvalidRecordError(
                 f"CV version {version_id!r} is a Tailored CV for another Application, so it can't be set on {record_id!r}"
             )
     new = copy.deepcopy(record)
     new["cv_version"] = version_id
-    return _replace(record, new)
+    return replace_record(record, new)
 
 
 def link_applied_records(db: Db, version_id: str) -> list[str]:
@@ -83,7 +83,7 @@ def link_applied_records(db: Db, version_id: str) -> list[str]:
     _version(db, version_id)
     linked = []
     for record in db.records:
-        if not _empty(record["applied_on"]) and _empty(record["cv_version"]):
+        if not is_empty(record["applied_on"]) and is_empty(record["cv_version"]):
             record["cv_version"] = version_id
             linked.append(record["id"])
     return linked

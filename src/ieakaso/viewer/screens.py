@@ -10,7 +10,14 @@ from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.screen import ModalScreen, Screen
 from textual.widgets import Button, Footer, Input, Label, Select, SelectionList, Static
 
-from ieakaso.tracker import CONTACT_TYPES, PERIODS, STATUSES, set_record_cv_version
+from ieakaso.tracker import (
+    CONTACT_TYPES,
+    PERIODS,
+    STATUSES,
+    describe_cv_version,
+    fits_application,
+    set_record_cv_version,
+)
 
 SIMPLE_TEXT = {"company", "position", "notes", "home_office", "applied_on"}
 NULLABLE_TEXT = {"home_office", "applied_on"}
@@ -96,7 +103,7 @@ class CvVersionsScreen(Screen):
             if not versions:
                 yield Static("No CV versions yet. Save your CV in input/documents/cv/ and run /ieakaso cv-parser.")
             for version in versions:
-                kind = f"Tailored CV for {version['tailored_for']}" if version["tailored_for"] else "main CV"
+                kind = describe_cv_version(version)
                 with Horizontal(classes="row"):
                     yield Label(f"{version['id']}, captured {version['captured_at']}, {kind}")
                     yield Input(version["label"], id=f"label_{version['id']}")
@@ -201,7 +208,7 @@ class DetailScreen(Screen):
         options = [
             (f"{v['label']} ({v['id']}, {v['captured_at']})", v["id"])
             for v in self.app.tracker_db.cv_versions
-            if v["tailored_for"] in (None, record["id"])
+            if fits_application(v, record["id"])
         ]
         value = record["cv_version"] if record["cv_version"] in {v for _, v in options} else Select.NULL
         return Select(options, value=value, allow_blank=True, id="cv_version")

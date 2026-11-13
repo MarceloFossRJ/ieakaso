@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from ieakaso.tracker.errors import ConflictError, InvalidDbError, InvalidRecordError
-from ieakaso.tracker.schema import SCHEMA_VERSION, cv_version_problems, links_problem, problems, validate
+from ieakaso.tracker.schema import SCHEMA_VERSION, cv_versions_problem, links_problem, problems, validate
 
 DB_PATH = Path("db/ieakaso_db.json")
 COMPANY_RESEARCH_PATH = "output/applications/{id}/{id}_company-research.md"
@@ -105,10 +105,9 @@ def _structure_problem(data: Any) -> str | None:
         return f"has schema_version {data['meta'].get('schema_version')!r}, this tracker reads {SCHEMA_VERSION}"
     if not isinstance(data.get("cv_versions"), list):
         return 'is not a tracker file: it needs a list of "cv_versions"'
-    for version in data["cv_versions"]:
-        found = cv_version_problems(version)
-        if found:
-            return f"has an invalid CV version: {'; '.join(found)}"
+    found = cv_versions_problem(data["cv_versions"])
+    if found:
+        return f"has an invalid CV version: {found}"
     for record in data["records"]:
         found = problems(record)
         if found:
@@ -121,10 +120,9 @@ def save(db: Db) -> None:
     """Write the records atomically. Refuses a db that couldn't be read, an invalid record, or a file that changed."""
     if db.error:
         raise InvalidDbError(f"not saving: {db.error}")
-    for version in db.cv_versions:
-        found = cv_version_problems(version)
-        if found:
-            raise InvalidRecordError("; ".join(found))
+    found = cv_versions_problem(db.cv_versions)
+    if found:
+        raise InvalidRecordError(found)
     for record in db.records:
         validate(record)
     linked = links_problem(db.records, db.cv_versions)
