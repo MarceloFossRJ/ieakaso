@@ -12,7 +12,7 @@ from datetime import datetime
 from pathlib import Path
 
 from ieakaso.repo import find_root, is_ieakaso_repo
-from ieakaso.tracker.store import DB_PATH
+from ieakaso.tracker.store import DB_PATH, load, save
 
 # User data outside input/ and output/. Must stay in sync with .gitignore
 # (tests/test_cleaner_drift.py checks it against the real repo).
@@ -47,6 +47,7 @@ APPLICATIONS = Scope(
 class CleanReport:
     deleted: list[Path] = field(default_factory=list)
     removed_dirs: list[Path] = field(default_factory=list)
+    emptied: list[Path] = field(default_factory=list)  # the db when only its records go: the CV versions stay
     backup: Path | None = None
 
 
@@ -68,15 +69,23 @@ def clean(
 ) -> CleanReport:
     """Delete the user data under root, or only the Applications' when applications_only.
 
-    Backs it up to backup_dir first when given.
+    Backs it up to backup_dir first when given. The Applications' clean keeps the CV versions (setup, not
+    Applications): a db that holds some only has its records emptied, and is deleted otherwise.
     """
-    deleted = user_data(root, applications_only)
+    db = load(root / DB_PATH, root=root) if applications_only else None
+    keeps_versions = db is not None and not db.error and bool(db.cv_versions)
+    deleted = [rel for rel in user_data(root, applications_only) if not (keeps_versions and rel == DB_PATH)]
     folders = (APPLICATIONS if applications_only else FRESH).folders
     report = CleanReport(deleted=deleted, removed_dirs=_dirs_left_empty(root, deleted, folders))
+    if keeps_versions and db.records:
+        report.emptied = [DB_PATH]
     if dry_run:
         return report
-    if backup_dir is not None and (deleted or report.removed_dirs):
+    if backup_dir is not None and (deleted or report.removed_dirs or report.emptied):
         report.backup = _backup(root, report, backup_dir)
+    if report.emptied:
+        db.records.clear()
+        save(db)
     for rel in deleted:
         (root / rel).unlink()
     # Deepest first, so a parent is empty by the time it is removed.
@@ -109,7 +118,7 @@ def _backup(root: Path, report: CleanReport, backup_dir: Path) -> Path:
         target = backup_dir / f"{stamp}-{n}"
     for rel in report.removed_dirs:
         (target / rel).mkdir(parents=True, exist_ok=True)
-    for rel in report.deleted:
+    for rel in [*report.deleted, *report.emptied]:
         _copy(root, target, rel)
         if not filecmp.cmp(root / rel, target / rel, shallow=False):
             raise OSError(f"backup of {rel} does not match the original; nothing was deleted")
@@ -151,9 +160,11 @@ def _print_report(report: CleanReport, dry_run: bool = False) -> None:
         print(f"{verb} {rel}")
     for rel in report.removed_dirs:
         print(f"{verb} folder {rel}/")
+    for rel in report.emptied:
+        print(f"{'would empty' if dry_run else 'emptied'} the records of {rel} (CV versions kept)")
     if report.backup:
         print(f"backup: {report.backup}")
-    if not report.deleted and not report.removed_dirs:
+    if not report.deleted and not report.removed_dirs and not report.emptied:
         print("already clean")
 
 

@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 from conftest import TRACKED, USER_DATA, snapshot, write_files
+from tracker_fakes import cv_version, record, write_db
 
 from ieakaso.devtools.cleaner import find_root, main
 
@@ -62,3 +63,12 @@ def test_cli_clean_applications_keeps_the_setup_and_backs_up(repo: Path, backups
     assert "deleted db/ieakaso_db.json" in out
     assert "backup: " in out
     assert len(list(backups.iterdir())) == 1
+
+
+def test_cli_clean_applications_says_the_cv_versions_were_kept(repo: Path, backups: Path, capsys):
+    write_db(repo / "db/ieakaso_db.json", record(), cv_versions=[cv_version()])
+
+    assert run(repo, backups, "clean", "--applications") == 0
+
+    assert "emptied the records of db/ieakaso_db.json (CV versions kept)" in capsys.readouterr().out
+    assert (repo / "db/ieakaso_db.json").exists()
