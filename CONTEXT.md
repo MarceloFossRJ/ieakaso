@@ -149,8 +149,12 @@ Everything the candidate gives Ieakaso about themselves: `config.yml` and everyt
 _Avoid_: knowledge base, memory, the candidate's files
 
 **Conflict report**:
-The list of places where the LinkedIn profile, a Reference letter or `config.yml` disagrees with the Parsed CV, each rated High, Medium or Low by how likely a recruiter is to notice it, plus the facts only one side holds. Init writes a new one on every run, as `output/conflict-reports/<yyyy-mm-dd>T<hh-mm>_conflicts.md`, and never overwrites an older one. The Parsed CV is the reference: the report tells the candidate which other document to fix. It never blocks init and never changes a document.
+The list of places where the LinkedIn profile, a Reference letter or `config.yml` contradicts the Parsed CV (two statements that can't both be true), each rated High, Medium or Low by how likely a recruiter is to notice it, plus the facts only one side holds, what is only presented differently (wording, grouping, level of detail) and the Deliberate differences. Init writes a new one on every run, as `output/conflict-reports/<yyyy-mm-dd>T<hh-mm>_conflicts.md`, and never overwrites an older one. The Parsed CV is the reference: the report tells the candidate which other document to fix. It never blocks init and never changes a document.
 _Avoid_: consistency check, discrepancy report, diff
+
+**Deliberate difference**:
+A place where another document differs from the Parsed CV because the candidate chose it, such as a number kept off a public profile or roles grouped differently for a medium. The candidate records each one, with the reason, in `input/candidate/deliberate-differences.md`. Only real contradictions need recording; differences in wording or grouping are not conflicts in the first place. The Parsed CV stays the reference: every later step uses the CV's version, and the difference is never reported as a conflict to fix or raised as a question again.
+_Avoid_: accepted conflict, exception, waiver
 
 ### Agents
 
