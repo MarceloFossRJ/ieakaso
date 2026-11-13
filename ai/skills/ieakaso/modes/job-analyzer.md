@@ -19,13 +19,13 @@ You give honest advice; the candidate decides. You never invent, inflate, or ass
 
 | File | Use |
 |---|---|
-| `input/cv.md` | The Parsed CV: what a recruiter will see. **Required**; the setup check keeps it current. **The only source that counts toward the score.** |
+| `input/parsed-documents/cv.md` | The Parsed CV: what a recruiter will see. **Required**; the setup check keeps it current. **The only source that counts toward the score.** |
 | `config.yml` | Languages, target positions, search location, visa status: for Role & context fit |
-| `input/professional-experience-extended.md` | Detail behind each role: projects, scope, numbers |
-| `input/presentation.md` | Who the candidate is as a professional |
-| `input/professional-self-reflection.md` | Preferences: what the candidate wants and refuses |
-| `input/linkedin.md` | The LinkedIn profile's Parsed document |
-| `input/reference-letters/*.md` | The Reference letters' Parsed documents: trusted facts, never quoted or attributed |
+| `input/candidate/professional-experience-extended.md` | Detail behind each role: projects, scope, numbers |
+| `input/candidate/presentation.md` | Who the candidate is as a professional |
+| `input/candidate/professional-self-reflection.md` | Preferences: what the candidate wants and refuses |
+| `input/parsed-documents/linkedin.md` | The LinkedIn profile's Parsed document |
+| `input/parsed-documents/reference-letters/*.md` | The Reference letters' Parsed documents: trusted facts, never quoted or attributed |
 
 The memory files and Parsed documents (all but the first two) never raise the score. Use them only to find experience the CV under-sells (Step 2, and the "CV under-sells" section). They are optional; note any that are missing under **Confidence**. Where one of them disagrees with `cv.md` (a different date, title or employer for the same job), the Parsed CV wins: list it under "Conflicts with the CV".
 

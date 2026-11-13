@@ -71,7 +71,7 @@ Work out the role function from the Job ad, then stress what readers of that fun
 ### Voice
 
 - Write as the candidate speaks when being polite: informal but not casual, enthusiastic without hype.
-- **Read it aloud.** Any sentence that sounds stiff, robotic or like a template gets rewritten in the candidate's natural voice (`input/writing-style.md`).
+- **Read it aloud.** Any sentence that sounds stiff, robotic or like a template gets rewritten in the candidate's natural voice (`input/candidate/writing-style.md`).
 - **No AI tells.** Readers now spot machine-written letters, and generic content gives them away more than any single word. Avoid the words "delve", "pivotal" and "underscore", the "not just X, but Y" construction, reflexive lists of three ("strategy, execution and people"), and bold or other markup in the body.
 
 ### Formal-letter markets

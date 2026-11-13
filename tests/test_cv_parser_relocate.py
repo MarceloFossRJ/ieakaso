@@ -275,3 +275,15 @@ def test_a_file_named_like_a_frozen_copy_in_a_folder_the_candidate_made_is_the_c
 
     assert (current / INBOX / "old-cvs/parsed-cv.md").read_text() == "mine\n"
     assert not (current / PARSED / "cv-versions/old-cvs.md").exists()
+
+
+def test_move_only_moves_and_parses_nothing(current: Path, capsys):
+    to_old_layout(current)
+    (current / "input/cv.md").write_text("stale\n")
+    capsys.readouterr()
+
+    assert run(current, "--move-only") == 0
+
+    assert (current / f"{PARSED}/cv.md").read_text() == "stale\n"
+    out = capsys.readouterr().out
+    assert out.startswith("Moved") and "Wrote" not in out and "up to date" not in out

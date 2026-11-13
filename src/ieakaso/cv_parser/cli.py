@@ -1,4 +1,5 @@
-"""`uv run python -m ieakaso.cv_parser [--main FILE | --tailored FILE --for ID] [--force]`: captures the CV versions
+"""`uv run python -m ieakaso.cv_parser [--main FILE | --tailored FILE --for ID] [--force] [--move-only]`: first moves a repo
+laid out before ADR 0006 to the split layout (relocate.py; `--move-only` stops there), then captures the CV versions
 waiting in the inbox `input/candidate/documents/cv/` (versions.py), writes the Parsed CV `input/parsed-documents/cv.md` from the current
 version, and writes the Parsed documents of the LinkedIn profile and reference letters (documents.py).
 
@@ -51,6 +52,7 @@ def main(argv: list[str] | None = None, today: date | None = None) -> int:
     parser.add_argument("--tailored", metavar="FILE", help="capture this new file as a Tailored CV (needs --for)")
     parser.add_argument("--for", dest="tailored_for", metavar="ID", help="the Application ID of the Tailored CV")
     parser.add_argument("--force", action="store_true", help="overwrite input/parsed-documents/cv.md even if it was edited by hand")
+    parser.add_argument("--move-only", action="store_true", help="only move a repo laid out before ADR 0006 to the new layout")
     parser.add_argument("--root", type=Path, help="repo root (default: found from the current folder)")
     args = parser.parse_args(argv)
 
@@ -60,6 +62,8 @@ def main(argv: list[str] | None = None, today: date | None = None) -> int:
         return 2
 
     relocate.run(root)  # before anything reads a path: a repo from before ADR 0006 is moved first
+    if args.move_only:
+        return 0
     status = _read_status(root)
     if not status:
         print(NO_CV, file=sys.stderr)

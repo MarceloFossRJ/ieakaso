@@ -11,7 +11,7 @@ Each mode also has a mode entry, so the candidate can pick it from the `/` menu 
 | Mode | Arguments | File | Does |
 |---|---|---|---|
 | `init` | — | `ai/skills/ieakaso/modes/init.md` | Checks the candidate's documents, collects `config.yml`, and reports where the other documents disagree with the CV |
-| `cv-parser` | — | `ai/skills/ieakaso/modes/cv-parser.md` | Writes `input/cv.md` and the other Parsed documents from the candidate's documents, word for word |
+| `cv-parser` | — | `ai/skills/ieakaso/modes/cv-parser.md` | Writes `input/parsed-documents/cv.md` and the other Parsed documents from the candidate's documents, word for word |
 | `job-analyzer` | `<job-url or job-ad text>` | `ai/skills/ieakaso/modes/job-analyzer.md` | Scores the CV against one job ad and gives a verdict |
 | `cover-letter` | `[<job-url or job-ad text>]` | `ai/skills/ieakaso/modes/cover-letter.md` | Drafts a cover letter for one job ad and has it reviewed until it scores 90/100, plateaus, or 5 rounds pass |
 | `viewer` | — | `ai/skills/ieakaso/modes/viewer.md` | Opens the applications tracker in a new terminal window, to view and edit your Applications |
@@ -40,14 +40,15 @@ When the mode's work ends, including when it stops early (setup incomplete, cv-p
 
 ## Setup check
 
-Run this before every mode except `init`:
+Run steps 1 to 4 before every mode except `init`. Step 0 runs before every mode, `init` included:
 
+0. Run `uv run python -m ieakaso.cv_parser --move-only`. It moves a repo laid out before `docs/adr/0006-input-split-by-who-writes.md` to `input/candidate/` and `input/parsed-documents/` and prints one line when it did; it does nothing otherwise. Relay that line, and any `Warning:` it prints, in one line each. Never move those files yourself.
 1. Read `db/system_status.json`. If it does not exist or is not valid JSON, copy `db/system_status_example.json` to `db/system_status.json` first.
 2. Run `ai/skills/ieakaso/modes/init.md` first if any of these is true:
    - `init.status` is not `"completed"`
    - `config.yml` does not exist, or a mandatory field (listed in `ai/skills/ieakaso/modes/init.md`) is empty
-   - the file at `documents.cv.path` no longer exists (a CV the candidate saved in `input/documents/cv/` since then is captured by the next step)
-3. Unless the mode is `cv-parser` itself or `viewer` (which does not read the CV), run `ai/skills/ieakaso/modes/cv-parser.md`. It is quick when `input/cv.md` is already up to date, and it captures any new CV file the candidate saved in `input/documents/cv/` (asking what it is, see its Step 3). If it ends without exit 0 or exit 4 (new files asked about), stop: the mode the user asked for does not run on a missing or out-of-date Parsed CV.
+   - the file at `documents.cv.path` no longer exists (a CV the candidate saved in `input/candidate/documents/cv/` since then is captured by the next step)
+3. Unless the mode is `cv-parser` itself or `viewer` (which does not read the CV), run `ai/skills/ieakaso/modes/cv-parser.md`. It is quick when `input/parsed-documents/cv.md` is already up to date, and it captures any new CV file the candidate saved in `input/candidate/documents/cv/` (asking what it is, see its Step 3). If it ends without exit 0 or exit 4 (new files asked about), stop: the mode the user asked for does not run on a missing or out-of-date Parsed CV.
 4. When init and the parser finish, continue with the mode the user asked for.
 
 This check never blocks on, or reminds about, the LinkedIn PDF or reference letters. Only `/ieakaso init` does that.
