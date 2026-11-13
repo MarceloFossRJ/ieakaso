@@ -14,7 +14,7 @@ from pathlib import Path, PurePosixPath
 
 from ieakaso import cv_parser
 from ieakaso.cv_parser.files import sha, write_atomic
-from ieakaso.cv_parser.layout import FROZEN, INBOX
+from ieakaso.layout import FROZEN, INBOX
 from ieakaso.tracker import (
     Db,
     TrackerError,

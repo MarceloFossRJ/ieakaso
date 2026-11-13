@@ -22,8 +22,6 @@ If this is a re-run (`init.status` is `"completed"`), tell the user init already
 
 Create any of these folders that are missing: `input/candidate/documents/cv/`, `input/candidate/documents/linkedin/`, `input/candidate/documents/reference_letters/` and `input/parsed-documents/`. Leave every other folder under `input/candidate/documents/` as it is. The candidate writes `input/candidate/`; Ieakaso writes `input/parsed-documents/` (the CV parser) and the candidate never edits it.
 
-Then copy each template that has no file yet into `input/candidate/`, never over a file that exists: `resources/templates/presentation_template.md` to `presentation.md`, `resources/templates/professional-experience-extended_template.md` to `professional-experience-extended.md`, `resources/templates/professional-self-reflection.md` to `professional-self-reflection.md`, and `resources/templates/writing_style_template.md` to `writing-style.md`. They are starting points for the candidate to fill in.
-
 ### CV — mandatory
 
 `input/candidate/documents/cv/` is an inbox (`docs/adr/0005-cv-versions.md`): the CV parser moves each CV file the candidate saves there into a CV version folder `cv_<yyyy-mm-dd>/`. Accepted files: `.pdf`, `.docx`, `.md`, `.txt`, `.tex`, not empty.

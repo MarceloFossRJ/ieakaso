@@ -9,7 +9,7 @@ from pathlib import Path, PurePosixPath
 from ieakaso import cv_parser
 from ieakaso.cv_parser.errors import CvParseError
 from ieakaso.cv_parser.files import sha, write_atomic
-from ieakaso.cv_parser.layout import LETTERS_OUTPUT, LINKEDIN_OUTPUT, PARSED
+from ieakaso.layout import LETTERS_OUTPUT, LINKEDIN_OUTPUT, PARSED
 
 
 def sync(root: Path, status: dict, force: bool, now: str) -> bool:

@@ -1,6 +1,6 @@
 # `input/` is split by who writes each file
 
-`input/` holds everything the agents read about the candidate, and `output/` everything Ieakaso delivers. Inside `input/`, the folder says who writes each file. The candidate writes `input/candidate/`: the Source documents in `input/candidate/documents/` (including the CV inbox and the CV version folders) and the memory files. Ieakaso writes `input/parsed-documents/`: `cv.md`, `linkedin.md`, `reference-letters/<name>.md` and the frozen copies `cv-versions/<id>.md`, which the candidate must never edit. Before this, generated and hand-written files sat side by side in `input/`, so a candidate couldn't tell which ones were theirs to change.
+`input/` holds everything the agents read about the candidate, and `output/` everything Ieakaso delivers. Inside `input/`, the folder says who writes each file. The candidate writes `input/candidate/`: the Source documents in `input/candidate/documents/` (including the CV inbox and the CV version folders) and the candidate's own files (`presentation.md`, `professional-experience-extended.md`, `professional-self-reflection.md`, `writing-style.md`). Ieakaso writes `input/parsed-documents/`: `cv.md`, `linkedin.md`, `reference-letters/<name>.md` and the frozen copies `cv-versions/<id>.md`, which the candidate must never edit. Before this, generated and hand-written files sat side by side in `input/`, so a candidate couldn't tell which ones were theirs to change.
 
 ## Considered Options
 

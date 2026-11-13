@@ -29,29 +29,28 @@ from pathlib import Path
 from ieakaso.cv_parser import PARSER_VERSION, CvParseError, documents, parse, relocate, versions
 from ieakaso.cv_parser.files import sha as _sha
 from ieakaso.cv_parser.files import write_atomic as _write_atomic
-from ieakaso.cv_parser.layout import PARSED_CV
+from ieakaso.layout import INBOX, PARSED_CV, STATUS
 from ieakaso.repo import find_root, is_ieakaso_repo
 from ieakaso.tracker import DB_PATH, Db, current_cv_version, describe_cv_version, load
 
-STATUS = Path("db/system_status.json")
 OUTPUT = Path(PARSED_CV)
 WAITING = 4  # new CV files wait for the candidate's choice; the other codes are in the module docstring
 NO_CV = (
-    "No CV found. Save your CV in input/candidate/documents/cv/ and run /ieakaso cv-parser again, "
+    f"No CV found. Save your CV in {INBOX}/ and run /ieakaso cv-parser again, "
     "or run /ieakaso init if the setup is missing."
 )
-CORRECT_FILE = "Put the corrected file in input/candidate/documents/cv/ and run /ieakaso cv-parser again."
+CORRECT_FILE = f"Put the corrected file in {INBOX}/ and run /ieakaso cv-parser again."
 
 
 def main(argv: list[str] | None = None, today: date | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="python -m ieakaso.cv_parser",
-        description="Capture the CV versions waiting in input/candidate/documents/cv/ and write the Parsed CV (input/parsed-documents/cv.md).",
+        description=f"Capture the CV versions waiting in {INBOX}/ and write the Parsed CV ({PARSED_CV}).",
     )
     parser.add_argument("--main", metavar="FILE", help="capture this new file as the new main CV")
     parser.add_argument("--tailored", metavar="FILE", help="capture this new file as a Tailored CV (needs --for)")
     parser.add_argument("--for", dest="tailored_for", metavar="ID", help="the Application ID of the Tailored CV")
-    parser.add_argument("--force", action="store_true", help="overwrite input/parsed-documents/cv.md even if it was edited by hand")
+    parser.add_argument("--force", action="store_true", help=f"overwrite {PARSED_CV} even if it was edited by hand")
     parser.add_argument("--move-only", action="store_true", help="only move a repo laid out before ADR 0006 to the new layout")
     parser.add_argument("--root", type=Path, help="repo root (default: found from the current folder)")
     args = parser.parse_args(argv)

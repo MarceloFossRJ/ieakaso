@@ -1,7 +1,7 @@
 """The move step (docs/adr/0006-input-split-by-who-writes.md): the first thing every parser run does.
 
 A repo laid out before ADR 0006 keeps everything in `input/`: the Source documents in `input/documents/`, the Parsed
-documents next to the memory files, and each CV version's frozen copy in its folder. This moves every file to its place
+documents next to the candidate's own files, and each CV version's frozen copy in its folder. This moves every file to its place
 in the split layout (`input/candidate/` is the candidate's, `input/parsed-documents/` is Ieakaso's) and rewrites the
 paths the status file and the tracker's `cv_versions` hold. Files are moved, never regenerated, so a Parsed document
 edited by hand is still detected. It never overwrites a file already at the new place: the conflict is reported and both
@@ -14,13 +14,12 @@ from dataclasses import dataclass, field
 from pathlib import Path, PurePosixPath
 
 from ieakaso.cv_parser.files import write_atomic
-from ieakaso.cv_parser.layout import CANDIDATE, DOCUMENTS, FROZEN, LETTERS_OUTPUT, LINKEDIN_OUTPUT, PARSED_CV
+from ieakaso.layout import CANDIDATE, DOCUMENTS, FROZEN, LETTERS_OUTPUT, LINKEDIN_OUTPUT, PARSED_CV, STATUS
 from ieakaso.tracker import DB_PATH, TrackerError, load, save, set_cv_version_path
 
-STATUS = Path("db/system_status.json")
 OLD_DOCUMENTS = "input/documents"
 OLD_LETTERS = "input/reference-letters"
-MEMORY_FILES = (
+CANDIDATE_FILES = (  # written by the candidate, loose in input/ before the split
     "presentation.md",
     "professional-experience-extended.md",
     "professional-self-reflection.md",
@@ -32,19 +31,19 @@ VERSION_FOLDER = re.compile(r"cv_\d{4}-\d{2}-\d{2}(_\d+)?")
 
 
 @dataclass
-class Report:
+class MoveReport:
     moved: int = 0
     rewritten: int = 0  # recorded paths changed in the status file and the tracker db
     warnings: list[str] = field(default_factory=list)
 
 
-def run(root: Path) -> Report:
+def run(root: Path) -> None:
     """Move what is left of the old layout, record the new paths, and print one summary line (and any warnings)."""
-    report = Report()
+    report = MoveReport()
     _move_files(root, report)
+    _move_empty_folders(root)  # before the rewrites: a recorded folder must exist at its new place
     _rewrite_status(root, report)
     _rewrite_cv_versions(root, report)
-    _remove_empty_folders(root)
     if report.moved or report.rewritten:
         parts = [f"Moved {report.moved} file(s) into input/candidate/ and input/parsed-documents/"] if report.moved else []
         if report.rewritten:
@@ -55,7 +54,7 @@ def run(root: Path) -> Report:
     return report
 
 
-def new_path(rel: str) -> str | None:
+def _new_path(rel: str) -> str | None:
     """Where a path of the old layout is now, or None when it isn't one. A frozen copy has no recorded path."""
     path = PurePosixPath(rel)
     if rel in OLD_PARSED:
@@ -64,7 +63,7 @@ def new_path(rel: str) -> str | None:
         return (LETTERS_OUTPUT / path.relative_to(OLD_LETTERS)).as_posix()
     if path.is_relative_to(OLD_DOCUMENTS):
         return (DOCUMENTS / path.relative_to(OLD_DOCUMENTS)).as_posix()
-    if path.parent == PurePosixPath("input") and path.name in MEMORY_FILES:
+    if path.parent == PurePosixPath("input") and path.name in CANDIDATE_FILES:
         return (CANDIDATE / path.name).as_posix()
     return None
 
@@ -86,12 +85,12 @@ def _old_files(root: Path) -> list[Path]:
     files = [Path(rel) for rel in OLD_PARSED if (root / rel).is_file()]
     for folder in (OLD_LETTERS, OLD_DOCUMENTS):
         files += [p.relative_to(root) for p in sorted((root / folder).rglob("*")) if p.is_file()]
-    files += [Path("input") / name for name in MEMORY_FILES if (root / "input" / name).is_file()]
+    files += [Path("input") / name for name in CANDIDATE_FILES if (root / "input" / name).is_file()]
     return [p for p in files if p.name != ".gitkeep"]
 
 
-def _move_files(root: Path, report: Report) -> None:
-    plan = [(old, _frozen_target(root, old) or new_path(old.as_posix())) for old in _old_files(root)]  # before any move
+def _move_files(root: Path, report: MoveReport) -> None:
+    plan = [(old, _frozen_target(root, old) or _new_path(old.as_posix())) for old in _old_files(root)]  # before any move
     for old, target in plan:
         rel = old.as_posix()
         if target is None:
@@ -108,46 +107,40 @@ def _move_files(root: Path, report: Report) -> None:
 
 
 def _rewritten(root: Path, value):
-    """`value` with every old path in it replaced by its new one, when the file is no longer at the old place."""
+    """`value` with every old path in it replaced by its new one, when the file is no longer at the old place, and
+    how many were replaced."""
     if isinstance(value, str):
-        target = new_path(value)
-        return target if target and not (root / value).exists() else value
+        target = _new_path(value)
+        return (target, 1) if target and not (root / value).exists() else (value, 0)
     if isinstance(value, list):
-        return [_rewritten(root, item) for item in value]
+        items = [_rewritten(root, item) for item in value]
+        return [item for item, _ in items], sum(count for _, count in items)
     if isinstance(value, dict):
-        return {key: _rewritten(root, item) for key, item in value.items()}
-    return value
+        items = {key: _rewritten(root, item) for key, item in value.items()}
+        return {key: item for key, (item, _) in items.items()}, sum(count for _, count in items.values())
+    return value, 0
 
 
-def _count_changes(old, new) -> int:
-    if isinstance(old, list) and isinstance(new, list):
-        return sum(_count_changes(a, b) for a, b in zip(old, new, strict=True))
-    if isinstance(old, dict) and isinstance(new, dict):
-        return sum(_count_changes(old[key], new[key]) for key in old)
-    return int(old != new)
-
-
-def _rewrite_status(root: Path, report: Report) -> None:
+def _rewrite_status(root: Path, report: MoveReport) -> None:
     try:
         status = json.loads((root / STATUS).read_text("utf-8"))
     except (OSError, ValueError):
         return
-    new = _rewritten(root, status)
-    changed = _count_changes(status, new)
+    new, changed = _rewritten(root, status)
     if changed:
         write_atomic(root / STATUS, (json.dumps(new, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
         report.rewritten += changed
 
 
-def _rewrite_cv_versions(root: Path, report: Report) -> None:
+def _rewrite_cv_versions(root: Path, report: MoveReport) -> None:
     """Through the tracker module, like every other change to the db. A db it can't use is left for the next run."""
     db = load(root / DB_PATH, root=root)
     if db.error:
         return
     changed = 0
     for version in db.cv_versions:
-        path = _rewritten(root, version["path"])
-        if path != version["path"]:
+        path, count = _rewritten(root, version["path"])
+        if count:
             set_cv_version_path(db, version["id"], path)
             changed += 1
     if not changed:
@@ -160,11 +153,19 @@ def _rewrite_cv_versions(root: Path, report: Report) -> None:
     report.rewritten += changed
 
 
-def _remove_empty_folders(root: Path) -> None:
-    """Drop the old folders once they hold nothing (deepest first); a folder with anything left in it stays."""
+def _move_empty_folders(root: Path) -> None:
+    """Move the old folders that hold nothing to their new place (deepest first), so a folder the candidate made, and
+    that the status file records, still exists. A folder with anything left in it stays."""
     for folder in (OLD_DOCUMENTS, OLD_LETTERS):
         for path in sorted((root / folder).rglob("*"), key=lambda p: len(p.parts), reverse=True):
             if path.is_dir() and not any(path.iterdir()):
-                path.rmdir()
+                _move_empty(root, path)
         if (root / folder).is_dir() and not any((root / folder).iterdir()):
-            (root / folder).rmdir()
+            _move_empty(root, root / folder)
+
+
+def _move_empty(root: Path, folder: Path) -> None:
+    target = _new_path(folder.relative_to(root).as_posix())
+    if target:
+        (root / target).mkdir(parents=True, exist_ok=True)
+    folder.rmdir()

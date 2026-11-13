@@ -20,7 +20,7 @@ MEMORY = ("presentation.md", "professional-experience-extended.md", "professiona
 STATUS = "db/system_status.json"
 
 # What the repo looked like before ADR 0006, by the new place of each file.
-OLD_TEXT = {
+NEW_TO_OLD = {
     f"{PARSED}/linkedin.md": "input/linkedin.md",
     f"{PARSED}/reference-letters": "input/reference-letters",
     f"{PARSED}/cv.md": "input/cv.md",
@@ -50,7 +50,7 @@ def old_place(repo: Path, rel: str) -> str:
     if rel.startswith(f"{PARSED}/cv-versions/"):
         source_is_named_like_it = (repo / INBOX / Path(rel).stem / "parsed-cv.md").exists()
         return f"input/documents/cv/{Path(rel).stem}/" + ("parsed-cv.frozen.md" if source_is_named_like_it else "parsed-cv.md")
-    for new, old in OLD_TEXT.items():
+    for new, old in NEW_TO_OLD.items():
         if rel.startswith(new):
             return old + rel.removeprefix(new)
     if rel.startswith(f"{CANDIDATE}/") and name in MEMORY:
@@ -68,7 +68,7 @@ def to_old_layout(repo: Path, only: tuple[str, ...] = ()) -> None:
             shutil.move(repo / rel, repo / target)
     for rel in (STATUS, DB_PATH.as_posix()):
         text = (repo / rel).read_text()
-        for new, old in OLD_TEXT.items():
+        for new, old in NEW_TO_OLD.items():
             if not only or new.startswith(only):
                 text = text.replace(new, old)
         (repo / rel).write_text(text)
@@ -76,7 +76,7 @@ def to_old_layout(repo: Path, only: tuple[str, ...] = ()) -> None:
 
 @pytest.fixture
 def current(tmp_path: Path) -> Path:
-    """A repo in the split layout that was parsed for real: two CV versions, a LinkedIn profile, a letter, memory files."""
+    """A repo in the split layout that was parsed for real: two CV versions, a LinkedIn profile, a letter, the candidate's own files."""
     root = tmp_path / "repo"
     write_files(root, TRACKED)
     write_files(
@@ -287,3 +287,18 @@ def test_move_only_moves_and_parses_nothing(current: Path, capsys):
     assert (current / f"{PARSED}/cv.md").read_text() == "stale\n"
     out = capsys.readouterr().out
     assert out.startswith("Moved") and "Wrote" not in out and "up to date" not in out
+
+
+def test_an_empty_folder_the_candidate_made_is_moved_so_its_recorded_path_stays_true(current: Path):
+    (current / INBOX / "old-cvs").mkdir()
+    run(current)  # warns once and records the folder
+    assert read_json(current, STATUS)["documents"]["cv"]["ignored_folders"] == [f"{INBOX}/old-cvs"]
+    to_old_layout(current)
+    shutil.rmtree(current / INBOX / "old-cvs")
+    (current / "input/documents/cv/old-cvs").mkdir()
+
+    run(current)
+
+    assert (current / INBOX / "old-cvs").is_dir()
+    assert not (current / "input/documents").exists()
+    assert read_json(current, STATUS)["documents"]["cv"]["ignored_folders"] == [f"{INBOX}/old-cvs"]
