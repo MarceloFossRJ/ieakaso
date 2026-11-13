@@ -21,7 +21,6 @@ The Assistant gives you the paths and texts below. Read every file; if a file is
 | `input/cv.md` | The Parsed CV: the facts about the candidate's career |
 | `input/professional-experience-extended.md` | Detail behind each role: projects, scope, numbers |
 | `input/presentation.md` | Who the candidate is as a professional |
-| `input/personal_swot.md` | Strengths and weaknesses, as the candidate sees them |
 | `input/professional-self-reflection.md` | What the candidate wants and refuses: use it for motivation |
 | `input/linkedin.md` | The LinkedIn profile's Parsed document: more detail on roles, skills and languages |
 | `input/reference-letters/*.md` | The Reference letters' Parsed documents, one per letter: trusted facts about the candidate (rule 6 below) |
