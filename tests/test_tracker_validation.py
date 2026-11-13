@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 import pytest
-from tracker_fakes import lead, record
+from tracker_fakes import ID, cv_version, lead, record
 
 from ieakaso.tracker import STATUSES, InvalidRecordError, load, problems, validate
 
@@ -21,7 +21,17 @@ def test_the_example_in_db_validates():
 
     assert db.error is None
     assert len(db.records) == 1
-    assert db.records[0] == record()
+    assert db.records[0] == record(cv_version="cv_2026-10-12")
+    assert db.cv_versions == [
+        cv_version(),
+        cv_version(
+            id="cv_2026-10-12",
+            label="cv_for_acme",
+            path="input/documents/cv/cv_2026-10-12/cv_for_acme.pdf",
+            captured_at="2026-10-12",
+            tailored_for=ID,
+        ),
+    ]
 
 
 def test_the_example_is_the_one_in_the_database_doc():

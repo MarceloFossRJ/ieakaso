@@ -67,11 +67,13 @@ It checks your documents, strongly recommends your LinkedIn "Save to PDF" export
 
 At the end, init compares your LinkedIn PDF, your reference letters and `config.yml` with your CV, and lists where they disagree: a different title, date, number or language level, each rated High, Medium or Low by how likely a recruiter is to notice. Your CV counts as the right version. Each run saves a new report in `output/conflict-reports/`, named with its date and time, and keeps the older ones. Fix the document that disagrees, put it back in its folder, and run init again to check.
 
-Init also turns your CV into `input/cv.md`, word for word: nothing reworded, added, or left out. When you change your CV, the next mode you run updates `input/cv.md` for you, or run it yourself:
+Init also turns your CV into `input/cv.md`, word for word: nothing reworded, added, or left out. When you have a new CV, save the file in `input/documents/cv/`; the next mode you run captures it, or run it yourself:
 
 ```
 /ieakaso cv-parser
 ```
+
+`input/documents/cv/` works like an inbox. Ieakaso keeps every CV as a **CV version**: it moves the file into its own folder `input/documents/cv/cv_<date>/`, next to a Markdown copy frozen as it was parsed, and `input/cv.md` always holds the current version. When a new file arrives, it asks whether it is your new main CV, a **Tailored CV** for one Application (a version in another language, or one shaped for a Job ad), or not a CV at all, which stays where it is. A file with the same content as a version is never captured twice, whatever its name. Each version has an ID (`cv_<date>`) and a label, by default the file name without its extension; edit the label in the viewer. The viewer shows which CV version each Application was sent with: the current one the day you applied, unless you pick another.
 
 It does the same for your LinkedIn PDF (`input/linkedin.md`) and each reference letter (`input/reference-letters/`), so Ieakaso can use them when it writes for you. Edit your documents, not these Markdown files: they are regenerated from the documents.
 

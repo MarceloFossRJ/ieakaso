@@ -4,7 +4,7 @@ Put your documents here, then run `/ieakaso init`. It checks what is here, asks 
 
 | Folder | What goes here | |
 |---|---|---|
-| `cv/` | Your CV (`.pdf`, `.docx`, `.md`, `.txt`, or `.tex`). With several (e.g. one per language), init asks which is the main one. | **Required** |
+| `cv/` | Your CV (`.pdf`, `.docx`, `.md`, `.txt`, or `.tex`). Save a new CV here whenever you have one; Ieakaso moves it into its own `cv_<date>/` folder and keeps every version. | **Required** |
 | `linkedin/` | Your LinkedIn profile as PDF: profile → **Resources** → **Save to PDF** | Strongly recommended |
 | `reference_letters/` | Reference letters from former employers or colleagues | Suggested |
 
@@ -14,4 +14,4 @@ Init creates these folders if they are missing.
 
 Ieakaso turns your CV, LinkedIn PDF and reference letters into Markdown copies in `input/` (`cv.md`, `linkedin.md`, `reference-letters/`), word for word. To change one, change the document and run `/ieakaso cv-parser`; never edit the copies. Other folders here are not read.
 
-Everything in `input/` is gitignored and stays on your machine, except this README. Ieakaso reads your documents; it never changes, moves, or deletes them.
+Everything in `input/` is gitignored and stays on your machine, except this README. Ieakaso reads your documents; it never changes or deletes them. The one thing it moves is a CV you save in `cv/`: into its own `cv_<date>/` folder there, next to a Markdown copy, so every CV version stays findable.

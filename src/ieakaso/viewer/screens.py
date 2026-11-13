@@ -10,7 +10,14 @@ from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.screen import ModalScreen, Screen
 from textual.widgets import Button, Footer, Input, Label, Select, SelectionList, Static
 
-from ieakaso.tracker import CONTACT_TYPES, PERIODS, STATUSES
+from ieakaso.tracker import (
+    CONTACT_TYPES,
+    PERIODS,
+    STATUSES,
+    describe_cv_version,
+    fits_application,
+    set_record_cv_version,
+)
 
 SIMPLE_TEXT = {"company", "position", "notes", "home_office", "applied_on"}
 NULLABLE_TEXT = {"home_office", "applied_on"}
@@ -71,6 +78,62 @@ class NoAnswerScreen(ModalScreen[list[str]]):
         self.dismiss([])
 
 
+class CvVersionsScreen(Screen):
+    """Every CV version with its label to edit. A label is saved as soon as it is entered; nothing else can change."""
+
+    BINDINGS: ClassVar[list] = [("escape", "back", "Back")]
+    CSS = """
+    CvVersionsScreen .row { height: auto; }
+    CvVersionsScreen .row > Label { width: 60; padding: 1 1 0 1; }
+    CvVersionsScreen .row > Input { width: 1fr; }
+    CvVersionsScreen .title { text-style: bold; padding: 1 1 0 1; }
+    """
+
+    def __init__(self):
+        super().__init__()
+        self._ready = False
+
+    def on_mount(self) -> None:
+        self.call_after_refresh(setattr, self, "_ready", True)
+
+    def compose(self) -> ComposeResult:
+        versions = self.app.tracker_db.cv_versions
+        yield Static("CV versions (the label is yours to change)", classes="title")
+        with VerticalScroll():
+            if not versions:
+                yield Static("No CV versions yet. Save your CV in input/documents/cv/ and run /ieakaso cv-parser.")
+            for version in versions:
+                kind = describe_cv_version(version)
+                with Horizontal(classes="row"):
+                    yield Label(f"{version['id']}, captured {version['captured_at']}, {kind}")
+                    yield Input(version["label"], id=f"label_{version['id']}")
+        yield Footer()
+
+    def _commit(self, widget_id: str | None) -> None:
+        if not self._ready or not widget_id or not widget_id.startswith("label_"):
+            return
+        version_id = widget_id.removeprefix("label_")
+        field = self.query_one(f"#{widget_id}", Input)
+        version = self.app.tracker_db.find_cv_version(version_id)
+        if version is None or field.value.strip() == version["label"]:
+            return
+        if not self.app.set_label(version_id, field.value):
+            version = self.app.tracker_db.find_cv_version(version_id)
+            field.value = version["label"] if version else ""
+
+    @on(Input.Submitted)
+    def _submitted(self, event: Input.Submitted) -> None:
+        self._commit(event.input.id)
+
+    @on(events.DescendantBlur)
+    def _blurred(self, event: events.DescendantBlur) -> None:
+        if isinstance(event.widget, Input):
+            self._commit(event.widget.id)
+
+    def action_back(self) -> None:
+        self.app.pop_screen()
+
+
 class DetailScreen(Screen):
     """One Application. Each field is saved as soon as it is entered; read-only fields are shown as text."""
 
@@ -124,6 +187,7 @@ class DetailScreen(Screen):
             yield from self._row("Board URL", Input(record["source"]["board_url"] or "", id="board_url"))
             yield from self._row("Form URL", Input(record["source"]["form_url"] or "", id="form_url"))
             yield from self._salary(record["salary_expectation"])
+            yield from self._row("CV version", self._cv_picker(record))
             yield from self._row("Notes", Input(record["notes"], id="notes"))
             yield from self._stages(record)
             yield from self._contacts(record)
@@ -138,6 +202,16 @@ class DetailScreen(Screen):
     @staticmethod
     def _options(values) -> list[tuple[str, str]]:
         return [(label(value), value) for value in values]
+
+    def _cv_picker(self, record: dict) -> Select:
+        """The CV versions this Application can hold: a Tailored CV only on its own Application."""
+        options = [
+            (f"{v['label']} ({v['id']}, {v['captured_at']})", v["id"])
+            for v in self.app.tracker_db.cv_versions
+            if fits_application(v, record["id"])
+        ]
+        value = record["cv_version"] if record["cv_version"] in {v for _, v in options} else Select.NULL
+        return Select(options, value=value, allow_blank=True, id="cv_version")
 
     @staticmethod
     def _row(label: str, widget):
@@ -276,6 +350,9 @@ class DetailScreen(Screen):
     def _commit(self, widget_id: str | None) -> None:
         if not widget_id or not self._ready:
             return
+        if widget_id == "cv_version":
+            self._commit_cv_version()
+            return
         changes = self._changes_for(widget_id)
         if changes is None or self._unchanged(changes):
             return
@@ -286,6 +363,17 @@ class DetailScreen(Screen):
             self._shown = copy.deepcopy(self.record)
         else:
             self._rebuild()  # show what is really in the file
+
+    def _commit_cv_version(self) -> None:
+        record = self.record
+        version_id = self._value("cv_version")
+        if record is None or record["cv_version"] == version_id:
+            return
+        saved = self.app.write(lambda db: set_record_cv_version(db, self.record_id, version_id))
+        if saved:
+            self._shown = copy.deepcopy(self.record)
+        else:
+            self._rebuild()
 
     @on(Input.Submitted)
     def _submitted(self, event: Input.Submitted) -> None:

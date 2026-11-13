@@ -1,10 +1,13 @@
+import json
 from datetime import datetime
 from pathlib import Path
 
-from conftest import TRACKED, USER_DATA, snapshot
+from conftest import TRACKED, USER_DATA, snapshot, write_files
+from tracker_fakes import ID, cv_version, lead, record, write_db
 
 from ieakaso.devtools import cleaner
 from ieakaso.devtools.cleaner import clean, user_data
+from ieakaso.tracker import load
 
 
 def test_clean_empties_input_but_keeps_placeholders(repo: Path):
@@ -152,3 +155,94 @@ def test_clean_applications_dry_run_changes_nothing(repo: Path, backups: Path):
 
 def test_the_applications_data_is_part_of_the_user_data(repo: Path):
     assert set(user_data(repo, applications_only=True)) < set(user_data(repo))
+
+
+# CV versions are part of the Set-up state
+
+
+def with_versions(repo: Path) -> None:
+    write_db(
+        repo / "db/ieakaso_db.json",
+        record(cv_version="cv_2026-10-01"),
+        lead(id="b_c_2026-10-11"),
+        cv_versions=[cv_version(), cv_version(id="cv_2026-10-09", label="for_acme", tailored_for=ID)],
+    )
+    write_files(
+        repo,
+        {
+            "input/documents/cv/cv_2026-10-01/cv_en_333.pdf": "%PDF cv",
+            "input/documents/cv/cv_2026-10-01/parsed-cv.md": "# CV\n",
+        },
+    )
+
+
+def test_clean_applications_keeps_the_cv_versions_and_empties_the_records(repo: Path):
+    with_versions(repo)
+
+    report = clean(repo, applications_only=True)
+
+    data = json.loads((repo / "db/ieakaso_db.json").read_text())
+    assert data["records"] == []
+    assert [v["id"] for v in data["cv_versions"]] == ["cv_2026-10-01", "cv_2026-10-09"]
+    assert data["meta"] == {"schema_version": 3}
+    assert (repo / "input/documents/cv/cv_2026-10-01/cv_en_333.pdf").exists()
+    assert Path("db/ieakaso_db.json") in report.emptied
+    assert Path("db/ieakaso_db.json") not in report.deleted
+    assert not (repo / "output/applications/acme_em_2026-10-15").exists()
+
+
+def test_clean_applications_leaves_a_db_the_tracker_can_read(repo: Path):
+    with_versions(repo)
+
+    clean(repo, applications_only=True)
+
+    db = load(repo / "db/ieakaso_db.json")
+    assert db.error is None and db.records == [] and len(db.cv_versions) == 2
+
+
+def test_clean_applications_backs_up_the_db_before_emptying_it(repo: Path, backups: Path):
+    with_versions(repo)
+    before = (repo / "db/ieakaso_db.json").read_bytes()
+
+    report = clean(repo, backup_dir=backups, applications_only=True)
+
+    assert (report.backup / "db/ieakaso_db.json").read_bytes() == before
+
+
+def test_clean_applications_dry_run_leaves_the_db_alone(repo: Path, backups: Path):
+    with_versions(repo)
+    before = snapshot(repo)
+
+    report = clean(repo, backup_dir=backups, dry_run=True, applications_only=True)
+
+    assert snapshot(repo) == before and not backups.exists()
+    assert Path("db/ieakaso_db.json") in report.emptied
+
+
+def test_clean_applications_deletes_a_db_without_cv_versions(repo: Path):
+    write_db(repo / "db/ieakaso_db.json", record())
+
+    report = clean(repo, applications_only=True)
+
+    assert not (repo / "db/ieakaso_db.json").exists()
+    assert report.emptied == []
+
+
+def test_clean_applications_twice_changes_nothing_the_second_time(repo: Path):
+    with_versions(repo)
+    clean(repo, applications_only=True)
+    before = snapshot(repo)
+
+    second = clean(repo, applications_only=True)
+
+    assert snapshot(repo) == before
+    assert second.emptied == [] and second.deleted == []
+
+
+def test_a_full_clean_removes_the_cv_versions_too(repo: Path):
+    with_versions(repo)
+
+    clean(repo)
+
+    assert not (repo / "db/ieakaso_db.json").exists()
+    assert not (repo / "input/documents/cv/cv_2026-10-01").exists()

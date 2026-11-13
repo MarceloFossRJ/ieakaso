@@ -6,7 +6,7 @@ from typing import Any
 
 from ieakaso.tracker.errors import InvalidRecordError
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 STATUSES = ("lead", "desisted", "applied", "no_answer", "interviewing", "offer", "not_selected")
 CLOSED_STATUSES = ("desisted", "not_selected")
 VERDICTS = ("Top applicant", "Apply", "Stretch", "Don't apply")
@@ -32,7 +32,9 @@ RECORD_KEYS = (
     "source",
     "contacts",
     "notes",
+    "cv_version",
 )
+CV_VERSION_KEYS = ("id", "label", "path", "captured_at", "tailored_for")
 ANALYSIS_KEYS = ("on", "doc", "score", "verdict")
 SOURCE_KEYS = ("board", "board_url", "form_url", "job_ad")
 LOCATION_KEYS = ("city", "country")
@@ -42,6 +44,7 @@ CONTACT_KEYS = ("contact_type", "name", "linkedin_url", "email")
 _SNAKE = re.compile(r"[a-z][a-z0-9_]*")
 _DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
 _ID = re.compile(r"[a-z0-9][a-z0-9_-]*")
+_CV_VERSION_ID = re.compile(r"cv_\d{4}-\d{2}-\d{2}(_[2-9]|_[1-9]\d+)?")
 
 
 def is_date(value: Any) -> bool:
@@ -136,6 +139,8 @@ def problems(record: Any) -> list[str]:
         _optional_text("home_office", get("home_office"), out)
     if "notes" in record and not isinstance(get("notes"), str):
         out.append("notes must be text")
+    if "cv_version" in record and get("cv_version") is not None and not _is_text(get("cv_version")):
+        out.append("cv_version must be a CV version ID or null")
     for key in ("cover_letter", "company_research"):
         if key in record and get(key) is not None and not _is_path(get(key)):
             out.append(f"{key} must be a repo-relative path or null")
@@ -225,6 +230,55 @@ def _contacts(value: Any, present: bool, out: list[str]) -> None:
             out.append("a contact needs a name")
         for key in ("linkedin_url", "email"):
             _optional_text(f"contact.{key}", contact.get(key), out)
+
+
+def cv_version_problems(version: Any) -> list[str]:
+    """Everything wrong with a CV version, one message each; empty when it is valid."""
+    if not isinstance(version, dict):
+        return ["a CV version must be an object"]
+    out: list[str] = []
+    _keys("CV version", version, CV_VERSION_KEYS, out)
+    if "id" in version and not (isinstance(version["id"], str) and _CV_VERSION_ID.fullmatch(version["id"])):
+        out.append("CV version id must look like cv_<yyyy-mm-dd>, or cv_<yyyy-mm-dd>_2 for a second one that day")
+    if "label" in version and not _is_text(version["label"]):
+        out.append("CV version label must be non-empty text")
+    if "path" in version and not _is_path(version["path"]):
+        out.append("CV version path must be a repo-relative path")
+    if "captured_at" in version and not is_date(version["captured_at"]):
+        out.append("CV version captured_at must be a yyyy-mm-dd date")
+    if "tailored_for" in version and version["tailored_for"] is not None and not _is_text(version["tailored_for"]):
+        out.append("CV version tailored_for must be an Application ID or null")
+    return out
+
+
+def fits_application(version: dict, record_id: str) -> bool:
+    """A main CV fits every Application; a Tailored CV only the one it was made for."""
+    return version["tailored_for"] in (None, record_id)
+
+
+def describe_cv_version(version: dict) -> str:
+    return f"Tailored CV for {version['tailored_for']}" if version["tailored_for"] else "main CV"
+
+
+def cv_versions_problem(cv_versions: list) -> str | None:
+    """The first thing wrong with the CV versions as a list (each one valid, no ID twice), or None."""
+    for version in cv_versions:
+        found = cv_version_problems(version)
+        if found:
+            return "; ".join(found)
+    ids = [v["id"] for v in cv_versions]
+    duplicates = sorted({i for i in ids if ids.count(i) > 1})
+    return f"two CV versions have the ID {duplicates[0]!r}" if duplicates else None
+
+
+def links_problem(records: list[dict], cv_versions: list[dict]) -> str | None:
+    """What is wrong between the records and the CV versions (valid on their own), or None."""
+    ids = [v["id"] for v in cv_versions]
+    for record in records:
+        version = record["cv_version"]
+        if version is not None and version not in ids:
+            return f"has the record {record['id']!r} pointing at an unknown CV version {version!r}"
+    return None
 
 
 def validate(record: Any) -> None:

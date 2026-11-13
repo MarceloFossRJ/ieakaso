@@ -68,9 +68,23 @@ def record(**overrides) -> dict:
             }
         ],
         "notes": "",
+        "cv_version": None,
     }
     data.update(overrides)
     return copy.deepcopy(data)
+
+
+def cv_version(**overrides) -> dict:
+    """A complete, valid CV version: a main CV captured on 2026-10-01."""
+    data = {
+        "id": "cv_2026-10-01",
+        "label": "cv_en_333",
+        "path": "input/documents/cv/cv_2026-10-01/cv_en_333.pdf",
+        "captured_at": "2026-10-01",
+        "tailored_for": None,
+    }
+    data.update(overrides)
+    return data
 
 
 def lead(**overrides) -> dict:
@@ -92,7 +106,13 @@ def lead(**overrides) -> dict:
     return base
 
 
-def write_db(path: Path, *records: dict, version: int = SCHEMA_VERSION) -> Path:
+def write_db(
+    path: Path, *records: dict, version: int = SCHEMA_VERSION, cv_versions: list[dict] | None = None
+) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps({"meta": {"schema_version": version}, "records": list(records)}, indent=2) + "\n")
+    data = {"meta": {"schema_version": version}}
+    if isinstance(version, int) and version >= 3:
+        data["cv_versions"] = cv_versions or []
+    data["records"] = list(records)
+    path.write_text(json.dumps(data, indent=2) + "\n")
     return path

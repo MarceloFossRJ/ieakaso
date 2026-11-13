@@ -4,7 +4,7 @@ Sets the candidate up for a job search: checks their documents, collects `config
 
 Runs when the user calls `/ieakaso init`, and from the setup check in `ai/skills/ieakaso/SKILL.md` when setup is missing or incomplete.
 
-Init is idempotent. Running it again re-checks everything, keeps what is already confirmed, and only asks about what is missing or what the user wants to change. Never overwrite a value in `config.yml` without the user's confirmation, and never delete or move the user's files.
+Init is idempotent. Running it again re-checks everything, keeps what is already confirmed, and only asks about what is missing or what the user wants to change. Never overwrite a value in `config.yml` without the user's confirmation, and never delete or move the user's files (only the CV parser moves a CV file, into its CV version folder).
 
 ---
 
@@ -22,11 +22,12 @@ Create any of these folders that are missing: `input/documents/cv/`, `input/docu
 
 ### CV — mandatory
 
-Accepted files: `.pdf`, `.docx`, `.md`, `.txt`, `.tex`, not empty.
+`input/documents/cv/` is an inbox (`docs/adr/0005-cv-versions.md`): the CV parser moves each CV file the candidate saves there into a CV version folder `cv_<yyyy-mm-dd>/`. Accepted files: `.pdf`, `.docx`, `.md`, `.txt`, `.tex`, not empty.
+
+A CV is **found** when `input/documents/cv/` holds a CV version folder (a `cv_<yyyy-mm-dd>` folder with a Source CV in it) or a file in an accepted format.
 
 - **None found:** tell the user the CV is required and ask for it. If they give a file path, copy it into `input/documents/cv/` (copy, never move). Without a CV, stop here: save the status file with `init.status: "in_progress"` and tell the user to run `/ieakaso init` again once the CV is in place.
-- **One found:** use it.
-- **Several found** (e.g. one per language): if `documents.cv.path` in the status file still points to one of them, keep it; otherwise ask which one is the main CV.
+- **Found:** use it. Never ask which file is the main CV: a file already captured is a CV version, the current one is the most recently captured one that is not a Tailored CV, and the CV parser asks about any new file (main CV, Tailored CV, or not a CV) when it runs below.
 
 ### LinkedIn PDF — strongly recommended
 
@@ -51,7 +52,7 @@ If none is found, suggest adding them: they back up achievements with a third pa
 
 ### Parsed CV
 
-Once the main CV is chosen (it becomes the Source CV) and the LinkedIn PDF and reference letters are recorded, run `ai/skills/ieakaso/modes/cv-parser.md`; it also writes their Parsed documents. If it ends without exit 0 (the CV can't be parsed, or the candidate keeps a hand-edited `input/cv.md`), record the CV as `found` and carry on with init; the setup check runs the parser again before the next mode.
+Once the CV is found and the LinkedIn PDF and reference letters are recorded, run `ai/skills/ieakaso/modes/cv-parser.md`; it asks the candidate about each new CV file (while there is no CV version yet: "your main CV, or not a CV?"; run again with `--main <file>`), captures it, writes the Parsed CV, and also writes the Parsed documents. If it ends without exit 0 or exit 4 (the CV can't be parsed, or the candidate keeps a hand-edited `input/cv.md`), record the CV as `found` and carry on with init; the setup check runs the parser again before the next mode.
 
 Settle the LinkedIn PDF and reference letters (found or skipped) before starting Step 3, so the user never has two open questions at once and a bare "skip" or "ok" is never ambiguous.
 
@@ -59,7 +60,7 @@ Settle the LinkedIn PDF and reference letters (found or skipped) before starting
 
 ### Pre-fill
 
-Read the main CV and the LinkedIn PDF (if present) and pre-fill what they state: name, last name, email, phone, location, LinkedIn, portfolio, GitHub, languages and proficiency. Keep values already in `config.yml` over pre-filled ones. Never guess a value the documents do not state; leave it empty.
+Read the Parsed CV `input/cv.md` and the LinkedIn PDF (if present) and pre-fill what they state: name, last name, email, phone, location, LinkedIn, portfolio, GitHub, languages and proficiency. Keep values already in `config.yml` over pre-filled ones. Never guess a value the documents do not state; leave it empty.
 
 Target positions and search location are always asked, never pre-filled.
 
@@ -209,8 +210,9 @@ After the Step 4 summary:
   - `confirmed`: has a value the user approved
   - `skipped`: optional, and the user chose not to provide it; omitted from `config.yml`. Mandatory fields can never be `skipped`.
   - `missing`: not answered yet
-- `documents.cv` and `documents.linkedin`: `status` and `path` (`null` when not found)
+- `documents.cv` and `documents.linkedin`: `status` and `path` (`null` when not found). For the CV, `path` is the current CV version's Source CV, written by the CV parser; set `status: "found"` and leave `path` as it is (`null` before the first parse).
 - `documents.cv.parsed`: written only by the CV parser (`ai/skills/ieakaso/modes/cv-parser.md`), never by hand: the source path and fingerprints, `parser_version` and `parsed_at` of the last parse. Missing means `input/cv.md` has not been parsed yet. Keep it when you rewrite the status file.
+- `documents.cv.ignored_folders`: written only by the CV parser, never by hand: the folders in `input/documents/cv/` it didn't create and has already warned about, so it warns once per folder. Keep it when you rewrite the status file.
 - `documents.reference_letters`: `status` and `paths` (a list, empty when not found)
 - `documents.*.status`: `found`, `skipped` (LinkedIn PDF and reference letters only), or `missing`
 

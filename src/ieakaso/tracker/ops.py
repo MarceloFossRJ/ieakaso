@@ -5,7 +5,7 @@ from datetime import date
 
 from ieakaso.tracker.errors import InvalidRecordError, RecordNotFoundError
 from ieakaso.tracker.schema import STATUSES, is_date, validate
-from ieakaso.tracker.store import Db
+from ieakaso.tracker.store import Db, current_cv_version
 
 EDIT_KEYS = (
     "company",
@@ -26,21 +26,21 @@ PAYLOAD_KEYS = ("id", "company", "position", "analysis", "home_office", "locatio
 NO_ANSWER_AFTER_DAYS = 30
 
 
-def _get(db: Db, record_id: str) -> dict:
+def get_record(db: Db, record_id: str) -> dict:
     record = db.find(record_id)
     if record is None:
         raise RecordNotFoundError(f"no tracked Application has the ID {record_id!r}")
     return record
 
 
-def _replace(record: dict, new: dict) -> dict:
+def replace_record(record: dict, new: dict) -> dict:
     validate(new)
     record.clear()
     record.update(new)
     return record
 
 
-def _empty(value) -> bool:
+def is_empty(value) -> bool:
     return value is None or value == ""
 
 
@@ -89,6 +89,7 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
             "source": {**incoming["source"], "form_url": None},
             "contacts": copy.deepcopy(payload.get("contacts") or []),
             "notes": "",
+            "cv_version": None,
         }
         validate(record)
         db.records.append(record)
@@ -97,41 +98,46 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
     new = copy.deepcopy(existing)
     new["analysis"] = analysis
     for key in ("company", "position", "home_office"):
-        if _empty(new[key]):
+        if is_empty(new[key]):
             new[key] = incoming[key]
     for key in ("city", "country"):
-        if _empty(new["location"].get(key)):
+        if is_empty(new["location"].get(key)):
             new["location"][key] = incoming["location"][key]
     for key in ("board", "board_url", "job_ad"):
-        if _empty(new["source"].get(key)) and key in incoming["source"]:
+        if is_empty(new["source"].get(key)) and key in incoming["source"]:
             new["source"][key] = incoming["source"][key]
-    return _replace(existing, new), False
+    return replace_record(existing, new), False
 
 
-def _change_status(record: dict, status: str, today: date) -> None:
+def _change_status(record: dict, status: str, today: date, current_version: dict | None) -> None:
     if status not in STATUSES:
         raise InvalidRecordError(f"status must be one of {', '.join(STATUSES)}")
     if status == record["status"]:
         return
     record["status"] = status
     record["status_history"].append({"status": status, "on": today.isoformat()})
-    if status == "applied" and _empty(record["applied_on"]):
+    if status == "applied" and is_empty(record["applied_on"]):
         record["applied_on"] = today.isoformat()
+    if status == "applied" and is_empty(record["cv_version"]) and current_version:
+        record["cv_version"] = current_version["id"]
 
 
 def set_status(db: Db, record_id: str, status: str, today: date) -> dict:
-    """Set the Application status (any to any), appending to `status_history`; `applied` fills an empty `applied_on`."""
-    record = _get(db, record_id)
+    """Set the Application status (any to any), appending to `status_history`.
+
+    `applied` fills an empty `applied_on` with today and an empty `cv_version` with the current CV version.
+    """
+    record = get_record(db, record_id)
     new = copy.deepcopy(record)
-    _change_status(new, status, today)
-    return _replace(record, new)
+    _change_status(new, status, today, current_cv_version(db))
+    return replace_record(record, new)
 
 
 def _set_path(db: Db, record_id: str, key: str, path: str) -> dict:
-    record = _get(db, record_id)
+    record = get_record(db, record_id)
     new = copy.deepcopy(record)
     new[key] = path
-    return _replace(record, new)
+    return replace_record(record, new)
 
 
 def set_cover_letter(db: Db, record_id: str, path: str) -> dict:
@@ -144,7 +150,7 @@ def set_company_research(db: Db, record_id: str, path: str) -> dict:
 
 def update_record(db: Db, record_id: str, changes: dict, today: date) -> dict:
     """Apply the candidate's edits to the editable fields (docs/database.md). Refuses anything else."""
-    record = _get(db, record_id)
+    record = get_record(db, record_id)
     unknown = sorted(set(changes) - set(EDIT_KEYS))
     if unknown:
         raise InvalidRecordError(f"can't edit {', '.join(unknown)}")
@@ -159,8 +165,8 @@ def update_record(db: Db, record_id: str, changes: dict, today: date) -> dict:
         else:
             new[key] = copy.deepcopy(value)
     if "status" in changes:
-        _change_status(new, changes["status"], today)
-    return _replace(record, new)
+        _change_status(new, changes["status"], today, current_cv_version(db))
+    return replace_record(record, new)
 
 
 def no_answer_suggestions(db: Db, today: date) -> list[dict]:

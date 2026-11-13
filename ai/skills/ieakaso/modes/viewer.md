@@ -1,6 +1,6 @@
 # Viewer
 
-`/ieakaso viewer`: opens the applications viewer, a terminal app where the candidate sees every Application in a table and edits its status, interview stages, contacts, Salary expectation and notes (terms in `CONTEXT.md`, the data in `docs/database.md`).
+`/ieakaso viewer`: opens the applications viewer, a terminal app where the candidate sees every Application in a table and edits its status, the CV version it was sent with, interview stages, contacts, Salary expectation and notes (terms in `CONTEXT.md`, the data in `docs/database.md`).
 
 The viewer needs a real terminal of its own, so you cannot run it inside this conversation: it would wait for keys that never come. You open a terminal window for it, or, if that fails, give the candidate the command. You never edit `db/ieakaso_db.json` yourself; the viewer and the tracker are its only writers.
 
@@ -36,7 +36,7 @@ uv run ieakaso-viewer
 
 In chat, in a few lines:
 - that the viewer is open in a new terminal window (or the command to run, from Step 2)
-- the keys: Enter opens an Application, `h` hides or shows Desisted and Not selected, `a`, `j` and `c` open the Job ad, the Job analysis and the Cover letter, `q` quits
+- the keys: Enter opens an Application, `h` hides or shows Desisted and Not selected, `a`, `j` and `c` open the Job ad, the Job analysis and the Cover letter, `v` lists the CV versions so their labels can be edited, `q` quits
 - that edits are saved at once, and that the viewer only edits: new Applications come from `/ieakaso job-analyzer`
 
 If `db/ieakaso_db.json` does not exist, add that the table is empty until a Job analysis has been run.
