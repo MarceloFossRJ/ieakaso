@@ -53,7 +53,6 @@ On first launch it asks for your memory, in chat. Nothing to configure by hand:
 - who you are as a professional
 - your most important projects
 - your biggest achievements
-- a personal SWOT
 
 You run Ieakaso as `/ieakaso <mode>`. You can also pick the mode from the `/` menu: type `/ieakaso:` in Claude Code or `/ieakaso-` in OpenCode. In Claude Code, start it from the repo root. Plain `/ieakaso` asks which mode to run.
 
