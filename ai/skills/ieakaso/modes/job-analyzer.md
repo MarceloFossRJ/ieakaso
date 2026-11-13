@@ -26,8 +26,9 @@ You give honest advice; the candidate decides. You never invent, inflate, or ass
 | `input/candidate/professional-self-reflection.md` | Preferences: what the candidate wants and refuses |
 | `input/parsed-documents/linkedin.md` | The LinkedIn profile's Parsed document |
 | `input/parsed-documents/reference-letters/*.md` | The Reference letters' Parsed documents: trusted facts, never quoted or attributed |
+| `input/candidate/deliberate-differences.md` | The Deliberate differences: where another document differs from the CV on purpose, and why. Optional |
 
-The memory files and Parsed documents (all but the first two) never raise the score. Use them only to find experience the CV under-sells (Step 2, and the "CV under-sells" section). They are optional; note any that are missing under **Confidence**. Where one of them disagrees with `cv.md` (a different date, title or employer for the same job), the Parsed CV wins: list it under "Conflicts with the CV".
+The memory files and Parsed documents (all but the first two) never raise the score. Use them only to find experience the CV under-sells (Step 2, and the "CV under-sells" section). They are optional; note any that are missing under **Confidence**. Where one of them disagrees with `cv.md` (a different date, title or employer for the same job), the Parsed CV wins: list it under "Conflicts with the CV". A Deliberate difference recorded in `input/candidate/deliberate-differences.md` is left out of "Conflicts with the CV" and never lowers **Confidence**; use the CV's version.
 
 ---
 

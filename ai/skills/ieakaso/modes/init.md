@@ -135,6 +135,9 @@ The Parsed CV `input/parsed-documents/cv.md` is the reference. Compare it with:
 1. **The LinkedIn profile's Parsed document** `input/parsed-documents/linkedin.md`: employers, titles, dates, locations, team sizes, budgets and other numbers, achievements, education, certifications, languages, the headline and summary.
 2. **Each Reference letter's Parsed document** `input/parsed-documents/reference-letters/*.md`: titles, dates, team sizes and claimed results.
 3. **`config.yml`**: name, last name, email, phone, location, LinkedIn, GitHub, portfolio and languages (`candidate.*`), where the CV states them.
+4. **`input/candidate/deliberate-differences.md`**, when it exists: the Deliberate differences the candidate recorded, one bullet each (which document, what differs, why). Written by the candidate; read it, never write it.
+
+**Match the jobs first.** Match each CV role to its LinkedIn or Reference letter entry by title and dates, even when the employers are grouped differently (one employer on the CV, two on LinkedIn). Then compare the roles, role against role. Check a summary's claims against the roles that back them up.
 
 Compare only the Parsed documents that exist: one the parser could not write (a warning in Step 2) is left out, and the report's header says so. Never read the Source documents, and leave the memory files out (`professional-self-reflection.md` and the others): job-analyzer checks those against the CV on every run.
 
@@ -144,9 +147,11 @@ Compare only the Parsed documents that exist: one the parser could not write (a 
 
 ### What counts
 
-- **A conflict:** the same fact, stated differently. The same job with a different title, employer or dates; a different number for the same thing; a different language level. Treat the CV as right and the other document as the one to fix.
+- **A conflict:** two statements that can't both be true. The same job with a different title, employer or dates; a different number for the same thing; a different language level. Treat the CV as right and the other document as the one to fix.
+- **Presented differently:** the same fact worded, grouped or detailed differently, so both can be true: one employer on the CV and two on LinkedIn, a title in other words, a shorter list of duties. Not a conflict, and not rated.
 - **Only on one side:** a fact one document holds and the other does not (a degree, a job, a certification, an achievement). A gap, not a conflict.
 - **Different positioning:** the LinkedIn headline or summary presents the candidate differently from the CV's summary (e.g. one leads with AI/ML, the other does not).
+- **A Deliberate difference:** a difference that matches a bullet of `input/candidate/deliberate-differences.md`. List it under Deliberate differences with the candidate's reason, never under Conflicts, and leave it out of every count.
 
 Report only what the documents say: quote or closely paraphrase each side, and never guess which side is true or why they differ.
 
@@ -183,13 +188,25 @@ The CV is the reference: fix the other document to match it, or the Source CV if
 |---|---|
 | [...] | [...] |
 
+## Presented differently
+
+| Topic | CV | [document] |
+|---|---|---|
+| [wording, grouping or level of detail] | [...] | [...] |
+
 ## Different positioning
 
 - **CV:** [...]
 - **[document]:** [...]
+
+## Deliberate differences
+
+| Document | What differs | Why (the candidate's reason) |
+|---|---|---|
+| [document] | [...] | [from `input/candidate/deliberate-differences.md`] |
 ```
 
-Order the conflicts High first, then Medium, then Low, and number them in that order. A section with nothing in it reads "None found". When there are no conflicts, gaps or positioning differences at all, still write the file, with "No conflicts found." under the header, so the candidate can see the check ran.
+Order the conflicts High first, then Medium, then Low, and number them in that order. A section with nothing in it reads "None found". When there are no conflicts, gaps, presentation or positioning differences at all, still write the file, with "No conflicts found." under the header, so the candidate can see the check ran. The Deliberate differences are not counted: they do not turn "No conflicts found." into a conflict.
 
 ### Show it in chat
 
@@ -197,7 +214,8 @@ After the Step 4 summary:
 
 - The High and Medium conflicts, one line each (relevance, topic, the two versions), and how many Low ones there are; or "No conflicts found."
 - The report's path
-- The next step, when there is a conflict: fix the document that disagrees with the CV (or the Source CV, if the CV is wrong), put the new file in its folder under `input/candidate/documents/`, and run `/ieakaso init` again, which writes a new report
+- The next step, when there is a conflict: fix the document that disagrees with the CV (or the Source CV, if the CV is wrong), put the new file in its folder under `input/candidate/documents/`, and run `/ieakaso init` again, which writes a new report. Deliberate differences never appear in it.
+- For each new contradiction, the exact line the candidate could add to `input/candidate/deliberate-differences.md` if the difference is deliberate, in the file's form: `- [document]: [what differs]. Why: [reason]`, with the candidate's own reason left as a blank to fill (for example: `- LinkedIn profile: the team budget is left out. Why: [your reason]`). Init never writes that file itself, and never guesses the reason.
 
 ---
 
