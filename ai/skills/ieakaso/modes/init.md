@@ -52,7 +52,7 @@ If none is found, suggest adding them: they back up achievements with a third pa
 
 ### Parsed CV
 
-Once the CV is found and the LinkedIn PDF and reference letters are recorded, run `ai/skills/ieakaso/modes/cv-parser.md`; it captures new CV files, writes the Parsed CV, and also writes the Parsed documents. If it ends without exit 0 or exit 4 (the CV can't be parsed, or the candidate keeps a hand-edited `input/cv.md`), record the CV as `found` and carry on with init; the setup check runs the parser again before the next mode.
+Once the CV is found and the LinkedIn PDF and reference letters are recorded, run `ai/skills/ieakaso/modes/cv-parser.md`; it asks the candidate about each new CV file (while there is no CV version yet: "your main CV, or not a CV?"; run again with `--main <file>`), captures it, writes the Parsed CV, and also writes the Parsed documents. If it ends without exit 0 or exit 4 (the CV can't be parsed, or the candidate keeps a hand-edited `input/cv.md`), record the CV as `found` and carry on with init; the setup check runs the parser again before the next mode.
 
 Settle the LinkedIn PDF and reference letters (found or skipped) before starting Step 3, so the user never has two open questions at once and a bare "skip" or "ok" is never ambiguous.
 
@@ -212,6 +212,7 @@ After the Step 4 summary:
   - `missing`: not answered yet
 - `documents.cv` and `documents.linkedin`: `status` and `path` (`null` when not found). For the CV, `path` is the current CV version's Source CV, written by the CV parser; set `status: "found"` and leave `path` as it is (`null` before the first parse).
 - `documents.cv.parsed`: written only by the CV parser (`ai/skills/ieakaso/modes/cv-parser.md`), never by hand: the source path and fingerprints, `parser_version` and `parsed_at` of the last parse. Missing means `input/cv.md` has not been parsed yet. Keep it when you rewrite the status file.
+- `documents.cv.ignored_folders`: written only by the CV parser, never by hand: the folders in `input/documents/cv/` it didn't create and has already warned about, so it warns once per folder. Keep it when you rewrite the status file.
 - `documents.reference_letters`: `status` and `paths` (a list, empty when not found)
 - `documents.*.status`: `found`, `skipped` (LinkedIn PDF and reference letters only), or `missing`
 

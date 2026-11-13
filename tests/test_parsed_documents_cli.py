@@ -23,7 +23,8 @@ def status(linkedin: str | None = LINKEDIN_PATH, letters: list[str] | None = Non
     return json.dumps({
         "init": {"status": "completed"},
         "documents": {
-            "cv": {"status": "found", "path": CV_PATH},
+            # parsed once before CV versions: the first run migrates it into the first version without asking
+            "cv": {"status": "found", "path": CV_PATH, "parsed": {"parsed_at": "2026-09-20T08:30:00+00:00"}},
             "linkedin": {"status": "found" if linkedin else "skipped", "path": linkedin},
             "reference_letters": {"status": "found" if letters else "skipped", "paths": letters},
         },

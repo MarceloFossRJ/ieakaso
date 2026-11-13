@@ -28,22 +28,22 @@ The exit code is about the CV alone. The LinkedIn profile and reference letters 
 
 - `Captured …`: relay it. It names the new version's ID and label (the label is the file name without its extension; the candidate can change it in the viewer, key `v`).
 - `Duplicate: <path> has the same content as CV version …`: relay it in one line. The file stays where it is; the candidate can delete it.
-- `Warning: <folder>/ was not created by Ieakaso …`: relay it in one line. The parser ignores that folder; nothing else is done about it.
+- `Warning: <folder>/ was not created by Ieakaso …`: relay it in one line. The parser ignores that folder; nothing else is done about it. It warns once per folder (recorded in `documents.cv.ignored_folders`), not on every run.
 - `Wrote …` or `Removed …`: relay them in one line.
 - `Warning: … can't be read`: show it to the candidate as it is. Ieakaso carries on without that document; it is reported once, until the file changes.
 - `Warning: … was changed by hand`: show it and ask whether to replace (or, when its source is gone, delete) the file. On yes, run the command again with `--force`. On no, carry on.
 
 ## Step 3: Exit 4, a new CV file
 
-Stdout has one line `New CV file: <path>` per file whose content is no CV version yet. The parser decides nothing about them (except the very first CV the candidate ever supplies, which it captures as the main CV without asking). Ask in chat, and run the command again with the flags that follow the answer. A file name from the line is enough for FILE.
+Stdout has one line `New CV file: <path>` per file whose content is no CV version yet. The parser decides nothing about them, not even the very first CV (only the migration below skips the question). Ask in chat, and run the command again with the flags that follow the answer. A file name from the line is enough for FILE.
 
 - **One new file.** Ask whether it is
   1. their **new main CV**: run with `--main <FILE>`;
-  2. a **Tailored CV for one Application**: list the Applications with `uv run python -m ieakaso.tracker applications` (tab-separated: ID, status, company, position, CV version), ask which one, and run with `--tailored <FILE> --for <Application ID>`. A Tailored CV belongs to that Application only and never becomes the current version. With no Applications tracked, say so: there is none to tailor for;
+  2. a **Tailored CV for one Application** (not offered while no CV version exists yet, the first CV is always the main one or not a CV): list the Applications with `uv run python -m ieakaso.tracker applications` (tab-separated: ID, status, company, position, CV version), ask which one, and run with `--tailored <FILE> --for <Application ID>`. A Tailored CV belongs to that Application only and never becomes the current version. With no Applications tracked, say so: there is none to tailor for;
   3. **not a CV, leave it**: run nothing. The file stays in the inbox, nothing is captured, and you remind the candidate in one line that it is still there. The parser reports it on every run, so they will be reminded again; tell them they can move it out of `input/documents/cv/`.
 - **Several new files.** Ask which one becomes the new main CV (or none of them), and run with `--main <FILE>`. Do not ask about the others in this run: they stay in the inbox untouched, and each is asked about on a later run, one at a time.
 
-Ask once per file per Run. After your run with the flags the command can exit 4 again for files you did not (or could not) decide: that is expected, tell the candidate those files are still waiting, and carry on. If no CV version exists yet and the candidate captures none, stop: the calling mode does not run.
+Ask once per file per Run. After your run with the flags the command can exit 4 again for files you did not (or could not) decide: that is expected, tell the candidate those files are still waiting, and carry on. With no CV version yet the question is only "is this your main CV, or not a CV?" (several files: which one is the main CV). If no CV version exists yet and the candidate captures none, stop: the calling mode does not run.
 
 A new main CV replaces the Parsed CV `input/cv.md`: when it was edited by hand the exit is 3 (Step 2) after the version is captured.
 

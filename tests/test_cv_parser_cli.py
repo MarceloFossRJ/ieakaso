@@ -53,12 +53,12 @@ def sha(data: bytes) -> str:
 
 
 def test_first_run_writes_the_parsed_cv(repo: Path):
-    assert run(repo) == 0
+    assert run(repo, "--main", "cv.txt") == 0
     assert (repo / "input/cv.md").read_bytes() == CV_PARSED.encode()
 
 
 def test_first_run_records_the_parse_in_the_status_file(repo: Path):
-    run(repo)
+    run(repo, "--main", "cv.txt")
 
     cv = read_status(repo)["documents"]["cv"]
     parsed = cv["parsed"]
@@ -71,7 +71,7 @@ def test_first_run_records_the_parse_in_the_status_file(repo: Path):
 
 
 def test_the_rest_of_the_status_file_is_kept(repo: Path):
-    run(repo)
+    run(repo, "--main", "cv.txt")
 
     data = read_status(repo)
     assert data["init"] == {"status": "completed"}
@@ -79,7 +79,7 @@ def test_the_rest_of_the_status_file_is_kept(repo: Path):
 
 
 def test_an_up_to_date_parsed_cv_is_left_alone(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     before = snapshot(repo)
 
     assert run(repo) == 0
@@ -88,7 +88,7 @@ def test_an_up_to_date_parsed_cv_is_left_alone(repo: Path, capsys):
 
 
 def test_a_new_parser_version_parses_again(repo: Path, monkeypatch):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     monkeypatch.setattr(cli, "PARSER_VERSION", PARSER_VERSION + 1)
 
     assert run(repo) == 0
@@ -96,7 +96,7 @@ def test_a_new_parser_version_parses_again(repo: Path, monkeypatch):
 
 
 def test_a_missing_parsed_cv_is_written_again(repo: Path):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     (repo / "input/cv.md").unlink()
 
     assert run(repo) == 0
@@ -106,8 +106,17 @@ def test_a_missing_parsed_cv_is_written_again(repo: Path):
 # --- capturing a CV version ------------------------------------------------------
 
 
-def test_the_first_cv_in_the_inbox_becomes_the_first_version(repo: Path, capsys):
-    assert run(repo) == 0
+def test_even_the_first_cv_waits_for_the_candidate_s_answer(repo: Path, capsys):
+    before = snapshot(repo)
+
+    assert run(repo) == 4
+    assert snapshot(repo) == before
+    captured = capsys.readouterr()
+    assert f"New CV file: {CV_PATH}" in captured.out and captured.err == ""
+
+
+def test_the_first_cv_in_the_inbox_becomes_the_first_version_when_it_is_the_main_cv(repo: Path, capsys):
+    assert run(repo, "--main", "cv.txt") == 0
 
     [version] = versions(repo)
     assert version == {
@@ -121,14 +130,14 @@ def test_the_first_cv_in_the_inbox_becomes_the_first_version(repo: Path, capsys)
 
 
 def test_the_file_is_moved_not_copied_and_its_bytes_are_kept(repo: Path):
-    run(repo)
+    run(repo, "--main", "cv.txt")
 
     assert not (repo / CV_PATH).exists()
     assert (repo / CAPTURED).read_bytes() == CV_TEXT.encode()
 
 
 def test_a_frozen_parsed_cv_is_written_next_to_the_source(repo: Path):
-    run(repo)
+    run(repo, "--main", "cv.txt")
 
     assert (repo / FROZEN).read_text() == CV_PARSED
 
@@ -136,13 +145,13 @@ def test_a_frozen_parsed_cv_is_written_next_to_the_source(repo: Path):
 def test_the_label_is_the_file_name_without_its_extension(repo: Path):
     (repo / CV_PATH).rename(repo / f"{INBOX}/cv_en_333.txt")
 
-    run(repo)
+    run(repo, "--main", "cv_en_333.txt")
 
     assert versions(repo)[0]["label"] == "cv_en_333"
 
 
 def test_the_version_is_identified_by_content_not_by_name(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {f"{INBOX}/renamed.txt": CV_TEXT})
 
     assert run(repo) == 0
@@ -153,7 +162,7 @@ def test_the_version_is_identified_by_content_not_by_name(repo: Path, capsys):
 
 
 def test_a_file_with_the_name_of_a_version_but_new_content_is_new(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {CV_PATH: "Jordan Example\nStaff Engineer\n"})
 
     assert run(repo) == 4
@@ -161,7 +170,7 @@ def test_a_file_with_the_name_of_a_version_but_new_content_is_new(repo: Path, ca
 
 
 def test_a_new_file_next_to_a_version_waits_for_the_candidate_s_choice(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {f"{INBOX}/other.txt": "Other CV\n"})
     before = snapshot(repo)
 
@@ -171,7 +180,7 @@ def test_a_new_file_next_to_a_version_waits_for_the_candidate_s_choice(repo: Pat
 
 
 def test_main_makes_a_new_file_the_new_main_cv_and_regenerates_the_parsed_cv(repo: Path):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {f"{INBOX}/other.txt": "Other CV\n"})
 
     assert run(repo, "--main", "other.txt") == 0
@@ -185,7 +194,7 @@ def test_main_makes_a_new_file_the_new_main_cv_and_regenerates_the_parsed_cv(rep
 
 
 def test_main_takes_a_repo_relative_path_too(repo: Path):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {f"{INBOX}/other.txt": "Other CV\n"})
 
     assert run(repo, "--main", f"{INBOX}/other.txt") == 0
@@ -207,7 +216,7 @@ def test_with_several_new_files_only_the_chosen_one_is_captured(repo: Path, caps
 
 
 def test_a_tailored_cv_belongs_to_its_application_and_never_becomes_current(repo: Path):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_db(repo / DB_PATH, lead(), cv_versions=versions(repo))
     write_files(repo, {f"{INBOX}/for_acme.txt": "Tailored for Acme\n"})
 
@@ -223,7 +232,7 @@ def test_a_tailored_cv_belongs_to_its_application_and_never_becomes_current(repo
 
 
 def test_a_tailored_cv_for_an_unknown_application_changes_nothing(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {f"{INBOX}/for_acme.txt": "Tailored for Acme\n"})
     before = snapshot(repo)
 
@@ -233,7 +242,7 @@ def test_a_tailored_cv_for_an_unknown_application_changes_nothing(repo: Path, ca
 
 
 def test_tailored_needs_an_application(repo: Path):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {f"{INBOX}/for_acme.txt": "Tailored for Acme\n"})
     before = snapshot(repo)
 
@@ -242,7 +251,7 @@ def test_tailored_needs_an_application(repo: Path):
 
 
 def test_a_file_that_is_not_waiting_in_the_inbox_is_refused(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     before = snapshot(repo)
 
     assert run(repo, "--main", "ghost.txt") == 6
@@ -251,7 +260,7 @@ def test_a_file_that_is_not_waiting_in_the_inbox_is_refused(repo: Path, capsys):
 
 
 def test_a_duplicate_named_by_main_is_reported_and_left_alone(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {f"{INBOX}/copy.txt": CV_TEXT})
     before = snapshot(repo)
 
@@ -261,7 +270,7 @@ def test_a_duplicate_named_by_main_is_reported_and_left_alone(repo: Path, capsys
 
 
 def test_two_identical_new_files_become_one_version_and_one_duplicate(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {f"{INBOX}/a.txt": "Same\n", f"{INBOX}/b.txt": "Same\n"})
 
     assert run(repo, "--main", "a.txt") == 0
@@ -271,7 +280,7 @@ def test_two_identical_new_files_become_one_version_and_one_duplicate(repo: Path
 
 
 def test_a_second_version_on_the_same_day_gets_a_suffix(repo: Path):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {f"{INBOX}/b.txt": "B\n"})
     run(repo, "--main", "b.txt")
     write_files(repo, {f"{INBOX}/c.txt": "C\n"})
@@ -282,7 +291,7 @@ def test_a_second_version_on_the_same_day_gets_a_suffix(repo: Path):
 
 
 def test_a_file_that_is_not_a_cv_stays_and_is_reported_again_on_later_runs(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {f"{INBOX}/invoice.txt": "Invoice 42\n"})
 
     for _ in range(2):
@@ -295,7 +304,7 @@ def test_a_file_that_is_not_a_cv_stays_and_is_reported_again_on_later_runs(repo:
 
 
 def test_files_that_are_not_cv_formats_and_placeholders_are_ignored(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {f"{INBOX}/notes.xlsx": "x", f"{INBOX}/.hidden.txt": "x"})
 
     assert run(repo) == 0
@@ -306,7 +315,7 @@ def test_a_new_file_that_cannot_be_parsed_is_not_captured(repo: Path, capsys):
     (repo / CV_PATH).write_bytes("Jordan Exámple\n".encode("latin-1"))
     before = snapshot(repo)
 
-    assert run(repo) == 1
+    assert run(repo, "--main", "cv.txt") == 1
     assert snapshot(repo) == before
     err = capsys.readouterr().err
     assert "UTF-8" in err
@@ -314,29 +323,58 @@ def test_a_new_file_that_cannot_be_parsed_is_not_captured(repo: Path, capsys):
 
 
 def test_a_folder_the_parser_did_not_create_gets_one_warning_and_nothing_else(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     write_files(repo, {f"{INBOX}/my_old_cvs/old.pdf": "%PDF", f"{INBOX}/my_old_cvs/old2.txt": "Old CV\n"})
     capsys.readouterr()
-    before = snapshot(repo)
+    before = {k: v for k, v in snapshot(repo).items() if k != "db/system_status.json"}
 
     assert run(repo) == 0
-    assert snapshot(repo) == before
+    assert {k: v for k, v in snapshot(repo).items() if k != "db/system_status.json"} == before
     out = capsys.readouterr().out
     assert out.count("my_old_cvs") == 1 and "Warning" in out
     assert "New CV file" not in out
 
 
-def test_a_version_folder_gets_no_warning(repo: Path, capsys):
-    run(repo)
+def test_a_foreign_folder_is_warned_about_once_and_recorded(repo: Path, capsys):
+    run(repo, "--main", "cv.txt")
+    write_files(repo, {f"{INBOX}/my_old_cvs/old.txt": "Old CV\n"})
     capsys.readouterr()
 
     run(repo)
+    assert read_status(repo)["documents"]["cv"]["ignored_folders"] == [f"{INBOX}/my_old_cvs"]
+    capsys.readouterr()
+
+    assert run(repo) == 0
+    assert "Warning" not in capsys.readouterr().out
+
+
+def test_another_foreign_folder_is_warned_about_and_a_removed_one_is_forgotten(repo: Path, capsys):
+    run(repo, "--main", "cv.txt")
+    write_files(repo, {f"{INBOX}/a/x.txt": "x", f"{INBOX}/b/x.txt": "x"})
+    run(repo)
+    capsys.readouterr()
+
+    write_files(repo, {f"{INBOX}/c/x.txt": "x"})
+    (repo / INBOX / "a" / "x.txt").unlink()
+    (repo / INBOX / "a").rmdir()
+    run(repo)
+
+    out = capsys.readouterr().out
+    assert out.count("Warning") == 1 and f"{INBOX}/c/" in out
+    assert read_status(repo)["documents"]["cv"]["ignored_folders"] == [f"{INBOX}/b", f"{INBOX}/c"]
+
+
+def test_a_version_folder_gets_no_warning(repo: Path, capsys):
+    run(repo, "--main", "cv.txt")
+    capsys.readouterr()
+
+    run(repo, "--main", "cv.txt")
 
     assert "Warning" not in capsys.readouterr().out
 
 
 def test_raising_the_parser_version_is_not_a_new_version_and_leaves_the_frozen_copy(repo: Path, monkeypatch):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     (repo / FROZEN).write_text("frozen as the agents read it then\n")
     monkeypatch.setattr(cli, "PARSER_VERSION", PARSER_VERSION + 1)
 
@@ -367,7 +405,7 @@ def test_a_db_that_changes_while_capturing_leaves_the_file_in_the_inbox(repo: Pa
     write_db(repo / DB_PATH)
     monkeypatch.setattr(versions_module, "save", racing_save)
 
-    assert run(repo) == 5
+    assert run(repo, "--main", "cv.txt") == 5
     assert (repo / CV_PATH).read_bytes() == CV_TEXT.encode()
     assert not (repo / INBOX / VERSION).exists()
     assert "changed" in capsys.readouterr().err
@@ -412,7 +450,7 @@ def test_the_migration_links_every_record_past_lead_and_no_lead(repo: Path):
         lead(id="lead"),
     )
 
-    run(repo)
+    run(repo, "--main", "cv.txt")
 
     db = load(repo / DB_PATH)
     assert db.error is None
@@ -446,7 +484,7 @@ def test_another_file_in_the_inbox_during_the_migration_waits_for_a_choice(repo:
 def test_a_repo_that_was_never_parsed_does_not_migrate_but_captures_today(repo: Path):
     write_files(repo, {"db/system_status.json": status(CV_PATH)})
 
-    run(repo)
+    run(repo, "--main", "cv.txt")
 
     assert versions(repo)[0]["id"] == VERSION
 
@@ -455,7 +493,7 @@ def test_a_repo_that_was_never_parsed_does_not_migrate_but_captures_today(repo: 
 
 
 def test_a_hand_edited_parsed_cv_is_not_overwritten(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     (repo / "input/cv.md").write_text("Jordan Example\nEngineer\nMy own note\n")
     write_files(repo, {f"{INBOX}/new.txt": "Jordan Example\nStaff Engineer\n"})
     capsys.readouterr()
@@ -470,7 +508,7 @@ def test_a_hand_edited_parsed_cv_is_not_overwritten(repo: Path, capsys):
 
 
 def test_force_overwrites_a_hand_edited_parsed_cv(repo: Path):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     (repo / "input/cv.md").write_text("edited\n")
 
     assert run(repo, "--force") == 0
@@ -480,14 +518,14 @@ def test_force_overwrites_a_hand_edited_parsed_cv(repo: Path):
 def test_an_existing_parsed_cv_without_a_record_counts_as_hand_edited(repo: Path):
     write_files(repo, {"input/cv.md": "# My CV, typed by hand\n"})
 
-    assert run(repo) == 3
+    assert run(repo, "--main", "cv.txt") == 3
     assert (repo / "input/cv.md").read_text() == "# My CV, typed by hand\n"
 
 
 def test_an_existing_parsed_cv_that_already_matches_is_just_recorded(repo: Path):
     write_files(repo, {"input/cv.md": CV_PARSED})
 
-    assert run(repo) == 0
+    assert run(repo, "--main", "cv.txt") == 0
     assert "parsed" in read_status(repo)["documents"]["cv"]
 
 
@@ -515,7 +553,7 @@ def test_without_any_cv_it_asks_for_one(repo: Path, capsys):
 
 
 def test_a_current_version_whose_file_is_gone_asks_for_init(repo: Path, capsys):
-    run(repo)
+    run(repo, "--main", "cv.txt")
     (repo / CAPTURED).unlink()
 
     assert run(repo) == 2

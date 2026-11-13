@@ -2,8 +2,8 @@
 waiting in the inbox `input/documents/cv/` (versions.py), writes the Parsed CV `input/cv.md` from the current
 version, and writes the Parsed documents of the LinkedIn profile and reference letters (documents.py).
 
-A new file is captured at once only when it is the first CV there is. Otherwise the mode asks the candidate and runs
-the command again with `--main FILE` (the new main CV) or `--tailored FILE --for <Application ID>` (a Tailored CV).
+A new file is never captured on its own (except the migration of a Source CV recorded and parsed before CV
+versions). The mode asks the candidate and runs the command again with `--main FILE` (the new main CV) or `--tailored FILE --for <Application ID>` (a Tailored CV).
 FILE is a file name in the inbox, or its path from the repo root. A file the candidate says is not a CV stays where
 it is and is reported on every run.
 
@@ -13,7 +13,8 @@ candidate's choice (stdout: one `New CV file: <path>` line each; the Parsed CV w
 version), 5 the tracker db can't be used or changed while capturing (nothing was moved), 6 a flag names a file
 that is not waiting in the inbox, or an unknown Application. The first of 1, 2, 3 that applies wins over 4.
 Other stdout lines: `Captured <id> ...`, `Duplicate: <path> ...` (same content as a version; left where it is) and
-`Warning: <folder>/ ...` (a folder the parser didn't create; ignored).
+`Warning: <folder>/ ...` (a folder the parser didn't create; ignored, and reported once: it is
+recorded in `documents.cv.ignored_folders` of the status file until it is gone).
 The exit code reflects the CV alone: the other documents only print warnings.
 """
 
@@ -28,10 +29,11 @@ from ieakaso.cv_parser import PARSER_VERSION, CvParseError, documents, parse, ve
 from ieakaso.cv_parser.files import sha as _sha
 from ieakaso.cv_parser.files import write_atomic as _write_atomic
 from ieakaso.repo import find_root, is_ieakaso_repo
-from ieakaso.tracker import DB_PATH, Db, RecordNotFoundError, current_cv_version, load
+from ieakaso.tracker import DB_PATH, Db, current_cv_version, describe_cv_version, load
 
 STATUS = Path("db/system_status.json")
 OUTPUT = Path("input/cv.md")
+WAITING = 4  # new CV files wait for the candidate's choice; the other codes are in the module docstring
 NO_CV = (
     "No CV found. Save your CV in input/documents/cv/ and run /ieakaso cv-parser again, "
     "or run /ieakaso init if the setup is missing."
@@ -63,7 +65,7 @@ def main(argv: list[str] | None = None, today: date | None = None) -> int:
     db = load(root / DB_PATH, root=root)
     if db.error:
         print(f"{db.error}\nNothing was changed.", file=sys.stderr)
-        return 5
+        return versions.DB_UNUSABLE
 
     today = today or date.today()  # noqa: DTZ011 - the candidate's local day
     now = datetime.now(UTC).isoformat(timespec="seconds")
@@ -96,17 +98,19 @@ def main(argv: list[str] | None = None, today: date | None = None) -> int:
     documents_changed = documents.sync(root, status, args.force, now)
     if cv_changed or documents_changed or json.dumps(cv, sort_keys=True) != before:
         _write_atomic(root / STATUS, (json.dumps(status, indent=2, ensure_ascii=False) + "\n").encode("utf-8"))
-    return code or (4 if pending else 0)
+    return code or (WAITING if pending else 0)
 
 
 def _capture(root: Path, db: Db, cv: dict, today: date, args: argparse.Namespace) -> list[str]:
     """Capture what the flags and the rules say, report the inbox, and return the files still waiting for a choice."""
     if args.tailored and not args.tailored_for:
-        raise versions.VersionError("--tailored needs --for <Application ID>.", 6)
+        raise versions.VersionError("--tailored needs --for <Application ID>.", versions.BAD_REQUEST)
     if args.tailored_for and not args.tailored:
-        raise versions.VersionError("--for goes with --tailored <file>.", 6)
+        raise versions.VersionError("--for goes with --tailored <file>.", versions.BAD_REQUEST)
     if args.tailored_for and not db.find(args.tailored_for):
-        raise versions.VersionError(str(RecordNotFoundError(f"no tracked Application has the ID {args.tailored_for!r}")), 6)
+        raise versions.VersionError(
+            f"no tracked Application has the ID {args.tailored_for!r}", versions.BAD_REQUEST
+        )
 
     migration = versions.migration_source(root, db, cv)
     if migration:
@@ -120,17 +124,21 @@ def _capture(root: Path, db: Db, cv: dict, today: date, args: argparse.Namespace
     inbox = versions.scan(root, db)
     main = versions.resolve(inbox, args.main) if args.main else None
     tailored = versions.resolve(inbox, args.tailored) if args.tailored else None
-    if not db.cv_versions and not main and not tailored and len(inbox.new) == 1:
-        main = inbox.new[0]  # the first CV there is: nothing to choose
     for rel, tailored_for in ((main, None), (tailored, args.tailored_for)):
         if rel and rel in inbox.new:
             version, _ = versions.capture(root, db, rel, today, tailored_for=tailored_for)
-            kind = f"the Tailored CV for {tailored_for}" if tailored_for else "the new main CV"
-            print(f"Captured {version['id']} ({version['label']}) as {kind}, from {rel}.")
+            kind = describe_cv_version(version)
+            print(f"Captured {version['id']} ({version['label']}) as the {kind}, from {rel}.")
             inbox = versions.scan(root, db)
 
+    warned = cv.get("ignored_folders") if isinstance(cv.get("ignored_folders"), list) else []
     for rel in inbox.foreign_folders:
-        print(f"Warning: {rel}/ was not created by Ieakaso, so its contents are ignored.")
+        if rel not in warned:  # reported once, until the folder is gone
+            print(f"Warning: {rel}/ was not created by Ieakaso, so its contents are ignored.")
+    if inbox.foreign_folders:
+        cv["ignored_folders"] = inbox.foreign_folders
+    else:
+        cv.pop("ignored_folders", None)
     for rel, version in inbox.duplicates:
         print(f"Duplicate: {rel} has the same content as CV version {version['id']} ({version['label']}); left where it is.")
     for rel in inbox.new:

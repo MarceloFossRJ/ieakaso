@@ -24,6 +24,9 @@ from ieakaso.tracker import (
 
 INBOX = PurePosixPath("input/documents/cv")
 PARSED_NAME = "parsed-cv.md"  # the frozen Parsed CV in a version's folder
+PARSED_NAME_IF_TAKEN = "parsed-cv.frozen.md"  # when the Source CV itself is named parsed-cv.md
+DB_UNUSABLE = 5  # exit codes of the command (cli.py): the tracker db can't be used or changed
+BAD_REQUEST = 6  # a flag names a file not waiting in the inbox, or an unknown Application
 
 
 class VersionError(Exception):
@@ -73,7 +76,7 @@ def resolve(inbox: Inbox, name: str) -> str:
     for rel, _ in inbox.duplicates:
         if name in (rel, PurePosixPath(rel).name):
             return rel
-    raise VersionError(f"{name} is not a CV file in {INBOX}/ (it must be saved there, not in a folder).", 6)
+    raise VersionError(f"{name} is not a CV file in {INBOX}/ (it must be saved there, not in a folder).", BAD_REQUEST)
 
 
 def capture(
@@ -97,7 +100,7 @@ def capture(
     try:
         folder.mkdir(parents=True)
         shutil.copy2(source, root / target_rel)
-        write_atomic(folder / (PARSED_NAME if source.name != PARSED_NAME else "parsed-cv.frozen.md"), parsed)
+        write_atomic(folder / (PARSED_NAME if source.name != PARSED_NAME else PARSED_NAME_IF_TAKEN), parsed)
         count = len(db.cv_versions)
         try:
             version = add_cv_version(db, version_id, source.stem, target_rel, captured_on, tailored_for)
@@ -105,7 +108,7 @@ def capture(
             save(db)
         except TrackerError as error:
             del db.cv_versions[count:]
-            raise VersionError(f"{error} Nothing was moved; run the CV parser again.", 5) from error
+            raise VersionError(f"{error} Nothing was moved; run the CV parser again.", DB_UNUSABLE) from error
     except BaseException:
         shutil.rmtree(folder, ignore_errors=True)
         raise
