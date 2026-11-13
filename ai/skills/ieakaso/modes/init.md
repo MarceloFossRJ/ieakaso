@@ -137,7 +137,12 @@ The Parsed CV `input/parsed-documents/cv.md` is the reference. Compare it with:
 3. **`config.yml`**: name, last name, email, phone, location, LinkedIn, GitHub, portfolio and languages (`candidate.*`), where the CV states them.
 4. **`input/candidate/deliberate-differences.md`**, when it exists: the Deliberate differences the candidate recorded, one bullet each (which document, what differs, why). Written by the candidate; read it, never write it.
 
-**Match the jobs first.** Match each CV role to its LinkedIn or Reference letter entry by title and dates, even when the employers are grouped differently (one employer on the CV, two on LinkedIn). Then compare the roles, role against role. Check a summary's claims against the roles that back them up.
+**Order of the check:**
+
+1. Read `deliberate-differences.md` first. A difference that matches a bullet there is a Deliberate difference, whatever else it would be.
+2. Match each CV role to its LinkedIn or Reference letter entry by dates and overlap, using titles as a hint only: a differing title must not break the match. This holds across employers grouped differently (one employer on the CV, two on LinkedIn).
+3. Classify, role against role. A different employer is a conflict only when the matched role sits under an employer that can't also be true; regrouping (one employer against two) is Presented differently. Check a summary's claims against the roles that back them up.
+4. A headline or summary difference goes under Different positioning, never under Presented differently.
 
 Compare only the Parsed documents that exist: one the parser could not write (a warning in Step 2) is left out, and the report's header says so. Never read the Source documents, and leave the memory files out (`professional-self-reflection.md` and the others): job-analyzer checks those against the CV on every run.
 
@@ -206,7 +211,7 @@ The CV is the reference: fix the other document to match it, or the Source CV if
 | [document] | [...] | [from `input/candidate/deliberate-differences.md`] |
 ```
 
-Order the conflicts High first, then Medium, then Low, and number them in that order. A section with nothing in it reads "None found". When there are no conflicts, gaps, presentation or positioning differences at all, still write the file, with "No conflicts found." under the header, so the candidate can see the check ran. The Deliberate differences are not counted: they do not turn "No conflicts found." into a conflict.
+Order the conflicts High first, then Medium, then Low, and number them in that order. A section with nothing in it reads "None found". Whenever the Conflicts section is empty, write "No conflicts found." under the header, while the other sections still show what they hold, so the candidate can see the check ran. Write the file even when every section is empty. Deliberate differences are not counted: they do not turn "No conflicts found." into a conflict.
 
 ### Show it in chat
 
@@ -214,8 +219,8 @@ After the Step 4 summary:
 
 - The High and Medium conflicts, one line each (relevance, topic, the two versions), and how many Low ones there are; or "No conflicts found."
 - The report's path
-- The next step, when there is a conflict: fix the document that disagrees with the CV (or the Source CV, if the CV is wrong), put the new file in its folder under `input/candidate/documents/`, and run `/ieakaso init` again, which writes a new report. Deliberate differences never appear in it.
-- For each new contradiction, the exact line the candidate could add to `input/candidate/deliberate-differences.md` if the difference is deliberate, in the file's form: `- [document]: [what differs]. Why: [reason]`, with the candidate's own reason left as a blank to fill (for example: `- LinkedIn profile: the team budget is left out. Why: [your reason]`). Init never writes that file itself, and never guesses the reason.
+- The next step, when there is a conflict: fix the document that disagrees with the CV (or the Source CV, if the CV is wrong), put the new file in its folder under `input/candidate/documents/`, and run `/ieakaso init` again, which writes a new report. Deliberate differences never appear in this next step, though they do appear in the report's own section.
+- Only when there is a conflict, and once for each Conflict reported: the exact line the candidate could add to `input/candidate/deliberate-differences.md` if the difference is deliberate, in the form `- [document]: [what differs]. Why: [reason]` (defined here, once), with the candidate's own reason left as a blank to fill (for example: `- LinkedIn profile: the team budget is left out. Why: [your reason]`). Init never writes that file itself, and never guesses the reason.
 
 ---
 
