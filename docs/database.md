@@ -17,7 +17,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 
 ```jsonc
 {
-  "meta": { "schema_version": 3 },
+  "meta": { "schema_version": 4 },
   "cv_versions": [
     {
       "id": "cv_2026-10-01",
@@ -72,7 +72,8 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
         { "contact_type": "recruiter", "name": "Jane Doe", "linkedin_url": "https://www.linkedin.com/in/janedoe", "email": null }
       ],
       "notes": "",
-      "cv_version": "cv_2026-10-12"
+      "cv_version": "cv_2026-10-12",
+      "personal_motivation": "I have run payment systems for years and want to build them for a company whose product is the payment itself."
     }
   ]
 }
@@ -86,7 +87,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 
 | Field | Type | Written by | Meaning |
 |---|---|---|---|
-| `schema_version` | integer | tracker | Version of this model. Currently `3`; see [Schema versions](#schema-versions). |
+| `schema_version` | integer | tracker | Version of this model. Currently `4`; see [Schema versions](#schema-versions). |
 
 ### `cv_versions[]`
 
@@ -125,6 +126,7 @@ The **current version** is the most recently captured one that is not a Tailored
 | `contacts` | list | analyzer, candidate | yes | People at the company or agency; see below. The analyzer adds one only when the ad names a person. |
 | `notes` | string | candidate | yes | Free text, e.g. why the candidate desisted. |
 | `cv_version` | CV version ID or `null` | tracker, CV parser, candidate | yes (picker) | The CV version the application was sent with. Filled with the current version when `status` becomes `applied` and it is empty (the same rule as `applied_on`); set to a Tailored CV when the parser captures one for this Application. The candidate can change it in the viewer and explains why in `notes`. `null` for a Lead. A Tailored CV can only be set on its own Application. |
+| `personal_motivation` | string or `null` | cover-letter | no (shown read-only) | The candidate's own reason for wanting this Application's Job ad, in their own words, trimmed; see Personal motivation in `CONTEXT.md`. At most one per Application. Written by `set-personal-motivation` when the candidate gives or replaces one in the cover-letter mode, and set back to `null` by `set-personal-motivation --clear` when the candidate chooses Remove there; `null` when there is none. The viewer shows it and never edits it; job-analyzer never touches it. |
 
 ### `analysis`
 
@@ -185,12 +187,13 @@ The usual path is `lead` → `applied` or `desisted`, then `applied` → `no_ans
 | 1 | First version. |
 | 2 | Adds `company_research`. |
 | 3 | Adds the top-level `cv_versions` list and the record's `cv_version`. |
+| 4 | Adds the record's `personal_motivation`. |
 
-The tracker reads version 3, and upgrades older files when it loads them. Version 1: every record gets `company_research`, set to `output/applications/<id>/<id>_company-research.md` when that file exists and `null` otherwise. Version 2: `cv_versions` is `[]` and every record's `cv_version` is `null`; the CV parser then captures the Source CV lying in `input/candidate/documents/cv/` as the first CV version and gives it to every record with `applied_on` set (Leads stay `null`). Loading writes nothing; the next save writes the file as version 3. Any other version is refused and left alone.
+The tracker reads version 4, and upgrades older files when it loads them. Version 1: every record gets `company_research`, set to `output/applications/<id>/<id>_company-research.md` when that file exists and `null` otherwise. Version 2: `cv_versions` is `[]` and every record's `cv_version` is `null`; the CV parser then captures the Source CV lying in `input/candidate/documents/cv/` as the first CV version and gives it to every record with `applied_on` set (Leads stay `null`). Version 3: every record's `personal_motivation` is `null`. Loading writes nothing; the next save writes the file as version 4. Any other version is refused and left alone.
 
 ## When job-analyzer runs again
 
-A later Job analysis of an existing Application updates `analysis` and fills fields that are still empty. It never overwrites a value that's already there, and never touches `status`, `stage`, `stages`, `contacts`, `notes` or `salary_expectation`.
+A later Job analysis of an existing Application updates `analysis` and fills fields that are still empty. It never overwrites a value that's already there, and never touches `status`, `stage`, `stages`, `contacts`, `notes`, `salary_expectation` or `personal_motivation`.
 
 ## How the tracker treats the file
 

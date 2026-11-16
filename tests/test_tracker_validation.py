@@ -9,6 +9,9 @@ from tracker_fakes import ID, cv_version, lead, record
 from ieakaso.tracker import STATUSES, InvalidRecordError, load, problems, validate
 
 REPO = Path(__file__).resolve().parents[1]
+EXAMPLE_MOTIVATION = (
+    "I have run payment systems for years and want to build them for a company whose product is the payment itself."
+)
 
 
 def test_the_example_record_and_the_lead_record_are_valid():
@@ -21,7 +24,7 @@ def test_the_example_in_db_validates():
 
     assert db.error is None
     assert len(db.records) == 1
-    assert db.records[0] == record(cv_version="cv_2026-10-12")
+    assert db.records[0] == record(cv_version="cv_2026-10-12", personal_motivation=EXAMPLE_MOTIVATION)
     assert db.cv_versions == [
         cv_version(),
         cv_version(

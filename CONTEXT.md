@@ -145,8 +145,12 @@ The writing guidance that ships with Ieakaso and holds for every candidate, such
 _Avoid_: knowledge base, guides, templates
 
 **Personal knowledge base**:
-Everything the candidate gives Ieakaso about themselves: `config.yml` and everything in `input/`. It holds only facts about the candidate, so anything in it may be used as one; it is the only source of facts about the candidate. The candidate vouches for that: Ieakaso never fact-checks it. When two of its sources disagree, the Parsed CV wins and the conflict becomes a question for the candidate. Reference letters are trusted background (see Reference letter). It is User data.
+Everything the candidate gives Ieakaso about themselves: `config.yml`, everything in `input/`, and the Personal motivation of the Application at hand. It holds only facts about the candidate, so anything in it may be used as one; it is the only source of facts about the candidate. The candidate vouches for that: Ieakaso never fact-checks it. When two of its sources disagree, the Parsed CV wins and the conflict becomes a question for the candidate. Reference letters are trusted background (see Reference letter). It is User data.
 _Avoid_: knowledge base, memory, the candidate's files
+
+**Personal motivation**:
+The candidate's own reason for wanting one Application's Job ad, in their own words, given when they ask for a Cover letter (with the command or when asked) and kept with the Application in the tracker. It belongs to that Application only, and each Application has at most one: a new one replaces it only if the candidate chooses so. Reasons that hold for any job belong in the candidate's self-reflection. It is part of the Personal knowledge base, so a Cover letter may tie it to a fact from the Job ad or the Company research. Ieakaso keeps the candidate's words as given and never rewords them; the letter reformulates them and leaves out what doesn't belong in a letter. It is optional and never blocks a Cover letter.
+_Avoid_: personal reason, personal motive, why-this-job
 
 **Conflict report**:
 The list of places where the LinkedIn profile, a Reference letter or `config.yml` contradicts the Parsed CV (two statements that can't both be true), each rated High, Medium or Low by how likely a recruiter is to notice it, plus the facts only one side holds, what is only presented differently (wording, grouping, level of detail) and the Deliberate differences. Init writes a new one on every run, as `output/conflict-reports/<yyyy-mm-dd>T<hh-mm>_conflicts.md`, and never overwrites an older one. The Parsed CV is the reference: the report tells the candidate which other document to fix. It never blocks init and never changes a document.

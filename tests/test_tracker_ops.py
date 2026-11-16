@@ -13,12 +13,15 @@ from ieakaso.tracker import (
     load,
     no_answer_suggestions,
     problems,
+    save,
     set_company_research,
     set_cover_letter,
+    set_personal_motivation,
     set_status,
     update_record,
     upsert_from_analysis,
 )
+from ieakaso.tracker.ops import PAYLOAD_KEYS
 
 
 @pytest.fixture
@@ -368,3 +371,63 @@ def test_a_new_lead_has_no_company_research(db_path: Path):
     rec, _ = upsert_from_analysis(load(db_path), payload(), TODAY)
 
     assert rec["company_research"] is None
+
+
+def test_a_rerun_never_touches_the_personal_motivation(db_path: Path):
+    write_db(db_path, lead(personal_motivation="I want to work on payments."))
+
+    rec, _ = upsert_from_analysis(load(db_path), payload(), TODAY)
+
+    assert rec["personal_motivation"] == "I want to work on payments."
+
+
+def test_a_new_record_has_no_personal_motivation(db_path: Path):
+    rec, created = upsert_from_analysis(load(db_path), payload(), TODAY)
+
+    assert created and rec["personal_motivation"] is None
+    assert "personal_motivation" not in PAYLOAD_KEYS
+
+
+def test_the_payload_can_not_set_the_personal_motivation(db_path: Path):
+    with pytest.raises(InvalidRecordError):
+        upsert_from_analysis(load(db_path), payload(personal_motivation="x"), TODAY)
+
+
+def test_set_personal_motivation_trims_and_saves_it(db_path: Path):
+    write_db(db_path, lead())
+    db = load(db_path)
+
+    rec = set_personal_motivation(db, ID, "  I like the mission.\n")
+    save(db)
+
+    assert rec["personal_motivation"] == "I like the mission."
+    assert load(db_path).find(ID)["personal_motivation"] == "I like the mission."
+
+
+def test_set_personal_motivation_refuses_empty_text_and_unknown_ids(db_path: Path):
+    write_db(db_path, lead())
+    db = load(db_path)
+
+    with pytest.raises(InvalidRecordError):
+        set_personal_motivation(db, ID, " \n")
+    with pytest.raises(RecordNotFoundError):
+        set_personal_motivation(db, "nope", "x")
+    assert db.find(ID)["personal_motivation"] is None
+
+
+def test_clear_personal_motivation_sets_it_to_null(db_path: Path):
+    write_db(db_path, lead(personal_motivation="I like the mission."))
+    db = load(db_path)
+
+    rec = set_personal_motivation(db, ID, None)
+    save(db)
+
+    assert rec["personal_motivation"] is None
+    assert load(db_path).find(ID)["personal_motivation"] is None
+
+
+def test_clear_personal_motivation_refuses_an_unknown_id(db_path: Path):
+    write_db(db_path, lead())
+
+    with pytest.raises(RecordNotFoundError):
+        set_personal_motivation(load(db_path), "nope", None)

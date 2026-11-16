@@ -32,6 +32,7 @@ class Outcome:
     requested: tuple[int, ...]
     exit_name: str
     reason: str
+    motivated: bool = False  # whether the Run passed a Personal motivation to the agents
 
     def validate(self) -> None:
         if self.exit_name not in EXITS:
@@ -119,8 +120,11 @@ def review_log(
     lines = [
         f"# Cover letter review log: {title}",
         "",
-        f"> **Date:** {today.isoformat()} | **Job ad:** {url} | **Company research:** {research_date}"
-        f" | **Final Review score:** {best.score}/100 | **Rounds:** {outcome.rounds} | **Exit:** {outcome.exit_name}",
+        (
+            f"> **Date:** {today.isoformat()} | **Job ad:** {url} | **Company research:** {research_date}"
+            f" | **Personal motivation:** {'used' if outcome.motivated else 'none'}"
+            f" | **Final Review score:** {best.score}/100 | **Rounds:** {outcome.rounds} | **Exit:** {outcome.exit_name}"
+        ),
         "",
         "After a follow-up (Step 7), the header's Final Review score, Rounds and Exit describe the current result.",
         "",

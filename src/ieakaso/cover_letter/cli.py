@@ -1,9 +1,10 @@
 """`uv run python -m ieakaso.cover_letter assemble <id> --rounds <n> --final <n> --exit <name> --reason <text>
-[--requested <n> ...]`: builds the Application's Cover letter and its review log from the Round files.
+[--requested <n> ...] --motivation used|none`: builds the Application's Cover letter and its review log from the Round files.
 
 Reads `output/applications/<id>/rounds/round-<n>_draft.md` and `_review.md` for Rounds 1 to --rounds, the header data
 from `<id>_job-ad.md` and `<id>_company-research.md`, and today's date. Writes `<id>_cover-letter.md` (the Draft
 section of Round --final, unchanged) and `<id>_cover-letter-review.md`, and prints the final letter to stdout.
+--motivation (used or none, required) is the header's Personal motivation: whether the mode passed one to the agents.
 --requested names the Rounds the candidate requested. --exit is the header's Exit, --reason the Exit reason section.
 
 Exit codes: 0 both files written, 1 a Round file is missing or unusable, --exit is not one of the fixed values, or --final
@@ -42,12 +43,16 @@ def main(
     build.add_argument("--requested", type=int, nargs="*", default=[], help="Rounds the candidate requested")
     build.add_argument("--exit", required=True, dest="exit_name", help="the header's Exit")
     build.add_argument("--reason", required=True, help="the Exit reason section, one line")
+    build.add_argument(
+        "--motivation", required=True, choices=("used", "none"), help="whether a Personal motivation was passed to the agents"
+    )
     args = parser.parse_args(argv)
 
     root = (args.root or find_root(Path.cwd()) or Path.cwd()).resolve()
+    today = today or date.today()  # noqa: DTZ011 - the candidate's local day
     try:
-        outcome = Outcome(args.rounds, args.final, tuple(args.requested), args.exit_name, args.reason)
-        letter = assemble(root, args.id, outcome, today or date.today())
+        outcome = Outcome(args.rounds, args.final, tuple(args.requested), args.exit_name, args.reason, args.motivation == "used")
+        letter = assemble(root, args.id, outcome, today)
     except CoverLetterError as error:
         print(error, file=err)
         return error.exit_code

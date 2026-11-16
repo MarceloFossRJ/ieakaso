@@ -1,6 +1,6 @@
 {
   "meta": {
-    "schema_version": 3
+    "schema_version": 4
   },
   "cv_versions": [
     {
@@ -81,7 +81,8 @@
         }
       ],
       "notes": "",
-      "cv_version": "cv_2026-10-12"
+      "cv_version": "cv_2026-10-12",
+      "personal_motivation": "I have run payment systems for years and want to build them for a company whose product is the payment itself."
     }
   ]
 }

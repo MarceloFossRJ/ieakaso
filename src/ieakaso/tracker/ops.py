@@ -48,7 +48,8 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
     """Create the record of a Job analysis, or update an existing one. Returns the record and whether it is new.
 
     The re-run rule (docs/database.md): an existing record gets the new `analysis` and its still-empty fields filled;
-    nothing already there is overwritten, and status, stage, stages, contacts, notes and salary_expectation stay.
+    nothing already there is overwritten, and status, stage, stages, contacts, notes, salary_expectation and
+    personal_motivation stay.
     """
     if not isinstance(payload, dict):
         raise InvalidRecordError("the Job analysis payload must be a JSON object")
@@ -90,6 +91,7 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
             "contacts": copy.deepcopy(payload.get("contacts") or []),
             "notes": "",
             "cv_version": None,
+            "personal_motivation": None,
         }
         validate(record)
         db.records.append(record)
@@ -146,6 +148,16 @@ def set_cover_letter(db: Db, record_id: str, path: str) -> dict:
 
 def set_company_research(db: Db, record_id: str, path: str) -> dict:
     return _set_path(db, record_id, "company_research", path)
+
+
+def set_personal_motivation(db: Db, record_id: str, text: str | None) -> dict:
+    """Set the candidate's Personal motivation for one Application, trimmed; `None` removes it. Empty text is refused."""
+    record = get_record(db, record_id)
+    if text is not None and not text.strip():
+        raise InvalidRecordError("the personal motivation is empty; nothing was saved")
+    new = copy.deepcopy(record)
+    new["personal_motivation"] = None if text is None else text.strip()
+    return replace_record(record, new)
 
 
 def update_record(db: Db, record_id: str, changes: dict, today: date) -> dict:

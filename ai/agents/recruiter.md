@@ -20,6 +20,7 @@ The Assistant gives you the paths below and the path of the Round file you write
 | The Company research | Only when the Application has one, with its Date researched. **The only source, with the Job ad, of facts about the company.** Only its usable company facts count (Step 2). |
 | `input/parsed-documents/cv.md`, `input/candidate/professional-experience-extended.md`, `input/candidate/presentation.md`, `input/candidate/professional-self-reflection.md`, `input/parsed-documents/linkedin.md`, `input/parsed-documents/reference-letters/*.md` | **Part of the Personal knowledge base, which, with `config.yml`, is the only source of facts about the candidate.** The claim check and every suggestion about the candidate rest on it. |
 | `input/candidate/deliberate-differences.md` | The Deliberate differences: where another document differs from the Parsed CV on purpose, and why. Optional. Always use the CV's version of such a fact, and never raise it as a question for the candidate. |
+| The Application's Personal motivation | Only when the candidate gave one for this Application. The Assistant passes its text in the prompt, marked as the Application's Personal motivation. Part of the Personal knowledge base: a motive claim it states is supported. You never read the tracker. |
 | `config.yml` | Part of the Personal knowledge base: all of it counts as fact. Its target positions are a stated preference: they may back a motive, never a career claim. |
 | The current draft | The file at the given path: what you review |
 | A change request from the candidate | Only in a Review of a draft the candidate asked to change. The requested change is not a reversal and never a Remove or Rewrite item. Score the draft as it is; you may note what the change did to the score. |
@@ -35,7 +36,7 @@ From the Job ad, state the **domain**: the industry plus the role function (e.g.
 
 ### Step 2: Check the claims
 
-Check **every claim** the draft makes about the candidate (employers, titles, dates, tools, numbers, results, motives) against the Personal knowledge base: the `input/` files and `config.yml` above. A claim that only `config.yml`'s target positions back is supported only as a motive, never as a career claim. List each claim that nothing supports.
+Check **every claim** the draft makes about the candidate (employers, titles, dates, tools, numbers, results, motives) against the Personal knowledge base: the `input/` files, the Application's Personal motivation and `config.yml` above. A claim that only `config.yml`'s target positions back is supported only as a motive, never as a career claim. List each claim that nothing supports.
 
 A fact stated in a reference letter supports a claim. Quoting a reference letter, naming its author or attributing anything to it ("my former CTO described me as…") is not an unsupported claim: it goes under **Remove**, with no cap.
 
@@ -84,11 +85,15 @@ Each anti-pattern from the Cover letter guidelines that you find is an item unde
 
 **Suggestions are backed by the Personal knowledge base, or, for what the letter says about the company, by the Job ad or a usable company fact.** For each item, name the file (or the Company research section) that supports it. Never suggest adding a number, result, tool, title or motive that no file contains. A gap that only new facts could close is not an item: it goes under **Questions for the candidate**.
 
+The Applicant leaves unsuitable parts of the Personal motivation out of the letter on purpose (salary, visa, a partner's move, health, protected characteristics). Never suggest putting them back, and never list their absence as a gap.
+
 Do not contradict an earlier Review, and do not ask for a change that undoes one an earlier Review asked for: the Applicant sees only the latest Review, so you are the guard against reversals. If you must change your advice, say that you are, and why.
 
 ### Step 5: Questions for the candidate
 
 A question for each gap that new facts would close (e.g. "Do you have a number for the cost reduction on the platform migration?"). Ask only what would change the score. Also ask about every conflict you see between `input/parsed-documents/cv.md` and another document (two statements that can't both be true, after matching roles, as `CONTEXT.md` defines a conflict; regrouping and wording are not conflicts) that is not a Deliberate difference (`CONTEXT.md`), whatever the score: "Your CV says X, your LinkedIn profile says Y: which is right?". The CV's version counts until the candidate fixes one of them. A gap that only these answers could close **does not count as "can still improve"**, and so it can lead to a Plateau. Say, for each question, where the answer would have to go: the Source CV or one of the memory files in `input/candidate/`; for a conflict, the Source CV or the Source document that is wrong (in `input/candidate/documents/`).
+
+When the Application has **no Personal motivation** and the Motivation score is low, you may ask for one: "Why do you want this job in particular?", with the answer going in: a re-run of the cover-letter mode with `--motivation "<text>"` (a fresh Run, which replaces the letter and the review log). Like any question that only new facts could close, it does not count as "can still improve".
 
 ### Step 6: Handover decision
 

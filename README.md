@@ -100,10 +100,12 @@ Then it researches the company: what it does, its product and latest releases, i
 When the job is worth it, write the cover letter:
 
 ```
-/ieakaso cover-letter [<job-url or job-ad text>]
+/ieakaso cover-letter [<job-url or job-ad text>] [--motivation "<text>"]
 ```
 
 Without an argument it uses the last job ad of the session, or asks. It runs the job analysis first if there is none for that ad. Then the Applicant drafts the letter and the Recruiter reviews it, Round after Round, until the score is 90/100, the Recruiter sees no way to raise it from your files, or 5 Rounds have run. The final letter is saved in the same folder as `<id>_cover-letter.md` (one A4 page, body of at most 350 words) and every Round's draft and Review as `<id>_cover-letter-review.md` (the full texts also stay in the `rounds/` folder). The tracker keeps the letter's path. When the Application has a company research, the letter can use its public facts (the product, a recent release, funding, culture) to make the motivation specific; it never uses the red flags or employee reviews, and the Recruiter checks every company claim against the research like it checks claims about you. With no research yet, it asks whether to research the company first. Facts you only tell it in chat are never used: add them to your files and it runs another Round.
+
+You can also give your own reason for wanting this one job, your personal motivation, in your own words, with `--motivation "<text>"`; with none given, it asks ("Add a personal motivation" or "Write without one"), and it never blocks the letter. It is kept with the Application in the tracker, shown read-only in the viewer, and used again without asking the next time you write a letter for that Application. Giving a new one while one is stored shows the stored text and asks whether to replace it, keep it or remove it; it never merges them. The Applicant reformulates it in your voice and may tie it to a fact from the ad or the company research, but never pastes it; it leaves out what doesn't belong in a letter (salary, visa, a partner's move, health, anything about protected characteristics) and tells you what it left out. The Recruiter checks the letter's motive claims against it and, with none given and a low Motivation score, may ask for one: re-run the command with `--motivation`. A re-run is a fresh Run: it replaces the Round files, the letter and the review log, so copy the current letter first if you want to keep it. The review log's header says whether one was used. Reasons that hold for any job belong in `professional-self-reflection.md` instead.
 
 The first runs are rough. It does not know you yet.
 Talk to it: what you want, what you refuse.
@@ -138,7 +140,7 @@ The status is one of Lead (analysed, not applied yet), Desisted, Applied, No ans
 /ieakaso viewer
 ```
 
-Opens a table of your applications in a new terminal window (if it can't, it gives you the command: `uv run ieakaso-viewer`, from the repo). It shows company, position, status, interview stage, verdict and score, location and the dates, newest first. Press Enter on a row to edit its fields: status, interview stages, contacts, the salary expectation you entered in the form, notes. Each edit is saved at once. `h` hides Desisted and Not selected applications, `a`, `j`, `c` and `r` open the job ad, the job analysis, the cover letter and the company research, `q` quits. On launch it lists applications with no answer after 30 days, and you tick which become No answer.
+Opens a table of your applications in a new terminal window (if it can't, it gives you the command: `uv run ieakaso-viewer`, from the repo). It shows company, position, status, interview stage, verdict and score, location and the dates, newest first. Press Enter on a row to edit its fields: status, interview stages, contacts, the salary expectation you entered in the form, notes. Each edit is saved at once (the personal motivation is shown, never edited there). `h` hides Desisted and Not selected applications, `a`, `j`, `c` and `r` open the job ad, the job analysis, the cover letter and the company research, `q` quits. On launch it lists applications with no answer after 30 days, and you tick which become No answer.
 
 The viewer only edits: applications are created by `job-analyzer`, and nothing is deleted. If you change the file elsewhere while the viewer is open, it reloads.
 
