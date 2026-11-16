@@ -661,3 +661,12 @@ async def test_an_empty_label_is_not_saved(root: Path):
         await type_into(pilot, f"label_{MAIN}", "")
         assert json.loads(db_file(root).read_text())["cv_versions"][0]["label"] == "cv_en_333"
         assert pilot.app.screen.query_one(f"#label_{MAIN}", Input).value == "cv_en_333"
+
+
+async def test_the_personal_motivation_with_brackets_is_shown_literally(root: Path):
+    write_db(db_file(root), record(personal_motivation="I want [payments] work [/] and [bold]more[/bold]."))
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await open_detail(pilot)
+        text = " ".join(str(w.render()) for w in pilot.app.screen.query(Static))
+        assert "Personal motivation: I want [payments] work [/] and [bold]more[/bold]." in text
