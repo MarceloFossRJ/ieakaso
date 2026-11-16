@@ -5,7 +5,6 @@ from datetime import date
 from pathlib import Path
 
 import pytest
-from tracker_fakes import lead, write_db
 
 from ieakaso.cover_letter import cli
 from ieakaso.cover_letter.assemble import Outcome, Round, review_log
@@ -50,7 +49,8 @@ def review(n: int) -> str:
 
 def run(root: Path, *argv: str) -> tuple[int, str, str]:
     out, err = io.StringIO(), io.StringIO()
-    code = cli.main(["--root", str(root), "assemble", ID, *argv], today=TODAY, out=out, err=err)
+    flag = [] if "--motivation" in argv else ["--motivation", "none"]
+    code = cli.main(["--root", str(root), "assemble", ID, *argv, *flag], today=TODAY, out=out, err=err)
     return code, out.getvalue(), err.getvalue()
 
 
@@ -261,9 +261,9 @@ def test_review_log_format_without_the_filesystem():
         Round(1, "Letter 1", "## Review score: 80/100", 80, "None", None, Path("r1")),
         Round(2, "Letter 2", "## Review score: 75/100", 75, "None", "German", Path("r2")),
     ]
-    outcome = Outcome(2, 2, (2,), "change requested by the candidate", "The candidate asked.")
+    outcome = Outcome(2, 2, (2,), "change requested by the candidate", "The candidate asked.", motivated=True)
 
-    log = review_log("Dev @ Acme", "pasted text", "none", True, TODAY, outcome, played)
+    log = review_log("Dev @ Acme", "pasted text", "none", TODAY, outcome, played)
 
     assert log.startswith("# Cover letter review log: Dev @ Acme\n\n> **Date:** 2026-10-15 | **Job ad:** pasted text")
     assert "**Final Review score:** 75/100 | **Rounds:** 2 | **Exit:** change requested by the candidate" in log
@@ -277,34 +277,32 @@ def log_of(root: Path) -> str:
     return (folder(root) / f"{ID}_cover-letter-review.md").read_text()
 
 
-def finish(root: Path) -> int:
+def finish(root: Path, *flag: str) -> tuple[int, str, str]:
     write_round(root, 1, 92)
-    return run(root, "--rounds", "1", "--final", "1", "--exit", "Review score 90 or above", "--reason", "92.")[0]
+    return run(root, "--rounds", "1", "--final", "1", "--exit", "Review score 90 or above", "--reason", "92.", *flag)
 
 
-def test_the_header_says_used_when_the_applications_record_has_a_personal_motivation(root: Path):
-    write_db(root / "db" / "ieakaso_db.json", lead(personal_motivation="I like the mission."))
-
-    assert finish(root) == 0
-    assert "| **Personal motivation:** used |" in log_of(root)
-
-
-@pytest.mark.parametrize("record", [lead(), lead(id="other_job_2026-10-11")])
-def test_the_header_says_none_without_a_personal_motivation_or_a_record(root: Path, record: dict):
-    write_db(root / "db" / "ieakaso_db.json", record)
-
-    assert finish(root) == 0
-    assert "| **Personal motivation:** none |" in log_of(root)
+@pytest.mark.parametrize("value", ["used", "none"])
+def test_the_header_names_whether_a_personal_motivation_was_used(root: Path, value: str):
+    assert finish(root, "--motivation", value)[0] == 0
+    assert f"| **Personal motivation:** {value} |" in log_of(root)
 
 
-def test_the_header_says_none_without_a_tracker_db(root: Path):
-    assert finish(root) == 0
-    assert "| **Personal motivation:** none |" in log_of(root)
+def test_the_motivation_flag_is_required_and_takes_used_or_none(root: Path):
+    write_round(root, 1, 92)
+    base = ("--rounds", "1", "--final", "1", "--exit", "Review score 90 or above", "--reason", "92.")
+    out, err = io.StringIO(), io.StringIO()
+
+    with pytest.raises(SystemExit):
+        cli.main(["--root", str(root), "assemble", ID, *base], today=TODAY, out=out, err=err)
+    with pytest.raises(SystemExit):
+        cli.main(["--root", str(root), "assemble", ID, *base, "--motivation", "maybe"], today=TODAY, out=out, err=err)
+    assert not (folder(root) / f"{ID}_cover-letter.md").exists()
 
 
-def test_an_unreadable_tracker_db_is_an_application_error_and_writes_nothing(root: Path):
+def test_the_assembler_ignores_the_tracker_db(root: Path):
     (root / "db").mkdir()
     (root / "db" / "ieakaso_db.json").write_text("not json")
 
-    assert finish(root) == 3
-    assert not (folder(root) / f"{ID}_cover-letter.md").exists()
+    assert finish(root, "--motivation", "used")[0] == 0
+    assert "| **Personal motivation:** used |" in log_of(root)
