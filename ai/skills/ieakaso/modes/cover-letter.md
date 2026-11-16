@@ -51,7 +51,16 @@ Pass the report's path and its Date researched to every Agent run, as their INPU
 
 One **Round** is a fresh Applicant Agent run (the draft) followed by a fresh Seasoned Recruiter run (the Review). Start and feed every Agent run as `ai/agents/job-application-assistant.md` says: pass each agent everything its INPUTS lists (`ai/agents/applicant.md`, `ai/agents/recruiter.md`).
 
-After each Round, note the draft, the Review score and the Recruiter's handover decision. Keep every one.
+**Round files.** Each Agent run writes its full output to a file in the Application's folder and replies with a short summary (the agent files say what it holds). You pass paths, never text, and you never read these files:
+
+- `output/applications/<id>/rounds/round-<n>_draft.md`: the Applicant's draft and notes.
+- `output/applications/<id>/rounds/round-<n>_review.md`: the Seasoned Recruiter's Review.
+
+A Round the candidate requested gets the same files, and its number continues the sequence. A new cover-letter Run for an Application starts by deleting its `rounds/` folder, and you say so in chat if it held files.
+
+Give the Applicant the path of the draft file to write, and, from the second Round on, the path of the current draft and of the latest Review. Give the Recruiter the path of the draft to review, the paths of all earlier Reviews and the path of the Review file to write.
+
+After each Round, note the paths, the Review score and the Recruiter's handover decision (with its Plateau flag), all from the agents' replies. Keep every one. Ask the candidate the Recruiter's Questions for the candidate from its reply.
 
 ### Step 4: Exit
 
@@ -63,7 +72,7 @@ Stop at the **first** of these:
 
 Otherwise the Recruiter hands back to the Applicant and the next Round runs.
 
-The result is the best draft, per the Job Application Assistant's rules. Its Review is the final Review.
+The result is the best draft, per the Job Application Assistant's rules, chosen from the Review scores in the replies. Its Review is the final Review.
 
 ### Step 5: Write the files
 
@@ -71,7 +80,17 @@ Both files go into the Application's folder `output/applications/<application-id
 
 If the files already exist, overwrite them as the Job Application Assistant's rules say.
 
-**1. The letter:** `<id>_cover-letter.md`. The final letter only, as the Applicant returned it, ready to copy: contact block, date, recipient, subject line, body, sign-off. No headings, notes or scores in it.
+**Run the command** (the text of the Round files never enters the conversation):
+
+```
+uv run python -m ieakaso.cover_letter assemble <id> --rounds <n> --final <n> --exit "<Exit>" --reason "<Exit reason>" [--requested <n> ...]
+```
+
+`--rounds` is how many Rounds have run, `--final` the Round whose draft is the final letter (the best draft), `--requested` the Rounds the candidate requested, `--exit` the header's Exit (exactly one of the values in the template below; any other value is exit 1) and `--reason` the Exit reason: which exit condition ended the process, and in one line why, naming the best-scoring Round if it is not the last. The command reads the Round files, the Job ad file (title and URL) and the Company research (its Date researched), uses today's date, writes both files and prints the final letter. Exit 0 means both files are written. Exit 1 means a Round file is missing or unusable, `--exit` is not one of the values, or `--final` or `--requested` names a Round that isn't there; exit 3 means the Application's folder or Job ad file is missing. For either, nothing was written: show the message from stderr, start the Agent run again if a Round file is missing or unusable, and stop if it fails again.
+
+What it writes:
+
+**1. The letter:** `<id>_cover-letter.md`. The Draft section of the final Round's file, unchanged: the final letter only, ready to copy: contact block, date, recipient, subject line, body, sign-off. No headings, notes or scores in it.
 
 **2. The review log:** `<id>_cover-letter-review.md`:
 
@@ -94,15 +113,15 @@ After a follow-up (Step 7), the header's Final Review score, Rounds and Exit des
 
 ### Draft
 
-[The Applicant's whole draft for this Round]
+[The Applicant's whole draft for this Round, from its Round file]
 
 ### Review
 
-[The Seasoned Recruiter's Review for this Round, as returned: domain, scorecard, the Remove / Rewrite / Improve items, Questions for the candidate, handover decision]
+[The Seasoned Recruiter's Review for this Round, from its Round file: domain, scorecard, the Remove / Rewrite / Improve items, Questions for the candidate, handover decision]
 
 ### Refused suggestions
 
-[From the Applicant's notes, or "None"]
+[From the Applicant's notes in its Round file, or "None"]
 
 ## Exit reason
 
@@ -120,7 +139,7 @@ Do it after every write of the letter, including a follow-up (Step 7), since the
 ### Step 6: Report in chat
 
 Show the candidate:
-- the **final letter** (the whole text)
+- the **final letter** (the whole text: the command prints it, and this is the only full text you show)
 - its **Review score** and the **exit reason**
 - a short **summary of each Round**: the score and the main change
 - the open **Questions for the candidate** from the final Review (not those the candidate has answered), or "none"
@@ -135,9 +154,9 @@ Then the Run summary (see the router), as the last thing you print. Follow-ups (
 **Answers to Questions for the candidate.** A fact given only in chat is not used (the Job Application Assistant's rules). Ask the candidate to add it to the right file first: the Source CV or the memory file the Recruiter named. When they say it is done:
 
 1. If they added it to the Source CV, run the cv-parser mode (`ai/skills/ieakaso/modes/cv-parser.md`) now, inside this Run, so `input/parsed-documents/cv.md` is current. If it ends with neither exit 0 nor exit 4 (new CV files asked about), stop and tell the candidate.
-2. Run **one more Round** (Step 3), starting from the current result (the draft shown as the final letter, not the last draft written), update both files, and report again. A Round after the 5 Rounds is allowed here; it is the candidate's request. In the review log, set the exit to "Round after the candidate's answers".
+2. Run **one more Round** (Step 3), starting from the path of the current result's draft (the draft shown as the final letter, not the last draft written), run the assemble command again with the new Round count, update both files, and report again. A Round after the 5 Rounds is allowed here; it is the candidate's request. In the review log, set the exit to "Round after the candidate's answers".
 
-**Changes the candidate requests** (a different tone, a shorter body, a different emphasis). Start a fresh Applicant Agent run with everything in its INPUTS, plus the change request and the current result as its draft, then **one** Seasoned Recruiter Review of the result, to which you also pass the change request. No automatic loop afterwards. **The candidate's request wins even if the score drops**, and the Job Application Assistant's best-draft reset applies. Update both files, add a Round marked "requested by the candidate" to the review log, and set the Exit to "change requested by the candidate" and the exit reason to say so. Report the new Review score and any drop.
+**Changes the candidate requests** (a different tone, a shorter body, a different emphasis). Start a fresh Applicant Agent run with everything in its INPUTS, plus the change request and the path of the current result's draft, then **one** Seasoned Recruiter Review of the result, to which you also pass the change request. No automatic loop afterwards. **The candidate's request wins even if the score drops**, and the Job Application Assistant's best-draft reset applies. Run the assemble command again, with the Round in `--requested`, to update both files and mark the Round "requested by the candidate" in the review log, and set the Exit to "change requested by the candidate" and the exit reason to say so. Report the new Review score and any drop.
 
 ---
 
