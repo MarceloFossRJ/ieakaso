@@ -76,7 +76,7 @@ The result is the best draft, per the Job Application Assistant's rules, chosen 
 
 ### Step 5: Write the files
 
-The assemble command writes both files into the Application's folder `output/applications/<application-id>/` and start with its Application ID (e.g. `acme_senior-backend-engineer_2026-10-10`). Use the Application's ID as it is, not today's date. If the Job analysis was just made in Step 2, its Application is the one it joined or made.
+Both files go into the Application's folder `output/applications/<application-id>/` and start with its Application ID (e.g. `acme_senior-backend-engineer_2026-10-10`). Use the Application's ID as it is, not today's date. If the Job analysis was just made in Step 2, its Application is the one it joined or made.
 
 If the files already exist, overwrite them as the Job Application Assistant's rules say.
 
@@ -86,7 +86,7 @@ If the files already exist, overwrite them as the Job Application Assistant's ru
 uv run python -m ieakaso.cover_letter assemble <id> --rounds <n> --final <n> --exit "<Exit>" --reason "<Exit reason>" [--requested <n> ...]
 ```
 
-`--rounds` is how many Rounds have run, `--final` the Round whose draft is the final letter (the best draft), `--requested` the Rounds the candidate requested, `--exit` the header's Exit (one of the values in the template below) and `--reason` the Exit reason: which exit condition ended the process, and in one line why, naming the best-scoring Round if it is not the last. The command reads the Round files, the Job ad file (title and URL) and the Company research (its Date researched), uses today's date, writes both files and prints the final letter. Exit 0 means both files are written. Exit 1 means a Round file is missing or unusable, or `--final` or `--requested` names a Round that isn't there; exit 3 means the Application's folder or Job ad file is missing. For either, nothing was written: show the message from stderr, start the Agent run again if a Round file is missing or unusable, and stop if it fails again.
+`--rounds` is how many Rounds have run, `--final` the Round whose draft is the final letter (the best draft), `--requested` the Rounds the candidate requested, `--exit` the header's Exit (exactly one of the values in the template below; any other value is exit 1) and `--reason` the Exit reason: which exit condition ended the process, and in one line why, naming the best-scoring Round if it is not the last. The command reads the Round files, the Job ad file (title and URL) and the Company research (its Date researched), uses today's date, writes both files and prints the final letter. Exit 0 means both files are written. Exit 1 means a Round file is missing or unusable, `--exit` is not one of the values, or `--final` or `--requested` names a Round that isn't there; exit 3 means the Application's folder or Job ad file is missing. For either, nothing was written: show the message from stderr, start the Agent run again if a Round file is missing or unusable, and stop if it fails again.
 
 What it writes:
 

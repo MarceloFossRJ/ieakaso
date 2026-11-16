@@ -44,10 +44,7 @@ def main(
     build.add_argument("--reason", required=True, help="the Exit reason section, one line")
     args = parser.parse_args(argv)
 
-    root = args.root or find_root(Path.cwd())
-    if root is None:
-        print("Not inside an ieakaso repository (use --root).", file=err)
-        return 3
+    root = (args.root or find_root(Path.cwd()) or Path.cwd()).resolve()
     try:
         letter = assemble(
             root, args.id, args.rounds, args.final, args.exit_name, args.reason, tuple(args.requested), today or date.today()

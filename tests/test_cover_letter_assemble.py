@@ -41,6 +41,11 @@ def write_round(root: Path, n: int, score: int, refused: str = "None", language:
     )
 
 
+def review(n: int) -> str:
+    score = {1: 70, 2: 88, 3: 81}[n]
+    return f"**Domain:** fintech\n\n## Review score: {score}/100\n\nReview {n} text.\n\n## Handover decision\n\nBack"
+
+
 def run(root: Path, *argv: str) -> tuple[int, str, str]:
     out, err = io.StringIO(), io.StringIO()
     code = cli.main(["--root", str(root), "assemble", ID, *argv], today=TODAY, out=out, err=err)
@@ -72,11 +77,6 @@ def test_assembles_the_best_draft_when_it_is_not_the_last(root: Path):
         "### Review\n\n" + review(3) + "\n\n### Refused suggestions\n\nNone\n\n"
         "## Exit reason\n\nRound 2 scored highest.\n"
     )
-
-
-def review(n: int) -> str:
-    score = {1: 70, 2: 88, 3: 81}[n]
-    return f"**Domain:** fintech\n\n## Review score: {score}/100\n\nReview {n} text.\n\n## Handover decision\n\nBack"
 
 
 def test_the_last_draft_as_final_has_no_scored_highest_line_and_the_research_date_is_named(root: Path):
@@ -111,7 +111,7 @@ def test_a_missing_round_file_is_an_error_and_writes_nothing(root: Path):
     write_round(root, 1, 70)
     write_round(root, 2, 80, draft=False)
 
-    code, out, err = run(root, "--rounds", "2", "--final", "1", "--exit", "x", "--reason", "y")
+    code, out, err = run(root, "--rounds", "2", "--final", "1", "--exit", "Plateau", "--reason", "y")
 
     assert code == 1
     assert out == ""
@@ -123,7 +123,7 @@ def test_a_missing_round_file_is_an_error_and_writes_nothing(root: Path):
 def test_an_unknown_application_is_an_error(root: Path):
     (folder(root) / f"{ID}_job-ad.md").unlink()
 
-    code, _, err = run(root, "--rounds", "1", "--final", "1", "--exit", "x", "--reason", "y")
+    code, _, err = run(root, "--rounds", "1", "--final", "1", "--exit", "Plateau", "--reason", "y")
 
     assert code == 3
     assert "job-ad" in err
@@ -132,7 +132,96 @@ def test_an_unknown_application_is_an_error(root: Path):
 def test_a_final_round_outside_the_rounds_is_an_error(root: Path):
     write_round(root, 1, 70)
 
-    code, _, err = run(root, "--rounds", "1", "--final", "2", "--exit", "x", "--reason", "y")
+    code, _, err = run(root, "--rounds", "1", "--final", "2", "--exit", "Plateau", "--reason", "y")
 
     assert code == 1
     assert "--final" in err
+
+
+ARGS = ("--exit", "Plateau", "--reason", "y")
+
+
+def assert_nothing_written(root: Path):
+    assert not (folder(root) / f"{ID}_cover-letter.md").exists()
+    assert not (folder(root) / f"{ID}_cover-letter-review.md").exists()
+
+
+def test_a_requested_round_out_of_range_is_an_error(root: Path):
+    write_round(root, 1, 70)
+
+    code, _, err = run(root, "--rounds", "1", "--final", "1", "--requested", "2", *ARGS)
+
+    assert code == 1
+    assert "--requested" in err
+    assert_nothing_written(root)
+
+
+def test_a_draft_without_a_draft_heading_is_an_error(root: Path):
+    write_round(root, 1, 70)
+    (folder(root) / "rounds" / "round-1_draft.md").write_text("Just a letter\n")
+
+    code, _, err = run(root, "--rounds", "1", "--final", "1", *ARGS)
+
+    assert code == 1
+    assert "not a draft" in err
+    assert_nothing_written(root)
+
+
+def test_a_review_without_a_score_line_is_an_error(root: Path):
+    write_round(root, 1, 70)
+    (folder(root) / "rounds" / "round-1_review.md").write_text("**Domain:** x\n")
+
+    code, _, err = run(root, "--rounds", "1", "--final", "1", *ARGS)
+
+    assert code == 1
+    assert "Review score" in err
+    assert_nothing_written(root)
+
+
+@pytest.mark.parametrize("label", ["Language", "Refused suggestions"])
+def test_notes_missing_a_field_are_an_error(root: Path, label: str):
+    write_round(root, 1, 70)
+    path = folder(root) / "rounds" / "round-1_draft.md"
+    path.write_text("\n".join(line for line in path.read_text().splitlines() if f"**{label}:**" not in line) + "\n")
+
+    code, _, err = run(root, "--rounds", "1", "--final", "1", *ARGS)
+
+    assert code == 1
+    assert label in err
+    assert_nothing_written(root)
+
+
+def test_an_exit_outside_the_fixed_set_is_an_error(root: Path):
+    write_round(root, 1, 70)
+
+    code, _, err = run(root, "--rounds", "1", "--final", "1", "--exit", "tired", "--reason", "y")
+
+    assert code == 1
+    assert "--exit" in err
+    assert_nothing_written(root)
+
+
+def test_a_requested_round_that_scores_lower_can_be_final(root: Path):
+    write_round(root, 1, 85)
+    write_round(root, 2, 70)
+
+    code, out, _ = run(
+        root, "--rounds", "2", "--final", "2", "--requested", "2", "--exit", "change requested by the candidate", "--reason", "y"
+    )
+
+    log = (folder(root) / f"{ID}_cover-letter-review.md").read_text()
+    assert code == 0
+    assert out == "Letter 2  \nBody 2.\n"
+    assert "**Final Review score:** 70/100" in log
+    assert "**Final letter:** Round 2's draft.\n" in log
+
+
+@pytest.mark.parametrize("line", ["Review score: 70/100", "### **Review score:** 70/100", "  ## Review score: 70/100  "])
+def test_the_review_score_line_is_read_tolerantly(root: Path, line: str):
+    write_round(root, 1, 99)
+    (folder(root) / "rounds" / "round-1_review.md").write_text(f"**Domain:** x\n\n{line}\n")
+
+    code, _, _ = run(root, "--rounds", "1", "--final", "1", *ARGS)
+
+    assert code == 0
+    assert "**Final Review score:** 70/100" in (folder(root) / f"{ID}_cover-letter-review.md").read_text()

@@ -10,10 +10,16 @@ from datetime import date
 from pathlib import Path
 
 from ieakaso.cover_letter.errors import ApplicationError, RoundFileError
-
-APPLICATIONS = Path("output/applications")
+from ieakaso.layout import APPLICATIONS
 NOTES = "## Notes for the Assistant"
-SCORE = re.compile(r"^## Review score: (\d+)/100\s*$", re.MULTILINE)
+SCORE = re.compile(r"^[ \t]*(?:#+[ \t]*)?\**Review score:\**[ \t]*(\d+)/100\**[ \t]*$", re.MULTILINE)
+EXITS = (
+    "Review score 90 or above",
+    "Plateau",
+    "5 Rounds",
+    "change requested by the candidate",
+    "Round after the candidate's answers",
+)
 
 
 @dataclass(frozen=True)
@@ -26,16 +32,16 @@ class Round:
     language: str
 
 
-def _read(path: Path) -> str:
+def _read(path: Path, error: type[Exception] = RoundFileError, what: str = "Round file") -> str:
     try:
         return path.read_text()
     except OSError:
-        raise RoundFileError(f"Round file missing or unreadable: {path}") from None
+        raise error(f"{what} missing or unreadable: {path}") from None
 
 
 def _field(notes: str, label: str, path: Path) -> str:
     """The value of a `- **<label>:**` bullet of the Applicant's notes, with its continuation lines."""
-    match = re.search(rf"^- \*\*{label}:\*\*(.*?)(?=^- \*\*|\Z)", notes, re.MULTILINE | re.DOTALL)
+    match = re.search(rf"^- \*\*{re.escape(label)}:\*\*(.*?)(?=^- \*\*|\Z)", notes, re.MULTILINE | re.DOTALL)
     if not match or not match.group(1).strip():
         raise RoundFileError(f"{path}: no '{label}' in the notes for the Assistant")
     return "\n".join(line.strip() if i == 0 else line for i, line in enumerate(match.group(1).strip().splitlines()))
@@ -63,10 +69,7 @@ def read_round(rounds: Path, number: int) -> Round:
 def _job_ad(folder: Path, application_id: str) -> tuple[str, str]:
     """The `[Position] @ [Company]` title and the `**Job ad:**` value of the Application's Job ad file."""
     path = folder / f"{application_id}_job-ad.md"
-    try:
-        text = path.read_text()
-    except OSError:
-        raise ApplicationError(f"No Job ad file for {application_id}: {path}") from None
+    text = _read(path, ApplicationError, "Job ad file")
     title = re.search(r"^# Job ad: (.+)$", text, re.MULTILINE)
     url = re.search(r"\*\*Job ad:\*\* (.+?)\s*(?:\||$)", text, re.MULTILINE)
     if not title or not url:
@@ -75,10 +78,10 @@ def _job_ad(folder: Path, application_id: str) -> tuple[str, str]:
 
 
 def _research_date(folder: Path, application_id: str) -> str:
-    try:
-        text = (folder / f"{application_id}_company-research.md").read_text()
-    except OSError:
+    path = folder / f"{application_id}_company-research.md"
+    if not path.is_file():
         return "none"
+    text = _read(path)
     found = re.search(r"\*\*Date researched:\*\* (\d{4}-\d{2}-\d{2})", text)
     return found.group(1) if found else "none"
 
@@ -97,6 +100,8 @@ def assemble(
     folder = root / APPLICATIONS / application_id
     if not folder.is_dir():
         raise ApplicationError(f"No such Application folder: {folder}")
+    if exit_name not in EXITS:
+        raise RoundFileError(f"--exit must be one of: {'; '.join(EXITS)}")
     if not 1 <= final <= rounds:
         raise RoundFileError(f"--final {final} is not one of the {rounds} Round(s)")
     if outside := [n for n in requested if not 1 <= n <= rounds]:

@@ -9,6 +9,7 @@ STATUS = Path("db/system_status.json")  # setup state; records the paths of the 
 
 CANDIDATE = PurePosixPath("input/candidate")
 DOCUMENTS = CANDIDATE / "documents"  # the Source documents
+APPLICATIONS = PurePosixPath("output/applications")  # one folder per Application, named by its ID
 INBOX = DOCUMENTS / "cv"  # the CV inbox; each CV version gets a folder in it
 
 PARSED = PurePosixPath("input/parsed-documents")

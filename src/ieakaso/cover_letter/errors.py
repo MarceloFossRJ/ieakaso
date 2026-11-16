@@ -7,7 +7,7 @@ class CoverLetterError(Exception):
 class RoundFileError(CoverLetterError):
     """A Round file is missing or not in the format its agent returns, or the arguments name a Round that isn't there."""
 
-    exit_code = 1
+    pass
 
 
 class ApplicationError(CoverLetterError):
