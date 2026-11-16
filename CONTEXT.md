@@ -196,6 +196,10 @@ _Avoid_: knowledge base, best practices, style guide
 One draft by the Applicant Agent followed by one Review of it.
 _Avoid_: iteration, cycle, pass
 
+**Round file**:
+The file in which an Agent run writes its full output for one Round, `rounds/round-<n>_draft.md` or `round-<n>_review.md` in the Application's folder. The Assistant passes its path and never reads it; the review log and the Cover letter are built from these files. A new cover-letter Run replaces them.
+_Avoid_: draft file, output file
+
 **Plateau**:
 The Seasoned Recruiter's judgment that no change backed by the Personal knowledge base would raise a draft's Review score.
 _Avoid_: cannot be improved, max quality, dead end

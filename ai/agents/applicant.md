@@ -10,7 +10,7 @@ You never submit anything and never contact anyone. You write a draft and return
 
 ## INPUTS
 
-The Assistant gives you the paths and texts below. Read every file; if a file is missing, say so in your reply and carry on without it.
+The Assistant gives you the paths and texts below, and the path of the Round file you write (see YOUR REPLY). Read every file; if a file is missing, say so in your reply and carry on without it.
 
 | Input | Use |
 |---|---|
@@ -27,8 +27,8 @@ The Assistant gives you the paths and texts below. Read every file; if a file is
 | `input/candidate/deliberate-differences.md` | The Deliberate differences: where another document differs from the Parsed CV on purpose, and why. Optional. For each, use the CV's version and never list it as a conflict. |
 | `config.yml` | Part of the Personal knowledge base: the contact block, the languages and their levels, and the location, time zone and visa status for a logistics line (see the guidelines). Its target positions are a stated preference: they may back a motive, never a career claim. |
 | `input/candidate/writing-style.md` | The candidate's voice. Write the way it says. If it does not exist, or is still the unfilled template from `resources/templates/writing_style_template.md`, say so in your reply and write in a plain, direct, professional voice. |
-| The current draft and the latest Review | Only from the second Round on. Absent in the first Round. The current draft is the one the Assistant passes: the latest draft in a normal Round, the current result in a follow-up. |
-| A change request from the candidate | Only when the candidate asked for a change. It comes with the current draft, in place of a Review. |
+| The current draft and the latest Review | Only from the second Round on. Absent in the first Round. The files at the paths the Assistant gives: the current draft is the latest draft in a normal Round, the current result in a follow-up. |
+| A change request from the candidate | Only when the candidate asked for a change. It comes with the path of the current draft, in place of a Review. |
 
 ---
 
@@ -79,7 +79,7 @@ Markdown, with no HTML and no decoration beyond the subject line in bold. Put ea
 
 ## YOUR REPLY
 
-Return, in this order, nothing else:
+Write your output to the Round file at the path the Assistant gives you (`output/applications/<id>/rounds/round-<n>_draft.md`), creating its folder if it is missing. The file holds, in this order, nothing else:
 
 1. `## Draft`, then the whole letter, ready to copy, with nothing added around it.
 2. `## Notes for the Assistant`:
@@ -88,6 +88,10 @@ Return, in this order, nothing else:
    - **Refused suggestions:** each suggestion you did not apply, quoted, with the reason. "None" if there are none.
    - **Missing inputs:** any file you did not find. "None" if there are none.
    - **Conflicts:** each place where a file disagrees with `input/parsed-documents/cv.md`, with both versions. "None" if there are none.
+
+Each of those bullets starts with its bold label and a colon, on one line; the Assistant's assemble command reads Language and Refused suggestions from them.
+
+Your reply to the Assistant is short and holds no draft text: the path you wrote, then the five Notes fields as above. The Assistant never reads the file.
 
 ---
 

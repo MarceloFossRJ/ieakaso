@@ -11,16 +11,16 @@ There is no `.claude/agents/` or `.opencode/agents/` pointer for this role, and 
 ## STARTING AGENT RUNS
 
 1. **Every Agent run starts fresh.** Never resume an agent and never rely on what it did earlier. Start it with the `applicant` or `recruiter` agent of your tool, in Claude Code or in OpenCode alike.
-2. **Pass all the context in the prompt.** The agent has no memory of the process. Give it the file paths it must read and the text it cannot read from a file (the Job ad, the current draft, the earlier Reviews), and say which role file it follows if your tool does not load it by itself. Pass each agent everything its INPUTS section lists, plus what the mode adds (for example a change request). The agent file holds the list; the mode does not repeat it.
+2. **Pass all the context in the prompt.** The agent has no memory of the process. Give it the file paths it must read (the Job ad, the current draft, the earlier Reviews included: those are Round files, passed by path, never as text), the path of the Round file it writes, and the text it cannot read from a file (a change request). Say which role file it follows if your tool does not load it by itself. Pass each agent everything its INPUTS section lists, plus what the mode adds. The agent file holds the list; the mode does not repeat it.
 3. **Agents never hand over to each other.** A handover is the Seasoned Recruiter's decision at the end of a Review. You carry it out: start the next Agent run, or end the process.
-4. **Never edit an agent's output.** Pass a draft or a Review on as it was returned. If an output is unusable (empty, wrong format, not a draft or a Review), start that Agent run again once; if it fails again, stop and tell the candidate.
+4. **Never read or edit an agent's output.** Each agent writes its full output to a Round file and replies with a short summary; you pass the file on by path and never open it. If the reply shows the output is unusable (no path, no Review score, a missing file), start that Agent run again once; if it fails again, stop and tell the candidate.
 5. **Agent runs belong to the Run.** Their Token usage is counted in the Run's summary. Do not start another Run for them.
 
 ---
 
 ## KEEPING THE WORK
 
-- Keep every draft and every Review, in order, with its Review score. You need them for the next Agent run, for the best draft and for the review log.
+- Keep every Round file (`rounds/round-<n>_draft.md` and `round-<n>_review.md`), and track for each Round its two paths, its Review score and its handover decision. You need them for the next Agent run, for the best draft and for the review log. You never read the files: the assemble command builds the output files from them.
 - **The best draft is the one with the highest Review score.** On a tie, the later one. A rewrite can score lower than the draft before it; the best draft is still the result.
 - **A change the candidate requested resets the comparison.** The draft that results is the current result, even if it scores lower. The best-draft rule then compares only drafts from that point on, so it never brings back a draft the candidate changed.
 - **Follow-ups start from the current result**: the draft shown to the candidate as the final letter, which is the best draft, not the last one written.
