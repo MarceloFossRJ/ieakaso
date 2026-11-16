@@ -49,9 +49,10 @@ def main(
     args = parser.parse_args(argv)
 
     root = (args.root or find_root(Path.cwd()) or Path.cwd()).resolve()
+    today = today or date.today()  # noqa: DTZ011 - the candidate's local day
     try:
         outcome = Outcome(args.rounds, args.final, tuple(args.requested), args.exit_name, args.reason, args.motivation == "used")
-        letter = assemble(root, args.id, outcome, today or date.today())
+        letter = assemble(root, args.id, outcome, today)
     except CoverLetterError as error:
         print(error, file=err)
         return error.exit_code
