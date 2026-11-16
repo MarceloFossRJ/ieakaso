@@ -13,6 +13,6 @@ class RoundFileError(CoverLetterError):
 
 
 class ApplicationError(CoverLetterError):
-    """The Application's folder or its Job ad file is missing, or its Company research file is unreadable."""
+    """The Application's folder or its Job ad file is missing, or its Company research file or the tracker db is unreadable."""
 
     exit_code = 3

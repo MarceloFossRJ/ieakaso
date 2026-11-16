@@ -232,6 +232,7 @@ class DetailScreen(Screen):
             ("Job ad file", source["job_ad"]),
             ("Cover letter file", record["cover_letter"] or "none yet"),
             ("Company research file", record["company_research"] or "none yet"),
+            ("Personal motivation", record["personal_motivation"] or "none yet"),
             ("Status history", history),
         ):
             yield Static(f"{name}: {value}", classes="readonly")

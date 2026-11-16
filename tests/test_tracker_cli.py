@@ -31,7 +31,7 @@ def test_upsert_from_the_json_argument_creates_the_db_and_the_record(root: Path)
     assert (code, err) == (0, "")
     assert out == f"created {ID}\n"
     data = json.loads(db_file(root).read_text())
-    assert data["meta"] == {"schema_version": 3}
+    assert data["meta"] == {"schema_version": 4}
     assert data["records"][0]["status"] == "lead"
 
 
@@ -133,16 +133,16 @@ def test_set_company_research_exits_4_for_an_unknown_id_and_1_for_a_bad_path(roo
     assert run(root, "set-company-research", ID, "/abs.md")[0] == 1
 
 
-def test_a_version_1_db_is_backfilled_from_the_repo_and_saved_as_version_3(root: Path):
+def test_a_version_1_db_is_backfilled_from_the_repo_and_saved_as_version_4(root: Path):
     rec = lead(company_research=f"{FOLDER}/{ID}_company-research.md")
-    write_db(db_file(root), {k: v for k, v in rec.items() if k not in ("company_research", "cv_version")}, version=1)
+    write_db(db_file(root), {k: v for k, v in rec.items() if k not in ("company_research", "cv_version", "personal_motivation")}, version=1)
     (root / rec["company_research"]).parent.mkdir(parents=True, exist_ok=True)
     (root / rec["company_research"]).write_text("x")
 
     code, _, _ = run(root, "set-cover-letter", ID, f"{FOLDER}/{ID}_cover-letter.md")
 
     data = json.loads(db_file(root).read_text())
-    assert code == 0 and data["meta"] == {"schema_version": 3}
+    assert code == 0 and data["meta"] == {"schema_version": 4}
     assert data["records"][0]["company_research"] == rec["company_research"]
 
 
@@ -224,3 +224,36 @@ def test_set_cv_label(root: Path):
     assert json.loads(db_file(root).read_text())["cv_versions"][0]["label"] == "Main CV"
     assert run(root, "set-cv-label", MAIN, " ")[0] == 1
     assert run(root, "set-cv-label", "cv_2030-01-01", "x")[0] == 4
+
+
+# Personal motivation
+
+
+def test_set_personal_motivation_reads_the_text_from_stdin_and_trims_it(root: Path):
+    write_db(db_file(root), lead())
+
+    code, out, _ = run(root, "set-personal-motivation", ID, stdin="  I like the mission.\n\n")
+
+    assert (code, out) == (0, f"personal motivation set for {ID}\n")
+    assert json.loads(db_file(root).read_text())["records"][0]["personal_motivation"] == "I like the mission."
+
+
+def test_set_personal_motivation_exits_1_for_empty_text_and_4_for_an_unknown_id(root: Path):
+    write_db(db_file(root), lead())
+
+    assert run(root, "set-personal-motivation", ID, stdin=" \n")[0] == 1
+    assert run(root, "set-personal-motivation", "nope", stdin="x")[0] == 4
+    assert json.loads(db_file(root).read_text())["records"][0]["personal_motivation"] is None
+
+
+def test_personal_motivation_prints_the_text_or_nothing(root: Path):
+    write_db(db_file(root), lead(personal_motivation="I like the mission."), lead(id="b_c_2026-10-11"))
+
+    assert run(root, "personal-motivation", ID)[:2] == (0, "I like the mission.\n")
+    assert run(root, "personal-motivation", "b_c_2026-10-11")[:2] == (0, "")
+
+
+def test_personal_motivation_exits_4_for_an_unknown_id(root: Path):
+    write_db(db_file(root), lead())
+
+    assert run(root, "personal-motivation", "nope")[0] == 4

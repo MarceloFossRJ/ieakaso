@@ -69,6 +69,7 @@ def record(**overrides) -> dict:
         ],
         "notes": "",
         "cv_version": None,
+        "personal_motivation": None,
     }
     data.update(overrides)
     return copy.deepcopy(data)

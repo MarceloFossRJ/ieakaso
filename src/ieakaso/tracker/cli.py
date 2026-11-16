@@ -1,6 +1,6 @@
 """`uv run python -m ieakaso.tracker upsert [--json <payload>] | set-cover-letter <id> <path>
 | set-company-research <id> <path> | cv-versions | applications | set-cv-version <id> <version id|none>
-| set-cv-label <version id> <label>`.
+| set-cv-label <version id> <label> | set-personal-motivation <id> | personal-motivation <id>`.
 
 upsert: create or update the record of a Job analysis; the JSON payload comes from --json or stdin. Writes
 `created <id>` or `updated <id>` to stdout.
@@ -11,6 +11,8 @@ Tailored CV or `-`, and `current` for the current version or `-`.
 applications: list the records, one per line, tab-separated: ID, status, company, position and CV version ID or `-`.
 set-cv-version: set the CV version an Application was sent with (`none` clears it).
 set-cv-label: set a CV version's label.
+set-personal-motivation: set an Application's Personal motivation; the text comes from stdin, trimmed (empty is exit 1).
+personal-motivation: print an Application's Personal motivation, or nothing when there is none.
 Capturing a CV version is the CV parser's job (it imports `add_cv_version`); there is no command for it.
 
 Exit codes: 0 done, 1 invalid payload or path, 2 db/ieakaso_db.json is not valid JSON (it is left alone),
@@ -28,10 +30,16 @@ from typing import TextIO
 from ieakaso.repo import find_root
 from ieakaso.tracker.cv_versions import set_cv_version_label, set_record_cv_version
 from ieakaso.tracker.errors import InvalidDbError, InvalidRecordError, TrackerError
-from ieakaso.tracker.ops import set_company_research, set_cover_letter, upsert_from_analysis
+from ieakaso.tracker.ops import (
+    get_record,
+    set_company_research,
+    set_cover_letter,
+    set_personal_motivation,
+    upsert_from_analysis,
+)
 from ieakaso.tracker.store import DB_PATH, Db, current_cv_version, load, save
 
-READ_ONLY = ("cv-versions", "applications")
+READ_ONLY = ("cv-versions", "applications", "personal-motivation")
 
 
 def _read(root: Path) -> Db:
@@ -71,6 +79,10 @@ def main(
     label = commands.add_parser("set-cv-label", help="set the label of a CV version")
     label.add_argument("version", help="the CV version ID")
     label.add_argument("label", help="the new label")
+    motivation = commands.add_parser("set-personal-motivation", help="set the Personal motivation of an Application")
+    motivation.add_argument("id", help="the Application ID")
+    show = commands.add_parser("personal-motivation", help="print the Personal motivation of an Application")
+    show.add_argument("id", help="the Application ID")
     args = parser.parse_args(argv)
 
     root = (args.root or find_root(Path.cwd()) or Path.cwd()).resolve()
@@ -92,6 +104,13 @@ def main(
         elif args.command == "applications":
             for r in db.records:
                 print(r["id"], r["status"], r["company"], r["position"], r["cv_version"] or "-", sep="\t", file=out)
+        elif args.command == "set-personal-motivation":
+            set_personal_motivation(db, args.id, stdin.read())
+            message = f"personal motivation set for {args.id}"
+        elif args.command == "personal-motivation":
+            text = get_record(db, args.id)["personal_motivation"]
+            if text:
+                print(text, file=out)
         elif args.command == "set-cv-version":
             set_record_cv_version(db, args.id, None if args.version == "none" else args.version)
             message = f"cv version {args.version} set for {args.id}"

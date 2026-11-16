@@ -351,9 +351,29 @@ async def test_read_only_fields_have_no_inputs(root: Path):
             "job_ad",
             "cover_letter",
             "company_research",
+            "personal_motivation",
         }
         text = " ".join(str(w.render()) for w in pilot.app.screen.query(Static))
         assert ID in text and "2026-10-10" in text and "Apply, 84/100" in text
+
+
+async def test_the_detail_shows_the_personal_motivation_read_only(root: Path):
+    write_db(db_file(root), record(personal_motivation="I like the mission."))
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await open_detail(pilot)
+        text = " ".join(str(w.render()) for w in pilot.app.screen.query(Static))
+        assert "Personal motivation: I like the mission." in text
+        assert not any("motivation" in (w.id or "") for w in pilot.app.screen.query(Input))
+
+
+async def test_the_detail_says_none_yet_without_a_personal_motivation(root: Path):
+    write_db(db_file(root), record())
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await open_detail(pilot)
+        text = " ".join(str(w.render()) for w in pilot.app.screen.query(Static))
+        assert "Personal motivation: none yet" in text
 
 
 # saving: conflicts

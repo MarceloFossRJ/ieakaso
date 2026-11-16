@@ -187,7 +187,7 @@ def test_clean_applications_keeps_the_cv_versions_and_empties_the_records(repo: 
     data = json.loads((repo / "db/ieakaso_db.json").read_text())
     assert data["records"] == []
     assert [v["id"] for v in data["cv_versions"]] == ["cv_2026-10-01", "cv_2026-10-09"]
-    assert data["meta"] == {"schema_version": 3}
+    assert data["meta"] == {"schema_version": 4}
     assert (repo / "input/candidate/documents/cv/cv_2026-10-01/cv_en_333.pdf").exists()
     assert Path("db/ieakaso_db.json") in report.emptied
     assert Path("db/ieakaso_db.json") not in report.deleted

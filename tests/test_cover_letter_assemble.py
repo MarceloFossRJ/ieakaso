@@ -5,6 +5,7 @@ from datetime import date
 from pathlib import Path
 
 import pytest
+from tracker_fakes import lead, write_db
 
 from ieakaso.cover_letter import cli
 from ieakaso.cover_letter.assemble import Outcome, Round, review_log
@@ -65,7 +66,7 @@ def test_assembles_the_best_draft_when_it_is_not_the_last(root: Path):
     assert (folder(root) / f"{ID}_cover-letter.md").read_text() == "Letter 2  \nBody 2.\n"
     assert (folder(root) / f"{ID}_cover-letter-review.md").read_text() == (
         "# Cover letter review log: Senior Backend Engineer @ Acme\n\n"
-        f"> **Date:** 2026-10-15 | **Job ad:** {URL} | **Company research:** none | **Final Review score:** 88/100"
+        f"> **Date:** 2026-10-15 | **Job ad:** {URL} | **Company research:** none | **Personal motivation:** none | **Final Review score:** 88/100"
         " | **Rounds:** 3 | **Exit:** 5 Rounds\n\n"
         "After a follow-up (Step 7), the header's Final Review score, Rounds and Exit describe the current result.\n\n"
         "**Final letter:** Round 2's draft. It scored highest; later drafts scored lower.\n\n"
@@ -262,10 +263,48 @@ def test_review_log_format_without_the_filesystem():
     ]
     outcome = Outcome(2, 2, (2,), "change requested by the candidate", "The candidate asked.")
 
-    log = review_log("Dev @ Acme", "pasted text", "none", TODAY, outcome, played)
+    log = review_log("Dev @ Acme", "pasted text", "none", True, TODAY, outcome, played)
 
     assert log.startswith("# Cover letter review log: Dev @ Acme\n\n> **Date:** 2026-10-15 | **Job ad:** pasted text")
     assert "**Final Review score:** 75/100 | **Rounds:** 2 | **Exit:** change requested by the candidate" in log
+    assert "| **Company research:** none | **Personal motivation:** used |" in log
     assert "**Language:** German\n" in log
     assert "## Round 2 (requested by the candidate)\n" in log
     assert log.endswith("## Exit reason\n\nThe candidate asked.\n")
+
+
+def log_of(root: Path) -> str:
+    return (folder(root) / f"{ID}_cover-letter-review.md").read_text()
+
+
+def finish(root: Path) -> int:
+    write_round(root, 1, 92)
+    return run(root, "--rounds", "1", "--final", "1", "--exit", "Review score 90 or above", "--reason", "92.")[0]
+
+
+def test_the_header_says_used_when_the_applications_record_has_a_personal_motivation(root: Path):
+    write_db(root / "db" / "ieakaso_db.json", lead(personal_motivation="I like the mission."))
+
+    assert finish(root) == 0
+    assert "| **Personal motivation:** used |" in log_of(root)
+
+
+@pytest.mark.parametrize("record", [lead(), lead(id="other_job_2026-10-11")])
+def test_the_header_says_none_without_a_personal_motivation_or_a_record(root: Path, record: dict):
+    write_db(root / "db" / "ieakaso_db.json", record)
+
+    assert finish(root) == 0
+    assert "| **Personal motivation:** none |" in log_of(root)
+
+
+def test_the_header_says_none_without_a_tracker_db(root: Path):
+    assert finish(root) == 0
+    assert "| **Personal motivation:** none |" in log_of(root)
+
+
+def test_an_unreadable_tracker_db_is_an_application_error_and_writes_nothing(root: Path):
+    (root / "db").mkdir()
+    (root / "db" / "ieakaso_db.json").write_text("not json")
+
+    assert finish(root) == 3
+    assert not (folder(root) / f"{ID}_cover-letter.md").exists()

@@ -81,6 +81,7 @@ def _migrate(data: Any, root: Path | None) -> None:
     Version 1 had no `company_research`: it is the report's path when the report is in `root`, otherwise null.
     Version 2 had no CV versions: the file gets an empty list and every record a null `cv_version`; the CV parser
     then captures the Source CV and links the Applications past Lead to it.
+    Version 3 had no `personal_motivation`: every record gets a null one.
     """
     if not _is_tracker_file(data):
         return
@@ -95,6 +96,11 @@ def _migrate(data: Any, root: Path | None) -> None:
         for record in data["records"]:
             if isinstance(record, dict):
                 record.setdefault("cv_version", None)
+        data["meta"]["schema_version"] = 3
+    if data["meta"].get("schema_version") == 3:
+        for record in data["records"]:
+            if isinstance(record, dict):
+                record.setdefault("personal_motivation", None)
         data["meta"]["schema_version"] = SCHEMA_VERSION
 
 

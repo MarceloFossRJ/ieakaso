@@ -11,6 +11,7 @@ from pathlib import Path
 
 from ieakaso.cover_letter.errors import ApplicationError, ArgumentError, RoundFileError
 from ieakaso.layout import APPLICATIONS
+from ieakaso.tracker import DB_PATH, load
 
 NOTES = "## Notes for the Assistant"
 SCORE = re.compile(r"^[ \t]*(?:#+[ \t]*)?\**Review score:\**[ \t]*(\d+)/100\**[ \t]*$", re.MULTILINE)
@@ -111,16 +112,28 @@ def _research_date(folder: Path, application_id: str) -> str:
     return found.group(1) if found else "none"
 
 
+def _has_personal_motivation(root: Path, application_id: str) -> bool:
+    """Whether the Application's tracker record holds a Personal motivation. No db or no record means no."""
+    db = load(root / DB_PATH, root=root)
+    if db.error:
+        raise ApplicationError(f"The applications tracker can't be read: {db.error}")
+    record = db.find(application_id)
+    return bool(record and record["personal_motivation"])
+
+
 def review_log(
-    title: str, url: str, research_date: str, today: date, outcome: Outcome, played: list[Round]
+    title: str, url: str, research_date: str, motivated: bool, today: date, outcome: Outcome, played: list[Round]
 ) -> str:
     """The review log, in the format `ai/skills/ieakaso/modes/cover-letter.md` defines. `played` is Rounds 1 to n."""
     best = played[outcome.final - 1]
     lines = [
         f"# Cover letter review log: {title}",
         "",
-        f"> **Date:** {today.isoformat()} | **Job ad:** {url} | **Company research:** {research_date}"
-        f" | **Final Review score:** {best.score}/100 | **Rounds:** {outcome.rounds} | **Exit:** {outcome.exit_name}",
+        (
+            f"> **Date:** {today.isoformat()} | **Job ad:** {url} | **Company research:** {research_date}"
+            f" | **Personal motivation:** {'used' if motivated else 'none'}"
+            f" | **Final Review score:** {best.score}/100 | **Rounds:** {outcome.rounds} | **Exit:** {outcome.exit_name}"
+        ),
         "",
         "After a follow-up (Step 7), the header's Final Review score, Rounds and Exit describe the current result.",
         "",
@@ -166,7 +179,8 @@ def assemble(root: Path, application_id: str, outcome: Outcome, today: date) -> 
     if best.language is None:
         raise RoundFileError(f"{best.path}: no 'Language' in the notes for the Assistant")
 
-    log = review_log(title, url, _research_date(folder, application_id), today, outcome, played)
+    motivated = _has_personal_motivation(root, application_id)
+    log = review_log(title, url, _research_date(folder, application_id), motivated, today, outcome, played)
     letter = best.draft + "\n"
     (folder / f"{application_id}_cover-letter.md").write_text(letter)
     (folder / f"{application_id}_cover-letter-review.md").write_text(log)
