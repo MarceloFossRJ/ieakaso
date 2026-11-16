@@ -1,6 +1,6 @@
 # Cover Letter
 
-`/ieakaso cover-letter [<job-url or job-ad text>]`: writes a Cover letter for one Job ad. The Applicant Agent drafts it and the Seasoned Recruiter reviews it, in Rounds, until the Review score is at least 90 (terms in `CONTEXT.md`).
+`/ieakaso cover-letter [<job-url or job-ad text>] [--motivation "<text>"]`: writes a Cover letter for one Job ad. The Applicant Agent drafts it and the Seasoned Recruiter reviews it, in Rounds, until the Review score is at least 90 (terms in `CONTEXT.md`).
 
 Act as the Job Application Assistant: read `ai/agents/job-application-assistant.md` and follow it for the whole mode. You are the one who runs the steps and starts the Agent runs; the Applicant Agent (`ai/agents/applicant.md`) and the Seasoned Recruiter (`ai/agents/recruiter.md`) never run you or each other. Do not do their work in this conversation.
 
@@ -8,11 +8,13 @@ Act as the Job Application Assistant: read `ai/agents/job-application-assistant.
 
 ## INPUTS
 
-**Job ad:** the argument, either a URL or the ad's text pasted in. See Step 1 if there is none.
+**Job ad:** the argument, either a URL or the ad's text pasted in. See Step 1 if there is none. `--motivation "<text>"` is not part of the Job ad: take it out of the argument first.
 
 **Job analysis:** found or made in Step 2.
 
 **Company research:** found or made in Step 2b, when there is one.
+
+**Personal motivation:** the candidate's own reason for wanting this Application's job, optional (terms in `CONTEXT.md`). It comes from `--motivation` or from the candidate's answer in Step 2c, and is kept in the Application's tracker record; Step 2c saves it, and reads it when there is no new one.
 
 Each agent's file lists the files of the Personal knowledge base it reads (`ai/agents/applicant.md`, `ai/agents/recruiter.md`); this mode does not repeat them.
 
@@ -47,9 +49,34 @@ The Applicant Agent and the Seasoned Recruiter use the Application's Company res
 
 Pass the report's path and its Date researched to every Agent run, as their INPUTS list it. Without a report, pass nothing and say in chat that the letter's company specifics come from the Job ad only.
 
+### Step 2c: Get the Personal motivation
+
+The Personal motivation is optional and never blocks a letter. It belongs to this Application only; reasons that hold for any job belong in `input/candidate/professional-self-reflection.md`. This step runs after Step 2 and before Round 1, so a candidate who stops at the Verdict warning in Step 2.4 saves nothing. job-analyzer never asks for a motivation.
+
+1. **Read the stored one:** `uv run python -m ieakaso.tracker personal-motivation <id>` prints the text, or nothing when there is none. Exit 4 means the Application has no record (it was analysed before the tracker existed): tell the candidate, offer to run job-analyzer on its Job ad to create one (inside this Run, as in Step 2.3), and otherwise write the letter without a motivation, skipping the rest of this step. For any other exit, show the message from stderr and write without a motivation.
+2. **A new one is given** by `--motivation`, or by the candidate's answer in item 4:
+   - With **no stored one**, save it.
+   - With a **stored one**, show the stored text and ask with a choice question (if your tool has one): **"Replace"** (save the new one), **"Keep"** (use the stored one, drop the new one) or **"Remove"** (delete the stored one and write without a motivation). Never merge the two texts.
+3. **No new one is given, and one is stored:** use the stored one without asking.
+4. **No new one is given, and none is stored:** ask with a choice question (if your tool has one): **"Add a personal motivation"** or **"Write without one"**. If they add one, ask for it in chat and save it.
+
+**Saving** keeps the candidate's words as given, with no rewording, summary or correction. Pass the text on standard input, so quotes and line breaks arrive unchanged:
+
+```
+uv run python -m ieakaso.tracker set-personal-motivation <id> <<'EOF'
+<the text>
+EOF
+```
+
+Remove runs `uv run python -m ieakaso.tracker set-personal-motivation <id> --clear`. Exit 1 means the text was empty: nothing was saved, so write without a motivation. Exit 4 is handled as in item 1. For exit 2 or 3, show the message from stderr (2: `db/ieakaso_db.json` is not valid JSON and was left alone; 3: the file changed while the command ran, run it again). A save that fails does not stop the mode: write the letter without the new text, and tell the candidate.
+
+The motivation the letter uses is the one the tracker now holds: read it again with the `personal-motivation` command after a save, and pass its text verbatim to both agents (Step 3). With none, pass nothing.
+
+A new `--motivation` on an Application that already has a letter is a fresh Run: Step 3 deletes the Round files, and Step 5 overwrites the letter and the review log. Step 7 is unchanged: a fact given only in chat is still never used.
+
 ### Step 3: Run the Rounds
 
-One **Round** is a fresh Applicant Agent run (the draft) followed by a fresh Seasoned Recruiter run (the Review). Start and feed every Agent run as `ai/agents/job-application-assistant.md` says: pass each agent everything its INPUTS lists (`ai/agents/applicant.md`, `ai/agents/recruiter.md`).
+One **Round** is a fresh Applicant Agent run (the draft) followed by a fresh Seasoned Recruiter run (the Review). Start and feed every Agent run as `ai/agents/job-application-assistant.md` says: pass each agent everything its INPUTS lists (`ai/agents/applicant.md`, `ai/agents/recruiter.md`). The Personal motivation (Step 2c) lives in the tracker, which agents never read: pass its text in the prompt, word for word and marked as "the Application's Personal motivation", to the Applicant and to the Recruiter, in every Round and every follow-up.
 
 **Round files.** Each Agent run writes its full output to a file in the Application's folder and replies with a short summary (the agent files say what it holds). You pass paths, never text, and you never read these files:
 
@@ -86,7 +113,7 @@ If the files already exist, overwrite them as the Job Application Assistant's ru
 uv run python -m ieakaso.cover_letter assemble <id> --rounds <n> --final <n> --exit "<Exit>" --reason "<Exit reason>" [--requested <n> ...]
 ```
 
-`--rounds` is how many Rounds have run, `--final` the Round whose draft is the final letter (the best draft), `--requested` the Rounds the candidate requested, `--exit` the header's Exit (exactly one of the values in the template below; any other value is exit 1) and `--reason` the Exit reason: which exit condition ended the process, and in one line why, naming the best-scoring Round if it is not the last. The command reads the Round files, the Job ad file (title and URL) and the Company research (its Date researched), uses today's date, writes both files and prints the final letter. Exit 0 means both files are written. Exit 1 means a Round file is missing or unusable, `--exit` is not one of the values, or `--final` or `--requested` names a Round that isn't there; exit 3 means the Application's folder or Job ad file is missing. For either, nothing was written: show the message from stderr, start the Agent run again if a Round file is missing or unusable, and stop if it fails again.
+`--rounds` is how many Rounds have run, `--final` the Round whose draft is the final letter (the best draft), `--requested` the Rounds the candidate requested, `--exit` the header's Exit (exactly one of the values in the template below; any other value is exit 1) and `--reason` the Exit reason: which exit condition ended the process, and in one line why, naming the best-scoring Round if it is not the last. The command reads the Round files, the Job ad file (title and URL), the Company research (its Date researched) and the Application's tracker record (whether it holds a Personal motivation), uses today's date, writes both files and prints the final letter. Exit 0 means both files are written. Exit 1 means a Round file is missing or unusable, `--exit` is not one of the values, or `--final` or `--requested` names a Round that isn't there; exit 3 means the Application's folder or Job ad file is missing, or its Company research file or the tracker db is unreadable. For either, nothing was written: show the message from stderr, start the Agent run again if a Round file is missing or unusable, and stop if it fails again.
 
 What it writes:
 
@@ -97,7 +124,7 @@ What it writes:
 ```markdown
 # Cover letter review log: [Position] @ [Company]
 
-> **Date:** [yyyy-mm-dd] | **Job ad:** [URL, or "pasted text"] | **Company research:** [its Date researched, or "none"] | **Final Review score:** [X]/100 | **Rounds:** [N] | **Exit:** [Review score 90 or above / Plateau / 5 Rounds / change requested by the candidate / Round after the candidate's answers]
+> **Date:** [yyyy-mm-dd] | **Job ad:** [URL, or "pasted text"] | **Company research:** [its Date researched, or "none"] | **Personal motivation:** [used / none] | **Final Review score:** [X]/100 | **Rounds:** [N] | **Exit:** [Review score 90 or above / Plateau / 5 Rounds / change requested by the candidate / Round after the candidate's answers]
 
 After a follow-up (Step 7), the header's Final Review score, Rounds and Exit describe the current result.
 
@@ -145,6 +172,8 @@ Show the candidate:
 - the open **Questions for the candidate** from the final Review (not those the candidate has answered), or "none"
 - the **file paths** of both files, and that they were overwritten, if so
 - the language, if it is not the ad's language
+- what the Applicant left out of the Personal motivation (its **Motivation left out** note), if anything
+- when the Recruiter asked for a Personal motivation among its Questions for the candidate: that the candidate can re-run `/ieakaso cover-letter --motivation "<text>"` to give one (a fresh Run, as Step 2c says)
 - any refused suggestion that matters
 
 Then the Run summary (see the router), as the last thing you print. Follow-ups (Step 7) stay in the same Run: after each one, report again and show the Run summary again, so it includes the follow-up's Agent runs.

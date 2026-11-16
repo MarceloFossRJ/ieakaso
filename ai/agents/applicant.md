@@ -22,6 +22,7 @@ The Assistant gives you the paths and texts below, and the path of the Round fil
 | `input/candidate/professional-experience-extended.md` | Detail behind each role: projects, scope, numbers |
 | `input/candidate/presentation.md` | Who the candidate is as a professional |
 | `input/candidate/professional-self-reflection.md` | What the candidate wants and refuses: use it for motivation |
+| The Application's Personal motivation | Only when the candidate gave one for this Application. The Assistant passes its text in the prompt, marked as the Application's Personal motivation: the candidate's own reason for wanting this job, in their own words. Part of the Personal knowledge base. Use it for motivation (rule 5). You never read the tracker. |
 | `input/parsed-documents/linkedin.md` | The LinkedIn profile's Parsed document: more detail on roles, skills and languages |
 | `input/parsed-documents/reference-letters/*.md` | The Reference letters' Parsed documents, one per letter: trusted facts about the candidate (rule 6 below) |
 | `input/candidate/deliberate-differences.md` | The Deliberate differences: where another document differs from the Parsed CV on purpose, and why. Optional. For each, use the CV's version and never list it as a conflict. |
@@ -38,7 +39,7 @@ The Assistant gives you the paths and texts below, and the path of the Round fil
 2. **A claim needs a source.** For every claim you make about the candidate, you can point to a file. For every claim about the company (its product, a release, its funding, its culture), you can point to the Job ad or a usable company fact. If you cannot, cut the claim.
 3. **Refuse any suggestion that needs a fabricated fact.** If the latest Review asks for something the files do not support (a number, a result, a tool, a motive), do not write it. Say so in your reply under **Refused suggestions**, with the suggestion quoted and the reason.
 4. **Questions for the candidate are not facts.** If the Review lists them, do not guess an answer. Leave the point out, or write around it with what the files do say.
-5. **Motivation comes from the files too.** The company and role specifics come from the Job ad and the usable company facts; the candidate's reasons come from `input/candidate/professional-self-reflection.md` and `input/candidate/presentation.md`. Never invent admiration for the company, and never link a company fact to a candidate motive that no file states.
+5. **Motivation comes from the files too.** The company and role specifics come from the Job ad and the usable company facts; the candidate's reasons come from the Application's Personal motivation, `input/candidate/professional-self-reflection.md` and `input/candidate/presentation.md`. Never invent admiration for the company, and never link a company fact to a candidate motive that no source states. The Personal motivation states a motive, so you may tie it to a fact from the Job ad or a usable company fact. Reformulate it in the candidate's voice; never paste it, and never add a reason it doesn't give. Leave out any part that is unsuitable for a letter: salary, visa or work permit, a partner's or family's move, health, and anything that touches protected characteristics. List what you left out in your notes (see YOUR REPLY); if the candidate gave no motivation, or all of it fits, say "None".
 6. **Reference letters are background, never cited.** A fact a reference letter states about the candidate may go into the letter as the candidate's own claim. Its opinions about the candidate never appear in any form; they may only steer what you stress. Never quote a reference letter, name its author or attribute anything to it.
 7. **Company facts, as written.** **Usable company facts** are the facts in the Company research's At a glance, Domain and product, Latest releases, Financial moment and Culture sections whose source was fetched, not marked "from search snippet". Its Red flags, Employee reviews and Notes never go into a letter. Its Role impact is a judgment, not a fact: it may guide what the letter stresses, but is never quoted or paraphrased as a claim. Use a fact as the research states it, without adding numbers, dates or judgments. Never call anything "recent", "new" or "latest" if it is more than 6 months older than today, whatever the report calls it.
 
@@ -88,10 +89,11 @@ Write your output to the Round file at the path the Assistant gives you (`output
    - **Refused suggestions:** each suggestion you did not apply, quoted, with the reason. "None" if there are none.
    - **Missing inputs:** any file you did not find. "None" if there are none.
    - **Conflicts:** each place where a file disagrees with `input/parsed-documents/cv.md`, with both versions. "None" if there are none.
+   - **Motivation left out:** each part of the Application's Personal motivation you left out of the letter, as a short description ("the salary figure"), never the sensitive text itself repeated at length. "None" if there is no motivation or nothing was left out.
 
-Each of those bullets starts with its bold label and a colon, on one line; the Assistant's assemble command reads Language and Refused suggestions from them.
+Each of those bullets starts with its bold label and a colon, on one line; the Assistant's assemble command reads Language and Refused suggestions from them, and a field you don't use still appears, with "None".
 
-Your reply to the Assistant is short and holds no draft text: the path you wrote, then the five Notes fields as above. The Assistant never reads the file.
+Your reply to the Assistant is short and holds no draft text: the path you wrote, then the six Notes fields as above. The Assistant never reads the file.
 
 ---
 
