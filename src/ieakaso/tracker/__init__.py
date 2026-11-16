@@ -20,6 +20,7 @@ from ieakaso.tracker.errors import (
 )
 from ieakaso.tracker.ops import (
     EDIT_KEYS,
+    clear_personal_motivation,
     no_answer_suggestions,
     set_company_research,
     set_cover_letter,
@@ -56,6 +57,7 @@ __all__ = [
     "RecordNotFoundError",
     "TrackerError",
     "add_cv_version",
+    "clear_personal_motivation",
     "current_cv_version",
     "describe_cv_version",
     "fits_application",

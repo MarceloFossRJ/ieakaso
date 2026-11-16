@@ -160,6 +160,14 @@ def set_personal_motivation(db: Db, record_id: str, text: str) -> dict:
     return replace_record(record, new)
 
 
+def clear_personal_motivation(db: Db, record_id: str) -> dict:
+    """Remove an Application's Personal motivation (the candidate chose Remove in the cover-letter mode)."""
+    record = get_record(db, record_id)
+    new = copy.deepcopy(record)
+    new["personal_motivation"] = None
+    return replace_record(record, new)
+
+
 def update_record(db: Db, record_id: str, changes: dict, today: date) -> dict:
     """Apply the candidate's edits to the editable fields (docs/database.md). Refuses anything else."""
     record = get_record(db, record_id)

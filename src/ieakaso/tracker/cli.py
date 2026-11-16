@@ -1,6 +1,6 @@
 """`uv run python -m ieakaso.tracker upsert [--json <payload>] | set-cover-letter <id> <path>
 | set-company-research <id> <path> | cv-versions | applications | set-cv-version <id> <version id|none>
-| set-cv-label <version id> <label> | set-personal-motivation <id> | personal-motivation <id>`.
+| set-cv-label <version id> <label> | set-personal-motivation <id> [--clear] | personal-motivation <id>`.
 
 upsert: create or update the record of a Job analysis; the JSON payload comes from --json or stdin. Writes
 `created <id>` or `updated <id>` to stdout.
@@ -12,6 +12,7 @@ applications: list the records, one per line, tab-separated: ID, status, company
 set-cv-version: set the CV version an Application was sent with (`none` clears it).
 set-cv-label: set a CV version's label.
 set-personal-motivation: set an Application's Personal motivation; the text comes from stdin, trimmed (empty is exit 1).
+`--clear` removes it instead and reads no stdin.
 personal-motivation: print an Application's Personal motivation, or nothing when there is none.
 Capturing a CV version is the CV parser's job (it imports `add_cv_version`); there is no command for it.
 
@@ -31,6 +32,7 @@ from ieakaso.repo import find_root
 from ieakaso.tracker.cv_versions import set_cv_version_label, set_record_cv_version
 from ieakaso.tracker.errors import InvalidDbError, InvalidRecordError, TrackerError
 from ieakaso.tracker.ops import (
+    clear_personal_motivation,
     get_record,
     set_company_research,
     set_cover_letter,
@@ -81,6 +83,7 @@ def main(
     label.add_argument("label", help="the new label")
     motivation = commands.add_parser("set-personal-motivation", help="set the Personal motivation of an Application")
     motivation.add_argument("id", help="the Application ID")
+    motivation.add_argument("--clear", action="store_true", help="remove it instead of setting it (no stdin)")
     show = commands.add_parser("personal-motivation", help="print the Personal motivation of an Application")
     show.add_argument("id", help="the Application ID")
     args = parser.parse_args(argv)
@@ -105,8 +108,12 @@ def main(
             for r in db.records:
                 print(r["id"], r["status"], r["company"], r["position"], r["cv_version"] or "-", sep="\t", file=out)
         elif args.command == "set-personal-motivation":
-            set_personal_motivation(db, args.id, stdin.read())
-            message = f"personal motivation set for {args.id}"
+            if args.clear:
+                clear_personal_motivation(db, args.id)
+                message = f"personal motivation cleared for {args.id}"
+            else:
+                set_personal_motivation(db, args.id, stdin.read())
+                message = f"personal motivation set for {args.id}"
         elif args.command == "personal-motivation":
             text = get_record(db, args.id)["personal_motivation"]
             if text:

@@ -257,3 +257,18 @@ def test_personal_motivation_exits_4_for_an_unknown_id(root: Path):
     write_db(db_file(root), lead())
 
     assert run(root, "personal-motivation", "nope")[0] == 4
+
+
+def test_set_personal_motivation_clear_removes_it_and_reads_no_stdin(root: Path):
+    write_db(db_file(root), lead(personal_motivation="I like the mission."))
+
+    code, out, _ = run(root, "set-personal-motivation", ID, "--clear")
+
+    assert (code, out) == (0, f"personal motivation cleared for {ID}\n")
+    assert json.loads(db_file(root).read_text())["records"][0]["personal_motivation"] is None
+
+
+def test_set_personal_motivation_clear_exits_4_for_an_unknown_id(root: Path):
+    write_db(db_file(root), lead())
+
+    assert run(root, "set-personal-motivation", "nope", "--clear")[0] == 4

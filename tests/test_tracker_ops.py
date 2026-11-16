@@ -10,6 +10,7 @@ from tracker_fakes import FOLDER, ID, TODAY, lead, payload, record, write_db
 from ieakaso.tracker import (
     InvalidRecordError,
     RecordNotFoundError,
+    clear_personal_motivation,
     load,
     no_answer_suggestions,
     problems,
@@ -413,3 +414,21 @@ def test_set_personal_motivation_refuses_empty_text_and_unknown_ids(db_path: Pat
     with pytest.raises(RecordNotFoundError):
         set_personal_motivation(db, "nope", "x")
     assert db.find(ID)["personal_motivation"] is None
+
+
+def test_clear_personal_motivation_sets_it_to_null(db_path: Path):
+    write_db(db_path, lead(personal_motivation="I like the mission."))
+    db = load(db_path)
+
+    rec = clear_personal_motivation(db, ID)
+    save(db)
+
+    assert rec["personal_motivation"] is None
+    assert load(db_path).find(ID)["personal_motivation"] is None
+
+
+def test_clear_personal_motivation_refuses_an_unknown_id(db_path: Path):
+    write_db(db_path, lead())
+
+    with pytest.raises(RecordNotFoundError):
+        clear_personal_motivation(load(db_path), "nope")
