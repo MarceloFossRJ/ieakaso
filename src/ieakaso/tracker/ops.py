@@ -150,21 +150,13 @@ def set_company_research(db: Db, record_id: str, path: str) -> dict:
     return _set_path(db, record_id, "company_research", path)
 
 
-def set_personal_motivation(db: Db, record_id: str, text: str) -> dict:
-    """Set the candidate's Personal motivation for one Application, trimmed. Empty text is refused."""
+def set_personal_motivation(db: Db, record_id: str, text: str | None) -> dict:
+    """Set the candidate's Personal motivation for one Application, trimmed; `None` removes it. Empty text is refused."""
     record = get_record(db, record_id)
-    if not text.strip():
+    if text is not None and not text.strip():
         raise InvalidRecordError("the personal motivation is empty; nothing was saved")
     new = copy.deepcopy(record)
-    new["personal_motivation"] = text.strip()
-    return replace_record(record, new)
-
-
-def clear_personal_motivation(db: Db, record_id: str) -> dict:
-    """Remove an Application's Personal motivation (the candidate chose Remove in the cover-letter mode)."""
-    record = get_record(db, record_id)
-    new = copy.deepcopy(record)
-    new["personal_motivation"] = None
+    new["personal_motivation"] = None if text is None else text.strip()
     return replace_record(record, new)
 
 

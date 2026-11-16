@@ -234,7 +234,7 @@ def test_set_personal_motivation_reads_the_text_from_stdin_and_trims_it(root: Pa
 
     code, out, _ = run(root, "set-personal-motivation", ID, stdin="  I like the mission.\n\n")
 
-    assert (code, out) == (0, f"personal motivation set for {ID}\n")
+    assert (code, out) == (0, f"personal motivation set for {ID}:\nI like the mission.\n")
     assert json.loads(db_file(root).read_text())["records"][0]["personal_motivation"] == "I like the mission."
 
 
@@ -272,3 +272,45 @@ def test_set_personal_motivation_clear_exits_4_for_an_unknown_id(root: Path):
     write_db(db_file(root), lead())
 
     assert run(root, "set-personal-motivation", "nope", "--clear")[0] == 4
+
+
+class Terminal(io.StringIO):
+    """A stdin that is a terminal: reading it would wait for the candidate to type."""
+
+    def isatty(self) -> bool:
+        return True
+
+    def read(self, *args) -> str:
+        raise AssertionError("read a terminal")
+
+
+def run_with(root: Path, stdin: io.StringIO, *argv: str) -> tuple[int, str, str]:
+    out, err = io.StringIO(), io.StringIO()
+    return cli.main(["--root", str(root), *argv], today=TODAY, stdin=stdin, out=out, err=err), out.getvalue(), err.getvalue()
+
+
+def test_set_personal_motivation_refuses_a_terminal_instead_of_waiting_for_input(root: Path):
+    write_db(db_file(root), lead())
+
+    code, _, err = run_with(root, Terminal(), "set-personal-motivation", ID)
+
+    assert code == 1 and "stdin" in err
+    assert json.loads(db_file(root).read_text())["records"][0]["personal_motivation"] is None
+
+
+def test_set_personal_motivation_clear_with_a_terminal_reads_nothing(root: Path):
+    write_db(db_file(root), lead(personal_motivation="I like the mission."))
+
+    code, _, _ = run_with(root, Terminal(), "set-personal-motivation", ID, "--clear")
+
+    assert code == 0
+    assert json.loads(db_file(root).read_text())["records"][0]["personal_motivation"] is None
+
+
+def test_set_personal_motivation_clear_refuses_piped_text(root: Path):
+    write_db(db_file(root), lead(personal_motivation="I like the mission."))
+
+    code, _, err = run(root, "set-personal-motivation", ID, "--clear", stdin="A new text.\n")
+
+    assert code == 1 and "--clear" in err
+    assert json.loads(db_file(root).read_text())["records"][0]["personal_motivation"] == "I like the mission."

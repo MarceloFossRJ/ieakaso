@@ -11,8 +11,9 @@ Tailored CV or `-`, and `current` for the current version or `-`.
 applications: list the records, one per line, tab-separated: ID, status, company, position and CV version ID or `-`.
 set-cv-version: set the CV version an Application was sent with (`none` clears it).
 set-cv-label: set a CV version's label.
-set-personal-motivation: set an Application's Personal motivation; the text comes from stdin, trimmed (empty is exit 1).
-`--clear` removes it instead and reads no stdin.
+set-personal-motivation: set an Application's Personal motivation; the text comes from stdin, trimmed (empty is exit 1;
+stdin must not be a terminal). Prints `personal motivation set for <id>:` and then the stored, trimmed text.
+`--clear` removes it instead and refuses text on stdin (exit 1).
 personal-motivation: print an Application's Personal motivation, or nothing when there is none.
 Capturing a CV version is the CV parser's job (it imports `add_cv_version`); there is no command for it.
 
@@ -32,7 +33,6 @@ from ieakaso.repo import find_root
 from ieakaso.tracker.cv_versions import set_cv_version_label, set_record_cv_version
 from ieakaso.tracker.errors import InvalidDbError, InvalidRecordError, TrackerError
 from ieakaso.tracker.ops import (
-    clear_personal_motivation,
     get_record,
     set_company_research,
     set_cover_letter,
@@ -108,12 +108,17 @@ def main(
             for r in db.records:
                 print(r["id"], r["status"], r["company"], r["position"], r["cv_version"] or "-", sep="\t", file=out)
         elif args.command == "set-personal-motivation":
+            piped = "" if stdin.isatty() else stdin.read()
             if args.clear:
-                clear_personal_motivation(db, args.id)
+                if piped.strip():
+                    raise InvalidRecordError("--clear removes the personal motivation; it doesn't take text on stdin")
+                set_personal_motivation(db, args.id, None)
                 message = f"personal motivation cleared for {args.id}"
             else:
-                set_personal_motivation(db, args.id, stdin.read())
-                message = f"personal motivation set for {args.id}"
+                if stdin.isatty():
+                    raise InvalidRecordError("the text of the personal motivation goes on stdin; nothing was read")
+                record = set_personal_motivation(db, args.id, piped)
+                message = f"personal motivation set for {args.id}:\n{record['personal_motivation']}"
         elif args.command == "personal-motivation":
             text = get_record(db, args.id)["personal_motivation"]
             if text:
