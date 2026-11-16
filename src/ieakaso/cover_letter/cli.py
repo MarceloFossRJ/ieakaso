@@ -7,7 +7,7 @@ section of Round --final, unchanged) and `<id>_cover-letter-review.md`, and prin
 --requested names the Rounds the candidate requested. --exit is the header's Exit, --reason the Exit reason section.
 
 Exit codes: 0 both files written, 1 a Round file is missing or unusable, --exit is not one of the fixed values, or --final
-or --requested names a Round that isn't there (nothing is written), 3 the Application's folder or Job ad file is missing. The message for exits 1
+or --requested names a Round that isn't there (nothing is written), 3 the Application's folder or Job ad file is missing, or its Company research file is unreadable. The message for exits 1
 and 3 goes to stderr. The command never sends data anywhere.
 """
 

@@ -106,7 +106,7 @@ def _research_date(folder: Path, application_id: str) -> str:
     path = folder / f"{application_id}_company-research.md"
     if not path.is_file():
         return "none"
-    text = _read(path, RoundFileError, "Company research file")
+    text = _read(path, ApplicationError, "Company research file")
     found = re.search(r"\*\*Date researched:\*\* (\d{4}-\d{2}-\d{2})", text)
     return found.group(1) if found else "none"
 

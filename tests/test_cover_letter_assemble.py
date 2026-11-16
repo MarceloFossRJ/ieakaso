@@ -130,6 +130,22 @@ def test_an_unknown_application_is_an_error(root: Path):
     assert "job-ad" in err
 
 
+def test_an_unreadable_company_research_file_is_an_application_error(root: Path):
+    write_round(root, 1, 70)
+    research = folder(root) / f"{ID}_company-research.md"
+    research.write_text("**Date researched:** 2026-11-01\n")
+    research.chmod(0)
+
+    try:
+        code, _, err = run(root, "--rounds", "1", "--final", "1", "--exit", "Plateau", "--reason", "y")
+    finally:
+        research.chmod(0o644)
+
+    assert code == 3
+    assert "Company research file" in err
+    assert_nothing_written(root)
+
+
 def test_a_final_round_outside_the_rounds_is_an_error(root: Path):
     write_round(root, 1, 70)
 
