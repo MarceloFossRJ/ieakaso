@@ -9,8 +9,9 @@ from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
-from ieakaso.cover_letter.errors import ApplicationError, RoundFileError
+from ieakaso.cover_letter.errors import ApplicationError, ArgumentError, RoundFileError
 from ieakaso.layout import APPLICATIONS
+
 NOTES = "## Notes for the Assistant"
 SCORE = re.compile(r"^[ \t]*(?:#+[ \t]*)?\**Review score:\**[ \t]*(\d+)/100\**[ \t]*$", re.MULTILINE)
 EXITS = (
@@ -23,46 +24,70 @@ EXITS = (
 
 
 @dataclass(frozen=True)
+class Outcome:
+    """How the Run ended: what the command's arguments say."""
+
+    rounds: int
+    final: int
+    requested: tuple[int, ...]
+    exit_name: str
+    reason: str
+
+    def validate(self) -> None:
+        if self.exit_name not in EXITS:
+            raise ArgumentError(f"--exit must be one of: {'; '.join(EXITS)}")
+        if not 1 <= self.final <= self.rounds:
+            raise ArgumentError(f"--final {self.final} is not one of the {self.rounds} Round(s)")
+        if outside := [n for n in self.requested if not 1 <= n <= self.rounds]:
+            raise ArgumentError(f"--requested {outside} is not one of the {self.rounds} Round(s)")
+
+
+@dataclass(frozen=True)
 class Round:
     number: int
     draft: str
     review: str
     score: int
     refused: str
-    language: str
+    language: str | None  # read from the notes; only the final Round's is needed
+    path: Path
 
 
-def _read(path: Path, error: type[Exception] = RoundFileError, what: str = "Round file") -> str:
+def _read(path: Path, error: type[Exception], what: str) -> str:
     try:
         return path.read_text()
     except OSError:
         raise error(f"{what} missing or unreadable: {path}") from None
 
 
-def _field(notes: str, label: str, path: Path) -> str:
+def _field(notes: str, label: str) -> str | None:
     """The value of a `- **<label>:**` bullet of the Applicant's notes, with its continuation lines."""
     match = re.search(rf"^- \*\*{re.escape(label)}:\*\*(.*?)(?=^- \*\*|\Z)", notes, re.MULTILINE | re.DOTALL)
     if not match or not match.group(1).strip():
-        raise RoundFileError(f"{path}: no '{label}' in the notes for the Assistant")
+        return None
     return "\n".join(line.strip() if i == 0 else line for i, line in enumerate(match.group(1).strip().splitlines()))
 
 
 def read_round(rounds: Path, number: int) -> Round:
     draft_path, review_path = rounds / f"round-{number}_draft.md", rounds / f"round-{number}_review.md"
-    text, review = _read(draft_path), _read(review_path)
+    text, review = _read(draft_path, RoundFileError, "Round file"), _read(review_path, RoundFileError, "Round file")
     head, found, notes = text.partition(NOTES)
     if not found or not head.startswith("## Draft"):
         raise RoundFileError(f"{draft_path}: not a draft ('## Draft' then '{NOTES}')")
     score = SCORE.search(review)
     if not score:
         raise RoundFileError(f"{review_path}: no '## Review score: <n>/100' line")
+    refused = _field(notes, "Refused suggestions")
+    if refused is None:
+        raise RoundFileError(f"{draft_path}: no 'Refused suggestions' in the notes for the Assistant")
     return Round(
         number=number,
         draft=head.removeprefix("## Draft").strip("\n"),
         review=review.strip("\n"),
         score=int(score.group(1)),
-        refused=_field(notes, "Refused suggestions", draft_path),
-        language=_field(notes, "Language", draft_path),
+        refused=refused,
+        language=_field(notes, "Language"),
+        path=draft_path,
     )
 
 
@@ -81,50 +106,32 @@ def _research_date(folder: Path, application_id: str) -> str:
     path = folder / f"{application_id}_company-research.md"
     if not path.is_file():
         return "none"
-    text = _read(path)
+    text = _read(path, RoundFileError, "Company research file")
     found = re.search(r"\*\*Date researched:\*\* (\d{4}-\d{2}-\d{2})", text)
     return found.group(1) if found else "none"
 
 
-def assemble(
-    root: Path,
-    application_id: str,
-    rounds: int,
-    final: int,
-    exit_name: str,
-    reason: str,
-    requested: tuple[int, ...],
-    today: date,
+def review_log(
+    title: str, url: str, research_date: str, today: date, outcome: Outcome, played: list[Round]
 ) -> str:
-    """Write both files into the Application's folder and return the final letter."""
-    folder = root / APPLICATIONS / application_id
-    if not folder.is_dir():
-        raise ApplicationError(f"No such Application folder: {folder}")
-    if exit_name not in EXITS:
-        raise RoundFileError(f"--exit must be one of: {'; '.join(EXITS)}")
-    if not 1 <= final <= rounds:
-        raise RoundFileError(f"--final {final} is not one of the {rounds} Round(s)")
-    if outside := [n for n in requested if not 1 <= n <= rounds]:
-        raise RoundFileError(f"--requested {outside} is not one of the {rounds} Round(s)")
-    title, url = _job_ad(folder, application_id)
-    played = [read_round(folder / "rounds", n) for n in range(1, rounds + 1)]
-    best = played[final - 1]
-
+    """The review log, in the format `ai/skills/ieakaso/modes/cover-letter.md` defines. `played` is Rounds 1 to n."""
+    best = played[outcome.final - 1]
     lines = [
         f"# Cover letter review log: {title}",
         "",
-        f"> **Date:** {today.isoformat()} | **Job ad:** {url} | **Company research:** {_research_date(folder, application_id)}"
-        f" | **Final Review score:** {best.score}/100 | **Rounds:** {rounds} | **Exit:** {exit_name}",
+        f"> **Date:** {today.isoformat()} | **Job ad:** {url} | **Company research:** {research_date}"
+        f" | **Final Review score:** {best.score}/100 | **Rounds:** {outcome.rounds} | **Exit:** {outcome.exit_name}",
         "",
         "After a follow-up (Step 7), the header's Final Review score, Rounds and Exit describe the current result.",
         "",
-        f"**Final letter:** Round {final}'s draft." + (" It scored highest; later drafts scored lower." if final != rounds else ""),
+        f"**Final letter:** Round {outcome.final}'s draft."
+        + (" It scored highest; later drafts scored lower." if outcome.final != outcome.rounds else ""),
         "",
         f"**Language:** {best.language}",
         "",
     ]
     for item in played:
-        mark = " (requested by the candidate)" if item.number in requested else ""
+        mark = " (requested by the candidate)" if item.number in outcome.requested else ""
         lines += [
             f"## Round {item.number}{mark}",
             "",
@@ -143,9 +150,24 @@ def assemble(
             item.refused,
             "",
         ]
-    lines += ["## Exit reason", "", reason, ""]
+    lines += ["## Exit reason", "", outcome.reason, ""]
+    return "\n".join(lines)
 
-    letter = best.draft.strip("\n") + "\n"
+
+def assemble(root: Path, application_id: str, outcome: Outcome, today: date) -> str:
+    """Write both files into the Application's folder and return the final letter."""
+    folder = root / APPLICATIONS / application_id
+    if not folder.is_dir():
+        raise ApplicationError(f"No such Application folder: {folder}")
+    outcome.validate()
+    title, url = _job_ad(folder, application_id)
+    played = [read_round(folder / "rounds", n) for n in range(1, outcome.rounds + 1)]
+    best = played[outcome.final - 1]
+    if best.language is None:
+        raise RoundFileError(f"{best.path}: no 'Language' in the notes for the Assistant")
+
+    log = review_log(title, url, _research_date(folder, application_id), today, outcome, played)
+    letter = best.draft + "\n"
     (folder / f"{application_id}_cover-letter.md").write_text(letter)
-    (folder / f"{application_id}_cover-letter-review.md").write_text("\n".join(lines))
+    (folder / f"{application_id}_cover-letter-review.md").write_text(log)
     return letter

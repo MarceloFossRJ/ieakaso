@@ -4,10 +4,12 @@ class CoverLetterError(Exception):
     exit_code = 1
 
 
-class RoundFileError(CoverLetterError):
-    """A Round file is missing or not in the format its agent returns, or the arguments name a Round that isn't there."""
+class ArgumentError(CoverLetterError):
+    """An argument names something that isn't there: an Exit outside the fixed set, or a Round out of range."""
 
-    pass
+
+class RoundFileError(CoverLetterError):
+    """A Round file is missing or not in the format its agent returns."""
 
 
 class ApplicationError(CoverLetterError):

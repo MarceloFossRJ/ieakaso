@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from ieakaso.cover_letter import cli
+from ieakaso.cover_letter.assemble import Outcome, Round, review_log
 
 TODAY = date(2026, 10, 15)
 ID = "acme_senior-backend-engineer_2026-10-10"
@@ -225,3 +226,30 @@ def test_the_review_score_line_is_read_tolerantly(root: Path, line: str):
 
     assert code == 0
     assert "**Final Review score:** 70/100" in (folder(root) / f"{ID}_cover-letter-review.md").read_text()
+
+
+def test_an_earlier_round_without_a_language_line_is_fine(root: Path):
+    write_round(root, 1, 70)
+    path = folder(root) / "rounds" / "round-1_draft.md"
+    path.write_text("\n".join(line for line in path.read_text().splitlines() if "**Language:**" not in line) + "\n")
+    write_round(root, 2, 80)
+
+    code, _, _ = run(root, "--rounds", "2", "--final", "2", *ARGS)
+
+    assert code == 0
+
+
+def test_review_log_format_without_the_filesystem():
+    played = [
+        Round(1, "Letter 1", "## Review score: 80/100", 80, "None", None, Path("r1")),
+        Round(2, "Letter 2", "## Review score: 75/100", 75, "None", "German", Path("r2")),
+    ]
+    outcome = Outcome(2, 2, (2,), "change requested by the candidate", "The candidate asked.")
+
+    log = review_log("Dev @ Acme", "pasted text", "none", TODAY, outcome, played)
+
+    assert log.startswith("# Cover letter review log: Dev @ Acme\n\n> **Date:** 2026-10-15 | **Job ad:** pasted text")
+    assert "**Final Review score:** 75/100 | **Rounds:** 2 | **Exit:** change requested by the candidate" in log
+    assert "**Language:** German\n" in log
+    assert "## Round 2 (requested by the candidate)\n" in log
+    assert log.endswith("## Exit reason\n\nThe candidate asked.\n")

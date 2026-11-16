@@ -6,8 +6,8 @@ from `<id>_job-ad.md` and `<id>_company-research.md`, and today's date. Writes `
 section of Round --final, unchanged) and `<id>_cover-letter-review.md`, and prints the final letter to stdout.
 --requested names the Rounds the candidate requested. --exit is the header's Exit, --reason the Exit reason section.
 
-Exit codes: 0 both files written, 1 a Round file is missing or unusable, or --final or --requested names a Round
-that isn't there (nothing is written), 3 the Application's folder or Job ad file is missing. The message for exits 1
+Exit codes: 0 both files written, 1 a Round file is missing or unusable, --exit is not one of the fixed values, or --final
+or --requested names a Round that isn't there (nothing is written), 3 the Application's folder or Job ad file is missing. The message for exits 1
 and 3 goes to stderr. The command never sends data anywhere.
 """
 
@@ -17,7 +17,7 @@ from datetime import date
 from pathlib import Path
 from typing import TextIO
 
-from ieakaso.cover_letter.assemble import assemble
+from ieakaso.cover_letter.assemble import Outcome, assemble
 from ieakaso.cover_letter.errors import CoverLetterError
 from ieakaso.repo import find_root
 
@@ -46,9 +46,8 @@ def main(
 
     root = (args.root or find_root(Path.cwd()) or Path.cwd()).resolve()
     try:
-        letter = assemble(
-            root, args.id, args.rounds, args.final, args.exit_name, args.reason, tuple(args.requested), today or date.today()
-        )
+        outcome = Outcome(args.rounds, args.final, tuple(args.requested), args.exit_name, args.reason)
+        letter = assemble(root, args.id, outcome, today or date.today())
     except CoverLetterError as error:
         print(error, file=err)
         return error.exit_code
