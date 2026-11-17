@@ -1,5 +1,7 @@
 # `input/` is split by who writes each file
 
+> The move step below was removed once every clone of the repo used the split layout (issue #74).
+>
 > Reference letters are no longer used (ADR 0009): `input/parsed-documents/reference-letters/` is gone.
 >
 > Ieakaso may append the candidate's own answers to their memory files, word for word and with permission each time (ADR 0010).

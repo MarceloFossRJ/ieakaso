@@ -4,13 +4,11 @@ Sets the candidate up for a job search: checks their documents, collects `config
 
 Runs when the user calls `/ieakaso init`, and from the setup check in `ai/skills/ieakaso/SKILL.md` when setup is missing or incomplete.
 
-Init is idempotent. Running it again re-checks everything, keeps what is already confirmed, and only asks about what is missing or what the user wants to change. Never overwrite a value in `config.yml` without the user's confirmation, and never delete or move the user's files (only the CV parser moves files: a CV file into its CV version folder, and a repo laid out before `docs/adr/0006-input-split-by-who-writes.md` into `input/candidate/` and `input/parsed-documents/`).
+Init is idempotent. Running it again re-checks everything, keeps what is already confirmed, and only asks about what is missing or what the user wants to change. Never overwrite a value in `config.yml` without the user's confirmation, and never delete or move the user's files (only the CV parser moves files: a CV file into its CV version folder).
 
 ---
 
 ## Step 1: Read the current state
-
-First run `uv run python -m ieakaso.cv_parser --move-only` if the router has not (it moves a repo laid out before `docs/adr/0006-input-split-by-who-writes.md`; a no-op otherwise).
 
 - `db/system_status.json` (format in "Status file" below). If it does not exist or is not valid JSON, copy `db/system_status_example.json` to `db/system_status.json` first.
 - `config.yml`, if it exists

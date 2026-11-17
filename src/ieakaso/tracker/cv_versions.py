@@ -64,17 +64,6 @@ def set_cv_version_label(db: Db, version_id: str, label: str) -> dict:
     return version
 
 
-def set_cv_version_path(db: Db, version_id: str, path: str) -> dict:
-    """Point a version at its Source CV's new place (the CV parser moves files when the folder layout changes)."""
-    version = _version(db, version_id)
-    new = {**version, "path": path}
-    found = cv_version_problems(new)
-    if found:
-        raise InvalidRecordError("; ".join(found))
-    version["path"] = path
-    return version
-
-
 def set_record_cv_version(db: Db, record_id: str, version_id: str | None) -> dict:
     """Set the CV version an Application was sent with (`None` clears it). A Tailored CV fits its own Application only."""
     record = get_record(db, record_id)
