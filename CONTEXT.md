@@ -152,6 +152,10 @@ _Avoid_: knowledge base, memory, the candidate's files
 The candidate's own reason for wanting one Application's Job ad, in their own words, given when they ask for a Cover letter (with the command or when asked) and kept with the Application in the tracker. It belongs to that Application only, and each Application has at most one: a new one replaces it only if the candidate chooses so. Reasons that hold for any job belong in the candidate's self-reflection. It is part of the Personal knowledge base, so a Cover letter may tie it to a fact from the Job ad or the Company research. Ieakaso keeps the candidate's words as given and never rewords them; the letter reformulates them and leaves out what doesn't belong in a letter. It is optional and never blocks a Cover letter.
 _Avoid_: personal reason, personal motive, why-this-job
 
+**Evidence bank**:
+The facts from the Personal knowledge base that one Application's Job ad can use, written once per Application for the Applicant Agent and the Seasoned Recruiter so they never read the Personal knowledge base themselves: for each requirement, every story and number that supports it; the motivation material that matches the ad; and the candidate's other strong stories. It holds more than one letter needs, so a rewrite has somewhere to go. It is an extract, never a source: every item names the file it comes from, conflicts are already settled the Parsed CV's way, and an item from a Reference letter is marked as background, never quoted or attributed. It holds facts, not strategy: what to stress is the Job analysis's job. It is written again whenever the Personal knowledge base changes.
+_Avoid_: brief, coaching brief, fact sheet, candidate summary
+
 **Conflict report**:
 The list of places where the LinkedIn profile, a Reference letter or `config.yml` contradicts the Parsed CV (two statements that can't both be true), each rated High, Medium or Low by how likely a recruiter is to notice it, plus the facts only one side holds, what is only presented differently (wording, grouping, level of detail) and the Deliberate differences. Init writes a new one on every run, as `output/conflict-reports/<yyyy-mm-dd>T<hh-mm>_conflicts.md`, and never overwrites an older one. The Parsed CV is the reference: the report tells the candidate which other document to fix. It never blocks init and never changes a document.
 _Avoid_: consistency check, discrepancy report, diff
@@ -205,7 +209,7 @@ The file in which an Agent run writes its full output for one Round, `rounds/rou
 _Avoid_: draft file, output file
 
 **Plateau**:
-The Seasoned Recruiter's judgment that no change backed by the Personal knowledge base would raise a draft's Review score.
+The Seasoned Recruiter's judgment that no change backed by the Evidence bank would raise a draft's Review score.
 _Avoid_: cannot be improved, max quality, dead end
 
 **Session**:

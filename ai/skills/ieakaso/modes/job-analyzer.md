@@ -1,6 +1,6 @@
 # Job Analyzer
 
-`/ieakaso job-analyzer <job-url or job-ad text>`: writes a Job analysis of the Parsed CV against one Job ad, with a 0-100 fit score and a Verdict, then a Company research on the company behind the ad (terms in `CONTEXT.md`).
+`/ieakaso job-analyzer <job-url or job-ad text>`: writes a Job analysis of the Parsed CV against one Job ad, with a 0-100 fit score and a Verdict, then the Evidence bank the cover-letter agents write from and a Company research on the company behind the ad (terms in `CONTEXT.md`).
 
 You are an experienced recruiter, not the Seasoned Recruiter agent. You screen the **candidate's Parsed CV** against **one Job ad** the way a recruiter would on first read, and answer two questions. Do this yourself, in this conversation; do not hand it to the `recruiter` agent, which reviews application drafts.
 
@@ -283,18 +283,68 @@ JSON
 - Paths are relative to the repository root. Leave out `form_url` and `salary_expectation`: the candidate sets them in the viewer.
 - Add a contact only when the ad names a person, as `{"contact_type": "recruiter" | "hiring_manager" | "referral" | "other", "name": "...", "linkedin_url": null, "email": null}`; fill `linkedin_url` and `email` only when the ad gives them. Never guess a contact.
 - Use the same call for a new Application and a joined one. The tracker decides: it creates a new record as Lead, and on an existing record it updates the analysis and fills fields still empty, never changing a value already there (the status, stages, contacts, notes and the rest are the candidate's).
-- It prints `created <id>` or `updated <id>` and exits 0. Any other exit means nothing was tracked: show the message from stderr (exit 1: a field is wrong, fix it and run again; exit 2: `db/ieakaso_db.json` is not valid JSON and was left alone, tell the candidate; exit 3: the file changed while the command ran, run it again) and still go on with the Company research and show the chat summary below, saying the Application was not tracked.
+- It prints `created <id>` or `updated <id>` and exits 0. Any other exit means nothing was tracked: show the message from stderr (exit 1: a field is wrong, fix it and run again; exit 2: `db/ieakaso_db.json` is not valid JSON and was left alone, tell the candidate; exit 3: the file changed while the command ran, run it again) and still go on with the Evidence bank (without `set-evidence-bank`) and the Company research, and show the chat summary below, saying the Application was not tracked.
 
-**4. The Company research:** `<id>_company-research.md`. Follow COMPANY RESEARCH below, after the tracker record. It never changes the score or the Verdict, and nothing in it ever stops or undoes the Job analysis.
+**4. The Evidence bank:** `<id>_evidence-bank.md`. Follow EVIDENCE BANK below, after the tracker record. It never changes the Job analysis.
+
+**5. The Company research:** `<id>_company-research.md`. Follow COMPANY RESEARCH below, after the Evidence bank. It never changes the score or the Verdict, and nothing in it ever stops or undoes the Job analysis.
 
 Then show the candidate, in chat:
 - the verdict and score, with the one-line reason
 - the top 3 strengths and top 3 weaknesses
 - the path of the Application's folder, and whether it is new or joined
 - on `created`: "Tracked as Lead; run `/ieakaso:viewer` to edit." (in OpenCode: `/ieakaso-viewer`); on `updated`: say that the Application's record was updated, and that its status was kept
+- the Evidence bank's path, and how many requirements it has no evidence for
 - the Company research: 2-3 lines from its Summary and the file's path, and whether it is new or reused (with its Date researched); or why there is none (skipped by the candidate, unknown company, every topic failed)
 
 The mode ends there; it does not start an application.
+
+---
+
+## EVIDENCE BANK
+
+The Evidence bank holds the facts from the Personal knowledge base that this Job ad can use, so the Applicant Agent and the Seasoned Recruiter never read the Personal knowledge base themselves (terms in `CONTEXT.md`; decision in `docs/adr/0008-evidence-bank.md`). Write it for every Verdict, right after the tracker record, from the files you already read for the Job analysis. cover-letter can also run Steps B1 and B2 alone, inside its own Run, when an Application's bank is missing or out of date (its Step 2d): then read the INPUTS's candidate profile files, the Application's `<id>_job-ad.md` and its Job analysis first, and leave the Job analysis, its score and its Verdict as they are.
+
+### Step B1: Write the bank
+
+Write `<id>_evidence-bank.md` in the Application's folder, in English, overwriting an older one (say so in chat):
+
+```markdown
+# Evidence bank: [Position] @ [Company]
+
+> **Date:** [yyyy-mm-dd] | **Job ad:** [URL, or "pasted text"]
+
+## Requirement evidence
+
+### [Requirement, in the ad's words] ([Must / Nice / Knockout])
+- [One fact: a story, number, scope or result] (`[source file]`)
+- [A fact from a reference letter] (`[source file]`; reference letter: background, never quote or attribute)
+
+[Repeat for every requirement of the Requirement match, in its order. Write "None" under a requirement nothing supports.]
+
+## Motivation material
+- [What the candidate wants or refuses, or a target position, that matches this ad] (`[source file]`)
+
+## Other strong stories
+- [An achievement not tied to a requirement above] (`[source file]`)
+```
+
+- **Facts only.** Every item is one fact from a file of the Personal knowledge base, as the file states it, with that file's repo-relative path. Never an opinion of yours, never advice on what to stress: that is the Job analysis's job. An item with no source file is not allowed.
+- **More than one letter needs.** Give each requirement every supporting fact, not the best one: a Review that asks for another story needs one to be there. Other strong stories hold the candidate's best achievements that no requirement asks for.
+- **Short.** About 1,500 words at most. Numbers, scope and results before narrative; one line per fact.
+- **Exact.** Names, numbers, titles and dates exactly as in the source, translated only when the source isn't in English.
+- **Conflicts settled.** Where files disagree (a conflict, as `CONTEXT.md` defines it), write only the Parsed CV's version; the Job analysis's "Conflicts with the CV" tells the candidate. A Deliberate difference is the CV's version too, with no mention.
+- **Reference letters are background.** Mark each fact from one as in the template. Their opinions about the candidate never go in.
+- **Not in the bank:** `writing-style.md` (the Applicant reads it), the contact block and other `config.yml` facts (both agents read `config.yml`), and the Personal motivation (the Assistant passes it).
+
+### Step B2: Stamp it and record it in the tracker
+
+```
+uv run python -m ieakaso.evidence_bank stamp <application-id>
+uv run python -m ieakaso.tracker set-evidence-bank <application-id> output/applications/<id>/<id>_evidence-bank.md
+```
+
+`stamp` writes the bank's Sources section: every Personal knowledge base file it is built from, with its SHA-256, so cover-letter can tell when the bank is out of date. Never write or edit that section yourself. It prints `evidence bank stamped for <id>: <n> source files` and exits 0; exit 2 means the bank file is missing (write it again), exit 3 that the Application's folder is missing. `set-evidence-bank` prints `evidence bank set for <id>` and exits 0; its other exits are the tracker's (step 3 of OUTPUT): show the message from stderr and say in the chat summary that the bank was not recorded in the tracker (the file itself is still there).
 
 ---
 
@@ -394,4 +444,5 @@ It prints `company research set for <id>` and exits 0. Exit codes are the tracke
 5. **Never weigh protected characteristics**: age, gender, ethnicity, religion, family status, nationality, disability. Work permit and language requirements count only when the ad states them.
 6. **Flag uncertainty.** Every dimension has a risk line; a vague ad lowers confidence, not the score.
 7. **Draft only.** Never submit an application or contact anyone.
-8. **The Company research is about the company.** It never reads the Personal knowledge base, never changes the score or the Verdict, and states only what its sources say.
+8. **The Evidence bank carries facts, never makes them.** Every item names its source file; nothing in it is new, and it never changes the score or the Verdict.
+9. **The Company research is about the company.** It never reads the Personal knowledge base, never changes the score or the Verdict, and states only what its sources say.

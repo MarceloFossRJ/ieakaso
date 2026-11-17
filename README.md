@@ -18,14 +18,16 @@ You read them. You send them.
 
 The job-analyzer mode weighs your CV against the job ad, points out the ad's strong and weak points, and decides whether you are a top applicant. The cover letter then goes through two agents with opposite jobs:
 
-- **Applicant Agent** writes. It drafts the cover letter from your files and rewrites it after each Review.
+- **Applicant Agent** writes. It drafts the cover letter from the application's evidence bank and rewrites it after each Review.
 - **Seasoned Recruiter** judges. It reviews every cover letter draft as an experienced recruiter for the job ad's domain and gives it a Review score from 0 to 100.
 
 A third role, the **Job Application Assistant**, is the conversation itself: it starts the two agents and passes drafts and Reviews between them.
 
+Neither agent reads all your files. The job-analyzer mode reads them once and writes an **evidence bank** for the application: for each requirement of the ad, every fact from your files that supports it, plus what you want from a job and your other strong stories, each fact naming the file it comes from. The Applicant writes from it, and the Recruiter, which also sees your CV, checks every claim in the letter against it. Reading your files once instead of in every Round saves tokens.
+
 A fourth, the **Company Researcher**, works for the job-analyzer mode: four of them research the company on the web in parallel, one topic each, and never see your files.
 
-A cover letter reaches you once the Recruiter scores it at least 90/100, declares a plateau (no change backed by your files would raise the score), or 5 Rounds have run. Below 90, the Recruiter suggests changes and the Applicant rewrites.
+A cover letter reaches you once the Recruiter scores it at least 90/100, declares a plateau (no change backed by the evidence bank would raise the score), or 5 Rounds have run. Below 90, the Recruiter suggests changes and the Applicant rewrites.
 
 ```mermaid
 flowchart TD
@@ -95,6 +97,8 @@ The advice is yours to override. A missing must-have, like a required work permi
 
 The score reads only your CV, as a recruiter would. Your other memory files never raise it: they show what your CV under-sells, with wording you can add to your CV to score higher next time. If the URL can't be read, it asks you to paste the ad. Running it again for the same company and position on the same day replaces that day's analysis.
 
+Alongside the analysis it writes the evidence bank the cover letter agents work from, `<id>_evidence-bank.md`: the facts from your files that this ad can use, each with the file it comes from. It never changes the score.
+
 Then it researches the company: what it does, its product and latest releases, its financial moment (funding, acquisitions, profit, layoffs), its culture, what employees say about it, how much impact the Position can have, and red flags. Every fact has a dated source from the last 24 months; anything it can't find says "Not found". It runs on its own for Top applicant and Apply, and asks first for Stretch and Don't apply. The report is saved as `<id>_company-research.md` and reused for 30 days. It never changes the score.
 
 When the job is worth it, write the cover letter:
@@ -103,7 +107,7 @@ When the job is worth it, write the cover letter:
 /ieakaso cover-letter [<job-url or job-ad text>] [--motivation "<text>"]
 ```
 
-Without an argument it uses the last job ad of the session, or asks. It runs the job analysis first if there is none for that ad. Then the Applicant drafts the letter and the Recruiter reviews it, Round after Round, until the score is 90/100, the Recruiter sees no way to raise it from your files, or 5 Rounds have run. The final letter is saved in the same folder as `<id>_cover-letter.md` (one A4 page, body of at most 350 words) and every Round's draft and Review as `<id>_cover-letter-review.md` (the full texts also stay in the `rounds/` folder). The tracker keeps the letter's path. When the Application has a company research, the letter can use its public facts (the product, a recent release, funding, culture) to make the motivation specific; it never uses the red flags or employee reviews, and the Recruiter checks every company claim against the research like it checks claims about you. With no research yet, it asks whether to research the company first. Facts you only tell it in chat are never used: add them to your files and it runs another Round.
+Without an argument it uses the last job ad of the session, or asks. It runs the job analysis first if there is none for that ad. Then the Applicant drafts the letter and the Recruiter reviews it, Round after Round, until the score is 90/100, the Recruiter sees no way to raise it from the evidence bank, or 5 Rounds have run. The final letter is saved in the same folder as `<id>_cover-letter.md` (one A4 page, body of at most 350 words) and every Round's draft and Review as `<id>_cover-letter-review.md` (the full texts also stay in the `rounds/` folder). The tracker keeps the letter's path. When the Application has a company research, the letter can use its public facts (the product, a recent release, funding, culture) to make the motivation specific; it never uses the red flags or employee reviews, and the Recruiter checks every company claim against the research like it checks claims about you. With no research yet, it asks whether to research the company first. Facts you only tell it in chat are never used: add them to your files and it runs another Round. Whenever one of your files has changed since the evidence bank was written, or the application has none yet, it writes the bank again first (`<id>_evidence-bank.md`, next to the job analysis).
 
 You can also give your own reason for wanting this one job, your personal motivation, in your own words, with `--motivation "<text>"`; with none given, it asks ("Add a personal motivation" or "Write without one"), and it never blocks the letter. It is kept with the Application in the tracker, shown read-only in the viewer, and used again without asking the next time you write a letter for that Application. Giving a new one while one is stored shows the stored text and asks whether to replace it, keep it or remove it; it never merges them. The Applicant reformulates it in your voice and may tie it to a fact from the ad or the company research, but never pastes it; it leaves out what doesn't belong in a letter (salary, visa, a partner's move, health, anything about protected characteristics) and tells you what it left out. The Recruiter checks the letter's motive claims against it and, with none given and a low Motivation score, may ask for one: re-run the command with `--motivation`. A re-run is a fresh Run: it replaces the Round files, the letter and the review log, so copy the current letter first if you want to keep it. The review log's header says whether one was used. Reasons that hold for any job belong in `professional-self-reflection.md` instead.
 
@@ -130,7 +134,7 @@ The status line at the bottom of Claude Code shows the same, live: `opus-5-5 · 
 
 ## Your data
 
-Every application lives on your machine. Its files (the ad, the job analysis, the cover letter, the company research) sit in its own folder, `output/applications/<id>/`, and the folder never moves. Where the application stands is not a folder but a field in the tracker, `db/ieakaso_db.json` (the fields are in [`docs/database.md`](docs/database.md)).
+Every application lives on your machine. Its files (the ad, the job analysis, the evidence bank, the cover letter, the company research) sit in its own folder, `output/applications/<id>/`, and the folder never moves. Where the application stands is not a folder but a field in the tracker, `db/ieakaso_db.json` (the fields are in [`docs/database.md`](docs/database.md)).
 
 The status is one of Lead (analysed, not applied yet), Desisted, Applied, No answer, Interviewing, Offer or Not selected. A new application starts as Lead, and you can change it to any status at any time. Ieakaso suggests No answer for applications you made more than 30 days ago, and only you confirm it.
 
