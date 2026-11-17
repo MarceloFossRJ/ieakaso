@@ -53,6 +53,7 @@ def record(**overrides) -> dict:
         "salary_expectation": {"period": "yearly", "min": 95000, "max": 105000, "currency": "EUR"},
         "cover_letter": f"{FOLDER}/{ID}_cover-letter.md",
         "company_research": f"{FOLDER}/{ID}_company-research.md",
+        "evidence_bank": f"{FOLDER}/{ID}_evidence-bank.md",
         "source": {
             "board": "LinkedIn",
             "board_url": "https://www.linkedin.com/jobs/view/123",
@@ -99,6 +100,7 @@ def lead(**overrides) -> dict:
         salary_expectation=None,
         cover_letter=None,
         company_research=None,
+        evidence_bank=None,
         contacts=[],
         home_office=None,
     )

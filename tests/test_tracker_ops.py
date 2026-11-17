@@ -1,5 +1,5 @@
 """The tracker's operations on a loaded db: upsert from a Job analysis, status, cover letter, company research,
-edits, No answer."""
+Evidence bank, edits, No answer."""
 
 from datetime import date
 from pathlib import Path
@@ -16,6 +16,7 @@ from ieakaso.tracker import (
     save,
     set_company_research,
     set_cover_letter,
+    set_evidence_bank,
     set_personal_motivation,
     set_status,
     update_record,
@@ -289,6 +290,7 @@ def test_update_record_edits_the_editable_source_fields_only(db_path: Path):
         {"status_history": []},
         {"cover_letter": "x.md"},
         {"company_research": "x.md"},
+        {"evidence_bank": "x.md"},
         {"surprise": 1},
     ],
 )
@@ -371,6 +373,40 @@ def test_a_new_lead_has_no_company_research(db_path: Path):
     rec, _ = upsert_from_analysis(load(db_path), payload(), TODAY)
 
     assert rec["company_research"] is None
+
+
+def test_set_evidence_bank(db_path: Path):
+    write_db(db_path, lead())
+
+    rec = set_evidence_bank(load(db_path), ID, f"{FOLDER}/{ID}_evidence-bank.md")
+
+    assert rec["evidence_bank"] == f"{FOLDER}/{ID}_evidence-bank.md"
+    assert problems(rec) == []
+
+
+def test_set_evidence_bank_refuses_a_path_outside_the_repo_and_an_unknown_id(db_path: Path):
+    write_db(db_path, lead())
+
+    with pytest.raises(InvalidRecordError):
+        set_evidence_bank(load(db_path), ID, "../outside.md")
+    with pytest.raises(RecordNotFoundError):
+        set_evidence_bank(load(db_path), "nope", "a.md")
+
+
+def test_a_new_lead_has_no_evidence_bank_and_the_payload_can_not_set_one(db_path: Path):
+    rec, _ = upsert_from_analysis(load(db_path), payload(), TODAY)
+
+    assert rec["evidence_bank"] is None
+    with pytest.raises(InvalidRecordError):
+        upsert_from_analysis(load(db_path), payload(evidence_bank="x.md"), TODAY)
+
+
+def test_a_rerun_never_touches_the_evidence_bank(db_path: Path):
+    write_db(db_path, lead(evidence_bank=f"{FOLDER}/{ID}_evidence-bank.md"))
+
+    rec, _ = upsert_from_analysis(load(db_path), payload(), TODAY)
+
+    assert rec["evidence_bank"] == f"{FOLDER}/{ID}_evidence-bank.md"
 
 
 def test_a_rerun_never_touches_the_personal_motivation(db_path: Path):

@@ -14,9 +14,11 @@ Act as the Job Application Assistant: read `ai/agents/job-application-assistant.
 
 **Company research:** found or made in Step 2b, when there is one.
 
+**Evidence bank:** the facts from the Personal knowledge base the agents write and review from, checked, and written when needed, in Step 2d.
+
 **Personal motivation:** the candidate's own reason for wanting this Application's job, optional (terms in `CONTEXT.md`). It comes from `--motivation` or from the candidate's answer in Step 2c, and is kept in the Application's tracker record; Step 2c saves it, and reads it when there is no new one.
 
-Each agent's file lists the files of the Personal knowledge base it reads (`ai/agents/applicant.md`, `ai/agents/recruiter.md`); this mode does not repeat them.
+Each agent's file lists what it reads (`ai/agents/applicant.md`, `ai/agents/recruiter.md`); this mode does not repeat them. Neither reads the Personal knowledge base beyond the Evidence bank, the Parsed CV (the Recruiter) and `config.yml`.
 
 ---
 
@@ -73,6 +75,27 @@ Exit 0 prints `personal motivation set for <id>:` and then the trimmed text as s
 The motivation the letter uses is the one the tracker holds after this step: the text you read in item 1 (kept), or the text the save command printed (replaced or added). Pass it verbatim to both agents (Step 3), and remember whether there is one: Step 5 needs it. With none (skipped, removed, a failed save, no record), pass nothing. Nothing ever writes "none" to the tracker: skipping leaves the field as it was.
 
 A new `--motivation` on an Application that already has a letter is a fresh Run: Step 3 deletes the Round files, and Step 5 overwrites the letter and the review log. Step 7 is unchanged: a fact given only in chat is still never used.
+
+### Step 2d: Check the Evidence bank
+
+The Applicant Agent and the Seasoned Recruiter take their facts about the candidate from the Application's Evidence bank, never from the Personal knowledge base itself (terms in `CONTEXT.md`). Check that it exists and matches the candidate's files:
+
+```
+uv run python -m ieakaso.evidence_bank check <id>
+```
+
+| Exit | Meaning | What you do |
+|---|---|---|
+| 0 | The bank is current | Use it. |
+| 1 | A source file changed, was added or was removed since the bank was written (one `Changed:`, `Added:` or `Removed:` line each) | Write it again (below), and say in chat which files changed. |
+| 2 | No bank (the Application was analysed before Evidence banks existed), or a bank with no Sources section | Write it (below), and say so in chat. |
+| 3 | The Application's folder is missing | Stop and tell the candidate. |
+
+**Writing the bank:** run job-analyzer's EVIDENCE BANK Steps B1 and B2 (`ai/skills/ieakaso/modes/job-analyzer.md`) now, inside this Run. Only the bank is written: the Job analysis, its score and its Verdict stay. This is the one place in this mode where you read the Personal knowledge base, and only to write the bank: you still never draft or review. If the bank can't be written, stop and tell the candidate; never let the agents read the Personal knowledge base instead.
+
+When job-analyzer ran in Step 2.3, it wrote the bank in this Run: the check passes, and you go on.
+
+Pass the bank's path, `output/applications/<id>/<id>_evidence-bank.md`, to every Agent run, as their INPUTS list it.
 
 ### Step 3: Run the Rounds
 
@@ -183,7 +206,8 @@ Then the Run summary (see the router), as the last thing you print. Follow-ups (
 **Answers to Questions for the candidate.** A fact given only in chat is not used (the Job Application Assistant's rules). Ask the candidate to add it to the right file first: the Source CV or the memory file the Recruiter named. When they say it is done:
 
 1. If they added it to the Source CV, run the cv-parser mode (`ai/skills/ieakaso/modes/cv-parser.md`) now, inside this Run, so `input/parsed-documents/cv.md` is current. If it ends with neither exit 0 nor exit 4 (new CV files asked about), stop and tell the candidate.
-2. Run **one more Round** (Step 3), starting from the path of the current result's draft (the draft shown as the final letter, not the last draft written), run the assemble command again with the new Round count, update both files, and report again. A Round after the 5 Rounds is allowed here; it is the candidate's request. In the review log, set the exit to "Round after the candidate's answers".
+2. Run Step 2d again, so the Evidence bank holds the new fact. If the check says the bank is current, the candidate has not changed a source file yet: say so and wait.
+3. Run **one more Round** (Step 3), starting from the path of the current result's draft (the draft shown as the final letter, not the last draft written), run the assemble command again with the new Round count, update both files, and report again. A Round after the 5 Rounds is allowed here; it is the candidate's request. In the review log, set the exit to "Round after the candidate's answers".
 
 **Changes the candidate requests** (a different tone, a shorter body, a different emphasis). Start a fresh Applicant Agent run with everything in its INPUTS, plus the change request and the path of the current result's draft, then **one** Seasoned Recruiter Review of the result, to which you also pass the change request. No automatic loop afterwards. **The candidate's request wins even if the score drops**, and the Job Application Assistant's best-draft reset applies. Run the assemble command again, with the Round in `--requested`, to update both files and mark the Round "requested by the candidate" in the review log, and set the Exit to "change requested by the candidate" and the exit reason to say so. Report the new Review score and any drop.
 

@@ -1,11 +1,12 @@
 """`uv run python -m ieakaso.tracker upsert [--json <payload>] | set-cover-letter <id> <path>
-| set-company-research <id> <path> | cv-versions | applications | set-cv-version <id> <version id|none>
+| set-company-research <id> <path> | set-evidence-bank <id> <path> | cv-versions | applications | set-cv-version <id> <version id|none>
 | set-cv-label <version id> <label> | set-personal-motivation <id> [--clear] | personal-motivation <id>`.
 
 upsert: create or update the record of a Job analysis; the JSON payload comes from --json or stdin. Writes
 `created <id>` or `updated <id>` to stdout.
 set-cover-letter: set a record's Cover letter path.
 set-company-research: set a record's Company research path.
+set-evidence-bank: set a record's Evidence bank path.
 cv-versions: list the CV versions, one per line, tab-separated: ID, label, captured date, the Application ID of a
 Tailored CV or `-`, and `current` for the current version or `-`.
 applications: list the records, one per line, tab-separated: ID, status, company, position and CV version ID or `-`.
@@ -36,6 +37,7 @@ from ieakaso.tracker.ops import (
     get_record,
     set_company_research,
     set_cover_letter,
+    set_evidence_bank,
     set_personal_motivation,
     upsert_from_analysis,
 )
@@ -73,6 +75,9 @@ def main(
     research = commands.add_parser("set-company-research", help="set the Company research path of a record")
     research.add_argument("id", help="the Application ID")
     research.add_argument("path", help="the report, relative to the repo root")
+    bank = commands.add_parser("set-evidence-bank", help="set the Evidence bank path of a record")
+    bank.add_argument("id", help="the Application ID")
+    bank.add_argument("path", help="the Evidence bank, relative to the repo root")
     commands.add_parser("cv-versions", help="list the CV versions")
     commands.add_parser("applications", help="list the Applications")
     version = commands.add_parser("set-cv-version", help="set the CV version an Application was sent with")
@@ -132,6 +137,9 @@ def main(
         elif args.command == "set-cover-letter":
             set_cover_letter(db, args.id, args.path)
             message = f"cover letter set for {args.id}"
+        elif args.command == "set-evidence-bank":
+            set_evidence_bank(db, args.id, args.path)
+            message = f"evidence bank set for {args.id}"
         else:
             set_company_research(db, args.id, args.path)
             message = f"company research set for {args.id}"

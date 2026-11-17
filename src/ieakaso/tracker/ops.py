@@ -48,8 +48,8 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
     """Create the record of a Job analysis, or update an existing one. Returns the record and whether it is new.
 
     The re-run rule (docs/database.md): an existing record gets the new `analysis` and its still-empty fields filled;
-    nothing already there is overwritten, and status, stage, stages, contacts, notes, salary_expectation and
-    personal_motivation stay.
+    nothing already there is overwritten, and status, stage, stages, contacts, notes, salary_expectation,
+    personal_motivation and evidence_bank stay.
     """
     if not isinstance(payload, dict):
         raise InvalidRecordError("the Job analysis payload must be a JSON object")
@@ -87,6 +87,7 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
             "salary_expectation": None,
             "cover_letter": None,
             "company_research": None,
+            "evidence_bank": None,
             "source": {**incoming["source"], "form_url": None},
             "contacts": copy.deepcopy(payload.get("contacts") or []),
             "notes": "",
@@ -148,6 +149,10 @@ def set_cover_letter(db: Db, record_id: str, path: str) -> dict:
 
 def set_company_research(db: Db, record_id: str, path: str) -> dict:
     return _set_path(db, record_id, "company_research", path)
+
+
+def set_evidence_bank(db: Db, record_id: str, path: str) -> dict:
+    return _set_path(db, record_id, "evidence_bank", path)
 
 
 def set_personal_motivation(db: Db, record_id: str, text: str | None) -> dict:

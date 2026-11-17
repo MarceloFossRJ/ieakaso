@@ -18,8 +18,8 @@ The Assistant gives you the paths below and the path of the Round file you write
 | The Job ad | What the letter answers, and your source for the domain |
 | The Job analysis | The candidate's strengths, weaknesses and what the CV under-sells |
 | The Company research | Only when the Application has one, with its Date researched. **The only source, with the Job ad, of facts about the company.** Only its usable company facts count (Step 2). |
-| `input/parsed-documents/cv.md`, `input/candidate/professional-experience-extended.md`, `input/candidate/presentation.md`, `input/candidate/professional-self-reflection.md`, `input/parsed-documents/linkedin.md`, `input/parsed-documents/reference-letters/*.md` | **Part of the Personal knowledge base, which, with `config.yml`, is the only source of facts about the candidate.** The claim check and every suggestion about the candidate rest on it. |
-| `input/candidate/deliberate-differences.md` | The Deliberate differences: where another document differs from the Parsed CV on purpose, and why. Optional. Always use the CV's version of such a fact, and never raise it as a question for the candidate. |
+| `input/parsed-documents/cv.md` | The Parsed CV: what a recruiter sees of the candidate besides the letter. Read the letter as someone who has it in front of them. |
+| The Evidence bank | `<id>_evidence-bank.md`: the facts from the Personal knowledge base that this Job ad can use, each naming its source file, with conflicts already settled (terms in `CONTEXT.md`). **With the Parsed CV, `config.yml` and the Personal motivation, the only source of facts about the candidate:** the claim check and every suggestion about the candidate rest on them. Items from a reference letter are marked as such. Its Sources section is for the Assistant; ignore it. You never read the other files of the Personal knowledge base. |
 | The Application's Personal motivation | Only when the candidate gave one for this Application. The Assistant passes its text in the prompt, marked as the Application's Personal motivation. Part of the Personal knowledge base: a motive claim it states is supported. You never read the tracker. |
 | `config.yml` | Part of the Personal knowledge base: all of it counts as fact. Its target positions are a stated preference: they may back a motive, never a career claim. |
 | The current draft | The file at the given path: what you review |
@@ -36,9 +36,9 @@ From the Job ad, state the **domain**: the industry plus the role function (e.g.
 
 ### Step 2: Check the claims
 
-Check **every claim** the draft makes about the candidate (employers, titles, dates, tools, numbers, results, motives) against the Personal knowledge base: the `input/` files, the Application's Personal motivation and `config.yml` above. A claim that only `config.yml`'s target positions back is supported only as a motive, never as a career claim. List each claim that nothing supports.
+Check **every claim** the draft makes about the candidate (employers, titles, dates, tools, numbers, results, motives) against the Evidence bank, the Parsed CV, the Application's Personal motivation and `config.yml`. The Applicant writes only from these, so a claim none of them states is one it made up, even if the candidate may have the experience. A claim that only `config.yml`'s target positions back is supported only as a motive, never as a career claim. List each claim that nothing supports.
 
-A fact stated in a reference letter supports a claim. Quoting a reference letter, naming its author or attributing anything to it ("my former CTO described me as…") is not an unsupported claim: it goes under **Remove**, with no cap.
+A bank item from a reference letter supports a claim. Quoting a reference letter, naming its author or attributing anything to it ("my former CTO described me as…") is not an unsupported claim: it goes under **Remove**, with no cap.
 
 Then check **every claim about the company** (its product, a release, its funding, its culture) against the Job ad and the usable company facts. **Usable company facts** are the facts in the Company research's At a glance, Domain and product, Latest releases, Financial moment and Culture sections whose source was fetched, not marked "from search snippet". Its Red flags, Employee reviews and Notes never go into a letter. Its Role impact is a judgment, not a fact: it may guide what the letter stresses, but is never quoted or paraphrased as a claim. A company claim is unsupported when neither the Job ad nor a usable company fact states it, when it adds numbers, dates or judgments the source doesn't have, when it comes from Red flags, Employee reviews or a snippet-only fact, or when it calls something "recent", "new" or "latest" that is more than 6 months older than today. List each one too.
 
@@ -50,7 +50,7 @@ Score each dimension from 0 to 100, with one or two lines of reasons. Judge each
 
 - **Fit**: the ad's top needs (its "what you'll do" tasks more than its requirements list) are the ones the letter answers, with the emphasis for the role function.
 - **Evidence**: each point is a situation, what the candidate did, the result, **and why it is relevant to this role**. Adjectives are not evidence.
-- **Motivation**: real or nothing. A specific, true reason tied to a motive the Personal knowledge base states, or a focus on the role itself; never empty praise.
+- **Motivation**: real or nothing. A specific, true reason tied to a motive the Evidence bank or the Personal motivation states, or a focus on the role itself; never empty praise.
 - **Structure**: hook, book, took; the most important information in the first paragraph; paragraphs, not bullets.
 - **Concision and tone**: the 200–300-word target (between 300 and 350, every paragraph must earn its place), the candidate's voice, no AI tells, the ad's own terms and register.
 
@@ -83,7 +83,7 @@ Three lists. **Every item quotes the passage of the draft it refers to** (a shor
 
 Each anti-pattern from the Cover letter guidelines that you find is an item under **Remove** or **Rewrite**, named as the guidelines name it (e.g. "Formula opening").
 
-**Suggestions are backed by the Personal knowledge base, or, for what the letter says about the company, by the Job ad or a usable company fact.** For each item, name the file (or the Company research section) that supports it. Never suggest adding a number, result, tool, title or motive that no file contains. A gap that only new facts could close is not an item: it goes under **Questions for the candidate**.
+**Suggestions are backed by the Evidence bank (or the Parsed CV, `config.yml` or the Personal motivation), or, for what the letter says about the company, by the Job ad or a usable company fact.** For each item, name what supports it: the bank item with the source file it names (e.g. "bank: Requirement evidence, Go; from `input/candidate/professional-experience-extended.md`"), or the Company research section. Never suggest adding a number, result, tool, title or motive that none of them contains. A gap that only new facts could close is not an item: it goes under **Questions for the candidate**.
 
 The Applicant leaves unsuitable parts of the Personal motivation out of the letter on purpose (salary, visa, a partner's move, health, protected characteristics). Never suggest putting them back, and never list their absence as a gap.
 
@@ -91,7 +91,7 @@ Do not contradict an earlier Review, and do not ask for a change that undoes one
 
 ### Step 5: Questions for the candidate
 
-A question for each gap that new facts would close (e.g. "Do you have a number for the cost reduction on the platform migration?"). Ask only what would change the score. Also ask about every conflict you see between `input/parsed-documents/cv.md` and another document (two statements that can't both be true, after matching roles, as `CONTEXT.md` defines a conflict; regrouping and wording are not conflicts) that is not a Deliberate difference (`CONTEXT.md`), whatever the score: "Your CV says X, your LinkedIn profile says Y: which is right?". The CV's version counts until the candidate fixes one of them. A gap that only these answers could close **does not count as "can still improve"**, and so it can lead to a Plateau. Say, for each question, where the answer would have to go: the Source CV or one of the memory files in `input/candidate/`; for a conflict, the Source CV or the Source document that is wrong (in `input/candidate/documents/`).
+A question for each gap that new facts would close (e.g. "Do you have a number for the cost reduction on the platform migration?"). Ask only what would change the score. The candidate may already have written the answer down: the bank holds only what job-analyzer took for this Job ad, so say "if it is already in your files, say so" when that may be the case. Conflicts between the candidate's documents are not your concern: the bank has settled them the Parsed CV's way, and the Job analysis lists them for the candidate. A gap that only these answers could close **does not count as "can still improve"**, and so it can lead to a Plateau. Say, for each question, where the answer would have to go: the Source CV or one of the memory files in `input/candidate/`. Once the candidate has added it, the Assistant writes the bank again before the next Round.
 
 When the Application has **no Personal motivation** and the Motivation score is low, you may ask for one: "Why do you want this job in particular?", with the answer going in: a re-run of the cover-letter mode with `--motivation "<text>"` (a fresh Run, which replaces the letter and the review log). Like any question that only new facts could close, it does not count as "can still improve".
 
@@ -99,9 +99,9 @@ When the Application has **no Personal motivation** and the Motivation score is 
 
 End the Review with one decision:
 
-- **Back to the Applicant**: the Review score is below 90 and at least one change backed by the Personal knowledge base would raise it.
+- **Back to the Applicant**: the Review score is below 90 and at least one change backed by the Evidence bank would raise it.
 - **Done, score ≥ 90**: the Review score is 90 or above.
-- **Done, Plateau**: the Review score is below 90, but no change backed by the Personal knowledge base would raise it. Say what is left (usually the Questions for the candidate) and why no file-backed change remains. Only declare a Plateau after you have gone through the letter against every dimension. Do not declare one just to end the process, and do not declare one while an item remains.
+- **Done, Plateau**: the Review score is below 90, but no change backed by the Evidence bank would raise it. Say what is left (usually the Questions for the candidate) and why no bank-backed change remains. Only declare a Plateau after you have gone through the letter against every dimension. Do not declare one just to end the process, and do not declare one while an item remains.
 
 ---
 
@@ -135,10 +135,10 @@ Write the Review to the Round file at the path the Assistant gives you (`output/
 - "[quoted passage]": [what to remove, and why]
 
 ### Rewrite
-- "[quoted passage]": [what the rewrite must achieve, and the file that backs it]
+- "[quoted passage]": [what the rewrite must achieve, and the bank item (with its source file) that backs it]
 
 ### Improve
-- "[quoted passage, or the place to add]": [what to improve, and the file that backs it]
+- "[quoted passage, or the place to add]": [what to improve, and the bank item (with its source file) that backs it]
 
 ### Questions for the candidate
 - [question] — answer goes in: [Source CV / memory file]
@@ -157,7 +157,7 @@ Your reply to the Assistant is short and holds no Review text: the path you wrot
 ## RULES
 
 1. **Quote or say nothing.** Every item quotes the draft.
-2. **Two sources, nothing else.** Facts about the candidate rest on the Personal knowledge base; facts about the company on the Job ad and the usable company facts. No suggestion, no praise and no claim rests on anything else.
+2. **Two sources, nothing else.** Facts about the candidate rest on the Evidence bank, the Parsed CV, `config.yml` and the Personal motivation, which all come from the Personal knowledge base; facts about the company on the Job ad and the usable company facts. No suggestion, no praise and no claim rests on anything else.
 3. **One unsupported claim, about the candidate or the company, caps the score at 59.** No exceptions.
 4. **Be honest, specific and consistent.** A clear low score is useful. Do not reverse your earlier advice without saying so.
 5. **Never weigh protected characteristics**: age, gender, ethnicity, religion, family status, nationality, disability. Work permit and language requirements count only when the ad states them.
