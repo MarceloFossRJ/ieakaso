@@ -16,6 +16,8 @@ Act as the Job Application Assistant: read `ai/agents/job-application-assistant.
 
 **Evidence bank:** the facts from the Personal knowledge base the agents write and review from, checked, and written when needed, in Step 2d.
 
+**Letter context:** the parts of the Job analysis and the Company research the agents read, built in Step 2f. The agents never read the Job analysis or the Company research themselves.
+
 **Personal motivation:** the candidate's own reason for wanting this Application's job, optional (terms in `CONTEXT.md`). It comes from `--motivation` or from the candidate's answer in Step 2c, and is kept in the Application's tracker record; Step 2c saves it, and reads it when there is no new one.
 
 Each agent's file lists what it reads (`ai/agents/applicant.md`, `ai/agents/recruiter.md`); this mode does not repeat them. Neither reads the Personal knowledge base beyond the Evidence bank, the Parsed CV (the Recruiter) and `config.yml`.
@@ -43,13 +45,13 @@ Get the ad as job-analyzer does (Step 1 of `ai/skills/ieakaso/modes/job-analyzer
 
 ### Step 2b: Get the Company research
 
-The Applicant Agent and the Seasoned Recruiter use the Application's Company research for facts about the company (terms in `CONTEXT.md`; the rules are in their agent files). Find it as follows:
+The Applicant Agent and the Seasoned Recruiter take their facts about the company from the Application's Company research, through the Letter context (Step 2f; terms in `CONTEXT.md`, rules in their agent files). Find it as follows:
 
 1. **job-analyzer ran in Step 2.3.** Its Company research step already ran inside this Run: use the report it wrote or reused, or go without one if it skipped the research or every topic failed. Do not ask again.
 2. **The Application's folder has `<id>_company-research.md`.** Use it. If its **Date researched** is more than 30 days before today, use it anyway and tell the candidate its age.
 3. **There is none.** Ask with a choice question (if your tool has one): **"Research the company first"** or **"Write without it"**. To research, run job-analyzer's COMPANY RESEARCH Steps R1 to R5 (`ai/skills/ieakaso/modes/job-analyzer.md`) now, inside this Run, without its Verdict question in R1 (the candidate just chose). Its Agent runs belong to this Run. If it ends without a report (unknown company, every topic failed), say so and write without it.
 
-Pass the report's path and its Date researched to every Agent run, as their INPUTS list it. Without a report, pass nothing and say in chat that the letter's company specifics come from the Job ad only.
+Never pass the report to an Agent run: Step 2f builds the Letter context from it.
 
 ### Step 2c: Get the Personal motivation
 
@@ -96,6 +98,22 @@ uv run python -m ieakaso.evidence_bank check <id>
 When job-analyzer ran in Step 2.3, it wrote the bank in this Run: the check passes, and you go on.
 
 Pass the bank's path, `output/applications/<id>/<id>_evidence-bank.md`, to every Agent run, as their INPUTS list it.
+
+### Step 2f: Build the Letter context
+
+The agents read the parts of the Job analysis and the Company research they need from the Letter context, never those files themselves (terms in `CONTEXT.md`; decision in `docs/adr/0011-letter-context.md`). Build it, in every Run, so it is never out of date:
+
+```
+uv run python -m ieakaso.letter_context build <id>
+```
+
+| Exit | Meaning | What you do |
+|---|---|---|
+| 0 | Written | Use it. Any `Warning:` line on stderr names a section that is missing: go on. |
+| 1 | Written without company facts: no Company research, it can't be read, or it has no usable fact (the reason is on stderr) | Use it, and say in chat that the letter's company specifics come from the Job ad only. |
+| 3 | The Application's folder or its Job analysis is missing | Stop and tell the candidate. |
+
+Pass its path, `output/applications/<id>/<id>_letter-context.md`, to every Agent run, as their INPUTS list it. Never pass them the Job analysis or the Company research.
 
 ### Step 3: Run the Rounds
 
@@ -207,9 +225,9 @@ Then the Run summary (see the router), as the last thing you print. Follow-ups (
 
 1. If they added it to the Source CV, run the cv-parser mode (`ai/skills/ieakaso/modes/cv-parser.md`) now, inside this Run, so `input/parsed-documents/cv.md` is current. If it ends with neither exit 0 nor exit 4 (new CV files asked about), stop and tell the candidate.
 2. Run Step 2d again, so the Evidence bank holds the new fact. If the check says the bank is current, the candidate has not changed a source file yet: say so and wait.
-3. Run **one more Round** (Step 3), starting from the path of the current result's draft (the draft shown as the final letter, not the last draft written), run the assemble command again with the new Round count, update both files, and report again. A Round after the 5 Rounds is allowed here; it is the candidate's request. In the review log, set the exit to "Round after the candidate's answers".
+3. Run Step 2f again, then **one more Round** (Step 3), starting from the path of the current result's draft (the draft shown as the final letter, not the last draft written), run the assemble command again with the new Round count, update both files, and report again. A Round after the 5 Rounds is allowed here; it is the candidate's request. In the review log, set the exit to "Round after the candidate's answers".
 
-**Changes the candidate requests** (a different tone, a shorter body, a different emphasis). Start a fresh Applicant Agent run with everything in its INPUTS, plus the change request and the path of the current result's draft, then **one** Seasoned Recruiter Review of the result, to which you also pass the change request. No automatic loop afterwards. **The candidate's request wins even if the score drops**, and the Job Application Assistant's best-draft reset applies. Run the assemble command again, with the Round in `--requested`, to update both files and mark the Round "requested by the candidate" in the review log, and set the Exit to "change requested by the candidate" and the exit reason to say so. Report the new Review score and any drop.
+**Changes the candidate requests** (a different tone, a shorter body, a different emphasis). Run Step 2f again, then start a fresh Applicant Agent run with everything in its INPUTS, plus the change request and the path of the current result's draft, then **one** Seasoned Recruiter Review of the result, to which you also pass the change request. No automatic loop afterwards. **The candidate's request wins even if the score drops**, and the Job Application Assistant's best-draft reset applies. Run the assemble command again, with the Round in `--requested`, to update both files and mark the Round "requested by the candidate" in the review log, and set the Exit to "change requested by the candidate" and the exit reason to say so. Report the new Review score and any drop.
 
 ---
 

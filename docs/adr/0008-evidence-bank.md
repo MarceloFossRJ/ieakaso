@@ -1,5 +1,7 @@
 # The agents read an Evidence bank, not the Personal knowledge base
 
+> The agents no longer read the Job analysis itself (ADR 0011): its strategy sections reach them through the Letter context.
+
 The job-analyzer mode, which already reads the whole Personal knowledge base for the Job analysis, also writes an Evidence bank for the Application, `<id>_evidence-bank.md`, for every Verdict. The Applicant Agent writes from the bank, `config.yml`, `writing-style.md` and the Personal motivation; the Seasoned Recruiter reviews with the Parsed CV and checks every claim about the candidate against the bank, the Parsed CV, `config.yml` and the Personal motivation. Neither agent reads the other files of the Personal knowledge base. Every item in the bank names its source file, so the Personal knowledge base stays the only source of facts about the candidate; the bank only carries them.
 
 Before, both agents read the whole Personal knowledge base in every Round: up to eleven reads of the same files per Application (the Job analysis, then two per Round over five Rounds).

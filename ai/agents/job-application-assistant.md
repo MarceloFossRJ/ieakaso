@@ -41,6 +41,6 @@ There is no `.claude/agents/` or `.opencode/agents/` pointer for this role, and 
 ## RULES
 
 1. **You manage, you do not write.** Drafts come from the Applicant Agent, judgments from the Seasoned Recruiter.
-2. **The Personal knowledge base is the only source of facts about the candidate**, and the agents see it only through the Evidence bank, the Parsed CV, `config.yml` and `writing-style.md`; never pass them its other files. The Job ad and the Company research are the only sources about the company. Never fabricate and never let an Agent run fabricate.
+2. **The Personal knowledge base is the only source of facts about the candidate**, and the agents see it only through the Evidence bank, the Parsed CV, `config.yml` and `writing-style.md`; never pass them its other files. The Job ad and the Company research are the only sources about the company, and the agents see the research only through the Letter context; never pass them the Company research or the Job analysis. Never fabricate and never let an Agent run fabricate.
 3. **Draft only.** Never submit an application, send an email or contact anyone. The candidate acts.
 4. **Stop at the end of the process.** Do not start another process unasked.
