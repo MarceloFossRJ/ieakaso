@@ -99,6 +99,28 @@ When job-analyzer ran in Step 2.3, it wrote the bank in this Run: the check pass
 
 Pass the bank's path, `output/applications/<id>/<id>_evidence-bank.md`, to every Agent run, as their INPUTS list it.
 
+### Step 2e: Ask for the missing facts
+
+The letter can only use facts the Evidence bank holds. Ask the candidate, before Round 1, for the facts that would close the ad's biggest gaps, so the Rounds can write from them.
+
+**When:** only when at least one requirement tagged (Must) or (Knockout) has "None" under it in the bank's Requirement evidence, or the Job analysis's **Gaps to close** is not empty. Otherwise skip this step and say nothing.
+
+**The questions:** write them yourself, from the bank's "None" requirements and the Job analysis's Gaps to close and CV under-sells; there is no Agent run. **At most 3**, Must and Knockout gaps first. Each one asks for a fact the candidate may have (a number, a story, a tool, a result), says "if it is already in your files, say so", and names the file its answer goes in: one of the memory files (`input/candidate/professional-experience-extended.md`, `presentation.md` or `professional-self-reflection.md`) or the Source CV. Never ask about salary, a visa or work permit, health, family, or anything that touches protected characteristics.
+
+Show the questions, then ask with a choice question (if your tool has one): **"Answer now (I'll wait)"** or **"Skip, write with what's there"**. It never blocks the letter. Remember every question the candidate skipped or left unanswered: Step 6 needs them.
+
+**Each answer** goes into a file before it counts; an answer given only in chat is never used. For an answer meant for a memory file, show the candidate the exact text you would add (their words, unchanged) and the file, and ask with a choice question (if your tool has one): **"Add it"** or **"I'll add it myself"**. Ask for every answer; one yes never covers the next. On "Add it", pass the text on standard input, so quotes and line breaks arrive unchanged:
+
+```
+uv run python -m ieakaso.candidate_answer append <file name> <id> <<'EOF'
+<the candidate's answer, word for word>
+EOF
+```
+
+It appends the text at the end of `input/candidate/<file name>` under `## Added <yyyy-mm-dd> (<id>)`, and prints `answer added to <path> for <id>`. Exit 1 means there was no text and exit 2 a file that can't take an answer (only those three can): nothing was changed, so ask again. Exit 3 means the Application's folder is missing: stop and tell the candidate. Never write to a candidate file any other way. On "I'll add it myself", wait until they say it is done. An answer for the Source CV is always the candidate's to add: then run the cv-parser mode as in Step 7, item 1.
+
+Once every answer is in a file, run Step 2d again, so the bank holds the new facts. If the check says the bank is current, no file has changed yet: say so and wait. Decision: `docs/adr/0010-candidate-answers-written-with-permission.md`.
+
 ### Step 2f: Build the Letter context
 
 The agents read the parts of the Job analysis and the Company research they need from the Letter context, never those files themselves (terms in `CONTEXT.md`; decision in `docs/adr/0011-letter-context.md`). Build it, in every Run, so it is never out of date:
@@ -210,7 +232,7 @@ Show the candidate:
 - the **final letter** (the whole text: the command prints it, and this is the only full text you show)
 - its **Review score** and the **exit reason**
 - a short **summary of each Round**: the score and the main change
-- the open **Questions for the candidate** from the final Review (not those the candidate has answered), or "none"
+- the open **Questions for the candidate** from the final Review (not those the candidate has answered, and not those that repeat a question they skipped in Step 2e), or "none"
 - the **file paths** of both files, and that they were overwritten, if so
 - the language, if it is not the ad's language
 - what the Applicant left out of the Personal motivation (its **Motivation left out** note), if anything
@@ -221,7 +243,7 @@ Then the Run summary (see the router), as the last thing you print. Follow-ups (
 
 ### Step 7: Follow-ups, in the same Run
 
-**Answers to Questions for the candidate.** A fact given only in chat is not used (the Job Application Assistant's rules). Ask the candidate to add it to the right file first: the Source CV or the memory file the Recruiter named. When they say it is done:
+**Answers to Questions for the candidate.** A fact given only in chat is not used (the Job Application Assistant's rules). It goes into the right file first, as in Step 2e: the Source CV (the candidate adds it) or the memory file the Recruiter named (the candidate adds it, or you add it with `ieakaso.candidate_answer append` once they chose "Add it" for that exact text). When every answer is in its file:
 
 1. If they added it to the Source CV, run the cv-parser mode (`ai/skills/ieakaso/modes/cv-parser.md`) now, inside this Run, so `input/parsed-documents/cv.md` is current. If it ends with neither exit 0 nor exit 4 (new CV files asked about), stop and tell the candidate.
 2. Run Step 2d again, so the Evidence bank holds the new fact. If the check says the bank is current, the candidate has not changed a source file yet: say so and wait.
