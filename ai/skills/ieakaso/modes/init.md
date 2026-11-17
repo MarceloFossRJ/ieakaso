@@ -20,7 +20,7 @@ If this is a re-run (`init.status` is `"completed"`), tell the user init already
 
 ## Step 2: Documents
 
-Create any of these folders that are missing: `input/candidate/documents/cv/`, `input/candidate/documents/linkedin/`, `input/candidate/documents/reference_letters/` and `input/parsed-documents/`. Leave every other folder under `input/candidate/documents/` as it is. The candidate writes `input/candidate/`; Ieakaso writes `input/parsed-documents/` (the CV parser) and the candidate never edits it.
+Create any of these folders that are missing: `input/candidate/documents/cv/`, `input/candidate/documents/linkedin/` and `input/parsed-documents/`. Leave every other folder under `input/candidate/documents/` as it is. The candidate writes `input/candidate/`; Ieakaso writes `input/parsed-documents/` (the CV parser) and the candidate never edits it.
 
 ### CV — mandatory
 
@@ -44,19 +44,17 @@ If none is found, recommend it strongly: recruiters compare it with the CV, and 
 
 The user can add it now (then re-check) or answer "skip".
 
-### Reference letters — suggested
+"Skip" for the LinkedIn PDF is recorded as `"skipped"` and stays until the next `/ieakaso init`, which asks again.
 
-Any accepted file in `input/candidate/documents/reference_letters/`.
+### Facts the CV leaves out
 
-If none is found, suggest adding them: they back up achievements with a third party's words. The user can add them now or answer "skip".
-
-"Skip" is recorded as `"skipped"` and stays until the next `/ieakaso init`, which asks again.
+Tell the candidate that a fact the CV leaves out (a team size, a project's result) belongs in `input/candidate/professional-experience-extended.md`, in their own words: Ieakaso only uses facts the candidate states. This is a pointer, not a question; init never creates or edits that file.
 
 ### Parsed CV
 
-Once the CV is found and the LinkedIn PDF and reference letters are recorded, run `ai/skills/ieakaso/modes/cv-parser.md`; it asks the candidate about each new CV file (while there is no CV version yet: "your main CV, or not a CV?"; run again with `--main <file>`), captures it, writes the Parsed CV, and also writes the Parsed documents. If it ends without exit 0 or exit 4 (the CV can't be parsed, or the candidate keeps a hand-edited `input/parsed-documents/cv.md`), record the CV as `found` and carry on with init; the setup check runs the parser again before the next mode.
+Once the CV is found and the LinkedIn PDF is recorded, run `ai/skills/ieakaso/modes/cv-parser.md`; it asks the candidate about each new CV file (while there is no CV version yet: "your main CV, or not a CV?"; run again with `--main <file>`), captures it, writes the Parsed CV, and also writes the Parsed documents. If it ends without exit 0 or exit 4 (the CV can't be parsed, or the candidate keeps a hand-edited `input/parsed-documents/cv.md`), record the CV as `found` and carry on with init; the setup check runs the parser again before the next mode.
 
-Settle the LinkedIn PDF and reference letters (found or skipped) before starting Step 3, so the user never has two open questions at once and a bare "skip" or "ok" is never ambiguous.
+Settle the LinkedIn PDF (found or skipped) before starting Step 3, so the user never has two open questions at once and a bare "skip" or "ok" is never ambiguous.
 
 ## Step 3: Config
 
@@ -117,7 +115,7 @@ Write the confirmed values to `config.yml` at the repository root, with the same
 
 Write `db/system_status.json` (create `db/` if missing), then show a short summary:
 
-- CV, LinkedIn PDF, reference letters: found / skipped / missing
+- CV, LinkedIn PDF: found / skipped / missing
 - Config: confirmed, with any skipped optional fields
 - Only facts: everything in `input/` and `config.yml` is the candidate's Personal knowledge base (terms in `CONTEXT.md`). Ieakaso uses all of it as fact and never checks it, so it must hold only what is true.
 - What's next: `/ieakaso job-analyzer <job-url or job-ad text>` to score the CV against a job ad and get a verdict
@@ -133,14 +131,13 @@ Compare the candidate's documents with the Parsed CV and write a Conflict report
 The Parsed CV `input/parsed-documents/cv.md` is the reference. Compare it with:
 
 1. **The LinkedIn profile's Parsed document** `input/parsed-documents/linkedin.md`: employers, titles, dates, locations, team sizes, budgets and other numbers, achievements, education, certifications, languages, the headline and summary.
-2. **Each Reference letter's Parsed document** `input/parsed-documents/reference-letters/*.md`: titles, dates, team sizes and claimed results.
-3. **`config.yml`**: name, last name, email, phone, location, LinkedIn, GitHub, portfolio and languages (`candidate.*`), where the CV states them.
-4. **`input/candidate/deliberate-differences.md`**, when it exists: the Deliberate differences the candidate recorded, one bullet each (which document, what differs, why). Written by the candidate; read it, never write it.
+2. **`config.yml`**: name, last name, email, phone, location, LinkedIn, GitHub, portfolio and languages (`candidate.*`), where the CV states them.
+3. **`input/candidate/deliberate-differences.md`**, when it exists: the Deliberate differences the candidate recorded, one bullet each (which document, what differs, why). Written by the candidate; read it, never write it.
 
 **Order of the check:**
 
 1. Read `deliberate-differences.md` first. A difference that matches a bullet there is a Deliberate difference, whatever else it would be.
-2. Match each CV role to its LinkedIn or Reference letter entry by dates and overlap, using titles as a hint only: a differing title must not break the match. This holds across employers grouped differently (one employer on the CV, two on LinkedIn).
+2. Match each CV role to its LinkedIn entry by dates and overlap, using titles as a hint only: a differing title must not break the match. This holds across employers grouped differently (one employer on the CV, two on LinkedIn).
 3. Classify, role against role. A different employer is a conflict only when the matched role sits under an employer that can't also be true; regrouping (one employer against two) is Presented differently. Check a summary's claims against the roles that back them up.
 4. A headline or summary difference goes under Different positioning, never under Presented differently.
 
@@ -148,7 +145,7 @@ Compare only the Parsed documents that exist: one the parser could not write (a 
 
 **No Parsed CV:** when `input/parsed-documents/cv.md` does not exist (the parser could not write it in Step 2), write no report, and say in chat that the check runs once the CV is parsed.
 
-**Nothing to compare:** when there is no `input/parsed-documents/linkedin.md` and no file in `input/parsed-documents/reference-letters/`, write no report, and say in chat that there was nothing to compare the CV with yet, and that adding the LinkedIn PDF or reference letters and running `/ieakaso init` again will check them.
+**Nothing to compare:** when there is no `input/parsed-documents/linkedin.md`, write no report, and say in chat that there was nothing to compare the CV with yet, and that adding the LinkedIn PDF and running `/ieakaso init` again will check them.
 
 ### What counts
 
@@ -175,7 +172,7 @@ Write a new file `output/conflict-reports/<yyyy-mm-dd>T<hh-mm>_conflicts.md`, wi
 ```markdown
 # Conflict report
 
-> **Checked:** [yyyy-mm-dd hh:mm] | **CV:** `input/parsed-documents/cv.md` (from [Source CV path]) | **Compared with:** `input/parsed-documents/linkedin.md` (from [LinkedIn PDF path]), `input/parsed-documents/reference-letters/[name].md` (from [letter path]), `config.yml`
+> **Checked:** [yyyy-mm-dd hh:mm] | **CV:** `input/parsed-documents/cv.md` (from [Source CV path]) | **Compared with:** `input/parsed-documents/linkedin.md` (from [LinkedIn PDF path]), `config.yml`
 
 [Documents left out, if any: which, and why]
 
@@ -238,7 +235,7 @@ After the Step 4 summary:
 - `documents.cv` and `documents.linkedin`: `status` and `path` (`null` when not found). For the CV, `path` is the current CV version's Source CV, written by the CV parser; set `status: "found"` and leave `path` as it is (`null` before the first parse).
 - `documents.cv.parsed`: written only by the CV parser (`ai/skills/ieakaso/modes/cv-parser.md`), never by hand: the source path and fingerprints, `parser_version` and `parsed_at` of the last parse. Missing means `input/parsed-documents/cv.md` has not been parsed yet. Keep it when you rewrite the status file.
 - `documents.cv.ignored_folders`: written only by the CV parser, never by hand: the folders in `input/candidate/documents/cv/` it didn't create and has already warned about, so it warns once per folder. Keep it when you rewrite the status file.
-- `documents.reference_letters`: `status` and `paths` (a list, empty when not found)
-- `documents.*.status`: `found`, `skipped` (LinkedIn PDF and reference letters only), or `missing`
+- A `documents.reference_letters` key in an existing status file is an old one: drop it when you rewrite the file, and never let it make setup incomplete.
+- `documents.*.status`: `found`, `skipped` (LinkedIn PDF only), or `missing`
 
-**Completion rule:** set `init.status` to `"completed"` only when every config field is `confirmed` or `skipped`, the CV is `found`, and the LinkedIn PDF and reference letters are `found` or `skipped`. `missing` appears only while `init.status` is `"not_started"` or `"in_progress"`.
+**Completion rule:** set `init.status` to `"completed"` only when every config field is `confirmed` or `skipped`, the CV is `found`, and the LinkedIn PDF is `found` or `skipped`. `missing` appears only while `init.status` is `"not_started"` or `"in_progress"`.

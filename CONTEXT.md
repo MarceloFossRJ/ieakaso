@@ -25,7 +25,7 @@ A Mode's own item in the coding assistant's `/` menu, so the candidate can pick 
 _Avoid_: menu entry, thin entry, shortcut
 
 **Source document**:
-A file in `input/candidate/documents/` that Ieakaso turns into a Parsed document: the Source CV, the LinkedIn profile, or a Reference letter, as recorded during init. Other files there are never read.
+A file in `input/candidate/documents/` that Ieakaso turns into a Parsed document: the Source CV or the LinkedIn profile, as recorded during init. Other files there are never read.
 _Avoid_: upload, original, input file
 
 **Parsed document**:
@@ -51,10 +51,6 @@ _Avoid_: custom CV, job-specific CV, CV variant
 **LinkedIn profile**:
 The candidate's LinkedIn profile, saved as PDF in `input/candidate/documents/linkedin/`. A Source document; part of the Personal knowledge base through its Parsed document.
 _Avoid_: LinkedIn export, LinkedIn PDF
-
-**Reference letter**:
-A letter about the candidate from a former employer or colleague, in `input/candidate/documents/reference_letters/`. A Source document; part of the Personal knowledge base through its Parsed document, as trusted background: its facts may be used as the candidate's own, its opinions only steer emphasis, and it is never quoted or attributed.
-_Avoid_: recommendation, reference, testimonial
 
 **Job ad**:
 The ad for one Position, as the candidate supplies it: a URL Ieakaso can read, or the ad's text pasted in. When the requirements or responsibilities at the same URL change, the candidate decides whether it is still the same Job ad; the same job posted on another site is a different Job ad unless the candidate says otherwise.
@@ -145,7 +141,7 @@ The writing guidance that ships with Ieakaso and holds for every candidate, such
 _Avoid_: knowledge base, guides, templates
 
 **Personal knowledge base**:
-Everything the candidate gives Ieakaso about themselves: `config.yml`, everything in `input/`, and the Personal motivation of the Application at hand. It holds only facts about the candidate, so anything in it may be used as one; it is the only source of facts about the candidate. The candidate vouches for that: Ieakaso never fact-checks it. When two of its sources disagree, the Parsed CV wins and the conflict becomes a question for the candidate. Reference letters are trusted background (see Reference letter). It is User data.
+Everything the candidate gives Ieakaso about themselves: `config.yml`, everything in `input/`, and the Personal motivation of the Application at hand. It holds only facts about the candidate, so anything in it may be used as one; it is the only source of facts about the candidate. The candidate vouches for that: Ieakaso never fact-checks it. When two of its sources disagree, the Parsed CV wins and the conflict becomes a question for the candidate. It is User data.
 _Avoid_: knowledge base, memory, the candidate's files
 
 **Personal motivation**:
@@ -153,11 +149,11 @@ The candidate's own reason for wanting one Application's Job ad, in their own wo
 _Avoid_: personal reason, personal motive, why-this-job
 
 **Evidence bank**:
-The facts from the Personal knowledge base that one Application's Job ad can use, written once per Application for the Applicant Agent and the Seasoned Recruiter so they never read the Personal knowledge base themselves: for each requirement, every story and number that supports it; the motivation material that matches the ad; and the candidate's other strong stories. It holds more than one letter needs, so a rewrite has somewhere to go. It is an extract, never a source: every item names the file it comes from, conflicts are already settled the Parsed CV's way, and an item from a Reference letter is marked as background, never quoted or attributed. It holds facts, not strategy: what to stress is the Job analysis's job. It is written again whenever the Personal knowledge base changes.
+The facts from the Personal knowledge base that one Application's Job ad can use, written once per Application for the Applicant Agent and the Seasoned Recruiter so they never read the Personal knowledge base themselves: for each requirement, every story and number that supports it; the motivation material that matches the ad; and the candidate's other strong stories. It holds more than one letter needs, so a rewrite has somewhere to go. It is an extract, never a source: every item names the file it comes from, and conflicts are already settled the Parsed CV's way. It holds facts, not strategy: what to stress is the Job analysis's job. It is written again whenever the Personal knowledge base changes.
 _Avoid_: brief, coaching brief, fact sheet, candidate summary
 
 **Conflict report**:
-The list of places where the LinkedIn profile, a Reference letter or `config.yml` contradicts the Parsed CV (two statements that can't both be true), each rated High, Medium or Low by how likely a recruiter is to notice it, plus the facts only one side holds, what is only presented differently (wording, grouping, level of detail) and the Deliberate differences. Init writes a new one on every run, as `output/conflict-reports/<yyyy-mm-dd>T<hh-mm>_conflicts.md`, and never overwrites an older one. The Parsed CV is the reference: the report tells the candidate which other document to fix. It never blocks init and never changes a document.
+The list of places where the LinkedIn profile or `config.yml` contradicts the Parsed CV (two statements that can't both be true), each rated High, Medium or Low by how likely a recruiter is to notice it, plus the facts only one side holds, what is only presented differently (wording, grouping, level of detail) and the Deliberate differences. Init writes a new one on every run, as `output/conflict-reports/<yyyy-mm-dd>T<hh-mm>_conflicts.md`, and never overwrites an older one. The Parsed CV is the reference: the report tells the candidate which other document to fix. It never blocks init and never changes a document.
 _Avoid_: consistency check, discrepancy report, diff
 
 **Deliberate difference**:

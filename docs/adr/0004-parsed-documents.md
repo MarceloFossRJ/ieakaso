@@ -1,5 +1,7 @@
 # The LinkedIn profile and reference letters are parsed like the CV
 
+> The reference-letter part is superseded by ADR 0009: reference letters are no longer used.
+
 ADR 0001 made the Parsed CV deterministic code output. The LinkedIn profile and the reference letters now join the Personal knowledge base, so the agents take claims about the candidate from them too. They follow the same rule: the CV parser writes a Parsed document for each (`input/parsed-documents/linkedin.md`, `input/parsed-documents/reference-letters/<source file name>.md`), with the same words in the same order, and the agents read only those. The reason is ADR 0001's: an agent reading a PDF can silently reword, drop or add content, and a claim's source must be a file anyone can check.
 
 ## Considered Options

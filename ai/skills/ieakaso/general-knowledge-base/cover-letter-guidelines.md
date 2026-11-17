@@ -48,12 +48,6 @@ Three moves, in this order, one short paragraph each (a fourth only if a gap nee
 - Turn CV bullets into full sentences with context. The letter adds the *why* and the *so what* that the CV cannot hold. It never re-lists the CV.
 - **Paragraphs, not bullets.** The body is short paragraphs only: no bullet lists, no bold. Evidence goes in sentences.
 
-### Reference letters
-
-- A reference letter in the Personal knowledge base is trusted background. Its facts about the candidate (a team they led, a project they shipped) may be used as the candidate's own claims.
-- Its opinions ("the best manager I've had") never appear in any form. They may only steer what the letter stresses.
-- Never quote a reference letter, name its author, or attribute anything to it ("my former CTO described me as…").
-
 ### Emphasis by role
 
 Work out the role function from the Job ad, then stress what readers of that function look for. This changes the emphasis, never the layout.
@@ -117,7 +111,6 @@ Each of these marks a letter as generic. The Recruiter flags them; the Applicant
 | AI-flavoured filler | "passion for innovation and excellence", "valuable addition to your team", "drive continued success" | Plain words the candidate would say aloud |
 | AI tells | "delve", "pivotal", "underscore", "not just X, but Y", "strategy, execution and people", bold in the body | Plain sentences; one example instead of three |
 | Bullet list in the body | "I've previously:" followed by bullets | The same evidence in one or two sentences |
-| Quoted or attributed reference letter | "My former CTO called me an exceptional leader." | Cut it. A fact from the reference letter may go in as the candidate's own claim; an opinion only steers emphasis |
 
 ### The generic letter, whole
 

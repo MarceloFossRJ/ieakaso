@@ -1,6 +1,6 @@
 # CV Parser
 
-`/ieakaso cv-parser`: captures the CV versions waiting in the inbox `input/candidate/documents/cv/`, writes the Parsed CV (`input/parsed-documents/cv.md`) from the current CV version, and writes the Parsed documents of the LinkedIn profile (`input/parsed-documents/linkedin.md`) and of each reference letter (`input/parsed-documents/reference-letters/<file name>.md`) that init recorded (terms in `CONTEXT.md`). Also runs at the end of init's document step and from the setup check.
+`/ieakaso cv-parser`: captures the CV versions waiting in the inbox `input/candidate/documents/cv/`, writes the Parsed CV (`input/parsed-documents/cv.md`) from the current CV version, and writes the Parsed documents of the LinkedIn profile (`input/parsed-documents/linkedin.md`) that init recorded (terms in `CONTEXT.md`). Also runs at the end of init's document step and from the setup check.
 
 The candidate supplies a new CV by saving the file in `input/candidate/documents/cv/`, in any format the parser reads. The parser moves it (it does not copy it) into its own folder `input/candidate/documents/cv/cv_<yyyy-mm-dd>/` and writes a frozen copy of its Parsed CV to `input/parsed-documents/cv-versions/<version id>.md`; the folder holds only the candidate's file. It records the CV version in the tracker (`docs/adr/0005-cv-versions.md`, `docs/adr/0006-input-split-by-who-writes.md`, `docs/database.md`). A file whose content matches a version is not captured again, whatever its name. `input/parsed-documents/cv.md` always holds the current version, the most recently captured one that is not a Tailored CV. Versions are never changed or deleted.
 
@@ -24,7 +24,7 @@ uv run python -m ieakaso.cv_parser
 | 5 | The tracker db can't be used, or changed while capturing | Show the message from stderr. Nothing was moved. Stop; on "changed", run the command again once. |
 | 6 | A flag named a file that is not waiting in the inbox, or an unknown Application | Show the message from stderr and ask again, or stop. |
 
-The exit code is about the CV alone. The LinkedIn profile and reference letters never stop the step; whatever the exit code, also act on stdout's lines:
+The exit code is about the CV alone. The LinkedIn profile never stops the step; whatever the exit code, also act on stdout's lines:
 
 - `Captured …`: relay it. It names the new version's ID and label (the label is the file name without its extension; the candidate can change it in the viewer, key `v`).
 - `Duplicate: <path> has the same content as CV version …`: relay it in one line. The file stays where it is; the candidate can delete it.
