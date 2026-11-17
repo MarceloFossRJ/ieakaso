@@ -1,6 +1,6 @@
-"""The Parsed documents of the LinkedIn profile (docs/adr/0004-parsed-documents.md).
+"""The Parsed document of the LinkedIn profile (docs/adr/0004-parsed-documents.md).
 
-Init records their Source documents in db/system_status.json; each gets a Parsed document in input/parsed-documents/,
+Init records its Source document in db/system_status.json; it gets a Parsed document in input/parsed-documents/,
 recorded next to its source. Nothing here ever blocks the CV: every problem is a warning on stdout.
 """
 

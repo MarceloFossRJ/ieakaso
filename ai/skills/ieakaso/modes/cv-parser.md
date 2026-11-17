@@ -1,6 +1,6 @@
 # CV Parser
 
-`/ieakaso cv-parser`: captures the CV versions waiting in the inbox `input/candidate/documents/cv/`, writes the Parsed CV (`input/parsed-documents/cv.md`) from the current CV version, and writes the Parsed documents of the LinkedIn profile (`input/parsed-documents/linkedin.md`) that init recorded (terms in `CONTEXT.md`). Also runs at the end of init's document step and from the setup check.
+`/ieakaso cv-parser`: captures the CV versions waiting in the inbox `input/candidate/documents/cv/`, writes the Parsed CV (`input/parsed-documents/cv.md`) from the current CV version, and writes the Parsed document of the LinkedIn profile (`input/parsed-documents/linkedin.md`) that init recorded (terms in `CONTEXT.md`). Also runs at the end of init's document step and from the setup check.
 
 The candidate supplies a new CV by saving the file in `input/candidate/documents/cv/`, in any format the parser reads. The parser moves it (it does not copy it) into its own folder `input/candidate/documents/cv/cv_<yyyy-mm-dd>/` and writes a frozen copy of its Parsed CV to `input/parsed-documents/cv-versions/<version id>.md`; the folder holds only the candidate's file. It records the CV version in the tracker (`docs/adr/0005-cv-versions.md`, `docs/adr/0006-input-split-by-who-writes.md`, `docs/database.md`). A file whose content matches a version is not captured again, whatever its name. `input/parsed-documents/cv.md` always holds the current version, the most recently captured one that is not a Tailored CV. Versions are never changed or deleted.
 
