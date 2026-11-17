@@ -15,7 +15,6 @@ from ieakaso.tracker import (
     next_cv_version_id,
     save,
     set_cv_version_label,
-    set_cv_version_path,
     set_record_cv_version,
     set_status,
     update_record,
@@ -127,32 +126,6 @@ def test_an_id_already_used_or_an_invalid_one_is_refused(db_path: Path):
         add_cv_version(db, "nope", "x", "input/candidate/documents/cv/x/a.pdf", TODAY)
 
     assert len(db.cv_versions) == 1
-
-
-# paths
-
-
-def test_set_a_version_path(db_path: Path):
-    write_db(db_path, lead(), cv_versions=[cv_version()])
-    db = load(db_path)
-
-    changed = set_cv_version_path(db, MAIN, "input/candidate/documents/cv/cv_2026-10-01/moved.pdf")
-
-    assert changed["path"] == "input/candidate/documents/cv/cv_2026-10-01/moved.pdf"
-    assert db.find_cv_version(MAIN)["path"] == changed["path"]
-
-
-def test_an_invalid_path_or_an_unknown_version_is_refused_and_changes_nothing(db_path: Path):
-    write_db(db_path, lead(), cv_versions=[cv_version()])
-    db = load(db_path)
-    before = db.find_cv_version(MAIN)["path"]
-
-    with pytest.raises(InvalidRecordError):
-        set_cv_version_path(db, MAIN, "/abs/path.pdf")
-    with pytest.raises(RecordNotFoundError):
-        set_cv_version_path(db, "cv_2000-01-01", "input/x.pdf")
-
-    assert db.find_cv_version(MAIN)["path"] == before
 
 
 # labels

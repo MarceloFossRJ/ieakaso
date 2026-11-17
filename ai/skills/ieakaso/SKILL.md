@@ -40,9 +40,8 @@ When the mode's work ends, including when it stops early (setup incomplete, cv-p
 
 ## Setup check
 
-Run steps 1 to 4 before every mode except `init`. Step 0 runs before every mode, `init` included:
+Run steps 1 to 4 before every mode except `init`:
 
-0. Run `uv run python -m ieakaso.cv_parser --move-only`. It moves a repo laid out before `docs/adr/0006-input-split-by-who-writes.md` to `input/candidate/` and `input/parsed-documents/` and prints one line when it did; it does nothing otherwise. Relay that line, and any `Warning:` it prints, in one line each. Never move those files yourself.
 1. Read `db/system_status.json`. If it does not exist or is not valid JSON, copy `db/system_status_example.json` to `db/system_status.json` first.
 2. Run `ai/skills/ieakaso/modes/init.md` first if any of these is true:
    - `init.status` is not `"completed"`
