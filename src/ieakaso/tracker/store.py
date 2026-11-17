@@ -82,6 +82,7 @@ def _migrate(data: Any, root: Path | None) -> None:
     Version 2 had no CV versions: the file gets an empty list and every record a null `cv_version`; the CV parser
     then captures the Source CV and links the Applications past Lead to it.
     Version 3 had no `personal_motivation`: every record gets a null one.
+    Version 4 had no `evidence_bank`: every record gets a null one; cover-letter writes the bank when it needs it.
     """
     if not _is_tracker_file(data):
         return
@@ -101,6 +102,11 @@ def _migrate(data: Any, root: Path | None) -> None:
         for record in data["records"]:
             if isinstance(record, dict):
                 record.setdefault("personal_motivation", None)
+        data["meta"]["schema_version"] = 4
+    if data["meta"].get("schema_version") == 4:
+        for record in data["records"]:
+            if isinstance(record, dict):
+                record.setdefault("evidence_bank", None)
         data["meta"]["schema_version"] = SCHEMA_VERSION
 
 

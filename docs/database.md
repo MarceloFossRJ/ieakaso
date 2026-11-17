@@ -17,7 +17,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 
 ```jsonc
 {
-  "meta": { "schema_version": 4 },
+  "meta": { "schema_version": 5 },
   "cv_versions": [
     {
       "id": "cv_2026-10-01",
@@ -62,6 +62,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
       "salary_expectation": { "period": "yearly", "min": 95000, "max": 105000, "currency": "EUR" },
       "cover_letter": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_cover-letter.md",
       "company_research": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_company-research.md",
+      "evidence_bank": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_evidence-bank.md",
       "source": {
         "board": "LinkedIn",
         "board_url": "https://www.linkedin.com/jobs/view/123",
@@ -87,7 +88,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 
 | Field | Type | Written by | Meaning |
 |---|---|---|---|
-| `schema_version` | integer | tracker | Version of this model. Currently `4`; see [Schema versions](#schema-versions). |
+| `schema_version` | integer | tracker | Version of this model. Currently `5`; see [Schema versions](#schema-versions). |
 
 ### `cv_versions[]`
 
@@ -122,6 +123,7 @@ The **current version** is the most recently captured one that is not a Tailored
 | `salary_expectation` | object or `null` | candidate | yes | The Salary expectation the candidate gave in the application form; see below. Never the salary the ad offers (that is in the Job analysis). |
 | `cover_letter` | path or `null` | cover-letter | no | The kept Cover letter draft. |
 | `company_research` | path or `null` | analyzer | no | The Company research, `<id>_company-research.md`. Set when job-analyzer writes or reuses the report; left as it is when the research is skipped or fails. |
+| `evidence_bank` | path or `null` | analyzer, cover-letter | no | The Evidence bank, `<id>_evidence-bank.md`; see Evidence bank in `CONTEXT.md`. Set by `set-evidence-bank` when job-analyzer's bank step writes it, from job-analyzer or from cover-letter (a changed source file, or an Application analysed before version 5); `null` until then. `upsert` never touches it. |
 | `source` | object | analyzer, candidate | partly | Where the ad was found and where to apply; see below. |
 | `contacts` | list | analyzer, candidate | yes | People at the company or agency; see below. The analyzer adds one only when the ad names a person. |
 | `notes` | string | candidate | yes | Free text, e.g. why the candidate desisted. |
@@ -188,12 +190,13 @@ The usual path is `lead` → `applied` or `desisted`, then `applied` → `no_ans
 | 2 | Adds `company_research`. |
 | 3 | Adds the top-level `cv_versions` list and the record's `cv_version`. |
 | 4 | Adds the record's `personal_motivation`. |
+| 5 | Adds the record's `evidence_bank`. |
 
-The tracker reads version 4, and upgrades older files when it loads them. Version 1: every record gets `company_research`, set to `output/applications/<id>/<id>_company-research.md` when that file exists and `null` otherwise. Version 2: `cv_versions` is `[]` and every record's `cv_version` is `null`; the CV parser then captures the Source CV lying in `input/candidate/documents/cv/` as the first CV version and gives it to every record with `applied_on` set (Leads stay `null`). Version 3: every record's `personal_motivation` is `null`. Loading writes nothing; the next save writes the file as version 4. Any other version is refused and left alone.
+The tracker reads version 5, and upgrades older files when it loads them. Version 1: every record gets `company_research`, set to `output/applications/<id>/<id>_company-research.md` when that file exists and `null` otherwise. Version 2: `cv_versions` is `[]` and every record's `cv_version` is `null`; the CV parser then captures the Source CV lying in `input/candidate/documents/cv/` as the first CV version and gives it to every record with `applied_on` set (Leads stay `null`). Version 3: every record's `personal_motivation` is `null`. Version 4: every record's `evidence_bank` is `null`; cover-letter writes the bank when it next runs for the Application. Loading writes nothing; the next save writes the file as version 5. Any other version is refused and left alone.
 
 ## When job-analyzer runs again
 
-A later Job analysis of an existing Application updates `analysis` and fills fields that are still empty. It never overwrites a value that's already there, and never touches `status`, `stage`, `stages`, `contacts`, `notes`, `salary_expectation` or `personal_motivation`.
+A later Job analysis of an existing Application updates `analysis` and fills fields that are still empty. It never overwrites a value that's already there, and never touches `status`, `stage`, `stages`, `contacts`, `notes`, `salary_expectation`, `personal_motivation` or `evidence_bank` (job-analyzer's bank step sets that one itself, with `set-evidence-bank`).
 
 ## How the tracker treats the file
 

@@ -25,7 +25,7 @@ def test_a_missing_file_loads_as_empty(db_path: Path):
 def test_the_first_save_creates_the_file_and_its_folder(db_path: Path):
     save(load(db_path))
 
-    assert json.loads(db_path.read_text()) == {"meta": {"schema_version": 4}, "cv_versions": [], "records": []}
+    assert json.loads(db_path.read_text()) == {"meta": {"schema_version": 5}, "cv_versions": [], "records": []}
 
 
 def test_records_round_trip(db_path: Path):
@@ -122,10 +122,10 @@ def test_changed_returns_true_only_when_the_file_differs_from_what_was_read(db_p
 
 def v1(rec: dict) -> dict:
     """The record as schema_version 1 stored it: no company_research."""
-    return {key: value for key, value in rec.items() if key not in ("company_research", "cv_version", "personal_motivation")}
+    return {key: value for key, value in rec.items() if key not in ("company_research", "cv_version", "personal_motivation", "evidence_bank")}
 
 
-def test_a_version_1_file_is_migrated_on_load_and_written_as_version_4_on_save(db_path: Path):
+def test_a_version_1_file_is_migrated_on_load_and_written_as_version_5_on_save(db_path: Path):
     write_db(db_path, v1(lead()), version=1)
 
     db = load(db_path)
@@ -134,7 +134,7 @@ def test_a_version_1_file_is_migrated_on_load_and_written_as_version_4_on_save(d
     assert db.records == [lead()]
     assert json.loads(db_path.read_text())["meta"]["schema_version"] == 1  # loading alone writes nothing
     save(db)
-    assert json.loads(db_path.read_text()) == {"meta": {"schema_version": 4}, "cv_versions": [], "records": [lead()]}
+    assert json.loads(db_path.read_text()) == {"meta": {"schema_version": 5}, "cv_versions": [], "records": [lead()]}
 
 
 def with_report(root: Path, rec: dict) -> None:
@@ -191,7 +191,7 @@ def test_a_migrated_file_can_be_saved_without_a_conflict(db_path: Path):
     assert load(db_path).records == [lead()]
 
 
-@pytest.mark.parametrize("version", [0, 5, "4", None])
+@pytest.mark.parametrize("version", [0, 6, "5", None])
 def test_any_other_schema_version_is_refused_and_left_alone(db_path: Path, version):
     write_db(db_path, lead(), version=version)
     before = db_path.read_text()
@@ -212,7 +212,7 @@ def test_an_invalid_version_1_record_is_still_an_error(db_path: Path):
 
 def v2(rec: dict) -> dict:
     """The record as schema_version 2 stored it: no cv_version."""
-    return {key: value for key, value in rec.items() if key not in ("cv_version", "personal_motivation")}
+    return {key: value for key, value in rec.items() if key not in ("cv_version", "personal_motivation", "evidence_bank")}
 
 
 def test_a_version_2_file_gets_no_cv_versions_and_a_null_cv_version_on_every_record(db_path: Path):
@@ -227,7 +227,7 @@ def test_a_version_2_file_gets_no_cv_versions_and_a_null_cv_version_on_every_rec
     assert json.loads(db_path.read_text())["meta"]["schema_version"] == 2  # loading alone writes nothing
     save(db)
     saved = json.loads(db_path.read_text())
-    assert saved["meta"] == {"schema_version": 4} and saved["cv_versions"] == []
+    assert saved["meta"] == {"schema_version": 5} and saved["cv_versions"] == []
 
 
 def test_cv_versions_round_trip(db_path: Path):
@@ -291,7 +291,7 @@ def test_a_version_3_file_gets_a_null_personal_motivation_on_every_record(db_pat
     assert db.cv_versions == [cv_version()]
     assert json.loads(db_path.read_text())["meta"]["schema_version"] == 3  # loading alone writes nothing
     save(db)
-    assert json.loads(db_path.read_text())["meta"] == {"schema_version": 4}
+    assert json.loads(db_path.read_text())["meta"] == {"schema_version": 5}
 
 
 @pytest.mark.parametrize("bad", [5, "", "  "])
@@ -299,3 +299,20 @@ def test_a_personal_motivation_must_be_non_empty_text_or_null(db_path: Path, bad
     write_db(db_path, lead(personal_motivation=bad))
 
     assert "personal_motivation" in load(db_path).error
+
+
+def v4(rec: dict) -> dict:
+    """The record as schema_version 4 stored it: no evidence_bank."""
+    return {key: value for key, value in rec.items() if key != "evidence_bank"}
+
+
+def test_a_version_4_file_gets_a_null_evidence_bank_on_every_record(db_path: Path):
+    write_db(db_path, v4(record()), v4(lead(id="b_c_2026-10-11")), version=4)
+
+    db = load(db_path)
+
+    assert db.error is None
+    assert [r["evidence_bank"] for r in db.records] == [None, None]
+    assert json.loads(db_path.read_text())["meta"]["schema_version"] == 4  # loading alone writes nothing
+    save(db)
+    assert json.loads(db_path.read_text())["meta"] == {"schema_version": 5}
