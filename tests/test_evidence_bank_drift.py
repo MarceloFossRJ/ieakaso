@@ -1,5 +1,6 @@
-"""The Cover letter agents read the Personal knowledge base only through the Evidence bank (ADR 0008): their INPUTS name
-no other file of it. Reads the real repo; never writes to it."""
+"""The Cover letter agents read the Personal knowledge base only through the Evidence bank (ADR 0008), and the Job analysis
+and the Company research only through the Letter context (ADR 0011): their INPUTS name no other file of the Personal
+knowledge base, and neither of those two. Reads the real repo; never writes to it."""
 
 import re
 from pathlib import Path
@@ -33,3 +34,13 @@ def test_an_agent_reads_no_personal_knowledge_base_file_beyond_its_allowed_ones(
 @pytest.mark.parametrize("agent", sorted(ALLOWED))
 def test_an_agent_reads_the_evidence_bank(agent: str):
     assert "Evidence bank" in inputs_section(REPO / agent)
+
+
+@pytest.mark.parametrize("agent", sorted(ALLOWED))
+def test_an_agent_reads_the_letter_context_not_the_job_analysis_or_the_company_research(agent: str):
+    """ADR 0011: the Letter context holds the parts of both the agents need."""
+    rows = [line for line in inputs_section(REPO / agent).splitlines() if line.startswith("| ")]
+    inputs = {row.split("|")[1].strip() for row in rows}
+
+    assert "The Letter context" in inputs
+    assert not inputs & {"The Job analysis", "The Company research"}, f"{agent} reads them; pass the Letter context"
