@@ -27,7 +27,6 @@
   },
   "documents": {
     "cv": { "status": "missing", "path": null },
-    "linkedin": { "status": "missing", "path": null },
-    "reference_letters": { "status": "missing", "paths": [] }
+    "linkedin": { "status": "missing", "path": null }
   }
 }

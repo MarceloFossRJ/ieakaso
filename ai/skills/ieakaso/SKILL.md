@@ -51,6 +51,6 @@ Run steps 1 to 4 before every mode except `init`. Step 0 runs before every mode,
 3. Unless the mode is `cv-parser` itself or `viewer` (which does not read the CV), run `ai/skills/ieakaso/modes/cv-parser.md`. It is quick when `input/parsed-documents/cv.md` is already up to date, and it captures any new CV file the candidate saved in `input/candidate/documents/cv/` (asking what it is, see its Step 3). If it ends without exit 0 or exit 4 (new files asked about), stop: the mode the user asked for does not run on a missing or out-of-date Parsed CV.
 4. When init and the parser finish, continue with the mode the user asked for.
 
-This check never blocks on, or reminds about, the LinkedIn PDF or reference letters. Only `/ieakaso init` does that.
+This check never blocks on, or reminds about, the LinkedIn profile. Only `/ieakaso init` does that.
 
 Then read the mode file and follow it.

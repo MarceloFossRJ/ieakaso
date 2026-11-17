@@ -15,5 +15,4 @@ INBOX = DOCUMENTS / "cv"  # the CV inbox; each CV version gets a folder in it
 PARSED = PurePosixPath("input/parsed-documents")
 PARSED_CV = PARSED / "cv.md"
 LINKEDIN_OUTPUT = PARSED / "linkedin.md"
-LETTERS_OUTPUT = PARSED / "reference-letters"
 FROZEN = PARSED / "cv-versions"  # <version id>.md: a CV version's Parsed CV as it was captured

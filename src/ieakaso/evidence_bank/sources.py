@@ -5,7 +5,7 @@ import re
 from pathlib import Path, PurePosixPath
 
 from ieakaso.evidence_bank.errors import ApplicationError, NoBankError
-from ieakaso.layout import APPLICATIONS, CANDIDATE, LETTERS_OUTPUT, LINKEDIN_OUTPUT, PARSED_CV
+from ieakaso.layout import APPLICATIONS, CANDIDATE, LINKEDIN_OUTPUT, PARSED_CV
 
 HEADING = "## Sources"
 NOTE = (
@@ -30,8 +30,7 @@ _CANDIDATE = (
 
 def source_files(root: Path) -> list[PurePosixPath]:
     """The source files that exist in `root`; missing optional files are left out."""
-    letters = sorted(LETTERS_OUTPUT / p.name for p in (root / LETTERS_OUTPUT).glob("*.md"))
-    paths = [*_FIXED, *letters, *(CANDIDATE / name for name in _CANDIDATE)]
+    paths = [*_FIXED, *(CANDIDATE / name for name in _CANDIDATE)]
     return [p for p in paths if (root / p).is_file()]
 
 

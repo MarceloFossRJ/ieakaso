@@ -1,7 +1,7 @@
 """`uv run python -m ieakaso.cv_parser [--main FILE | --tailored FILE --for ID] [--force] [--move-only]`: first moves a repo
 laid out before ADR 0006 to the split layout (relocate.py; `--move-only` stops there), then captures the CV versions
 waiting in the inbox `input/candidate/documents/cv/` (versions.py), writes the Parsed CV `input/parsed-documents/cv.md` from the current
-version, and writes the Parsed documents of the LinkedIn profile and reference letters (documents.py).
+version, and writes the Parsed documents of the LinkedIn profile (documents.py).
 
 A new file is never captured on its own (except the migration of a Source CV recorded and parsed before CV
 versions). The mode asks the candidate and runs the command again with `--main FILE` (the new main CV) or `--tailored FILE --for <Application ID>` (a Tailored CV).

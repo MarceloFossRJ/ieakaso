@@ -14,11 +14,10 @@ from dataclasses import dataclass, field
 from pathlib import Path, PurePosixPath
 
 from ieakaso.cv_parser.files import write_atomic
-from ieakaso.layout import CANDIDATE, DOCUMENTS, FROZEN, LETTERS_OUTPUT, LINKEDIN_OUTPUT, PARSED_CV, STATUS
+from ieakaso.layout import CANDIDATE, DOCUMENTS, FROZEN, LINKEDIN_OUTPUT, PARSED_CV, STATUS
 from ieakaso.tracker import DB_PATH, TrackerError, load, save, set_cv_version_path
 
 OLD_DOCUMENTS = "input/documents"
-OLD_LETTERS = "input/reference-letters"
 CANDIDATE_FILES = (  # written by the candidate, loose in input/ before the split
     "presentation.md",
     "professional-experience-extended.md",
@@ -59,8 +58,6 @@ def _new_path(rel: str) -> str | None:
     path = PurePosixPath(rel)
     if rel in OLD_PARSED:
         return OLD_PARSED[rel].as_posix()
-    if path.is_relative_to(OLD_LETTERS):
-        return (LETTERS_OUTPUT / path.relative_to(OLD_LETTERS)).as_posix()
     if path.is_relative_to(OLD_DOCUMENTS):
         return (DOCUMENTS / path.relative_to(OLD_DOCUMENTS)).as_posix()
     if path.parent == PurePosixPath("input") and path.name in CANDIDATE_FILES:
@@ -83,8 +80,7 @@ def _frozen_target(root: Path, path: Path) -> str | None:
 
 def _old_files(root: Path) -> list[Path]:
     files = [Path(rel) for rel in OLD_PARSED if (root / rel).is_file()]
-    for folder in (OLD_LETTERS, OLD_DOCUMENTS):
-        files += [p.relative_to(root) for p in sorted((root / folder).rglob("*")) if p.is_file()]
+    files += [p.relative_to(root) for p in sorted((root / OLD_DOCUMENTS).rglob("*")) if p.is_file()]
     files += [Path("input") / name for name in CANDIDATE_FILES if (root / "input" / name).is_file()]
     return [p for p in files if p.name != ".gitkeep"]
 
@@ -156,12 +152,11 @@ def _rewrite_cv_versions(root: Path, report: MoveReport) -> None:
 def _move_empty_folders(root: Path) -> None:
     """Move the old folders that hold nothing to their new place (deepest first), so a folder the candidate made, and
     that the status file records, still exists. A folder with anything left in it stays."""
-    for folder in (OLD_DOCUMENTS, OLD_LETTERS):
-        for path in sorted((root / folder).rglob("*"), key=lambda p: len(p.parts), reverse=True):
-            if path.is_dir() and not any(path.iterdir()):
-                _move_empty(root, path)
-        if (root / folder).is_dir() and not any((root / folder).iterdir()):
-            _move_empty(root, root / folder)
+    for path in sorted((root / OLD_DOCUMENTS).rglob("*"), key=lambda p: len(p.parts), reverse=True):
+        if path.is_dir() and not any(path.iterdir()):
+            _move_empty(root, path)
+    if (root / OLD_DOCUMENTS).is_dir() and not any((root / OLD_DOCUMENTS).iterdir()):
+        _move_empty(root, root / OLD_DOCUMENTS)
 
 
 def _move_empty(root: Path, folder: Path) -> None:

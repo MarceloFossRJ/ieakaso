@@ -25,7 +25,6 @@ You give honest advice; the candidate decides. You never invent, inflate, or ass
 | `input/candidate/presentation.md` | Who the candidate is as a professional |
 | `input/candidate/professional-self-reflection.md` | Preferences: what the candidate wants and refuses |
 | `input/parsed-documents/linkedin.md` | The LinkedIn profile's Parsed document |
-| `input/parsed-documents/reference-letters/*.md` | The Reference letters' Parsed documents: trusted facts, never quoted or attributed |
 | `input/candidate/deliberate-differences.md` | The Deliberate differences: where another document differs from the CV on purpose, and why. Optional |
 
 The memory files and Parsed documents (all but the first two) never raise the score. Use them only to find experience the CV under-sells (Step 2, and the "CV under-sells" section). They are optional; note any that are missing under **Confidence**. Where one of them disagrees with `cv.md` (a conflict, as `CONTEXT.md` defines it: two statements that can't both be true, after matching roles; regrouping and wording are not conflicts), the Parsed CV wins: list it under "Conflicts with the CV". A Deliberate difference recorded in `input/candidate/deliberate-differences.md` is left out of "Conflicts with the CV" and never lowers **Confidence**; use the CV's version.
@@ -318,7 +317,6 @@ Write `<id>_evidence-bank.md` in the Application's folder, in English, overwriti
 
 ### [Requirement, in the ad's words] ([Must / Nice / Knockout])
 - [One fact: a story, number, scope or result] (`[source file]`)
-- [A fact from a reference letter] (`[source file]`; reference letter: background, never quote or attribute)
 
 [Repeat for every requirement of the Requirement match, in its order. Write "None" under a requirement nothing supports.]
 
@@ -334,7 +332,6 @@ Write `<id>_evidence-bank.md` in the Application's folder, in English, overwriti
 - **Short.** About 1,500 words at most. Numbers, scope and results before narrative; one line per fact.
 - **Exact.** Names, numbers, titles and dates exactly as in the source, translated only when the source isn't in English.
 - **Conflicts settled.** Where files disagree (a conflict, as `CONTEXT.md` defines it), write only the Parsed CV's version; the Job analysis's "Conflicts with the CV" tells the candidate. A Deliberate difference is the CV's version too, with no mention.
-- **Reference letters are background.** Mark each fact from one as in the template. Their opinions about the candidate never go in.
 - **Not in the bank:** `writing-style.md` (the Applicant reads it), the contact block and other `config.yml` facts (both agents read `config.yml`), and the Personal motivation (the Assistant passes it).
 
 ### Step B2: Stamp it and record it in the tracker

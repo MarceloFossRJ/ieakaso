@@ -20,8 +20,6 @@ def root(tmp_path: Path) -> Path:
         "config.yml": "name: Jane\n",
         "input/parsed-documents/cv.md": "# CV\n",
         "input/parsed-documents/linkedin.md": "# LinkedIn\n",
-        "input/parsed-documents/reference-letters/b.md": "B\n",
-        "input/parsed-documents/reference-letters/a.md": "A\n",
         "input/candidate/presentation.md": "Hi\n",
         "input/candidate/writing-style.md": "Plain\n",
     }.items():
@@ -50,8 +48,6 @@ def test_the_sources_are_the_existing_files_of_the_personal_knowledge_base_the_b
         "config.yml",
         "input/parsed-documents/cv.md",
         "input/parsed-documents/linkedin.md",
-        "input/parsed-documents/reference-letters/a.md",
-        "input/parsed-documents/reference-letters/b.md",
         "input/candidate/presentation.md",
     ]  # writing-style.md is the voice, read by the Applicant itself; missing optional files are left out
 
@@ -62,7 +58,7 @@ def test_stamp_appends_the_sources_section_with_each_file_hash(root: Path):
     code, out, err = run(root, "stamp", ID)
 
     assert (code, err) == (0, "")
-    assert out == f"evidence bank stamped for {ID}: 6 source files\n"
+    assert out == f"evidence bank stamped for {ID}: 4 source files\n"
     text = bank(root).read_text()
     assert text.startswith(BODY.rstrip("\n") + "\n\n## Sources\n")
     assert f"| `config.yml` | `{sha('name: Jane\n')}` |" in text
