@@ -1,4 +1,4 @@
-"""The Parsed documents of the LinkedIn profile and the reference letters (docs/adr/0004-parsed-documents.md).
+"""The Parsed documents of the LinkedIn profile (docs/adr/0004-parsed-documents.md).
 
 Init records their Source documents in db/system_status.json; each gets a Parsed document in input/parsed-documents/,
 recorded next to its source. Nothing here ever blocks the CV: every problem is a warning on stdout.
@@ -9,7 +9,7 @@ from pathlib import Path, PurePosixPath
 from ieakaso import cv_parser
 from ieakaso.cv_parser.errors import CvParseError
 from ieakaso.cv_parser.files import sha, write_atomic
-from ieakaso.layout import LETTERS_OUTPUT, LINKEDIN_OUTPUT, PARSED
+from ieakaso.layout import LINKEDIN_OUTPUT, PARSED
 
 
 def sync(root: Path, status: dict, force: bool, now: str) -> bool:
@@ -31,20 +31,6 @@ def sync(root: Path, status: dict, force: bool, now: str) -> bool:
                 linkedin["parsed"] = new[0]
             else:
                 linkedin.pop("parsed", None)
-
-    letters = documents.get("reference_letters")
-    if isinstance(letters, dict):
-        paths = letters.get("paths")
-        paths = [p for p in paths if isinstance(p, str) and p] if isinstance(paths, list) else []
-        targets = {p: LETTERS_OUTPUT / f"{PurePosixPath(p).name}.md" for p in paths}
-        old = [r for r in letters.get("parsed") or [] if isinstance(r, dict)]
-        new = _sync(root, targets, old, force, now)
-        if new != old:
-            changed = True
-            if new:
-                letters["parsed"] = new
-            else:
-                letters.pop("parsed", None)
 
     return changed
 

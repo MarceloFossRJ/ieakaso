@@ -255,34 +255,6 @@ def build_linkedin_pdf(path: Path) -> None:
     doc.save(path, garbage=4, deflate=True, no_new_id=True)
 
 
-REFERENCE_LETTER = [
-    "To whom it may concern,",
-    (
-        "Jordan Example worked at Acme Corp from 2019 to 2023 and led the migration of our "
-        "payments platform to Kubernetes, with a team of 8 engineers."
-    ),
-    "Jordan is the most thoughtful manager I have worked with.",
-    "Alex Sample, CTO, Acme Corp",
-]
-
-
-def build_reference_letter_pdf(path: Path) -> None:
-    doc = pymupdf.open()
-    page = doc.new_page()
-    for number, line in enumerate(REFERENCE_LETTER):
-        page.insert_textbox(pymupdf.Rect(72, 90 + 60 * number, 520, 150 + 60 * number), line, fontsize=11)
-    doc.set_metadata({"producer": "ieakaso fixtures", "creationDate": "", "modDate": ""})
-    doc.save(path, garbage=4, deflate=True, no_new_id=True)
-
-
-def build_reference_letter_docx(path: Path) -> None:
-    doc = docx.Document()
-    for line in REFERENCE_LETTER:
-        doc.add_paragraph(line)
-    doc.core_properties.author = "ieakaso fixtures"
-    doc.save(path)
-
-
 TEX = r"""\documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
@@ -387,8 +359,6 @@ def main() -> None:
     build_two_column_pdf(OUT / "two-column.pdf")
     build_scanned_pdf(OUT / "scanned.pdf")
     build_linkedin_pdf(OUT / "linkedin-profile.pdf")
-    build_reference_letter_pdf(OUT / "reference-letter.pdf")
-    build_reference_letter_docx(OUT / "reference-letter.docx")
     (OUT / "cv.tex").write_text(TEX, encoding="utf-8")
     (OUT / "layouts.tex").write_text(TEX_LAYOUTS, encoding="utf-8")
     (OUT / "unknown-command.tex").write_text(TEX_UNKNOWN, encoding="utf-8")

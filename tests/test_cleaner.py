@@ -122,12 +122,10 @@ def test_clean_applications_leaves_the_set_up_state(repo: Path):
         "db/system_status.json",
         "input/parsed-documents/cv.md",
         "input/parsed-documents/linkedin.md",
-        "input/parsed-documents/reference-letters/letter.docx.md",
         "input/parsed-documents/cv-versions/cv_2026-10-01.md",
         "input/candidate/writing-style.md",
         "input/candidate/documents/cv/cv_en.pdf",
         "input/candidate/documents/linkedin/Profile.pdf",
-        "input/candidate/documents/reference_letters/letter.docx",
         "input/candidate/documents/xing/nested/profile.pdf",
         "output/acme/cover_letter.md",
     ]

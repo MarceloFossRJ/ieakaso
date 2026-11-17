@@ -22,7 +22,6 @@ STATUS = "db/system_status.json"
 # What the repo looked like before ADR 0006, by the new place of each file.
 NEW_TO_OLD = {
     f"{PARSED}/linkedin.md": "input/linkedin.md",
-    f"{PARSED}/reference-letters": "input/reference-letters",
     f"{PARSED}/cv.md": "input/cv.md",
     f"{CANDIDATE}/documents/": "input/documents/",
 }
@@ -76,7 +75,7 @@ def to_old_layout(repo: Path, only: tuple[str, ...] = ()) -> None:
 
 @pytest.fixture
 def current(tmp_path: Path) -> Path:
-    """A repo in the split layout that was parsed for real: two CV versions, a LinkedIn profile, a letter, the candidate's own files."""
+    """A repo in the split layout that was parsed for real: two CV versions, a LinkedIn profile, the candidate's own files."""
     root = tmp_path / "repo"
     write_files(root, TRACKED)
     write_files(
@@ -84,7 +83,6 @@ def current(tmp_path: Path) -> Path:
         {
             f"{INBOX}/first.txt": "Jordan Example\nEngineer\n",
             f"{CANDIDATE}/documents/linkedin/Profile.md": "# Jordan\nLinkedIn\n",
-            f"{CANDIDATE}/documents/reference_letters/acme.txt": "A letter\n",
             f"{CANDIDATE}/documents/xing/profile.pdf": "%PDF xing",
             **{f"{CANDIDATE}/{name}": f"{name}\n" for name in MEMORY},
             STATUS: json.dumps(
@@ -93,10 +91,6 @@ def current(tmp_path: Path) -> Path:
                     "documents": {
                         "cv": {"status": "found", "path": None},
                         "linkedin": {"status": "found", "path": f"{CANDIDATE}/documents/linkedin/Profile.md"},
-                        "reference_letters": {
-                            "status": "found",
-                            "paths": [f"{CANDIDATE}/documents/reference_letters/acme.txt"],
-                        },
                     },
                 }
             ),
@@ -119,7 +113,6 @@ def test_a_full_old_layout_moves_to_the_split_layout(current: Path, capsys):
 
     assert settled(current) == expected
     assert not (current / "input/documents").exists()
-    assert not (current / "input/reference-letters").exists()
     lines = capsys.readouterr().out.splitlines()
     assert [line for line in lines if line.startswith("Moved")] == [lines[0]]
     assert "input/candidate/" in lines[0] and "input/parsed-documents/" in lines[0]
