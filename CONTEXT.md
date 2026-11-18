@@ -223,3 +223,13 @@ _Avoid_: spend, consumption, credits, cost
 **Context fill**:
 How full the model's context window is: tokens in the conversation out of the window size.
 _Avoid_: context size, context usage
+
+### Interview prep
+
+**Screening prep**:
+The document the recruiter-screening mode writes for one Application before its recruiter screening, the Interview stage where an Interviewer checks how well the candidate fits the Position: what the candidate must get across, drafted wording to say out loud, the logistics to volunteer, the salary ask, questions to ask and a company cheat sheet. Its facts about the candidate come only from the Evidence bank and `config.yml`, its facts about the company only from the Job ad and the research. It is for the candidate's eyes only and is never sent.
+_Avoid_: prep pack, brief, briefing
+
+**Interviewer**:
+The person who runs one Interview stage of an Application for the company, whether they work for it (e.g. a talent acquisition manager) or for an agency it hired. In-house or agency is a fact about the Interviewer, not a separate term. Ieakaso researches only their public, professional facts.
+_Avoid_: recruiter, company recruiter, talent partner, screener
