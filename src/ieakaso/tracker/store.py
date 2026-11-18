@@ -83,6 +83,7 @@ def _migrate(data: Any, root: Path | None) -> None:
     then captures the Source CV and links the Applications past Lead to it.
     Version 3 had no `personal_motivation`: every record gets a null one.
     Version 4 had no `evidence_bank`: every record gets a null one; cover-letter writes the bank when it needs it.
+    Version 5 had no `screening_prep`: every record gets a null one.
     """
     if not _is_tracker_file(data):
         return
@@ -107,6 +108,11 @@ def _migrate(data: Any, root: Path | None) -> None:
         for record in data["records"]:
             if isinstance(record, dict):
                 record.setdefault("evidence_bank", None)
+        data["meta"]["schema_version"] = 5
+    if data["meta"].get("schema_version") == 5:
+        for record in data["records"]:
+            if isinstance(record, dict):
+                record.setdefault("screening_prep", None)
         data["meta"]["schema_version"] = SCHEMA_VERSION
 
 

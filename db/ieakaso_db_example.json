@@ -1,6 +1,6 @@
 {
   "meta": {
-    "schema_version": 5
+    "schema_version": 6
   },
   "cv_versions": [
     {
@@ -67,6 +67,7 @@
       "cover_letter": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_cover-letter.md",
       "company_research": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_company-research.md",
       "evidence_bank": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_evidence-bank.md",
+      "screening_prep": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_screening-prep.md",
       "source": {
         "board": "LinkedIn",
         "board_url": "https://www.linkedin.com/jobs/view/123",

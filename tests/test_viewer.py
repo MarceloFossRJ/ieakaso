@@ -351,6 +351,7 @@ async def test_read_only_fields_have_no_inputs(root: Path):
             "job_ad",
             "cover_letter",
             "company_research",
+            "screening_prep",
             "personal_motivation",
         }
         text = " ".join(str(w.render()) for w in pilot.app.screen.query(Static))
@@ -474,7 +475,8 @@ async def test_no_dialog_without_candidates(root: Path):
 def with_files(root: Path, *rec: dict) -> None:
     write_db(db_file(root), *rec)
     for item in rec:
-        for rel in (item["source"]["job_ad"], item["analysis"]["doc"], item["cover_letter"], item["company_research"]):
+        paths = (item["source"]["job_ad"], item["analysis"]["doc"], item["cover_letter"], item["company_research"])
+        for rel in (*paths, item["screening_prep"]):
             if rel:
                 (root / rel).parent.mkdir(parents=True, exist_ok=True)
                 (root / rel).write_text("x")
@@ -486,13 +488,14 @@ async def test_keys_open_the_documents_of_the_selected_application(root: Path):
 
     async with make_app(root, opened).run_test(size=SIZE) as pilot:
         await pilot.pause()
-        await pilot.press("a", "j", "c", "r")
+        await pilot.press("a", "j", "c", "r", "s")
         await pilot.pause()
     assert [p.name for p in opened] == [
         f"{ID}_job-ad.md",
         f"{ID}_job-analysis.md",
         f"{ID}_cover-letter.md",
         f"{ID}_company-research.md",
+        f"{ID}_screening-prep.md",
     ]
     assert all(p.is_relative_to(root) for p in opened)
 
@@ -505,7 +508,8 @@ async def test_the_detail_buttons_open_the_documents(root: Path):
         await open_detail(pilot)
         await press(pilot, "open_letter")
         await press(pilot, "open_research")
-    assert [p.name for p in opened] == [f"{ID}_cover-letter.md", f"{ID}_company-research.md"]
+        await press(pilot, "open_screening")
+    assert [p.name for p in opened] == [f"{ID}_cover-letter.md", f"{ID}_company-research.md", f"{ID}_screening-prep.md"]
 
 
 async def test_a_missing_document_or_file_opens_nothing(root: Path):
@@ -514,7 +518,7 @@ async def test_a_missing_document_or_file_opens_nothing(root: Path):
 
     async with make_app(root, opened).run_test(size=SIZE) as pilot:
         await pilot.pause()
-        await pilot.press("c", "r")
+        await pilot.press("c", "r", "s")
         (root / lead()["analysis"]["doc"]).unlink()
         await pilot.press("j")
         await pilot.pause()
@@ -522,6 +526,7 @@ async def test_a_missing_document_or_file_opens_nothing(root: Path):
     assert opened == []
     assert any("no Cover letter" in m for m in messages)
     assert any("no Company research" in m for m in messages)
+    assert any("no Screening prep" in m for m in messages)
     assert any("missing" in m for m in messages)
 
 

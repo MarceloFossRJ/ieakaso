@@ -1,5 +1,5 @@
 """The tracker's operations on a loaded db: upsert from a Job analysis, status, cover letter, company research,
-Evidence bank, edits, No answer."""
+Evidence bank, Screening prep, contacts, edits, No answer."""
 
 from datetime import date
 from pathlib import Path
@@ -10,6 +10,7 @@ from tracker_fakes import FOLDER, ID, TODAY, lead, payload, record, write_db
 from ieakaso.tracker import (
     InvalidRecordError,
     RecordNotFoundError,
+    add_contact,
     load,
     no_answer_suggestions,
     problems,
@@ -18,6 +19,7 @@ from ieakaso.tracker import (
     set_cover_letter,
     set_evidence_bank,
     set_personal_motivation,
+    set_screening_prep,
     set_status,
     update_record,
     upsert_from_analysis,
@@ -291,6 +293,7 @@ def test_update_record_edits_the_editable_source_fields_only(db_path: Path):
         {"cover_letter": "x.md"},
         {"company_research": "x.md"},
         {"evidence_bank": "x.md"},
+        {"screening_prep": "x.md"},
         {"surprise": 1},
     ],
 )
@@ -467,3 +470,80 @@ def test_clear_personal_motivation_refuses_an_unknown_id(db_path: Path):
 
     with pytest.raises(RecordNotFoundError):
         set_personal_motivation(load(db_path), "nope", None)
+
+
+def test_set_screening_prep(db_path: Path):
+    write_db(db_path, lead())
+
+    rec = set_screening_prep(load(db_path), ID, f"{FOLDER}/{ID}_screening-prep.md")
+
+    assert rec["screening_prep"] == f"{FOLDER}/{ID}_screening-prep.md"
+    assert problems(rec) == []
+
+
+def test_set_screening_prep_refuses_a_path_outside_the_repo_and_an_unknown_id(db_path: Path):
+    write_db(db_path, lead())
+
+    with pytest.raises(InvalidRecordError):
+        set_screening_prep(load(db_path), ID, "../outside.md")
+    with pytest.raises(RecordNotFoundError):
+        set_screening_prep(load(db_path), "nope", "a.md")
+
+
+def test_a_new_lead_has_no_screening_prep_and_a_rerun_never_touches_it(db_path: Path):
+    rec, _ = upsert_from_analysis(load(db_path), payload(), TODAY)
+    assert rec["screening_prep"] is None
+    with pytest.raises(InvalidRecordError):
+        upsert_from_analysis(load(db_path), payload(screening_prep="x.md"), TODAY)
+
+    write_db(db_path, lead(screening_prep=f"{FOLDER}/{ID}_screening-prep.md"))
+    rec, _ = upsert_from_analysis(load(db_path), payload(), TODAY)
+
+    assert rec["screening_prep"] == f"{FOLDER}/{ID}_screening-prep.md"
+
+
+# contacts
+
+
+def test_add_contact_appends_a_contact(db_path: Path):
+    write_db(db_path, lead())
+
+    rec, added = add_contact(load(db_path), ID, "recruiter", " Ana Lima ", "https://www.linkedin.com/in/analima", None)
+
+    assert added is True
+    assert rec["contacts"] == [
+        {
+            "contact_type": "recruiter",
+            "name": "Ana Lima",
+            "linkedin_url": "https://www.linkedin.com/in/analima",
+            "email": None,
+        }
+    ]
+
+
+@pytest.mark.parametrize(
+    ("name", "linkedin_url"),
+    [
+        ("jane doe", None),
+        ("Someone Else", "https://www.linkedin.com/in/janedoe/"),
+    ],
+)
+def test_add_contact_skips_a_contact_with_the_same_name_or_linkedin_url(db_path: Path, name, linkedin_url):
+    write_db(db_path, record())
+    before = load(db_path).find(ID)["contacts"]
+
+    rec, added = add_contact(load(db_path), ID, "recruiter", name, linkedin_url, None)
+
+    assert added is False
+    assert rec["contacts"] == before
+
+
+def test_add_contact_refuses_a_bad_type_an_empty_name_and_an_unknown_id(db_path: Path):
+    write_db(db_path, lead())
+
+    with pytest.raises(InvalidRecordError):
+        add_contact(load(db_path), ID, "friend", "Ana", None, None)
+    with pytest.raises(InvalidRecordError):
+        add_contact(load(db_path), ID, "recruiter", "  ", None, None)
+    with pytest.raises(RecordNotFoundError):
+        add_contact(load(db_path), "nope", "recruiter", "Ana", None, None)
