@@ -43,6 +43,7 @@ DOCUMENTS = {  # key -> (what the candidate sees, where the path is in the recor
     "analysis": ("Job analysis", lambda record: record["analysis"]["doc"]),
     "letter": ("Cover letter", lambda record: record["cover_letter"]),
     "research": ("Company research", lambda record: record["company_research"]),
+    "screening": ("Screening prep", lambda record: record["screening_prep"]),
 }
 NO_FILE_HINT = "No Applications yet. Run `/ieakaso job-analyzer <job ad>` in your coding assistant to track one."
 
@@ -64,6 +65,7 @@ class ViewerApp(App):
         Binding("j", "open_document('analysis')", "Job analysis"),
         Binding("c", "open_document('letter')", "Cover letter"),
         Binding("r", "open_document('research')", "Company research"),
+        Binding("s", "open_document('screening')", "Screening prep"),
         Binding("v", "cv_versions", "CV versions"),
         Binding("q", "quit", "Quit"),
     ]

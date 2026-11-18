@@ -197,6 +197,7 @@ class DetailScreen(Screen):
                 yield Button("Open Job analysis", id="open_analysis")
                 yield Button("Open Cover letter", id="open_letter")
                 yield Button("Open Company research", id="open_research")
+                yield Button("Open Screening prep", id="open_screening")
                 yield Button("Back", id="back")
         yield Footer()
 
@@ -232,6 +233,7 @@ class DetailScreen(Screen):
             ("Job ad file", source["job_ad"]),
             ("Cover letter file", record["cover_letter"] or "none yet"),
             ("Company research file", record["company_research"] or "none yet"),
+            ("Screening prep file", record["screening_prep"] or "none yet"),
             ("Personal motivation", record["personal_motivation"] or "none yet"),
             ("Status history", history),
         ):

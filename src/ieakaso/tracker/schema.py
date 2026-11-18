@@ -6,7 +6,7 @@ from typing import Any
 
 from ieakaso.tracker.errors import InvalidRecordError
 
-SCHEMA_VERSION = 5
+SCHEMA_VERSION = 6
 STATUSES = ("lead", "desisted", "applied", "no_answer", "interviewing", "offer", "not_selected")
 CLOSED_STATUSES = ("desisted", "not_selected")
 VERDICTS = ("Top applicant", "Apply", "Stretch", "Don't apply")
@@ -30,6 +30,7 @@ RECORD_KEYS = (
     "cover_letter",
     "company_research",
     "evidence_bank",
+    "screening_prep",
     "source",
     "contacts",
     "notes",
@@ -145,7 +146,7 @@ def problems(record: Any) -> list[str]:
         out.append("cv_version must be a CV version ID or null")
     if "personal_motivation" in record and get("personal_motivation") is not None and not _is_text(get("personal_motivation")):
         out.append("personal_motivation must be non-empty text or null")
-    for key in ("cover_letter", "company_research", "evidence_bank"):
+    for key in ("cover_letter", "company_research", "evidence_bank", "screening_prep"):
         if key in record and get(key) is not None and not _is_path(get(key)):
             out.append(f"{key} must be a repo-relative path or null")
 

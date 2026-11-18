@@ -9,7 +9,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 - **One record per Application.** The candidate applies at most once per Application. Two Job ads joined through `**Also at:**` are still one record.
 - **Records are created only by modes.** job-analyzer creates a record as `lead`. The viewer edits records; it never creates or deletes them.
 - **CV versions are created only by the CV parser.** It captures each new Source CV (`docs/adr/0005-cv-versions.md`). They are never changed or deleted, except for the label, which the candidate edits in the viewer. A record holds the ID of the CV version its application was sent with.
-- **No text, only paths.** The ad, the Job analysis, the Cover letter and the Company research stay in `output/applications/<id>/`; the db holds their paths, relative to the repo root.
+- **No text, only paths.** The ad, the Job analysis, the Cover letter, the Company research and the Screening prep stay in `output/applications/<id>/`; the db holds their paths, relative to the repo root.
 - **Nothing derived is stored.** Counts by status or stage are computed when needed, and so is the current CV version.
 - **Keys are snake_case.** Dates are `yyyy-mm-dd`. A value not known yet is `null`.
 
@@ -17,7 +17,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 
 ```jsonc
 {
-  "meta": { "schema_version": 5 },
+  "meta": { "schema_version": 6 },
   "cv_versions": [
     {
       "id": "cv_2026-10-01",
@@ -63,6 +63,7 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
       "cover_letter": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_cover-letter.md",
       "company_research": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_company-research.md",
       "evidence_bank": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_evidence-bank.md",
+      "screening_prep": "output/applications/acme_senior-backend-engineer_2026-10-10/acme_senior-backend-engineer_2026-10-10_screening-prep.md",
       "source": {
         "board": "LinkedIn",
         "board_url": "https://www.linkedin.com/jobs/view/123",
@@ -82,13 +83,13 @@ Only the tracker module (`src/ieakaso/tracker/`) reads and writes the file. Mode
 
 ## Fields
 
-"Written by" says who sets the field: **analyzer** (the job-analyzer mode, including its Company research step), **cover-letter** (the cover-letter mode), **candidate** (in the viewer) or **tracker** (automatically). Fields marked "no" in the Editable column are shown in the viewer but can't be changed there.
+"Written by" says who sets the field: **analyzer** (the job-analyzer mode, including its Company research step), **cover-letter** (the cover-letter mode), **recruiter-screening** (the recruiter-screening mode), **candidate** (in the viewer) or **tracker** (automatically). Fields marked "no" in the Editable column are shown in the viewer but can't be changed there.
 
 ### `meta`
 
 | Field | Type | Written by | Meaning |
 |---|---|---|---|
-| `schema_version` | integer | tracker | Version of this model. Currently `5`; see [Schema versions](#schema-versions). |
+| `schema_version` | integer | tracker | Version of this model. Currently `6`; see [Schema versions](#schema-versions). |
 
 ### `cv_versions[]`
 
@@ -124,8 +125,9 @@ The **current version** is the most recently captured one that is not a Tailored
 | `cover_letter` | path or `null` | cover-letter | no | The kept Cover letter draft. |
 | `company_research` | path or `null` | analyzer | no | The Company research, `<id>_company-research.md`. Set when job-analyzer writes or reuses the report; left as it is when the research is skipped or fails. |
 | `evidence_bank` | path or `null` | analyzer, cover-letter | no | The Evidence bank, `<id>_evidence-bank.md`; see Evidence bank in `CONTEXT.md`. Set by `set-evidence-bank` when job-analyzer's bank step writes it, from job-analyzer or from cover-letter (a changed source file, or an Application analysed before version 5); `null` until then. `upsert` never touches it. |
+| `screening_prep` | path or `null` | recruiter-screening | no | The Screening prep, `<id>_screening-prep.md`; see Screening prep in `CONTEXT.md`. Set by `set-screening-prep` when recruiter-screening writes it; a rerun of that mode overwrites the file and keeps the path. `null` until then. `upsert` never touches it. |
 | `source` | object | analyzer, candidate | partly | Where the ad was found and where to apply; see below. |
-| `contacts` | list | analyzer, candidate | yes | People at the company or agency; see below. The analyzer adds one only when the ad names a person. |
+| `contacts` | list | analyzer, recruiter-screening, candidate | yes | People at the company or agency; see below. The analyzer adds one only when the ad names a person; recruiter-screening adds the Interviewer with `add-contact`, which skips a contact already there. |
 | `notes` | string | candidate | yes | Free text, e.g. why the candidate desisted. |
 | `cv_version` | CV version ID or `null` | tracker, CV parser, candidate | yes (picker) | The CV version the application was sent with. Filled with the current version when `status` becomes `applied` and it is empty (the same rule as `applied_on`); set to a Tailored CV when the parser captures one for this Application. The candidate can change it in the viewer and explains why in `notes`. `null` for a Lead. A Tailored CV can only be set on its own Application. |
 | `personal_motivation` | string or `null` | cover-letter | no (shown read-only) | The candidate's own reason for wanting this Application's Job ad, in their own words, trimmed; see Personal motivation in `CONTEXT.md`. At most one per Application. Written by `set-personal-motivation` when the candidate gives or replaces one in the cover-letter mode, and set back to `null` by `set-personal-motivation --clear` when the candidate chooses Remove there; `null` when there is none. The viewer shows it and never edits it; job-analyzer never touches it. |
@@ -191,12 +193,13 @@ The usual path is `lead` → `applied` or `desisted`, then `applied` → `no_ans
 | 3 | Adds the top-level `cv_versions` list and the record's `cv_version`. |
 | 4 | Adds the record's `personal_motivation`. |
 | 5 | Adds the record's `evidence_bank`. |
+| 6 | Adds the record's `screening_prep`. |
 
-The tracker reads version 5, and upgrades older files when it loads them. Version 1: every record gets `company_research`, set to `output/applications/<id>/<id>_company-research.md` when that file exists and `null` otherwise. Version 2: `cv_versions` is `[]` and every record's `cv_version` is `null`; the CV parser then captures the Source CV lying in `input/candidate/documents/cv/` as the first CV version and gives it to every record with `applied_on` set (Leads stay `null`). Version 3: every record's `personal_motivation` is `null`. Version 4: every record's `evidence_bank` is `null`; cover-letter writes the bank when it next runs for the Application. Loading writes nothing; the next save writes the file as version 5. Any other version is refused and left alone.
+The tracker reads version 6, and upgrades older files when it loads them. Version 1: every record gets `company_research`, set to `output/applications/<id>/<id>_company-research.md` when that file exists and `null` otherwise. Version 2: `cv_versions` is `[]` and every record's `cv_version` is `null`; the CV parser then captures the Source CV lying in `input/candidate/documents/cv/` as the first CV version and gives it to every record with `applied_on` set (Leads stay `null`). Version 3: every record's `personal_motivation` is `null`. Version 4: every record's `evidence_bank` is `null`; cover-letter writes the bank when it next runs for the Application. Version 5: every record's `screening_prep` is `null`. Loading writes nothing; the next save writes the file as version 6. Any other version is refused and left alone.
 
 ## When job-analyzer runs again
 
-A later Job analysis of an existing Application updates `analysis` and fills fields that are still empty. It never overwrites a value that's already there, and never touches `status`, `stage`, `stages`, `contacts`, `notes`, `salary_expectation`, `personal_motivation` or `evidence_bank` (job-analyzer's bank step sets that one itself, with `set-evidence-bank`).
+A later Job analysis of an existing Application updates `analysis` and fills fields that are still empty. It never overwrites a value that's already there, and never touches `status`, `stage`, `stages`, `contacts`, `notes`, `salary_expectation`, `personal_motivation`, `evidence_bank` or `screening_prep` (job-analyzer's bank step sets that one itself, with `set-evidence-bank`).
 
 ## How the tracker treats the file
 

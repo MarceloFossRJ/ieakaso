@@ -1,5 +1,6 @@
 """`uv run python -m ieakaso.tracker upsert [--json <payload>] | set-cover-letter <id> <path>
-| set-company-research <id> <path> | set-evidence-bank <id> <path> | cv-versions | applications | set-cv-version <id> <version id|none>
+| set-company-research <id> <path> | set-evidence-bank <id> <path> | set-screening-prep <id> <path>
+| add-contact <id> --type <contact type> --name <name> [--linkedin <url>] [--email <email>] | cv-versions | applications | set-cv-version <id> <version id|none>
 | set-cv-label <version id> <label> | set-personal-motivation <id> [--clear] | personal-motivation <id>`.
 
 upsert: create or update the record of a Job analysis; the JSON payload comes from --json or stdin. Writes
@@ -7,6 +8,9 @@ upsert: create or update the record of a Job analysis; the JSON payload comes fr
 set-cover-letter: set a record's Cover letter path.
 set-company-research: set a record's Company research path.
 set-evidence-bank: set a record's Evidence bank path.
+set-screening-prep: set a record's Screening prep path.
+add-contact: append a contact to a record. Prints `added contact to <id>`, or `contact already on <id>` when a contact
+with the same name or LinkedIn URL is there (nothing changes then).
 cv-versions: list the CV versions, one per line, tab-separated: ID, label, captured date, the Application ID of a
 Tailored CV or `-`, and `current` for the current version or `-`.
 applications: list the records, one per line, tab-separated: ID, status, company, position and CV version ID or `-`.
@@ -34,11 +38,13 @@ from ieakaso.repo import find_root
 from ieakaso.tracker.cv_versions import set_cv_version_label, set_record_cv_version
 from ieakaso.tracker.errors import InvalidDbError, InvalidRecordError, TrackerError
 from ieakaso.tracker.ops import (
+    add_contact,
     get_record,
     set_company_research,
     set_cover_letter,
     set_evidence_bank,
     set_personal_motivation,
+    set_screening_prep,
     upsert_from_analysis,
 )
 from ieakaso.tracker.store import DB_PATH, Db, current_cv_version, load, save
@@ -78,6 +84,15 @@ def main(
     bank = commands.add_parser("set-evidence-bank", help="set the Evidence bank path of a record")
     bank.add_argument("id", help="the Application ID")
     bank.add_argument("path", help="the Evidence bank, relative to the repo root")
+    prep = commands.add_parser("set-screening-prep", help="set the Screening prep path of a record")
+    prep.add_argument("id", help="the Application ID")
+    prep.add_argument("path", help="the Screening prep, relative to the repo root")
+    contact = commands.add_parser("add-contact", help="add a contact to a record, unless it is already there")
+    contact.add_argument("id", help="the Application ID")
+    contact.add_argument("--type", required=True, help="recruiter, hiring_manager, referral or other")
+    contact.add_argument("--name", required=True, help="the person's name")
+    contact.add_argument("--linkedin", help="their LinkedIn profile URL")
+    contact.add_argument("--email", help="their email address")
     commands.add_parser("cv-versions", help="list the CV versions")
     commands.add_parser("applications", help="list the Applications")
     version = commands.add_parser("set-cv-version", help="set the CV version an Application was sent with")
@@ -137,6 +152,15 @@ def main(
         elif args.command == "set-cover-letter":
             set_cover_letter(db, args.id, args.path)
             message = f"cover letter set for {args.id}"
+        elif args.command == "set-screening-prep":
+            set_screening_prep(db, args.id, args.path)
+            message = f"screening prep set for {args.id}"
+        elif args.command == "add-contact":
+            _, added = add_contact(db, args.id, args.type, args.name, args.linkedin, args.email)
+            if not added:
+                print(f"contact already on {args.id}", file=out)
+                return 0
+            message = f"added contact to {args.id}"
         elif args.command == "set-evidence-bank":
             set_evidence_bank(db, args.id, args.path)
             message = f"evidence bank set for {args.id}"

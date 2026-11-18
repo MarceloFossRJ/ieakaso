@@ -4,7 +4,7 @@ import copy
 from datetime import date
 
 from ieakaso.tracker.errors import InvalidRecordError, RecordNotFoundError
-from ieakaso.tracker.schema import STATUSES, is_date, validate
+from ieakaso.tracker.schema import CONTACT_TYPES, STATUSES, is_date, validate
 from ieakaso.tracker.store import Db, current_cv_version
 
 EDIT_KEYS = (
@@ -49,7 +49,7 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
 
     The re-run rule (docs/database.md): an existing record gets the new `analysis` and its still-empty fields filled;
     nothing already there is overwritten, and status, stage, stages, contacts, notes, salary_expectation,
-    personal_motivation and evidence_bank stay.
+    personal_motivation, evidence_bank and screening_prep stay.
     """
     if not isinstance(payload, dict):
         raise InvalidRecordError("the Job analysis payload must be a JSON object")
@@ -88,6 +88,7 @@ def upsert_from_analysis(db: Db, payload: dict, today: date) -> tuple[dict, bool
             "cover_letter": None,
             "company_research": None,
             "evidence_bank": None,
+            "screening_prep": None,
             "source": {**incoming["source"], "form_url": None},
             "contacts": copy.deepcopy(payload.get("contacts") or []),
             "notes": "",
@@ -153,6 +154,44 @@ def set_company_research(db: Db, record_id: str, path: str) -> dict:
 
 def set_evidence_bank(db: Db, record_id: str, path: str) -> dict:
     return _set_path(db, record_id, "evidence_bank", path)
+
+
+def set_screening_prep(db: Db, record_id: str, path: str) -> dict:
+    return _set_path(db, record_id, "screening_prep", path)
+
+
+def _same_linkedin(a: str | None, b: str | None) -> bool:
+    return bool(a and b) and a.strip().rstrip("/").lower() == b.strip().rstrip("/").lower()
+
+
+def add_contact(
+    db: Db, record_id: str, contact_type: str, name: str, linkedin_url: str | None, email: str | None
+) -> tuple[dict, bool]:
+    """Append a contact to an Application, unless one with the same name or LinkedIn URL is already there.
+
+    Returns the record and whether the contact was added.
+    """
+    record = get_record(db, record_id)
+    if contact_type not in CONTACT_TYPES:
+        raise InvalidRecordError(f"contact_type must be one of {', '.join(CONTACT_TYPES)}")
+    name = (name or "").strip()
+    if not name:
+        raise InvalidRecordError("a contact needs a name")
+    for contact in record["contacts"]:
+        if contact["name"].strip().casefold() == name.casefold() or _same_linkedin(
+            contact["linkedin_url"], linkedin_url
+        ):
+            return record, False
+    new = copy.deepcopy(record)
+    new["contacts"].append(
+        {
+            "contact_type": contact_type,
+            "name": name,
+            "linkedin_url": (linkedin_url or "").strip() or None,
+            "email": (email or "").strip() or None,
+        }
+    )
+    return replace_record(record, new), True
 
 
 def set_personal_motivation(db: Db, record_id: str, text: str | None) -> dict:
