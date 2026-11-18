@@ -1,0 +1,8 @@
+---
+name: recruiter-screening
+description: "Ieakaso recruiter-screening: Writes a screening prep for one Application's recruiter screening call and offers a mock screening"
+argument-hint: "<Application ID> \"<Interviewer name>\" [<Interviewer LinkedIn URL>]"
+disable-model-invocation: true
+---
+
+Read `ai/skills/ieakaso/SKILL.md` (relative to the repository root) and follow it as mode `recruiter-screening`, passing on the arguments: $ARGUMENTS

@@ -25,7 +25,7 @@ A third role, the **Job Application Assistant**, is the conversation itself: it 
 
 Neither agent reads all your files. The job-analyzer mode reads them once and writes an **evidence bank** for the application: for each requirement of the ad, every fact from your files that supports it, plus what you want from a job and your other strong stories, each fact naming the file it comes from. The Applicant writes from it, and the Recruiter, which also sees your CV, checks every claim in the letter against it. Reading your files once instead of in every Round saves tokens.
 
-A fourth, the **Company Researcher**, works for the job-analyzer mode: four of them research the company on the web in parallel, one topic each, and never see your files.
+A fourth, the **Company Researcher**, works for the job-analyzer mode: four of them research the company on the web in parallel, one topic each, and never see your files. The recruiter-screening mode starts two more: one on the person who will call you, one on market pay.
 
 A cover letter reaches you once the Recruiter scores it at least 90/100, declares a plateau (no change backed by the evidence bank would raise the score), or 5 Rounds have run. Below 90, the Recruiter suggests changes and the Applicant rewrites.
 
@@ -111,6 +111,14 @@ Without an argument it uses the last job ad of the session, or asks. It runs the
 
 You can also give your own reason for wanting this one job, your personal motivation, in your own words, with `--motivation "<text>"`; with none given, it asks ("Add a personal motivation" or "Write without one"), and it never blocks the letter. It is kept with the Application in the tracker, shown read-only in the viewer, and used again without asking the next time you write a letter for that Application. Giving a new one while one is stored shows the stored text and asks whether to replace it, keep it or remove it; it never merges them. The Applicant reformulates it in your voice and may tie it to a fact from the ad or the company research, but never pastes it; it leaves out what doesn't belong in a letter (salary, visa, a partner's move, health, anything about protected characteristics) and tells you what it left out. The Recruiter checks the letter's motive claims against it and, with none given and a low Motivation score, may ask for one: re-run the command with `--motivation`. A re-run is a fresh Run: it replaces the Round files, the letter and the review log, so copy the current letter first if you want to keep it. The review log's header says whether one was used. Reasons that hold for any job belong in `professional-self-reflection.md` instead.
 
+When a recruiter calls you back, prepare the screening call:
+
+```
+/ieakaso recruiter-screening <application-id> "<interviewer name>" [<interviewer linkedin url>]
+```
+
+The interviewer is the person on the call: a talent acquisition manager at the company or a recruiter at an agency. They don't decide; they decide what to write down and pass on. So the screening prep, `<id>_screening-prep.md`, is built to make you easy to represent: the three things they must be able to repeat, who they are (only public, professional facts; their LinkedIn page is never opened), a minute-by-minute plan, your opening pitch, the gap most likely to end the process with a script that names it honestly, the logistics to volunteer, the salary ask with market benchmarks, questions to ask, a company cheat sheet with the problem nobody advertises, and how to close. Every line you would say is drafted in your voice, from the application's evidence bank only. It first asks the call length, what worries you, what you will ask for (anchored on your salary expectation when you entered one), and your notice period; facts about you are added to your files only if you say so. It adds the interviewer to the application's contacts and offers to set the status to Interviewing. Then it offers a mock screening: it plays the interviewer, pushes on your weak spots, and ends with an honest debrief. A new run replaces the prep; changes you ask for in the same conversation edit it. The application needs a job analysis first.
+
 The first runs are rough. It does not know you yet.
 Talk to it: what you want, what you refuse.
 Think of it as a recruiter's first week.
@@ -134,7 +142,7 @@ The status line at the bottom of Claude Code shows the same, live: `opus-5-5 · 
 
 ## Your data
 
-Every application lives on your machine. Its files (the ad, the job analysis, the evidence bank, the letter context, the cover letter, the company research) sit in its own folder, `output/applications/<id>/`, and the folder never moves. Where the application stands is not a folder but a field in the tracker, `db/ieakaso_db.json` (the fields are in [`docs/database.md`](docs/database.md)).
+Every application lives on your machine. Its files (the ad, the job analysis, the evidence bank, the letter context, the cover letter, the company research, the screening prep) sit in its own folder, `output/applications/<id>/`, and the folder never moves. Where the application stands is not a folder but a field in the tracker, `db/ieakaso_db.json` (the fields are in [`docs/database.md`](docs/database.md)).
 
 The status is one of Lead (analysed, not applied yet), Desisted, Applied, No answer, Interviewing, Offer or Not selected. A new application starts as Lead, and you can change it to any status at any time. Ieakaso suggests No answer for applications you made more than 30 days ago, and only you confirm it.
 
@@ -158,7 +166,7 @@ Ieakaso learns from every application it follows and folds what it learns back i
 
 ## Roadmap
 
-- **Interview prep flow.** Guidance from first call to offer.
+- **Interview prep flow.** Guidance from first call to offer. The recruiter screening is done (`recruiter-screening`); the hiring-manager and later rounds are next.
 - **Still open?** Check that a job ad is still live, and spot reposts, before you write a word.
 - **Richer fit score.** Score the position against your LinkedIn profile too. You can override the score.
 - **CV and form answers.** Rewrite the CV for each job ad and draft answers for every field of the application form.

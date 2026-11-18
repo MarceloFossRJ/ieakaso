@@ -1,4 +1,4 @@
-"""The tracker command: upsert, set-cover-letter, set-company-research, set-evidence-bank, set-screening-prep, add-contact, exit codes 0-4. Fake repo, injected today."""
+"""The tracker command: upsert, set-cover-letter, set-company-research, set-evidence-bank, set-screening-prep, add-contact, set-status, show, exit codes 0-4. Fake repo, injected today."""
 
 import io
 import json
@@ -187,6 +187,34 @@ def test_add_contact_exits_4_for_an_unknown_id_and_1_for_a_bad_type(root: Path):
 
     assert run(root, "add-contact", "nope", "--type", "recruiter", "--name", "Ana")[0] == 4
     assert run(root, "add-contact", ID, "--type", "friend", "--name", "Ana")[0] == 1
+
+
+def test_show_prints_the_record_as_json(root: Path):
+    write_db(db_file(root), lead())
+
+    code, out, _ = run(root, "show", ID)
+
+    assert code == 0
+    assert json.loads(out) == lead()
+    assert run(root, "show", "nope")[0] == 4
+
+
+def test_set_status_changes_the_status_and_its_history(root: Path):
+    write_db(db_file(root), lead(status="applied", applied_on="2026-10-12"))
+
+    code, out, _ = run(root, "set-status", ID, "interviewing")
+
+    assert (code, out) == (0, f"status interviewing set for {ID}\n")
+    rec = json.loads(db_file(root).read_text())["records"][0]
+    assert rec["status"] == "interviewing"
+    assert rec["status_history"][-1] == {"status": "interviewing", "on": TODAY.isoformat()}
+
+
+def test_set_status_exits_1_for_an_unknown_status_and_4_for_an_unknown_id(root: Path):
+    write_db(db_file(root), lead())
+
+    assert run(root, "set-status", ID, "hired")[0] == 1
+    assert run(root, "set-status", "nope", "interviewing")[0] == 4
 
 
 def test_a_version_1_db_is_backfilled_from_the_repo_and_saved_as_version_5(root: Path):

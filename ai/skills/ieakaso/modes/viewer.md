@@ -36,7 +36,7 @@ uv run ieakaso-viewer
 
 In chat, in a few lines:
 - that the viewer is open in a new terminal window (or the command to run, from Step 2)
-- the keys: Enter opens an Application, `h` hides or shows Desisted and Not selected, `a`, `j` and `c` open the Job ad, the Job analysis and the Cover letter, `v` lists the CV versions so their labels can be edited, `q` quits
+- the keys: Enter opens an Application, `h` hides or shows Desisted and Not selected, `a`, `j`, `c`, `r` and `s` open the Job ad, the Job analysis, the Cover letter, the Company research and the Screening prep, `v` lists the CV versions so their labels can be edited, `q` quits
 - that edits are saved at once, and that the viewer only edits: new Applications come from `/ieakaso job-analyzer`
 
 If `db/ieakaso_db.json` does not exist, add that the table is empty until a Job analysis has been run.

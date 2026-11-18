@@ -112,7 +112,7 @@ The **current version** is the most recently captured one that is not a Tailored
 | `id` | string | analyzer | no | The Application ID, `<company>_<position>_<yyyy-mm-dd>` in lowercase kebab-case, with an optional extra word after a collision. Never changes. |
 | `company` | string | analyzer | yes | The company, as named in the Job ad. |
 | `position` | string | analyzer | yes | The Position, as named in the Job ad. |
-| `status` | enum | analyzer, candidate | yes | The Application status; see [Statuses](#statuses). New records start as `lead`. Any status can be changed to any other. |
+| `status` | enum | analyzer, recruiter-screening, candidate | yes | The Application status; see [Statuses](#statuses). New records start as `lead`. Any status can be changed to any other. recruiter-screening sets `interviewing` only when the candidate says yes (`set-status`). |
 | `status_history` | list | tracker | no | Every status the record has had, oldest first: `{status, on}`. A change of `status` appends an entry. |
 | `stage` | integer | candidate | yes | The current Interview stage: `0` before the interview process starts, otherwise a 1-based position in `stages`. Never more than the number of `stages`. |
 | `stages` | list | candidate | yes | The company's interview process, in order: `{name, description}`. Empty until the candidate learns it. |

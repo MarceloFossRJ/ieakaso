@@ -14,6 +14,7 @@ Each mode also has a mode entry, so the candidate can pick it from the `/` menu 
 | `cv-parser` | — | `ai/skills/ieakaso/modes/cv-parser.md` | Writes `input/parsed-documents/cv.md` and the other Parsed documents from the candidate's documents, word for word |
 | `job-analyzer` | `<job-url or job-ad text>` | `ai/skills/ieakaso/modes/job-analyzer.md` | Scores the CV against one job ad and gives a verdict |
 | `cover-letter` | `[<job-url or job-ad text>] [--motivation "<text>"]` | `ai/skills/ieakaso/modes/cover-letter.md` | Drafts a cover letter for one job ad and has it reviewed until it scores 90/100, plateaus, or 5 rounds pass |
+| `recruiter-screening` | `<Application ID> "<Interviewer name>" [<Interviewer LinkedIn URL>]` | `ai/skills/ieakaso/modes/recruiter-screening.md` | Writes a screening prep for one Application's recruiter screening call and offers a mock screening |
 | `viewer` | — | `ai/skills/ieakaso/modes/viewer.md` | Opens the applications tracker in a new terminal window, to view and edit your Applications |
 
 If the mode is missing, ask the user which mode to run, with a choice question listing the modes in the table if your tool has one; otherwise show this table and stop. If the mode is not in the table, show this table and stop.

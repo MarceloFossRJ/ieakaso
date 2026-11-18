@@ -1,6 +1,7 @@
 """`uv run python -m ieakaso.tracker upsert [--json <payload>] | set-cover-letter <id> <path>
 | set-company-research <id> <path> | set-evidence-bank <id> <path> | set-screening-prep <id> <path>
-| add-contact <id> --type <contact type> --name <name> [--linkedin <url>] [--email <email>] | cv-versions | applications | set-cv-version <id> <version id|none>
+| add-contact <id> --type <contact type> --name <name> [--linkedin <url>] [--email <email>]
+| set-status <id> <status> | show <id> | cv-versions | applications | set-cv-version <id> <version id|none>
 | set-cv-label <version id> <label> | set-personal-motivation <id> [--clear] | personal-motivation <id>`.
 
 upsert: create or update the record of a Job analysis; the JSON payload comes from --json or stdin. Writes
@@ -11,6 +12,8 @@ set-evidence-bank: set a record's Evidence bank path.
 set-screening-prep: set a record's Screening prep path.
 add-contact: append a contact to a record. Prints `added contact to <id>`, or `contact already on <id>` when a contact
 with the same name or LinkedIn URL is there (nothing changes then).
+set-status: set a record's Application status, appending to its status history (the same rules as the viewer).
+show: print a record as JSON.
 cv-versions: list the CV versions, one per line, tab-separated: ID, label, captured date, the Application ID of a
 Tailored CV or `-`, and `current` for the current version or `-`.
 applications: list the records, one per line, tab-separated: ID, status, company, position and CV version ID or `-`.
@@ -45,11 +48,12 @@ from ieakaso.tracker.ops import (
     set_evidence_bank,
     set_personal_motivation,
     set_screening_prep,
+    set_status,
     upsert_from_analysis,
 )
 from ieakaso.tracker.store import DB_PATH, Db, current_cv_version, load, save
 
-READ_ONLY = ("cv-versions", "applications", "personal-motivation")
+READ_ONLY = ("cv-versions", "applications", "personal-motivation", "show")
 
 
 def _read(root: Path) -> Db:
@@ -93,6 +97,11 @@ def main(
     contact.add_argument("--name", required=True, help="the person's name")
     contact.add_argument("--linkedin", help="their LinkedIn profile URL")
     contact.add_argument("--email", help="their email address")
+    status = commands.add_parser("set-status", help="set the Application status of a record")
+    status.add_argument("id", help="the Application ID")
+    status.add_argument("status", help="lead, desisted, applied, no_answer, interviewing, offer or not_selected")
+    record = commands.add_parser("show", help="print a record as JSON")
+    record.add_argument("id", help="the Application ID")
     commands.add_parser("cv-versions", help="list the CV versions")
     commands.add_parser("applications", help="list the Applications")
     version = commands.add_parser("set-cv-version", help="set the CV version an Application was sent with")
@@ -161,6 +170,11 @@ def main(
                 print(f"contact already on {args.id}", file=out)
                 return 0
             message = f"added contact to {args.id}"
+        elif args.command == "set-status":
+            set_status(db, args.id, args.status, today)
+            message = f"status {args.status} set for {args.id}"
+        elif args.command == "show":
+            print(json.dumps(get_record(db, args.id), indent=2, ensure_ascii=False), file=out)
         elif args.command == "set-evidence-bank":
             set_evidence_bank(db, args.id, args.path)
             message = f"evidence bank set for {args.id}"
