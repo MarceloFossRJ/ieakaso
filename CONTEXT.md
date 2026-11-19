@@ -189,7 +189,7 @@ A one-page A4 letter from the candidate to the employer for one Job ad, drafted 
 _Avoid_: motivation letter, application letter, short message, positioning note
 
 **Review**:
-The Seasoned Recruiter's assessment of one Cover letter draft: a Review score, what to remove, rewrite and improve, and questions for the candidate.
+The Seasoned Recruiter's assessment of one Cover letter draft: a Review score, every passage to remove, rewrite and improve with its exact replacement text, a Keep list of passages that must not change, any Plan changes, and questions for the candidate.
 _Avoid_: feedback, critique, grading
 
 **Review score**:
@@ -207,6 +207,10 @@ _Avoid_: iteration, cycle, pass
 **Round file**:
 The file in which an Agent run writes its full output for one Round, `rounds/round-<n>_draft.md` or `round-<n>_review.md` in the Application's folder. The Assistant passes its path and never reads it; the review log and the Cover letter are built from these files. A new cover-letter Run replaces them.
 _Avoid_: draft file, output file
+
+**Letter plan**:
+The Seasoned Recruiter's plan for one Application's Cover letter, written once before Round 1: the needs to answer, the evidence for each in the Evidence bank's words, the motive, the gap and a word budget. The Applicant Agent drafts from it and the Recruiter reviews against it; it is never rewritten during a Run, and later Reviews carry its changes.
+_Avoid_: brief, outline, strategy
 
 **Plateau**:
 The Seasoned Recruiter's judgment that no change backed by the Evidence bank would raise a draft's Review score.

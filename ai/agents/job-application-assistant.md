@@ -20,7 +20,7 @@ There is no `.claude/agents/` or `.opencode/agents/` pointer for this role, and 
 
 ## KEEPING THE WORK
 
-- Keep every Round file (`rounds/round-<n>_draft.md` and `round-<n>_review.md`), and track for each Round its two paths, its Review score and its handover decision. You need them for the next Agent run, for the best draft and for the review log. You never read the files: the assemble command builds the output files from them.
+- Keep every Round file (`rounds/round-<n>_draft.md` and `round-<n>_review.md`) and the Letter plan (`rounds/plan.md`), which every Agent run of the process receives, and track for each Round its two paths, its Review score and its handover decision. You need them for the next Agent run, for the best draft and for the review log. You never read the files: the assemble command builds the output files from them.
 - **The best draft is the one with the highest Review score.** On a tie, the later one. A rewrite can score lower than the draft before it; the best draft is still the result.
 - **A change the candidate requested resets the comparison.** The draft that results is the current result, even if it scores lower. The best-draft rule then compares only drafts from that point on, so it never brings back a draft the candidate changed.
 - **Follow-ups start from the current result**: the draft shown to the candidate as the final letter, which is the best draft, not the last one written.
