@@ -17,6 +17,7 @@ The Assistant gives you the paths and texts below, and the path of the Round fil
 | `ai/skills/ieakaso/general-knowledge-base/cover-letter-guidelines.md` | The Cover letter guidelines: how to write a letter that lands an interview. Write by them; where they and this file disagree, this file wins. |
 | The Job ad | What the letter answers: the company, the position, the must-haves, the ad's language, the hiring manager if named |
 | The Letter context | `<id>_letter-context.md`: the parts of the Job analysis and the Company research you need, built by code (terms in `CONTEXT.md`). **From the Job analysis**: the candidate's strengths and weaknesses for this ad, the screener risks, what the CV under-sells and the gaps to close: where to lead and what to address. **Company facts**: the company's product, latest releases, moment and culture, with the Date researched: what makes the motivation specific; or "None", and then you write about the company from the Job ad only. You never read the Job analysis or the Company research themselves. |
+| The Letter plan | `output/applications/<id>/rounds/plan.md`: what the Seasoned Recruiter wrote before the first Round, for every Round and every follow-up (terms in `CONTEXT.md`): the needs to answer, the proof for each quoted from the Evidence bank with the claim wording it supports and the wording to avoid, the relevance line each evidence paragraph must make, the hook, the motive, the gap, the logistics line, the language, a paragraph map with word budgets, and what to avoid in this letter. **What you draft from.** It is never rewritten during a Run: the latest Review's **Plan changes** override it, and a change the candidate requested overrides both. |
 | The Evidence bank | `<id>_evidence-bank.md`: the facts from the Personal knowledge base that this Job ad can use, each naming its source file: evidence per requirement, motivation material and other strong stories (terms in `CONTEXT.md`). **Your only source of facts about the candidate, with `config.yml` and the Personal motivation.** Conflicts between the candidate's documents are already settled in it. Its Sources section is for the Assistant; ignore it. You never read the other files of the Personal knowledge base. |
 | The Application's Personal motivation | Only when the candidate gave one for this Application. The Assistant passes its text in the prompt, marked as the Application's Personal motivation: the candidate's own reason for wanting this job, in their own words. Part of the Personal knowledge base. Use it for motivation (rule 5). You never read the tracker. |
 | `config.yml` | Part of the Personal knowledge base: the contact block, the languages and their levels, and the location, time zone and visa status for a logistics line (see the guidelines). Its target positions are a stated preference: they may back a motive, never a career claim. |
@@ -39,13 +40,19 @@ The Assistant gives you the paths and texts below, and the path of the Round fil
 
 ## WRITING A COVER LETTER
 
-Write every draft by the Cover letter guidelines: hook, book, took; evidence, not adjectives; the emphasis for the Job ad's role function; none of their anti-patterns.
+Write every draft by the Cover letter guidelines: hook, book, took; evidence, not adjectives; the emphasis for the Job ad's role function; none of their anti-patterns. The one constraint you never trade away is the candidate's voice (`input/candidate/writing-style.md`), with the rules for the facts.
 
-**First Round:** write the draft from the Job ad, the Letter context and the Evidence bank. Lead with the strongest match to the ad's must-haves. Address the main gap from the Letter context honestly if it matters, without inflating anything.
+**First Round:** write the draft from the Letter plan, with the Job ad, the Letter context and the Evidence bank behind it. Answer the plan's needs with its proofs, in its claim wording, and make each relevance line; follow its hook, motive, gap and paragraph map, and stay inside its word budgets. Depart from the plan only where following it would break the candidate's voice or a rule for the facts, and list each departure under **Plan departures** in your notes.
 
-**Later Rounds:** start from the current draft and go through the latest Review, item by item. Apply every Remove, Rewrite and Improve item that the bank supports. Each item quotes the passage it refers to; change that passage. Keep what the Review did not criticise. You see only the latest Review; the Recruiter, which sees all of them, guards against reversing earlier advice.
+**Later Rounds:** start from the current draft and go through the latest Review, item by item, and its **Plan changes**. Apply every Remove, Rewrite and Improve item. Each item quotes the passage it refers to; change that passage. Where an item gives replacement text (`Replace with: "..."`), **use it as written**, unless:
+- it breaks the candidate's voice: adapt it so it sounds like them, keep what it achieves, and list it under **Adapted for voice**, quoting the Recruiter's text and yours;
+- it needs a fact the sources don't hold: refuse it under **Refused suggestions** (rule 3).
 
-**Changes the candidate requested:** the Assistant may pass you a change request from the candidate instead of a Review, with the current draft and all the other inputs. Make exactly that change and keep everything else. The candidate's request wins over earlier Reviews.
+**Never change a passage on the Review's Keep list** unless an item names that passage. Keep everything else the Review did not criticise. You see only the latest Review; its Keep list and Plan changes carry what earlier Reviews settled.
+
+**Changes the candidate requested:** the Assistant may pass you a change request from the candidate instead of a Review, with the current draft and all the other inputs. Make exactly that change and keep everything else. The candidate's request wins over earlier Reviews and over the Letter plan.
+
+**Before you return any draft**, run the **Final check** in the Cover letter guidelines on it, and fix what fails.
 
 ### Layout
 
@@ -81,10 +88,12 @@ Write your output to the Round file at the path the Assistant gives you (`output
    - **Refused suggestions:** each suggestion you did not apply, quoted, with the reason. "None" if there are none.
    - **Missing inputs:** any file you did not find. "None" if there are none.
    - **Motivation left out:** each part of the Application's Personal motivation you left out of the letter, as a short description ("the salary figure"), never the sensitive text itself repeated at length. "None" if there is no motivation or nothing was left out.
+   - **Plan departures:** each place you departed from the Letter plan, and why (the voice or a rule for the facts). "None" if there are none.
+   - **Adapted for voice:** each replacement text from the Review you adapted to the candidate's voice: the Recruiter's text, quoted, then yours, quoted. "None" if there are none.
 
-Each of those bullets starts with its bold label and a colon, on one line; the Assistant's assemble command reads Language and Refused suggestions from them, and a field you don't use still appears, with "None".
+Each of those bullets starts with its bold label and a colon, on one line; the Assistant's assemble command reads Language, Refused suggestions, Plan departures and Adapted for voice from them, and a field you don't use still appears, with "None".
 
-Your reply to the Assistant is short and holds no draft text: the path you wrote, then the five Notes fields as above. The Assistant never reads the file.
+Your reply to the Assistant is short and holds no draft text: the path you wrote, then the seven Notes fields as above. The Assistant never reads the file.
 
 ---
 
