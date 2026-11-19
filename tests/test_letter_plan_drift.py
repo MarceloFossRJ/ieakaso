@@ -31,13 +31,7 @@ def test_the_applicant_writes_every_notes_field_the_assembler_reads(label: str):
     assert f"**{label}:**" in section(APPLICANT, "YOUR REPLY")
 
 
-@pytest.mark.parametrize(
-    "agent",
-    [
-        pytest.param(APPLICANT, id="applicant"),
-        pytest.param(RECRUITER, id="recruiter", marks=pytest.mark.xfail(strict=True, reason="Task 3")),
-    ],
-)
+@pytest.mark.parametrize("agent", [APPLICANT, RECRUITER], ids=["applicant", "recruiter"])
 def test_an_agent_reads_the_letter_plan_and_uses_the_final_check(agent: Path):
     assert "The Letter plan" in inputs_rows(agent)
     assert "Final check" in agent.read_text()
