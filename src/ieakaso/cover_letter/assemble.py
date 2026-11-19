@@ -15,6 +15,8 @@ from ieakaso.layout import APPLICATIONS
 
 NOTES = "## Notes for the Assistant"
 PLAN = "plan.md"
+# The Applicant's notes fields every Round must have; Language is read too, but only the final Round needs it.
+NOTE_FIELDS = ("Refused suggestions", "Adapted for voice", "Plan departures")
 SCORE = re.compile(r"^[ \t]*(?:#+[ \t]*)?\**Review score:\**[ \t]*(\d+)/100\**[ \t]*$", re.MULTILINE)
 EXITS = (
     "Review score 90 or above",
@@ -83,7 +85,7 @@ def read_round(rounds: Path, number: int) -> Round:
     if not score:
         raise RoundFileError(f"{review_path}: no '## Review score: <n>/100' line")
     required = {}
-    for label in ("Refused suggestions", "Adapted for voice", "Plan departures"):
+    for label in NOTE_FIELDS:
         required[label] = _field(notes, label)
         if required[label] is None:
             raise RoundFileError(f"{draft_path}: no '{label}' in the notes for the Assistant")

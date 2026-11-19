@@ -31,7 +31,7 @@ The Assistant gives you the paths below and the path of the Round file you write
 
 ## THE LETTER PLAN
 
-The planning run comes once, before the first Round. Write the plan to the path the Assistant gives you (`output/applications/<id>/rounds/plan.md`), creating its folder if it is missing. Plan the letter you would score 90 or more: every item must rest on the Evidence bank, the Parsed CV, `config.yml`, the Personal motivation, the Job ad or a usable company fact, as in Step 2 of THE REVIEW.
+The planning run comes once, before the first Round. Write the plan to the path the Assistant gives you (`output/applications/<id>/rounds/plan.md`), creating its folder if it is missing. Plan the letter you would score 90 or more. Every item about the candidate rests on what the Applicant may use: the Evidence bank, `config.yml` or the Personal motivation, never the Parsed CV alone; every item about the company, on the Job ad or a usable company fact, as in Step 2 of THE REVIEW.
 
 Use `###` headings and nothing larger (the plan goes inside the review log). In this order:
 
@@ -45,7 +45,7 @@ Use `###` headings and nothing larger (the plan goes inside the review log). In 
 5. **Motive:** the specific reason and its source (the Personal motivation, a bank motivation item, a usable company fact or the Job ad), or "focus on the role" when no source gives one. Mark a company fact the Letter context tags "older than 6 months" or "undated".
 6. **Gap:** the gap to address and the closest evidence, quoted; or "none".
 7. **Logistics line:** only when the Job ad states a requirement and `config.yml` answers it; otherwise "none".
-8. **Language, salutation and sign-off**, by the Applicant's rules.
+8. **Language, salutation and sign-off:** the Job ad's language if `config.yml` lists it at C1 or native, otherwise English; the salutation and sign-off the Cover letter guidelines give for that language.
 9. **Paragraph map:** each paragraph's job and its word budget, totalling 250 to 300 words, so later fixes fit under the 350-word cap.
 10. **Avoid in this letter:** the claims, phrasings or angles that would be unsupported or weak for this ad (e.g. "do not say AI change across teams: the bank shows one team").
 
@@ -118,8 +118,8 @@ Do not contradict an earlier Review, and do not ask for a change that undoes one
 
 The Applicant sees only the latest Review, so two more sections carry what earlier Rounds settled:
 
-- **Keep list:** the passages that must not change, quoted: those an earlier Review fixed, and those you judge already strong. It is cumulative: copy the previous Review's Keep list, drop a passage only when you now have an item for it (say why), and add the passages newly fixed or strong. The Applicant never changes a passage on it that no item names.
-- **Plan changes:** where this draft shows the Letter plan was wrong (a weaker proof than it assumed, a better angle, a need the ad weighs more), what changes from the next Round on. Repeat every earlier plan change that still holds, and record a change the candidate requested as one: it wins over the plan. "None" when there are none.
+- **Keep list:** the passages that must not change, quoted: those an earlier Review fixed, and those you judge already strong. It is cumulative: copy the previous Review's Keep list, drop a passage when you now have an item for it (say why), when it is no longer in the draft as written, or when a change the candidate requested touched it, and add the passages newly fixed or strong. The Applicant never changes a passage on it that no item names.
+- **Plan changes:** where this draft shows the Letter plan was wrong (a weaker proof than it assumed, a better angle, a need the ad weighs more), what changes from the next Round on. A plan change that alters the draft's text comes with its own Remove, Rewrite or Improve item, so the Keep list never blocks it. Repeat every earlier plan change that still holds, and record a change the candidate requested as one: it wins over the plan. "None" when there are none.
 
 ### Step 5: Questions for the candidate
 

@@ -42,13 +42,13 @@ The Assistant gives you the paths and texts below, and the path of the Round fil
 
 Write every draft by the Cover letter guidelines: hook, book, took; evidence, not adjectives; the emphasis for the Job ad's role function; none of their anti-patterns. The one constraint you never trade away is the candidate's voice (`input/candidate/writing-style.md`), with the rules for the facts.
 
-**First Round:** write the draft from the Letter plan, with the Job ad, the Letter context and the Evidence bank behind it. Answer the plan's needs with its proofs, in its claim wording, and make each relevance line; follow its hook, motive, gap and paragraph map, and stay inside its word budgets. Depart from the plan only where following it would break the candidate's voice or a rule for the facts, and list each departure under **Plan departures** in your notes.
+**First Round:** write the draft from the Letter plan, with the Job ad, the Letter context and the Evidence bank behind it. Answer the plan's needs with its proofs, in its claim wording, and make each relevance line; follow its hook, motive, gap and paragraph map, and stay inside its word budgets. Depart from the plan only where following it would break the candidate's voice, a rule for the facts, or your layout and language rules, and list each departure under **Plan departures** in your notes.
 
 **Later Rounds:** start from the current draft and go through the latest Review, item by item, and its **Plan changes**. Apply every Remove, Rewrite and Improve item. Each item quotes the passage it refers to; change that passage. Where an item gives replacement text (`Replace with: "..."`), **use it as written**, unless:
 - it breaks the candidate's voice: adapt it so it sounds like them, keep what it achieves, and list it under **Adapted for voice**, quoting the Recruiter's text and yours;
 - it needs a fact the sources don't hold: refuse it under **Refused suggestions** (rule 3).
 
-**Never change a passage on the Review's Keep list** unless an item names that passage. Keep everything else the Review did not criticise. You see only the latest Review; its Keep list and Plan changes carry what earlier Reviews settled.
+**Never change a passage on the Review's Keep list** unless an item names that passage. A Keep list passage that is not in the current draft (a change the candidate requested removed it, or the draft is an earlier Round's) is ignored, never restored. Keep everything else the Review did not criticise. You see only the latest Review; its Keep list and Plan changes carry what earlier Reviews settled.
 
 **Changes the candidate requested:** the Assistant may pass you a change request from the candidate instead of a Review, with the current draft and all the other inputs. Make exactly that change and keep everything else. The candidate's request wins over earlier Reviews and over the Letter plan.
 
@@ -88,7 +88,7 @@ Write your output to the Round file at the path the Assistant gives you (`output
    - **Refused suggestions:** each suggestion you did not apply, quoted, with the reason. "None" if there are none.
    - **Missing inputs:** any file you did not find. "None" if there are none.
    - **Motivation left out:** each part of the Application's Personal motivation you left out of the letter, as a short description ("the salary figure"), never the sensitive text itself repeated at length. "None" if there is no motivation or nothing was left out.
-   - **Plan departures:** each place you departed from the Letter plan, and why (the voice or a rule for the facts). "None" if there are none.
+   - **Plan departures:** each place you departed from the Letter plan, and why (the voice, a rule for the facts, or the layout and language rules). "None" if there are none.
    - **Adapted for voice:** each replacement text from the Review you adapted to the candidate's voice: the Recruiter's text, quoted, then yours, quoted. "None" if there are none.
 
 Each of those bullets starts with its bold label and a colon, on one line; the Assistant's assemble command reads Language, Refused suggestions, Plan departures and Adapted for voice from them, and a field you don't use still appears, with "None".

@@ -76,7 +76,7 @@ Exit 0 prints `personal motivation set for <id>:` and then the trimmed text as s
 
 The motivation the letter uses is the one the tracker holds after this step: the text you read in item 1 (kept), or the text the save command printed (replaced or added). Pass it verbatim to both agents (Step 3), and remember whether there is one: Step 5 needs it. With none (skipped, removed, a failed save, no record), pass nothing. Nothing ever writes "none" to the tracker: skipping leaves the field as it was.
 
-A new `--motivation` on an Application that already has a letter is a fresh Run: Step 3 deletes the Round files, and Step 5 overwrites the letter and the review log. Step 7 is unchanged: a fact given only in chat is still never used.
+A new `--motivation` on an Application that already has a letter is a fresh Run: Step 2g deletes the Round files and the Letter plan, and Step 5 overwrites the letter and the review log. Step 7 is unchanged: a fact given only in chat is still never used.
 
 ### Step 2d: Check the Evidence bank
 
@@ -139,7 +139,7 @@ Pass its path, `output/applications/<id>/<id>_letter-context.md`, to every Agent
 
 ### Step 2g: Plan the letter
 
-Start one fresh Seasoned Recruiter run for its planning task (THE LETTER PLAN in `ai/agents/recruiter.md`): pass it everything its INPUTS lists except the draft and the earlier Reviews, the Application's Personal motivation as in Step 3, and the path of the plan to write, `output/applications/<id>/rounds/plan.md`. It replies with the path only. You never read the plan. If the reply is unusable (no path, a missing file), start the run again once; if it fails again, stop and tell the candidate.
+A new cover-letter Run for an Application first deletes its `rounds/` folder, and you say so in chat if it held files. Then start one fresh Seasoned Recruiter run for its planning task (THE LETTER PLAN in `ai/agents/recruiter.md`): pass it everything its INPUTS lists except the draft and the earlier Reviews, the Application's Personal motivation as in Step 3, and the path of the plan to write, `output/applications/<id>/rounds/plan.md`. It replies with the path only. You never read the plan. If the reply is unusable (no path, a missing file), start the run again once; if it fails again, stop and tell the candidate.
 
 There is no pause: Round 1 starts straight after. The candidate sees the plan in the review log.
 
@@ -153,7 +153,7 @@ One **Round** is a fresh Applicant Agent run (the draft) followed by a fresh Sea
 - `output/applications/<id>/rounds/round-<n>_review.md`: the Seasoned Recruiter's Review.
 - `output/applications/<id>/rounds/plan.md`: the Letter plan (Step 2g), one per Run, never rewritten.
 
-A Round the candidate requested gets the same files, and its number continues the sequence. A new cover-letter Run for an Application starts by deleting its `rounds/` folder, and you say so in chat if it held files.
+A Round the candidate requested gets the same files, and its number continues the sequence.
 
 Give the Applicant the path of the Letter plan and of the draft file to write, and, from the second Round on, the path of the current draft and of the latest Review. Give the Recruiter the path of the Letter plan, of the draft to review, of all earlier Reviews and of the Review file to write. Pass the plan's path in every follow-up too.
 
