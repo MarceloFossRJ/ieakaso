@@ -28,14 +28,36 @@ def folder(root: Path) -> Path:
     return root / "output" / "applications" / ID
 
 
-def write_round(root: Path, n: int, score: int, refused: str = "None", language: str = "English", draft: bool = True):
+PLAN = "### Needs\n\nPlan text."
+
+
+def write_plan(root: Path, text: str = PLAN):
     rounds = folder(root) / "rounds"
     rounds.mkdir(exist_ok=True)
+    (rounds / "plan.md").write_text(text)
+
+
+def write_round(
+    root: Path,
+    n: int,
+    score: int,
+    refused: str = "None",
+    language: str = "English",
+    draft: bool = True,
+    adapted: str = "None",
+    departures: str = "None",
+):
+    """Writes Round n's files, and the Letter plan when there is none yet."""
+    rounds = folder(root) / "rounds"
+    rounds.mkdir(exist_ok=True)
+    if not (rounds / "plan.md").exists():
+        write_plan(root)
     if draft:
         (rounds / f"round-{n}_draft.md").write_text(
             f"## Draft\n\nLetter {n}  \nBody {n}.\n\n## Notes for the Assistant\n"
             f"- **Word count:** 300\n- **Language:** {language}\n- **Refused suggestions:** {refused}\n"
-            f"- **Missing inputs:** None\n- **Conflicts:** None\n"
+            f"- **Missing inputs:** None\n- **Motivation left out:** None\n"
+            f"- **Plan departures:** {departures}\n- **Adapted for voice:** {adapted}\n"
         )
     (rounds / f"round-{n}_review.md").write_text(
         f"**Domain:** fintech\n\n## Review score: {score}/100\n\nReview {n} text.\n\n## Handover decision\n\nBack\n"
@@ -59,26 +81,83 @@ def test_assembles_the_best_draft_when_it_is_not_the_last(root: Path):
     write_round(root, 2, 88, refused='"Add a number": no file has one')
     write_round(root, 3, 81)
 
-    code, out, err = run(root, "--rounds", "3", "--final", "2", "--exit", "5 Rounds", "--reason", "Round 2 scored highest.")
+    code, out, err = run(root, "--rounds", "3", "--final", "2", "--exit", "3 Rounds", "--reason", "Round 2 scored highest.")
 
+    notes = "\n\n### Adapted for voice\n\nNone\n\n### Plan departures\n\nNone\n\n"
     assert (code, err) == (0, "")
     assert out == "Letter 2  \nBody 2.\n"
     assert (folder(root) / f"{ID}_cover-letter.md").read_text() == "Letter 2  \nBody 2.\n"
     assert (folder(root) / f"{ID}_cover-letter-review.md").read_text() == (
         "# Cover letter review log: Senior Backend Engineer @ Acme\n\n"
         f"> **Date:** 2026-10-15 | **Job ad:** {URL} | **Company research:** none | **Personal motivation:** none | **Final Review score:** 88/100"
-        " | **Rounds:** 3 | **Exit:** 5 Rounds\n\n"
+        " | **Rounds:** 3 | **Exit:** 3 Rounds\n\n"
         "After a follow-up (Step 7), the header's Final Review score, Rounds and Exit describe the current result.\n\n"
         "**Final letter:** Round 2's draft. It scored highest; later drafts scored lower.\n\n"
         "**Language:** English\n\n"
+        "## Letter plan\n\n### Needs\n\nPlan text.\n\n"
         "## Round 1\n\n**Review score:** 70/100\n\n### Draft\n\nLetter 1  \nBody 1.\n\n"
-        "### Review\n\n" + review(1) + "\n\n### Refused suggestions\n\nNone\n\n"
+        "### Review\n\n" + review(1) + "\n\n### Refused suggestions\n\nNone" + notes +
         "## Round 2\n\n**Review score:** 88/100\n\n### Draft\n\nLetter 2  \nBody 2.\n\n"
-        "### Review\n\n" + review(2) + '\n\n### Refused suggestions\n\n"Add a number": no file has one\n\n'
+        "### Review\n\n" + review(2) + '\n\n### Refused suggestions\n\n"Add a number": no file has one' + notes +
         "## Round 3\n\n**Review score:** 81/100\n\n### Draft\n\nLetter 3  \nBody 3.\n\n"
-        "### Review\n\n" + review(3) + "\n\n### Refused suggestions\n\nNone\n\n"
+        "### Review\n\n" + review(3) + "\n\n### Refused suggestions\n\nNone" + notes +
         "## Exit reason\n\nRound 2 scored highest.\n"
     )
+
+
+def test_an_exit_of_five_rounds_is_now_an_error(root: Path):
+    write_round(root, 1, 70)
+
+    code, _, err = run(root, "--rounds", "1", "--final", "1", "--exit", "5 Rounds", "--reason", "y")
+
+    assert code == 1
+    assert "--exit" in err
+    assert_nothing_written(root)
+
+
+def test_a_missing_plan_is_an_error_and_writes_nothing(root: Path):
+    write_round(root, 1, 70)
+    (folder(root) / "rounds" / "plan.md").unlink()
+
+    code, out, err = run(root, "--rounds", "1", "--final", "1", *ARGS)
+
+    assert (code, out) == (1, "")
+    assert "plan.md" in err
+    assert_nothing_written(root)
+
+
+def test_an_empty_plan_is_an_error(root: Path):
+    write_plan(root, "  \n\n")
+    write_round(root, 1, 70)
+
+    code, _, err = run(root, "--rounds", "1", "--final", "1", *ARGS)
+
+    assert code == 1
+    assert "plan.md" in err
+    assert_nothing_written(root)
+
+
+def test_a_multi_line_adaptation_is_kept_whole(root: Path):
+    adapted = '"Replace with: I led and grew the team"\n  became "I led the team and grew it"'
+    write_round(root, 1, 92, adapted=adapted)
+
+    code, _, _ = run(root, "--rounds", "1", "--final", "1", "--exit", "Review score 90 or above", "--reason", "92.")
+
+    assert code == 0
+    assert (
+        '### Adapted for voice\n\n"Replace with: I led and grew the team"\n  became "I led the team and grew it"\n\n'
+        "### Plan departures\n\nNone\n"
+    ) in log_of(root)
+
+
+def test_a_round_past_the_cap_after_the_candidates_answers_assembles(root: Path):
+    for n in range(1, 5):
+        write_round(root, n, 80 + n)
+
+    code, _, _ = run(root, "--rounds", "4", "--final", "4", "--exit", "Round after the candidate's answers", "--reason", "y")
+
+    assert code == 0
+    assert "## Round 4\n" in log_of(root)
 
 
 def test_the_last_draft_as_final_has_no_scored_highest_line_and_the_research_date_is_named(root: Path):
@@ -196,7 +275,7 @@ def test_a_review_without_a_score_line_is_an_error(root: Path):
     assert_nothing_written(root)
 
 
-@pytest.mark.parametrize("label", ["Language", "Refused suggestions"])
+@pytest.mark.parametrize("label", ["Language", "Refused suggestions", "Adapted for voice", "Plan departures"])
 def test_notes_missing_a_field_are_an_error(root: Path, label: str):
     write_round(root, 1, 70)
     path = folder(root) / "rounds" / "round-1_draft.md"
@@ -258,13 +337,14 @@ def test_an_earlier_round_without_a_language_line_is_fine(root: Path):
 
 def test_review_log_format_without_the_filesystem():
     played = [
-        Round(1, "Letter 1", "## Review score: 80/100", 80, "None", None, Path("r1")),
-        Round(2, "Letter 2", "## Review score: 75/100", 75, "None", "German", Path("r2")),
+        Round(1, "Letter 1", "## Review score: 80/100", 80, "None", "None", "None", None, Path("r1")),
+        Round(2, "Letter 2", "## Review score: 75/100", 75, "None", "None", "None", "German", Path("r2")),
     ]
     outcome = Outcome(2, 2, (2,), "change requested by the candidate", "The candidate asked.", motivated=True)
 
-    log = review_log("Dev @ Acme", "pasted text", "none", TODAY, outcome, played)
+    log = review_log("Dev @ Acme", "pasted text", "none", TODAY, outcome, "Plan.", played)
 
+    assert "**Language:** German\n\n## Letter plan\n\nPlan.\n\n## Round 1\n" in log
     assert log.startswith("# Cover letter review log: Dev @ Acme\n\n> **Date:** 2026-10-15 | **Job ad:** pasted text")
     assert "**Final Review score:** 75/100 | **Rounds:** 2 | **Exit:** change requested by the candidate" in log
     assert "| **Company research:** none | **Personal motivation:** used |" in log
