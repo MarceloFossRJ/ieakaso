@@ -11,7 +11,7 @@ REPO = Path(__file__).resolve().parents[1]
 # The Personal knowledge base files each agent may still read itself.
 ALLOWED = {
     "ai/agents/applicant.md": {"config.yml", "input/candidate/writing-style.md"},
-    "ai/agents/recruiter.md": {"config.yml", "input/parsed-documents/cv.md"},
+    "ai/agents/recruiter.md": {"config.yml", "input/parsed-documents/cv.md", "input/candidate/writing-style.md"},
 }
 
 

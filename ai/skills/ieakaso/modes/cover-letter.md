@@ -1,6 +1,6 @@
 # Cover Letter
 
-`/ieakaso cover-letter [<job-url or job-ad text>] [--motivation "<text>"]`: writes a Cover letter for one Job ad. The Applicant Agent drafts it and the Seasoned Recruiter reviews it, in Rounds, until the Review score is at least 90 (terms in `CONTEXT.md`).
+`/ieakaso cover-letter [<job-url or job-ad text>] [--motivation "<text>"]`: writes a Cover letter for one Job ad. The Seasoned Recruiter first writes the Letter plan; the Applicant Agent drafts the letter from it and the Recruiter reviews it, in Rounds, until the Review score is at least 90, for at most 3 Rounds (terms in `CONTEXT.md`; decision in `docs/adr/0012-letter-plan-and-direct-reviews.md`).
 
 Act as the Job Application Assistant: read `ai/agents/job-application-assistant.md` and follow it for the whole mode. You are the one who runs the steps and starts the Agent runs; the Applicant Agent (`ai/agents/applicant.md`) and the Seasoned Recruiter (`ai/agents/recruiter.md`) never run you or each other. Do not do their work in this conversation.
 
@@ -20,7 +20,7 @@ Act as the Job Application Assistant: read `ai/agents/job-application-assistant.
 
 **Personal motivation:** the candidate's own reason for wanting this Application's job, optional (terms in `CONTEXT.md`). It comes from `--motivation` or from the candidate's answer in Step 2c, and is kept in the Application's tracker record; Step 2c saves it, and reads it when there is no new one.
 
-Each agent's file lists what it reads (`ai/agents/applicant.md`, `ai/agents/recruiter.md`); this mode does not repeat them. Neither reads the Personal knowledge base beyond the Evidence bank, the Parsed CV (the Recruiter) and `config.yml`.
+Each agent's file lists what it reads (`ai/agents/applicant.md`, `ai/agents/recruiter.md`); this mode does not repeat them. Neither reads the Personal knowledge base beyond the Evidence bank, the Parsed CV (the Recruiter), `config.yml` and `writing-style.md`.
 
 ---
 
@@ -76,7 +76,7 @@ Exit 0 prints `personal motivation set for <id>:` and then the trimmed text as s
 
 The motivation the letter uses is the one the tracker holds after this step: the text you read in item 1 (kept), or the text the save command printed (replaced or added). Pass it verbatim to both agents (Step 3), and remember whether there is one: Step 5 needs it. With none (skipped, removed, a failed save, no record), pass nothing. Nothing ever writes "none" to the tracker: skipping leaves the field as it was.
 
-A new `--motivation` on an Application that already has a letter is a fresh Run: Step 3 deletes the Round files, and Step 5 overwrites the letter and the review log. Step 7 is unchanged: a fact given only in chat is still never used.
+A new `--motivation` on an Application that already has a letter is a fresh Run: Step 2g deletes the Round files and the Letter plan, and Step 5 overwrites the letter and the review log. Step 7 is unchanged: a fact given only in chat is still never used.
 
 ### Step 2d: Check the Evidence bank
 
@@ -137,6 +137,12 @@ uv run python -m ieakaso.letter_context build <id>
 
 Pass its path, `output/applications/<id>/<id>_letter-context.md`, to every Agent run, as their INPUTS list it. Never pass them the Job analysis or the Company research.
 
+### Step 2g: Plan the letter
+
+A new cover-letter Run for an Application first deletes its `rounds/` folder, and you say so in chat if it held files. Then start one fresh Seasoned Recruiter run for its planning task (THE LETTER PLAN in `ai/agents/recruiter.md`): pass it everything its INPUTS lists except the draft and the earlier Reviews, the Application's Personal motivation as in Step 3, and the path of the plan to write, `output/applications/<id>/rounds/plan.md`. It replies with the path only. You never read the plan. If the reply is unusable (no path, a missing file), start the run again once; if it fails again, stop and tell the candidate.
+
+There is no pause: Round 1 starts straight after. The candidate sees the plan in the review log.
+
 ### Step 3: Run the Rounds
 
 One **Round** is a fresh Applicant Agent run (the draft) followed by a fresh Seasoned Recruiter run (the Review). Start and feed every Agent run as `ai/agents/job-application-assistant.md` says: pass each agent everything its INPUTS lists (`ai/agents/applicant.md`, `ai/agents/recruiter.md`). The Personal motivation (Step 2c) lives in the tracker, which agents never read: pass its text in the prompt, word for word and marked as "the Application's Personal motivation", to the Applicant and to the Recruiter, in every Round and every follow-up.
@@ -145,10 +151,11 @@ One **Round** is a fresh Applicant Agent run (the draft) followed by a fresh Sea
 
 - `output/applications/<id>/rounds/round-<n>_draft.md`: the Applicant's draft and notes.
 - `output/applications/<id>/rounds/round-<n>_review.md`: the Seasoned Recruiter's Review.
+- `output/applications/<id>/rounds/plan.md`: the Letter plan (Step 2g), one per Run, never rewritten.
 
-A Round the candidate requested gets the same files, and its number continues the sequence. A new cover-letter Run for an Application starts by deleting its `rounds/` folder, and you say so in chat if it held files.
+A Round the candidate requested gets the same files, and its number continues the sequence.
 
-Give the Applicant the path of the draft file to write, and, from the second Round on, the path of the current draft and of the latest Review. Give the Recruiter the path of the draft to review, the paths of all earlier Reviews and the path of the Review file to write.
+Give the Applicant the path of the Letter plan and of the draft file to write, and, from the second Round on, the path of the current draft and of the latest Review. Give the Recruiter the path of the Letter plan, of the draft to review, of all earlier Reviews and of the Review file to write. Pass the plan's path in every follow-up too.
 
 After each Round, note the paths, the Review score and the Recruiter's handover decision (with its Plateau flag), all from the agents' replies. Keep every one. Ask the candidate the Recruiter's Questions for the candidate from its reply.
 
@@ -158,7 +165,7 @@ Stop at the **first** of these:
 
 1. The Review score is **90 or above**.
 2. The Seasoned Recruiter declares a **Plateau** (its handover decision).
-3. **5 Rounds** have run.
+3. **3 Rounds** have run. This is a hard cap: the Run stops even if the score is still climbing. The candidate can ask for more in Step 7.
 
 Otherwise the Recruiter hands back to the Applicant and the next Round runs.
 
@@ -176,7 +183,7 @@ If the files already exist, overwrite them as the Job Application Assistant's ru
 uv run python -m ieakaso.cover_letter assemble <id> --rounds <n> --final <n> --exit "<Exit>" --reason "<Exit reason>" --motivation used|none [--requested <n> ...]
 ```
 
-`--rounds` is how many Rounds have run, `--final` the Round whose draft is the final letter (the best draft), `--requested` the Rounds the candidate requested, `--motivation` `used` when you passed a Personal motivation to the agents in this Run (given, stored or just saved) and `none` otherwise (required; the command never reads the tracker), `--exit` the header's Exit (exactly one of the values in the template below; any other value is exit 1) and `--reason` the Exit reason: which exit condition ended the process, and in one line why, naming the best-scoring Round if it is not the last. The command reads the Round files, the Job ad file (title and URL), the Company research (its Date researched), uses today's date, writes both files and prints the final letter. Exit 0 means both files are written. Exit 1 means a Round file is missing or unusable, `--exit` is not one of the values, or `--final` or `--requested` names a Round that isn't there; exit 3 means the Application's folder or Job ad file is missing, or its Company research file is unreadable. For either, nothing was written: show the message from stderr, start the Agent run again if a Round file is missing or unusable, and stop if it fails again.
+`--rounds` is how many Rounds have run, `--final` the Round whose draft is the final letter (the best draft), `--requested` the Rounds the candidate requested, `--motivation` `used` when you passed a Personal motivation to the agents in this Run (given, stored or just saved) and `none` otherwise (required; the command never reads the tracker), `--exit` the header's Exit (exactly one of the values in the template below; any other value is exit 1) and `--reason` the Exit reason: which exit condition ended the process, and in one line why, naming the best-scoring Round if it is not the last. The command reads the Letter plan and the Round files, the Job ad file (title and URL), the Company research (its Date researched), uses today's date, writes both files and prints the final letter. Exit 0 means both files are written. Exit 1 means the Letter plan is missing or empty, a Round file is missing or unusable, `--exit` is not one of the values, or `--final` or `--requested` names a Round that isn't there; exit 3 means the Application's folder or Job ad file is missing, or its Company research file is unreadable. For either, nothing was written: show the message from stderr, start the Agent run again if the Letter plan or a Round file is missing or unusable, and stop if it fails again.
 
 What it writes:
 
@@ -187,13 +194,17 @@ What it writes:
 ```markdown
 # Cover letter review log: [Position] @ [Company]
 
-> **Date:** [yyyy-mm-dd] | **Job ad:** [URL, or "pasted text"] | **Company research:** [its Date researched, or "none"] | **Personal motivation:** [used if you passed one to the agents, else none] | **Final Review score:** [X]/100 | **Rounds:** [N] | **Exit:** [Review score 90 or above / Plateau / 5 Rounds / change requested by the candidate / Round after the candidate's answers]
+> **Date:** [yyyy-mm-dd] | **Job ad:** [URL, or "pasted text"] | **Company research:** [its Date researched, or "none"] | **Personal motivation:** [used if you passed one to the agents, else none] | **Final Review score:** [X]/100 | **Rounds:** [N] | **Exit:** [Review score 90 or above / Plateau / 3 Rounds / change requested by the candidate / Round after the candidate's answers]
 
 After a follow-up (Step 7), the header's Final Review score, Rounds and Exit describe the current result.
 
 **Final letter:** Round [N]'s draft. [If it is not the last Round: "It scored highest; later drafts scored lower."]
 
 **Language:** [the letter's language, and the reason if it is not the ad's]
+
+## Letter plan
+
+[The Letter plan, from `rounds/plan.md`, as written]
 
 ## Round [N]
 
@@ -212,6 +223,14 @@ After a follow-up (Step 7), the header's Final Review score, Rounds and Exit des
 ### Refused suggestions
 
 [From the Applicant's notes in its Round file, or "None"]
+
+### Adapted for voice
+
+[From the Applicant's notes: each replacement text it adapted to the candidate's voice, or "None"]
+
+### Plan departures
+
+[From the Applicant's notes: each place it departed from the Letter plan, or "None"]
 
 ## Exit reason
 
@@ -247,9 +266,9 @@ Then the Run summary (see the router), as the last thing you print. Follow-ups (
 
 1. If they added it to the Source CV, run the cv-parser mode (`ai/skills/ieakaso/modes/cv-parser.md`) now, inside this Run, so `input/parsed-documents/cv.md` is current. If it ends with neither exit 0 nor exit 4 (new CV files asked about), stop and tell the candidate.
 2. Run Step 2d again, so the Evidence bank holds the new fact. If the check says the bank is current, the candidate has not changed a source file yet: say so and wait.
-3. Run Step 2f again, then **one more Round** (Step 3), starting from the path of the current result's draft (the draft shown as the final letter, not the last draft written), run the assemble command again with the new Round count, update both files, and report again. A Round after the 5 Rounds is allowed here; it is the candidate's request. In the review log, set the exit to "Round after the candidate's answers".
+3. Run Step 2f again, then **one more Round** (Step 3), starting from the path of the current result's draft (the draft shown as the final letter, not the last draft written), run the assemble command again with the new Round count, update both files, and report again. A Round after the 3 Rounds is allowed here; it is the candidate's request. In the review log, set the exit to "Round after the candidate's answers".
 
-**Changes the candidate requests** (a different tone, a shorter body, a different emphasis). Run Step 2f again, then start a fresh Applicant Agent run with everything in its INPUTS, plus the change request and the path of the current result's draft, then **one** Seasoned Recruiter Review of the result, to which you also pass the change request. No automatic loop afterwards. **The candidate's request wins even if the score drops**, and the Job Application Assistant's best-draft reset applies. Run the assemble command again, with the Round in `--requested`, to update both files and mark the Round "requested by the candidate" in the review log, and set the Exit to "change requested by the candidate" and the exit reason to say so. Report the new Review score and any drop.
+**Changes the candidate requests** (a different tone, a shorter body, a different emphasis). Run Step 2f again, then start a fresh Applicant Agent run with everything in its INPUTS, plus the change request and the path of the current result's draft, then **one** Seasoned Recruiter Review of the result, to which you also pass the change request. The request wins over the Letter plan too, and that Review records it under Plan changes. No automatic loop afterwards. **The candidate's request wins even if the score drops**, and the Job Application Assistant's best-draft reset applies. Run the assemble command again, with the Round in `--requested`, to update both files and mark the Round "requested by the candidate" in the review log, and set the Exit to "change requested by the candidate" and the exit reason to say so. Report the new Review score and any drop.
 
 ---
 

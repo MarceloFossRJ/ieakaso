@@ -1,13 +1,13 @@
 """`uv run python -m ieakaso.cover_letter assemble <id> --rounds <n> --final <n> --exit <name> --reason <text>
 [--requested <n> ...] --motivation used|none`: builds the Application's Cover letter and its review log from the Round files.
 
-Reads `output/applications/<id>/rounds/round-<n>_draft.md` and `_review.md` for Rounds 1 to --rounds, the header data
-from `<id>_job-ad.md` and `<id>_company-research.md`, and today's date. Writes `<id>_cover-letter.md` (the Draft
+Reads `output/applications/<id>/rounds/plan.md` (the Letter plan), `round-<n>_draft.md` and `_review.md` for Rounds 1
+to --rounds, the header data from `<id>_job-ad.md` and `<id>_company-research.md`, and today's date. Writes `<id>_cover-letter.md` (the Draft
 section of Round --final, unchanged) and `<id>_cover-letter-review.md`, and prints the final letter to stdout.
 --motivation (used or none, required) is the header's Personal motivation: whether the mode passed one to the agents.
 --requested names the Rounds the candidate requested. --exit is the header's Exit, --reason the Exit reason section.
 
-Exit codes: 0 both files written, 1 a Round file is missing or unusable, --exit is not one of the fixed values, or --final
+Exit codes: 0 both files written, 1 the Letter plan is missing or empty, a Round file is missing or unusable, --exit is not one of the fixed values, or --final
 or --requested names a Round that isn't there (nothing is written), 3 the Application's folder or Job ad file is missing, or its Company research file is unreadable. The message for exits 1
 and 3 goes to stderr. The command never sends data anywhere.
 """

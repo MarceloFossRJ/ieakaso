@@ -1,0 +1,22 @@
+# The Recruiter plans the letter and writes the text to change, in at most 3 Rounds
+
+> Amends ADR 0002: the Seasoned Recruiter now writes text too (the Letter plan and replacement text); the Job Application Assistant still never writes.
+
+Before Round 1, a fresh Seasoned Recruiter run writes the Application's Letter plan, `rounds/plan.md`: the two or three needs from the Job ad's "what you'll do" section, the proof for each quoted from the Evidence bank with the claim wording it supports and the stronger wording to avoid, the relevance line each evidence paragraph must make, the hook, the motive, the gap, the logistics line, a paragraph map of 250 to 300 words, and what to avoid in this letter. The Applicant Agent drafts from it. Each Review then lists every item it can find in one pass, each with its exact replacement text, in the candidate's voice; it keeps a cumulative Keep list of passages that must not change and repeats the Plan changes that still hold. Both agents run the Final check in the Cover letter guidelines. The cover-letter mode stops after 3 Rounds instead of 5. The goal is the best letter, not a faithful process: the Recruiter is as direct as it can be, and the Applicant's one firm constraint, with the rules for the facts, is the candidate's voice.
+
+The 12 review logs before this change showed why five Rounds weren't enough. Round 1 averaged about 78 and each later Round added 2 to 5 points; without the candidate's help no letter reached 90 before Round 5, and only one did at all. Two letters lost Rounds to the 59 cap for a verb or scope stronger than the bank's ("pioneered" for "led and grew"). The Recruiter reported a few items per Round, many of which were in the text from Round 1 (a repeated word, an unclear "it", "not X but Y"). Fixes came undone, because the Applicant sees only the latest Review. The relevance of each proof to the role was asked for in nearly every letter, and bodies of 310 to 349 words left no room for an Improve item. The plan fixes the low start and the overstated claims; the exhaustive, direct Review and the Keep list fix the slow climb and the regressions.
+
+## Considered Options
+
+- **Stricter agent files only (the Final check, exhaustive Reviews with replacement text, a Keep list), no plan.** Rejected: it fixes the slow climb but not the cold start at about 78, which is what makes 3 Rounds tight.
+- **A deterministic checker the Applicant runs** (word count, banned phrases, bullets or bold, nearby repeated words). Deferred: most of it is covered by the Final check; it is the next step if word-level items still fill the Reviews.
+- **The main conversation writes the letter instead of the Applicant Agent.** Rejected. The agent pointers set no model, so it is the same model, with a crowded and unfiltered context: the job-analyzer run, the reads of the Personal knowledge base, and the Company research's red flags and employee reviews. Wider access doesn't help, since the Recruiter caps any fact outside the bank and the Parsed CV at 59; a missing fact belongs in the bank. It would put draft text in the main conversation, raise the cost of every turn, and break ADR 0002's "you manage, you do not write". The regressions it would fix are fixed by the Keep list.
+- **A pause for the candidate to approve the plan.** Rejected: it adds a wait to every letter, and a wrong plan shows in the Round 1 Review, which changes it.
+- **Rewriting the plan file when it changes.** Rejected: the review log would lose what the original plan said. Each Review's Plan changes carry the changes instead.
+
+## Consequences
+
+- The Seasoned Recruiter reads `input/candidate/writing-style.md`, for the voice of its replacement text only, never for facts; `tests/test_evidence_bank_drift.py` allows it.
+- The Applicant uses replacement text as written unless it breaks the candidate's voice (it adapts it and lists it under Adapted for voice) or needs a fact the sources don't hold (it refuses it). The review log shows each Round's adaptations and plan departures, so the candidate can see where their voice won.
+- The assembler requires the plan and the two new notes fields, and its exit value is "3 Rounds"; `tests/test_letter_plan_drift.py` keeps the Applicant's notes labels, the agents' INPUTS and the Final check in line with it.
+- One more Agent run per Run (the plan), and at most 7 instead of 10. A follow-up Round after the 3 is still the candidate's to ask for.

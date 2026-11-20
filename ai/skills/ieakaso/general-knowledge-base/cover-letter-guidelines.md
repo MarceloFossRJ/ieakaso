@@ -156,6 +156,20 @@ Specific reason, evidence with numbers, a warm close: 90 words. Its bullets suit
 
 ---
 
+## Final check
+
+The Applicant runs these checks on every draft before returning it, and fixes what fails. The Recruiter reviews against them too, and an item that fails one is a Remove or Rewrite item. They are what Reviews flagged most often.
+
+1. **Claim wording.** Every claim about the candidate uses the Evidence bank's own verb and scope, or the Letter plan's claim wording, never a stronger one: "led and grew", not "pioneered"; "my team", not "across teams".
+2. **Relevance line.** Every evidence paragraph says why that evidence matters for this role.
+3. **Word budget.** At most 300 words in the body in the first Round; never over 350.
+4. **No AI tells or anti-patterns.** None of the anti-patterns above: no "not X but Y", no reflexive lists of three, no two colon sentences in a row, no bold, no bullets.
+5. **No repeats, no unclear references.** No content word twice within two sentences, unless it is the ad's own term. Every "it", "this" and "that" points to one clear thing.
+6. **No overlong sentences.** No sentence over about 30 words.
+7. **Read it aloud** against `input/candidate/writing-style.md`. Anything that doesn't sound like the candidate is rewritten.
+
+---
+
 ## Sources
 
 - toso_o (Kickresume), "After 10 years of helping people write cover letters, here's my guide to what actually works", r/jobsearchhacks, 2025-05-19.

@@ -1,7 +1,8 @@
-"""Builds `<id>_cover-letter.md` and `<id>_cover-letter-review.md` from `rounds/round-<n>_draft.md` and `_review.md`.
+"""Builds `<id>_cover-letter.md` and `<id>_cover-letter-review.md` from `rounds/plan.md`, `rounds/round-<n>_draft.md`
+and `_review.md`.
 
-The review log's format is the one `ai/skills/ieakaso/modes/cover-letter.md` defines. Nothing is written unless every
-Round file is there and readable.
+The review log's format is the one `ai/skills/ieakaso/modes/cover-letter.md` defines. Nothing is written unless the
+Letter plan and every Round file are there and readable.
 """
 
 import re
@@ -13,11 +14,14 @@ from ieakaso.cover_letter.errors import ApplicationError, ArgumentError, RoundFi
 from ieakaso.layout import APPLICATIONS
 
 NOTES = "## Notes for the Assistant"
+PLAN = "plan.md"
+# The Applicant's notes fields every Round must have; Language is read too, but only the final Round needs it.
+NOTE_FIELDS = ("Refused suggestions", "Adapted for voice", "Plan departures")
 SCORE = re.compile(r"^[ \t]*(?:#+[ \t]*)?\**Review score:\**[ \t]*(\d+)/100\**[ \t]*$", re.MULTILINE)
 EXITS = (
     "Review score 90 or above",
     "Plateau",
-    "5 Rounds",
+    "3 Rounds",
     "change requested by the candidate",
     "Round after the candidate's answers",
 )
@@ -50,6 +54,8 @@ class Round:
     review: str
     score: int
     refused: str
+    adapted: str
+    departures: str
     language: str | None  # read from the notes; only the final Round's is needed
     path: Path
 
@@ -78,18 +84,31 @@ def read_round(rounds: Path, number: int) -> Round:
     score = SCORE.search(review)
     if not score:
         raise RoundFileError(f"{review_path}: no '## Review score: <n>/100' line")
-    refused = _field(notes, "Refused suggestions")
-    if refused is None:
-        raise RoundFileError(f"{draft_path}: no 'Refused suggestions' in the notes for the Assistant")
+    required = {}
+    for label in NOTE_FIELDS:
+        required[label] = _field(notes, label)
+        if required[label] is None:
+            raise RoundFileError(f"{draft_path}: no '{label}' in the notes for the Assistant")
     return Round(
         number=number,
         draft=head.removeprefix("## Draft").strip("\n"),
         review=review.strip("\n"),
         score=int(score.group(1)),
-        refused=refused,
+        refused=required["Refused suggestions"],
+        adapted=required["Adapted for voice"],
+        departures=required["Plan departures"],
         language=_field(notes, "Language"),
         path=draft_path,
     )
+
+
+def read_plan(rounds: Path) -> str:
+    """The Letter plan the Seasoned Recruiter wrote before Round 1, as written."""
+    path = rounds / PLAN
+    plan = _read(path, RoundFileError, "Letter plan").strip()
+    if not plan:
+        raise RoundFileError(f"Letter plan is empty: {path}")
+    return plan
 
 
 def _job_ad(folder: Path, application_id: str) -> tuple[str, str]:
@@ -113,7 +132,7 @@ def _research_date(folder: Path, application_id: str) -> str:
 
 
 def review_log(
-    title: str, url: str, research_date: str, today: date, outcome: Outcome, played: list[Round]
+    title: str, url: str, research_date: str, today: date, outcome: Outcome, plan: str, played: list[Round]
 ) -> str:
     """The review log, in the format `ai/skills/ieakaso/modes/cover-letter.md` defines. `played` is Rounds 1 to n."""
     best = played[outcome.final - 1]
@@ -132,6 +151,10 @@ def review_log(
         + (" It scored highest; later drafts scored lower." if outcome.final != outcome.rounds else ""),
         "",
         f"**Language:** {best.language}",
+        "",
+        "## Letter plan",
+        "",
+        plan,
         "",
     ]
     for item in played:
@@ -153,6 +176,14 @@ def review_log(
             "",
             item.refused,
             "",
+            "### Adapted for voice",
+            "",
+            item.adapted,
+            "",
+            "### Plan departures",
+            "",
+            item.departures,
+            "",
         ]
     lines += ["## Exit reason", "", outcome.reason, ""]
     return "\n".join(lines)
@@ -165,12 +196,13 @@ def assemble(root: Path, application_id: str, outcome: Outcome, today: date) -> 
         raise ApplicationError(f"No such Application folder: {folder}")
     outcome.validate()
     title, url = _job_ad(folder, application_id)
+    plan = read_plan(folder / "rounds")
     played = [read_round(folder / "rounds", n) for n in range(1, outcome.rounds + 1)]
     best = played[outcome.final - 1]
     if best.language is None:
         raise RoundFileError(f"{best.path}: no 'Language' in the notes for the Assistant")
 
-    log = review_log(title, url, _research_date(folder, application_id), today, outcome, played)
+    log = review_log(title, url, _research_date(folder, application_id), today, outcome, plan, played)
     letter = best.draft + "\n"
     (folder / f"{application_id}_cover-letter.md").write_text(letter)
     (folder / f"{application_id}_cover-letter-review.md").write_text(log)
