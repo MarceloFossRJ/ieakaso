@@ -101,7 +101,9 @@ def test_adding_a_tailored_cv_links_it_to_its_application(db_path: Path):
     write_db(db_path, lead(), cv_versions=[cv_version()])
     db = load(db_path)
 
-    added = add_cv_version(db, TAILORED, "cv_for_acme", f"input/candidate/documents/cv/{TAILORED}/c.pdf", TODAY, tailored_for=ID)
+    added = add_cv_version(
+        db, TAILORED, "cv_for_acme", f"input/candidate/documents/cv/{TAILORED}/c.pdf", TODAY, tailored_for=ID
+    )
 
     assert added["tailored_for"] == ID
     assert db.find(ID)["cv_version"] == TAILORED

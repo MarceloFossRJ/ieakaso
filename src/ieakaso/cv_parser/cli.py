@@ -108,9 +108,7 @@ def _capture(root: Path, db: Db, cv: dict, today: date, args: argparse.Namespace
     if args.tailored_for and not args.tailored:
         raise versions.VersionError("--for goes with --tailored <file>.", versions.BAD_REQUEST)
     if args.tailored_for and not db.find(args.tailored_for):
-        raise versions.VersionError(
-            f"no tracked Application has the ID {args.tailored_for!r}", versions.BAD_REQUEST
-        )
+        raise versions.VersionError(f"no tracked Application has the ID {args.tailored_for!r}", versions.BAD_REQUEST)
 
     migration = versions.migration_source(root, db, cv)
     if migration:
@@ -140,7 +138,9 @@ def _capture(root: Path, db: Db, cv: dict, today: date, args: argparse.Namespace
     else:
         cv.pop("ignored_folders", None)
     for rel, version in inbox.duplicates:
-        print(f"Duplicate: {rel} has the same content as CV version {version['id']} ({version['label']}); left where it is.")
+        print(
+            f"Duplicate: {rel} has the same content as CV version {version['id']} ({version['label']}); left where it is."
+        )
     for rel in inbox.new:
         print(f"New CV file: {rel}")
     return inbox.new
@@ -184,7 +184,7 @@ def _read_status(root: Path) -> dict:
     """db/system_status.json, or {} when it is missing or not a JSON object."""
     try:
         status = json.loads((root / STATUS).read_text("utf-8"))
-    except (OSError, ValueError):
+    except OSError, ValueError:
         return {}
     return status if isinstance(status, dict) else {}
 

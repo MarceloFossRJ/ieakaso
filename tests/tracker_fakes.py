@@ -111,9 +111,7 @@ def lead(**overrides) -> dict:
     return base
 
 
-def write_db(
-    path: Path, *records: dict, version: int = SCHEMA_VERSION, cv_versions: list[dict] | None = None
-) -> Path:
+def write_db(path: Path, *records: dict, version: int = SCHEMA_VERSION, cv_versions: list[dict] | None = None) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     data = {"meta": {"schema_version": version}}
     if isinstance(version, int) and version >= 3:

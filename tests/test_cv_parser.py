@@ -20,6 +20,7 @@ DOCX_NS = {
     "mc": "http://schemas.openxmlformats.org/markup-compatibility/2006",
 }
 
+
 def words(text: str) -> Counter:
     return Counter(text.split())
 
@@ -202,8 +203,7 @@ def test_unknown_tex_command_names_its_line():
 def test_tex_footnote_follows_its_own_paragraph(tmp_path):
     path = tmp_path / "cv.tex"
     path.write_text(
-        "\\documentclass{article}\n\\begin{document}\n"
-        "First.\\footnote{Note one.}\n\nSecond.\n\\end{document}\n"
+        "\\documentclass{article}\n\\begin{document}\nFirst.\\footnote{Note one.}\n\nSecond.\n\\end{document}\n"
     )
     assert parse(path) == "First.[^1]\n\n[^1]: Note one.\n\nSecond.\n"
 

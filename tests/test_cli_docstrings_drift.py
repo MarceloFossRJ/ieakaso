@@ -102,5 +102,6 @@ def test_a_number_before_the_exit_codes_sentence_does_not_count(tmp_path: Path):
 
     assert problems(tmp_path) == ["tool/cli.py: `main` returns 13, which the `Exit codes` sentence doesn't name"]
 
+
 def test_every_cli_documents_its_exit_codes():
     assert problems(SRC) == []

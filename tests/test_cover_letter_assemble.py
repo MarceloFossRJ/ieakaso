@@ -81,7 +81,9 @@ def test_assembles_the_best_draft_when_it_is_not_the_last(root: Path):
     write_round(root, 2, 88, refused='"Add a number": no file has one')
     write_round(root, 3, 81)
 
-    code, out, err = run(root, "--rounds", "3", "--final", "2", "--exit", "3 Rounds", "--reason", "Round 2 scored highest.")
+    code, out, err = run(
+        root, "--rounds", "3", "--final", "2", "--exit", "3 Rounds", "--reason", "Round 2 scored highest."
+    )
 
     notes = "\n\n### Adapted for voice\n\nNone\n\n### Plan departures\n\nNone\n\n"
     assert (code, err) == (0, "")
@@ -96,12 +98,21 @@ def test_assembles_the_best_draft_when_it_is_not_the_last(root: Path):
         "**Language:** English\n\n"
         "## Letter plan\n\n### Needs\n\nPlan text.\n\n"
         "## Round 1\n\n**Review score:** 70/100\n\n### Draft\n\nLetter 1  \nBody 1.\n\n"
-        "### Review\n\n" + review(1) + "\n\n### Refused suggestions\n\nNone" + notes +
-        "## Round 2\n\n**Review score:** 88/100\n\n### Draft\n\nLetter 2  \nBody 2.\n\n"
-        "### Review\n\n" + review(2) + '\n\n### Refused suggestions\n\n"Add a number": no file has one' + notes +
-        "## Round 3\n\n**Review score:** 81/100\n\n### Draft\n\nLetter 3  \nBody 3.\n\n"
-        "### Review\n\n" + review(3) + "\n\n### Refused suggestions\n\nNone" + notes +
-        "## Exit reason\n\nRound 2 scored highest.\n"
+        "### Review\n\n"
+        + review(1)
+        + "\n\n### Refused suggestions\n\nNone"
+        + notes
+        + "## Round 2\n\n**Review score:** 88/100\n\n### Draft\n\nLetter 2  \nBody 2.\n\n"
+        "### Review\n\n"
+        + review(2)
+        + '\n\n### Refused suggestions\n\n"Add a number": no file has one'
+        + notes
+        + "## Round 3\n\n**Review score:** 81/100\n\n### Draft\n\nLetter 3  \nBody 3.\n\n"
+        "### Review\n\n"
+        + review(3)
+        + "\n\n### Refused suggestions\n\nNone"
+        + notes
+        + "## Exit reason\n\nRound 2 scored highest.\n"
     )
 
 
@@ -154,7 +165,9 @@ def test_a_round_past_the_cap_after_the_candidates_answers_assembles(root: Path)
     for n in range(1, 5):
         write_round(root, n, 80 + n)
 
-    code, _, _ = run(root, "--rounds", "4", "--final", "4", "--exit", "Round after the candidate's answers", "--reason", "y")
+    code, _, _ = run(
+        root, "--rounds", "4", "--final", "4", "--exit", "Round after the candidate's answers", "--reason", "y"
+    )
 
     assert code == 0
     assert "## Round 4\n" in log_of(root)
@@ -179,7 +192,17 @@ def test_a_round_requested_by_the_candidate_is_marked_in_its_heading(root: Path)
     write_round(root, 2, 80)
 
     code, _, _ = run(
-        root, "--rounds", "2", "--final", "2", "--requested", "2", "--exit", "change requested by the candidate", "--reason", "r"
+        root,
+        "--rounds",
+        "2",
+        "--final",
+        "2",
+        "--requested",
+        "2",
+        "--exit",
+        "change requested by the candidate",
+        "--reason",
+        "r",
     )
 
     log = (folder(root) / f"{ID}_cover-letter-review.md").read_text()
@@ -303,7 +326,17 @@ def test_a_requested_round_that_scores_lower_can_be_final(root: Path):
     write_round(root, 2, 70)
 
     code, out, _ = run(
-        root, "--rounds", "2", "--final", "2", "--requested", "2", "--exit", "change requested by the candidate", "--reason", "y"
+        root,
+        "--rounds",
+        "2",
+        "--final",
+        "2",
+        "--requested",
+        "2",
+        "--exit",
+        "change requested by the candidate",
+        "--reason",
+        "y",
     )
 
     log = (folder(root) / f"{ID}_cover-letter-review.md").read_text()
@@ -313,7 +346,9 @@ def test_a_requested_round_that_scores_lower_can_be_final(root: Path):
     assert "**Final letter:** Round 2's draft.\n" in log
 
 
-@pytest.mark.parametrize("line", ["Review score: 70/100", "### **Review score:** 70/100", "  ## Review score: 70/100  "])
+@pytest.mark.parametrize(
+    "line", ["Review score: 70/100", "### **Review score:** 70/100", "  ## Review score: 70/100  "]
+)
 def test_the_review_score_line_is_read_tolerantly(root: Path, line: str):
     write_round(root, 1, 99)
     (folder(root) / "rounds" / "round-1_review.md").write_text(f"**Domain:** x\n\n{line}\n")

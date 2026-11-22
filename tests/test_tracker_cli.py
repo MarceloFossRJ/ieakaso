@@ -169,7 +169,16 @@ def test_set_screening_prep_exits_4_for_an_unknown_id_and_1_for_a_bad_path(root:
 
 def test_add_contact_adds_it_once(root: Path):
     write_db(db_file(root), lead())
-    argv = ("add-contact", ID, "--type", "recruiter", "--name", "Ana Lima", "--linkedin", "https://www.linkedin.com/in/analima")
+    argv = (
+        "add-contact",
+        ID,
+        "--type",
+        "recruiter",
+        "--name",
+        "Ana Lima",
+        "--linkedin",
+        "https://www.linkedin.com/in/analima",
+    )
 
     first = run(root, *argv)
     second = run(root, *argv)
@@ -178,7 +187,12 @@ def test_add_contact_adds_it_once(root: Path):
     assert second == (0, f"contact already on {ID}\n", "")
     contacts = json.loads(db_file(root).read_text())["records"][0]["contacts"]
     assert contacts == [
-        {"contact_type": "recruiter", "name": "Ana Lima", "linkedin_url": "https://www.linkedin.com/in/analima", "email": None}
+        {
+            "contact_type": "recruiter",
+            "name": "Ana Lima",
+            "linkedin_url": "https://www.linkedin.com/in/analima",
+            "email": None,
+        }
     ]
 
 
@@ -219,7 +233,15 @@ def test_set_status_exits_1_for_an_unknown_status_and_4_for_an_unknown_id(root: 
 
 def test_a_version_1_db_is_backfilled_from_the_repo_and_saved_as_version_5(root: Path):
     rec = lead(company_research=f"{FOLDER}/{ID}_company-research.md")
-    write_db(db_file(root), {k: v for k, v in rec.items() if k not in ("company_research", "cv_version", "personal_motivation", "evidence_bank", "screening_prep")}, version=1)
+    write_db(
+        db_file(root),
+        {
+            k: v
+            for k, v in rec.items()
+            if k not in ("company_research", "cv_version", "personal_motivation", "evidence_bank", "screening_prep")
+        },
+        version=1,
+    )
     (root / rec["company_research"]).parent.mkdir(parents=True, exist_ok=True)
     (root / rec["company_research"]).write_text("x")
 
@@ -370,7 +392,11 @@ class Terminal(io.StringIO):
 
 def run_with(root: Path, stdin: io.StringIO, *argv: str) -> tuple[int, str, str]:
     out, err = io.StringIO(), io.StringIO()
-    return cli.main(["--root", str(root), *argv], today=TODAY, stdin=stdin, out=out, err=err), out.getvalue(), err.getvalue()
+    return (
+        cli.main(["--root", str(root), *argv], today=TODAY, stdin=stdin, out=out, err=err),
+        out.getvalue(),
+        err.getvalue(),
+    )
 
 
 def test_set_personal_motivation_refuses_a_terminal_instead_of_waiting_for_input(root: Path):
