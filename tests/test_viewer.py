@@ -402,7 +402,8 @@ async def test_an_edit_after_the_watcher_reloaded_keeps_the_other_changes(root: 
         write_db(db_file(root), record(notes="written elsewhere"))
         await pilot.pause(0.3)
         assert pilot.app.screen.query_one("#notes", Input).value == "written elsewhere"
-        assert any("changed in another window" in n.message for n in pilot.app._notifications)
+        messages = [n.message for n in pilot.app._notifications]
+        assert any("changed in another window" in m for m in messages), messages
         await type_into(pilot, "company", "Mine")
         assert stored(root)[0]["company"] == "Mine"
         assert stored(root)[0]["notes"] == "written elsewhere"
