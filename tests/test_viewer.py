@@ -149,6 +149,21 @@ async def open_detail(pilot) -> DetailScreen:
     return pilot.app.screen
 
 
+async def wait_for_notification(pilot, text: str, timeout: float = 3.0) -> None:
+    """Wait until a notification containing text has been shown.
+
+    A notification is recorded when the app handles its message, after the screen switch a reload may
+    cause, so a fixed pause is a race on a slower machine (it failed on the CI runner, never locally).
+    """
+    seen: list[str] = []
+    for _ in range(int(timeout / 0.05)):
+        seen += [n.message for n in pilot.app._notifications if n.message not in seen]
+        if any(text in m for m in seen):
+            return
+        await pilot.pause(0.05)
+    raise AssertionError(f"no notification with {text!r} within {timeout}s; seen: {seen}")
+
+
 async def press(pilot, widget_id: str) -> None:
     """Press a button of the current screen (clicking fails for buttons scrolled out of view)."""
     pilot.app.screen.query_one(f"#{widget_id}", Button).press()
@@ -400,9 +415,8 @@ async def test_an_edit_after_the_watcher_reloaded_keeps_the_other_changes(root: 
     async with make_app(root).run_test(size=SIZE) as pilot:
         await open_detail(pilot)
         write_db(db_file(root), record(notes="written elsewhere"))
-        await pilot.pause(0.3)
+        await wait_for_notification(pilot, "changed in another window")
         assert pilot.app.screen.query_one("#notes", Input).value == "written elsewhere"
-        assert any("changed in another window" in n.message for n in pilot.app._notifications)
         await type_into(pilot, "company", "Mine")
         assert stored(root)[0]["company"] == "Mine"
         assert stored(root)[0]["notes"] == "written elsewhere"
