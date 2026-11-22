@@ -56,7 +56,7 @@ On first launch it asks for your memory, in chat. Nothing to configure by hand:
 - your most important projects
 - your biggest achievements
 
-You run Ieakaso as `/ieakaso <mode>`. You can also pick the mode from the `/` menu: type `/ieakaso:` in Claude Code or `/ieakaso-` in OpenCode. In Claude Code, start it from the repo root. Plain `/ieakaso` asks which mode to run.
+You run Ieakaso as `/ieakaso <mode>`. You can also pick the mode from the `/` menu: type `/ieakaso:` in Claude Code or `/ieakaso-` in OpenCode. In Claude Code, start it from the repo root. To open the viewer straight from a terminal, see [The viewer](#the-viewer). Plain `/ieakaso` asks which mode to run.
 
 To set up, put your CV in `input/candidate/documents/cv/` and run:
 
@@ -152,9 +152,17 @@ The status is one of Lead (analysed, not applied yet), Desisted, Applied, No ans
 /ieakaso viewer
 ```
 
-Opens a table of your applications in a new terminal window (if it can't, it gives you the command: `uv run ieakaso-viewer`, from the repo). It shows company, position, status, interview stage, verdict and score, location and the dates, newest first. Press Enter on a row to edit its fields: status, interview stages, contacts, the salary expectation you entered in the form, notes. Each edit is saved at once (the personal motivation is shown, never edited there). `h` hides Desisted and Not selected applications, `a`, `j`, `c`, `r` and `s` open the job ad, the job analysis, the cover letter, the company research and the screening prep, `q` quits. On launch it lists applications with no answer after 30 days, and you tick which become No answer.
+Opens a table of your applications in a new terminal window (if it can't, it gives you the command). It shows company, position, status, interview stage, verdict and score, location and the dates, newest first. Press Enter on a row to edit its fields: status, interview stages, contacts, the salary expectation you entered in the form, notes. Each edit is saved at once (the personal motivation is shown, never edited there). `h` hides Desisted and Not selected applications, `a`, `j`, `c`, `r` and `s` open the job ad, the job analysis, the cover letter, the company research and the screening prep, `q` quits. On launch it lists applications with no answer after 30 days, and you tick which become No answer.
 
 The viewer only edits: applications are created by `job-analyzer`, and nothing is deleted. If you change the file elsewhere while the viewer is open, it reloads.
+
+To open it in the terminal you are in, from any folder, install the command once, from the repo:
+
+```
+uv tool install --editable .
+```
+
+Then type `ieakaso-view` anywhere. It opens the repo you are in, or else the one `/ieakaso init` remembered (in `~/.config/ieakaso/repo.toml`); `--root <path>` opens another. Without the install, run `uv run ieakaso-view` from the repo.
 
 Ieakaso learns from every application it follows and folds what it learns back into its memory of you. Your data leaves your machine only to reach the AI provider you chose.
 

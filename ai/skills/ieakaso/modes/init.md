@@ -111,12 +111,23 @@ Write the confirmed values to `config.yml` at the repository root, with the same
 
 ## Step 4: Status file and summary
 
-Write `db/system_status.json` (create `db/` if missing), then show a short summary:
+Write `db/system_status.json` (create `db/` if missing).
+
+Then remember this repo for `ieakaso-view`, the command that opens the viewer from any terminal (`docs/adr/0013-remembered-repo-outside-the-repo.md`). Run `uv run python -m ieakaso.repo remember` from the repository root, on every init. Never write its file yourself.
+
+- **Exit 0:** nothing to say.
+- **Exit 4** (stderr names the other repo): ask the candidate "`ieakaso-view` opens `<other path>`. Switch it to this repo?". On yes, run it again with `--replace`. On no, leave it.
+- **Exit 1 or 2:** one warning line, e.g. "Couldn't remember this repo for `ieakaso-view` (<reason from stderr>); run it from the repo or pass `--root`", and carry on.
+
+This step is not a setup item: it never changes `init.status` and is not recorded in `db/system_status.json`.
+
+Then show a short summary:
 
 - CV, LinkedIn profile: found / skipped / missing
 - Config: confirmed, with any skipped optional fields
 - Only facts: everything in `input/` and `config.yml` is the candidate's Personal knowledge base (terms in `CONTEXT.md`). Ieakaso uses all of it as fact and never checks it, so it must hold only what is true.
 - What's next: `/ieakaso job-analyzer <job-url or job-ad text>` to score the CV against a job ad and get a verdict
+- The viewer: open it from any terminal with `ieakaso-view` (install once: `uv tool install --editable .`, from the repo)
 
 Then run Step 5. Its chat part comes after this summary, as the last thing init shows.
 
