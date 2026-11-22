@@ -38,8 +38,9 @@ def returned_codes(main: ast.FunctionDef) -> set[int]:
 
 
 def exit_codes_sentence(docstring: str) -> str | None:
-    """The paragraph of the docstring that holds `Exit codes`."""
-    return next((p for p in re.split(r"\n\s*\n", docstring) if "Exit codes" in p), None)
+    """From `Exit codes` to the end of its paragraph: numbers before it (an ADR, a count) are not codes."""
+    paragraph = next((p for p in re.split(r"\n\s*\n", docstring) if "Exit codes" in p), None)
+    return None if paragraph is None else paragraph[paragraph.index("Exit codes") :]
 
 
 def problems(src: Path) -> list[str]:
@@ -94,6 +95,12 @@ def test_codes_returned_through_a_helper_and_modules_without_main_are_not_checke
 
     assert problems(tmp_path) == []
 
+
+def test_a_number_before_the_exit_codes_sentence_does_not_count(tmp_path: Path):
+    cli = '"""Opens it (ADR 13). Exit codes: 0 done."""\n\n\ndef main(argv=None):\n    if argv:\n        return 13\n    return 0\n'
+    write_files(tmp_path, {"tool/cli.py": cli})
+
+    assert problems(tmp_path) == ["tool/cli.py: `main` returns 13, which the `Exit codes` sentence doesn't name"]
 
 def test_every_cli_documents_its_exit_codes():
     assert problems(SRC) == []

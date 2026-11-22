@@ -32,7 +32,7 @@ def main(
     *,
     cwd: Path | None = None,
     config_dir: Path | None = None,
-    launch: Callable[[Path], None] = run_viewer,
+    launch: Callable[[Path], None] | None = None,
     err: TextIO | None = None,
 ) -> int:
     parser = argparse.ArgumentParser(
@@ -50,5 +50,5 @@ def main(
     except RepoNotFound as error:
         print(error, file=err or sys.stderr)
         return 2
-    launch(root)
+    (launch or run_viewer)(root)
     return 0

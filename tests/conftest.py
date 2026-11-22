@@ -94,9 +94,6 @@ class Streams:
     """The out and err a CLI's main writes to (CODING_STANDARDS.md: injected, never sys.stdout)."""
 
     def __init__(self) -> None:
-        self.clear()
-
-    def clear(self) -> None:
         self.out, self.err = io.StringIO(), io.StringIO()
 
 
