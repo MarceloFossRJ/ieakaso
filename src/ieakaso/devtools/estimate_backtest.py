@@ -4,7 +4,7 @@ The estimate (`_estimate_outputs` in `ieakaso.usage.transcript`) can't be checke
 true output count was never recorded. So this tool checks it on the messages whose count is known. It leaves each
 final message out, calibrates on the Session's other final messages, estimates the left-out one from its visible
 characters, and compares. If the method is sound, about 80% of true counts fall in the p10-p90 range and the median
-error is small.
+error is small. If it isn't, remove the estimate rather than tune it to one Session.
 
 Never exposed to the candidate: not an `ieakaso` command, not a `/ieakaso` mode.
 
