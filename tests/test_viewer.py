@@ -398,23 +398,9 @@ async def test_an_edit_after_the_watcher_reloaded_keeps_the_other_changes(root: 
     write_db(db_file(root), record())
 
     async with make_app(root).run_test(size=SIZE) as pilot:
-        import sys  # TEMP diagnostics
-        import time
-        import traceback
-        app = pilot.app
-        orig_on, orig_un = app._on_notify, app._unnotify
-        def on_notify(event):
-            print("DIAG add", round(time.time(), 3), event.notification.message[:40], file=sys.stderr)
-            orig_on(event)
-        def unnotify(n, refresh=True):
-            print("DIAG del", round(time.time(), 3), n.message[:40], "left", round(n.time_left, 2), file=sys.stderr)
-            traceback.print_stack(limit=8, file=sys.stderr)
-            orig_un(n, refresh)
-        app._on_notify, app._unnotify = on_notify, unnotify
         await open_detail(pilot)
         write_db(db_file(root), record(notes="written elsewhere"))
         await pilot.pause(0.3)
-        print("DIAG assert at", round(time.time(), 3), file=sys.stderr)
         assert pilot.app.screen.query_one("#notes", Input).value == "written elsewhere"
         messages = [n.message for n in pilot.app._notifications]
         assert any("changed in another window" in m for m in messages), messages
