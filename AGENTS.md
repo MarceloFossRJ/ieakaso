@@ -4,7 +4,7 @@ This file provides guidance to AI coding agents in this repository.
 
 ## Project state
 
-Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` skill (see Commands). `src/ieakaso/` holds the deterministic code the modes call; agents never do its work by hand. Each command's contract (flags, output lines, exit codes) is its `<package>/cli.py` docstring; the coding standards are in `CODING_STANDARDS.md`.
+Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` skill (see Commands). `src/ieakaso/` holds the deterministic code the modes call; agents never do its work by hand. Each CLI's contract (flags, output lines, exit codes) is its `<package>/cli.py` docstring (a dev tool's: its module docstring) and `--help`; the coding standards are in `CODING_STANDARDS.md`.
 
 - **Toolchain:** Python 3.14 managed by `uv`. Dependencies live in `pyproject.toml`; add them with `uv add` (or `uv add --dev` for development-only ones).
 - **Tests:** `uv run pytest` (pytest, in `tests/`). CI (`.github/workflows/ci.yml`) runs `ruff format --check`, `ruff check` and pytest on every push and PR to `main`. Tests run on temporary fake repos; never let a test write to the real `input/`, `output/`, `config.yml`, `db/`, or `~/.config/ieakaso/`.
