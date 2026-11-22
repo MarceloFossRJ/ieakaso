@@ -13,10 +13,10 @@ Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` s
 - **Tracker** (`tracker/`): the only reader and writer of `db/ieakaso_db.json` (model in `docs/database.md`, kept in sync with its schema); agents never edit the JSON. A change to the record's keys raises `SCHEMA_VERSION` (`schema.py`), adds an upgrade to `_migrate` in `store.py`, and is listed under Schema versions in `docs/database.md`. `db/ieakaso_db_example.json` is a valid example, checked by the tests.
 - **Cover letter assembler** (`cover_letter/`): builds the Cover letter and its review log from the Round files, so no draft or Review text enters the main conversation.
 - **Evidence bank stamp** (`evidence_bank/`): writes and checks the Evidence bank's Sources section, so the agents work from the bank, not the Personal knowledge base (ADR 0008).
-- **Letter context** (`letter_context/`): the parts of the Job analysis and the Company research the letter agents read (ADR 0011). Its parsing follows the templates in `ai/skills/ieakaso/modes/job-analyzer.md`: change both together.
+- **Letter context** (`letter_context/`): the parts of the Job analysis and the Company research the Applicant Agent and the Seasoned Recruiter read (ADR 0011). Its parsing follows the templates in `ai/skills/ieakaso/modes/job-analyzer.md`: change both together.
 - **Candidate answer** (`candidate_answer/`): appends the candidate's own answer to one of their memory files, word for word, with their permission (ADR 0010).
 - **Viewer** (`viewer/`): the Textual app over the tracker, `ieakaso-view` from any terminal (ADR 0013). It edits records, never creates or deletes them, and writes only through the tracker. Tests drive it with Textual's pilot on temp dbs.
-- **Remembered repo** (`repo/`): finds the repo (`find_root`, `locate`) and remembers it for `ieakaso-view` in `~/.config/ieakaso/repo.toml`; init runs `remember` on every run.
+- **Remembered repo** (`repo/`): finds the repo (`find_root`, `locate`) and remembers it for `ieakaso-view` in `repo.toml` in the config folder; init runs `remember` on every run.
 - **Development tools** (`devtools/`), never exposed to the candidate: the cleaner returns the repo to a fresh state or the Set-up state, backing up first; the estimate backtest checks the usage display's output estimate. If you add user data anywhere, add it to the cleaner and `.gitignore` together; `tests/test_cleaner_drift.py` fails when they disagree.
 - **Usage display** (`usage/`): each Run's Token usage, models and Context fill, from the Claude Code transcript; the router runs `start` and `summary`, and the status line is `statusLine` in `.claude/settings.json`. Tests use fake transcripts (`tests/usage_fakes.py`), never `~/.claude`.
 - `README.md` describes the product as designed in the [diagram](`docs/flows.excalidraw`); its Roadmap section lists features beyond the diagram that are not designed yet.
@@ -36,7 +36,7 @@ Ieakaso is mostly at the design stage: the product runs through the `/ieakaso` s
   5. Prepare an application report.
   6. If the form asks for a cover letter, the `cover-letter` mode writes it: the Seasoned Recruiter plans the letter, the Applicant Agent drafts it from the Evidence bank and the Letter context, and the Recruiter scores each draft, for up to 3 Rounds or until 90/100 (`ai/skills/ieakaso/modes/cover-letter.md`, ADR 0012).
   7. Suggest next steps.
-- **Interview prep flow:** the `recruiter-screening` mode writes the Screening prep for a recruiter screening itself, in one pass with no Review loop, from the Evidence bank, the Job analysis and the Company research (`ai/skills/ieakaso/modes/recruiter-screening.md`). Later stages are not designed yet.
+- **Interview prep flow:** the `recruiter-screening` mode writes the Screening prep for a recruiter screening itself, with no Rounds, from the Evidence bank, the Job analysis and the Company research (`ai/skills/ieakaso/modes/recruiter-screening.md`). Later stages are not designed yet.
 
 ## Commands
 

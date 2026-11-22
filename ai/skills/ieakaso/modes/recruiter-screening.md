@@ -2,14 +2,12 @@
 
 `/ieakaso recruiter-screening <Application ID> "<Interviewer name>" [<Interviewer LinkedIn URL>]`: writes the Screening prep for one Application's recruiter screening, then offers a mock screening (terms in `CONTEXT.md`).
 
-You write the prep yourself, in the main conversation, in one pass with no Review loop. This mode does not load the Job Application Assistant role (`ai/agents/job-application-assistant.md`): that role's rule is to manage, not write.
-
 A recruiter screening is not an interview. **The Interviewer does not decide: they decide what to write down and pass on.** Everything in the Screening prep serves one goal: make the candidate easy to represent. Short, repeatable, low-risk. Two consequences shape the whole document:
 
 - **Three retellable lines beat twenty minutes of nuance.** The prep opens with the three sentences the Interviewer must be able to repeat afterwards.
 - **An agency Interviewer is paid on placement, so their interest is aligned with the candidate's.** They are not an adversary, but they are burned by surprises at offer stage, so logistics volunteered early (location, notice, right to work, languages) make the candidate look low-risk.
 
-You write the Screening prep yourself, in this conversation, in one pass: no Applicant Agent, no Seasoned Recruiter, no Review loop. The only Agent runs are the Company Researchers.
+You write the Screening prep yourself, in this conversation, in one pass: no Applicant Agent, no Seasoned Recruiter, no Review loop. The only Agent runs are the Company Researchers. This mode does not load the Job Application Assistant role (`ai/agents/job-application-assistant.md`): that role's rule is to manage, not write.
 
 ---
 

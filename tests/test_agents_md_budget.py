@@ -1,7 +1,7 @@
 """AGENTS.md stays within its word budget (issue #94). Reads the real repo; never writes to it.
 
-AGENTS.md is loaded into every agent's context on every turn, so it holds only what the code can't tell: a
-module's contract lives in its `<package>/cli.py` docstring, a mode's steps in its mode file.
+AGENTS.md is loaded into every agent's context on every turn, so it holds only what the code can't tell; its
+Project state section says where each contract lives instead.
 """
 
 from pathlib import Path
