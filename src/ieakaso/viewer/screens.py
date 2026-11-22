@@ -167,7 +167,7 @@ class DetailScreen(Screen):
     def compose(self) -> ComposeResult:
         record = self.record
         self._shown = copy.deepcopy(record)
-        print("DIAG compose notes=", (record or {}).get("notes"), file=__import__("sys").stderr)
+        import sys as _s; print("DIAG compose notes=", (record or {}).get("notes"), file=_s.stderr)
         if record is None:
             yield Static("This Application is no longer in the file. Press Escape.")
             yield Footer()
@@ -434,7 +434,7 @@ class DetailScreen(Screen):
 
     def db_reloaded(self) -> None:
         """The file changed on disk and the app reloaded it: show the new values if this record changed."""
-        print("DIAG db_reloaded same=", self.record == self._shown, "ready=", self._ready, file=__import__("sys").stderr)
+        import sys as _s; print("DIAG db_reloaded same=", self.record == self._shown, "ready=", self._ready, file=_s.stderr)
         if self.record is None:
             self.notify("This Application is no longer in the file.", severity="warning")
             self._rebuild()

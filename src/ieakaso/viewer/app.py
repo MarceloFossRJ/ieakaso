@@ -113,7 +113,7 @@ class ViewerApp(App):
             return
         self.reload()
         self.notify("db/ieakaso_db.json changed on disk; reloaded.")
-        print("DIAG poll stack=", [type(x).__name__ for x in self.screen_stack], file=__import__("sys").stderr)
+        import sys as _s; print("DIAG poll stack=", [type(x).__name__ for x in self.screen_stack], file=_s.stderr)
         for screen in self.screen_stack:
             if isinstance(screen, DetailScreen):
                 screen.db_reloaded()
