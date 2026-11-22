@@ -73,3 +73,17 @@ def repo(tmp_path: Path) -> Path:
 @pytest.fixture
 def backups(tmp_path: Path) -> Path:
     return tmp_path / "backups"
+
+
+@pytest.fixture
+def config_dir(tmp_path: Path) -> Path:
+    """A stand-in for ~/.config/ieakaso; tests never touch the real one."""
+    return tmp_path / "config" / "ieakaso"
+
+
+@pytest.fixture
+def other_repo(tmp_path: Path) -> Path:
+    """A second ieakaso repo: another clone or a worktree."""
+    root = tmp_path / "other-clone"
+    write_files(root, TRACKED)
+    return root

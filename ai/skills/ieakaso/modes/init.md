@@ -16,6 +16,16 @@ Init is idempotent. Running it again re-checks everything, keeps what is already
 
 If this is a re-run (`init.status` is `"completed"`), tell the user init already ran on `init.completed_at` and that you will re-check documents and show the current config.
 
+### Remember this repo
+
+Remember this repo for `ieakaso-view`, the command that opens the viewer from any terminal (`docs/adr/0013-remembered-repo-outside-the-repo.md`). Run `uv run python -m ieakaso.repo remember` from the repository root, on every init, before Step 2, so a run that stops for a missing CV still does it. Never write its file yourself.
+
+- **Exit 0:** nothing to say.
+- **Exit 4** (stderr names the other repo): ask the candidate "`ieakaso-view` opens `<other path>`. Switch it to this repo?". On yes, run it again with `--replace`. On no, leave it.
+- **Exit 1 or 2:** one warning line, e.g. "Couldn't remember this repo for `ieakaso-view` (<reason from stderr>); from another folder, run `ieakaso-view --root <repo-root>`", and carry on.
+
+This step is not a setup item: it never changes `init.status` and is not recorded in `db/system_status.json`.
+
 ## Step 2: Documents
 
 Create any of these folders that are missing: `input/candidate/documents/cv/`, `input/candidate/documents/linkedin/` and `input/parsed-documents/`. Leave every other folder under `input/candidate/documents/` as it is. The candidate writes `input/candidate/`; Ieakaso writes `input/parsed-documents/` (the CV parser) and the candidate never edits it.
@@ -117,6 +127,7 @@ Write `db/system_status.json` (create `db/` if missing), then show a short summa
 - Config: confirmed, with any skipped optional fields
 - Only facts: everything in `input/` and `config.yml` is the candidate's Personal knowledge base (terms in `CONTEXT.md`). Ieakaso uses all of it as fact and never checks it, so it must hold only what is true.
 - What's next: `/ieakaso job-analyzer <job-url or job-ad text>` to score the CV against a job ad and get a verdict
+- Open the viewer from any terminal with `ieakaso-view` (install once: `uv tool install --editable .`)
 
 Then run Step 5. Its chat part comes after this summary, as the last thing init shows.
 

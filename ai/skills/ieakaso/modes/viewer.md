@@ -15,21 +15,21 @@ Run the command from the repository root, in a new terminal window. Use the repo
 - **macOS:** run
 
   ```
-  osascript -e 'tell application "Terminal" to activate' -e 'tell application "Terminal" to do script "cd \"<repo-root>\" && uv run ieakaso-viewer"'
+  osascript -e 'tell application "Terminal" to activate' -e 'tell application "Terminal" to do script "cd \"<repo-root>\" && uv run ieakaso-view"'
   ```
 
   with `<repo-root>` replaced by the path. If the path holds a quote or a backslash, skip to Step 2.
-- **Linux:** try `x-terminal-emulator -e sh -c "cd '<repo-root>' && uv run ieakaso-viewer"`, then `gnome-terminal -- sh -c "cd '<repo-root>' && uv run ieakaso-viewer"`. Use the first one that exists. If none does, or the path holds a single quote, go to Step 2.
+- **Linux:** try `x-terminal-emulator -e sh -c "cd '<repo-root>' && uv run ieakaso-view"`, then `gnome-terminal -- sh -c "cd '<repo-root>' && uv run ieakaso-view"`. Use the first one that exists. If none does, or the path holds a single quote, go to Step 2.
 - **Any other system:** go to Step 2.
 
 The window opens and keeps running after this command ends, so a success exit only means the window was asked for. Do not wait for the viewer or read its output.
 
 ### Step 2: If no window opened
 
-If the command failed, or the system is not covered above, say so in one line, then give the candidate the command to run in a terminal of their own, from the repository root:
+If the command failed, or the system is not covered above, say so in one line, then give the candidate the command to run in a terminal of their own: `ieakaso-view` from any folder, if they installed it (`uv tool install --editable .`, once, from the repo), otherwise, from the repository root:
 
 ```
-uv run ieakaso-viewer
+uv run ieakaso-view
 ```
 
 ### Step 3: Tell the candidate

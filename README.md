@@ -68,6 +68,8 @@ It checks your documents, strongly recommends your LinkedIn "Save to PDF" export
 
 At the end, init compares your LinkedIn profile and `config.yml` with your CV, and lists where they disagree: a different title, date, number or language level, each rated High, Medium or Low by how likely a recruiter is to notice. Your CV counts as the right version. Only two statements that can't both be true are conflicts: one employer on the CV and two on LinkedIn, or different wording, are listed apart as presented differently. If you made a difference on purpose (say, a number kept off your public profile), add a line to `input/candidate/deliberate-differences.md` with the document, what differs and why (for example `- LinkedIn profile: the team budget is left out. Why: it is private.`); init then lists it with your reason, never as a conflict, and suggests the line to add when it finds a new contradiction. Ieakaso only reads that file. Each run saves a new report in `output/conflict-reports/`, named with its date and time, and keeps the older ones. Fix the document that disagrees, put it back in its folder, and run init again to check.
 
+To open the applications viewer from any terminal, without a coding assistant, install its command once, from the repo: `uv tool install --editable .`. Then type `ieakaso-view` anywhere (see [The viewer](#the-viewer)).
+
 Init also turns your CV into `input/parsed-documents/cv.md`, word for word: nothing reworded, added, or left out. When you have a new CV, save the file in `input/candidate/documents/cv/`; the next mode you run captures it, or run it yourself:
 
 ```
@@ -152,9 +154,17 @@ The status is one of Lead (analysed, not applied yet), Desisted, Applied, No ans
 /ieakaso viewer
 ```
 
-Opens a table of your applications in a new terminal window (if it can't, it gives you the command: `uv run ieakaso-viewer`, from the repo). It shows company, position, status, interview stage, verdict and score, location and the dates, newest first. Press Enter on a row to edit its fields: status, interview stages, contacts, the salary expectation you entered in the form, notes. Each edit is saved at once (the personal motivation is shown, never edited there). `h` hides Desisted and Not selected applications, `a`, `j`, `c`, `r` and `s` open the job ad, the job analysis, the cover letter, the company research and the screening prep, `q` quits. On launch it lists applications with no answer after 30 days, and you tick which become No answer.
+Opens a table of your applications in a new terminal window (if it can't, it gives you the command). It shows company, position, status, interview stage, verdict and score, location and the dates, newest first. Press Enter on a row to edit its fields: status, interview stages, contacts, the salary expectation you entered in the form, notes. Each edit is saved at once (the personal motivation is shown, never edited there). `h` hides Desisted and Not selected applications, `a`, `j`, `c`, `r` and `s` open the job ad, the job analysis, the cover letter, the company research and the screening prep, `q` quits. On launch it lists applications with no answer after 30 days, and you tick which become No answer.
 
 The viewer only edits: applications are created by `job-analyzer`, and nothing is deleted. If you change the file elsewhere while the viewer is open, it reloads.
+
+To open it in the terminal you are in, from any folder, install the command once, from the repo:
+
+```
+uv tool install --editable .
+```
+
+Then type `ieakaso-view` anywhere. It opens the repo you are in, or else the one `/ieakaso init` remembered (in `~/.config/ieakaso/repo.toml`); `--root <path>` opens another. Without the install, run `uv run ieakaso-view` from the repo.
 
 Ieakaso learns from every application it follows and folds what it learns back into its memory of you. Your data leaves your machine only to reach the AI provider you chose.
 
