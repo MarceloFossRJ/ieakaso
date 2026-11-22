@@ -44,14 +44,14 @@ def build_docx(path: Path) -> None:
     intro.add_run(".")
 
     blog = doc.add_paragraph("See ")
-    blog._p.append(parse_xml(
-        f'<w:r {NS}><w:fldChar w:fldCharType="begin"/></w:r>'
-    ))
-    blog._p.append(parse_xml(
-        f'<w:r {NS}><w:instrText xml:space="preserve"> HYPERLINK "https://blog.example.dev" </w:instrText></w:r>'
-    ))
+    blog._p.append(parse_xml(f'<w:r {NS}><w:fldChar w:fldCharType="begin"/></w:r>'))
+    blog._p.append(
+        parse_xml(
+            f'<w:r {NS}><w:instrText xml:space="preserve"> HYPERLINK "https://blog.example.dev" </w:instrText></w:r>'
+        )
+    )
     blog._p.append(parse_xml(f'<w:r {NS}><w:fldChar w:fldCharType="separate"/></w:r>'))
-    blog._p.append(parse_xml(f'<w:r {NS}><w:t>my blog</w:t></w:r>'))
+    blog._p.append(parse_xml(f"<w:r {NS}><w:t>my blog</w:t></w:r>"))
     blog._p.append(parse_xml(f'<w:r {NS}><w:fldChar w:fldCharType="end"/></w:r>'))
     blog.add_run(".")
 
@@ -68,14 +68,18 @@ def build_docx(path: Path) -> None:
     doc.add_paragraph("Second numbered point.", style="List Number")
 
     edited = doc.add_paragraph("Worked with ")
-    edited._p.append(parse_xml(
-        f'<w:del {NS} w:id="90" w:author="x" w:date="2026-01-01T00:00:00Z">'
-        '<w:r><w:delText>removed words </w:delText></w:r></w:del>'
-    ))
-    edited._p.append(parse_xml(
-        f'<w:ins {NS} w:id="91" w:author="x" w:date="2026-01-01T00:00:00Z">'
-        '<w:r><w:t>inserted words</w:t></w:r></w:ins>'
-    ))
+    edited._p.append(
+        parse_xml(
+            f'<w:del {NS} w:id="90" w:author="x" w:date="2026-01-01T00:00:00Z">'
+            "<w:r><w:delText>removed words </w:delText></w:r></w:del>"
+        )
+    )
+    edited._p.append(
+        parse_xml(
+            f'<w:ins {NS} w:id="91" w:author="x" w:date="2026-01-01T00:00:00Z">'
+            "<w:r><w:t>inserted words</w:t></w:r></w:ins>"
+        )
+    )
     edited.add_run(" daily.")
 
     table = doc.add_table(rows=3, cols=3)
@@ -92,14 +96,18 @@ def build_docx(path: Path) -> None:
     box._p.append(parse_xml(_textbox_run("<w:p><w:r><w:t>Contact: jordan@example.com</w:t></w:r></w:p>")))
 
     moved = doc.add_paragraph("Moved: ")
-    moved._p.append(parse_xml(
-        f'<w:moveFrom {NS} w:id="92" w:author="x" w:date="2026-01-01T00:00:00Z">'
-        '<w:r><w:t xml:space="preserve">OldPlace </w:t></w:r></w:moveFrom>'
-    ))
-    moved._p.append(parse_xml(
-        f'<w:moveTo {NS} w:id="93" w:author="x" w:date="2026-01-01T00:00:00Z">'
-        '<w:r><w:t>MovedWord</w:t></w:r></w:moveTo>'
-    ))
+    moved._p.append(
+        parse_xml(
+            f'<w:moveFrom {NS} w:id="92" w:author="x" w:date="2026-01-01T00:00:00Z">'
+            '<w:r><w:t xml:space="preserve">OldPlace </w:t></w:r></w:moveFrom>'
+        )
+    )
+    moved._p.append(
+        parse_xml(
+            f'<w:moveTo {NS} w:id="93" w:author="x" w:date="2026-01-01T00:00:00Z">'
+            "<w:r><w:t>MovedWord</w:t></w:r></w:moveTo>"
+        )
+    )
     moved.add_run(" end.")
 
     rating = doc.add_paragraph("Rating: ")
@@ -137,7 +145,7 @@ def build_layouts_docx(path: Path) -> None:
     boxed.cell(0, 0).text = "x"
     cell = boxed.cell(0, 1)
     cell.text = "boxed"
-    in_box = f'<w:p><w:r><w:t>in box</w:t></w:r>{_footnote_run(3).replace(f" {NS}", "", 1)}</w:p>'
+    in_box = f"<w:p><w:r><w:t>in box</w:t></w:r>{_footnote_run(3).replace(f' {NS}', '', 1)}</w:p>"
     cell.paragraphs[0]._p.append(parse_xml(_textbox_run(in_box)))
 
     nested = doc.add_table(rows=1, cols=2)  # a table two levels deep
@@ -151,16 +159,14 @@ def build_layouts_docx(path: Path) -> None:
 
 def _add_hyperlink(paragraph, url: str, text: str) -> None:
     r_id = paragraph.part.relate_to(url, RT.HYPERLINK, is_external=True)
-    paragraph._p.append(parse_xml(
-        f'<w:hyperlink {NS} r:id="{r_id}"><w:r><w:t>{text}</w:t></w:r></w:hyperlink>'
-    ))
+    paragraph._p.append(parse_xml(f'<w:hyperlink {NS} r:id="{r_id}"><w:r><w:t>{text}</w:t></w:r></w:hyperlink>'))
 
 
 def _textbox_run(paragraphs: str) -> str:
     content = f"<w:txbxContent>{paragraphs}</w:txbxContent>"
     return (
         f"<w:r {NS}><mc:AlternateContent>"
-        "<mc:Choice Requires=\"wps\"><w:drawing><wp:anchor><a:graphic><a:graphicData>"
+        '<mc:Choice Requires="wps"><w:drawing><wp:anchor><a:graphic><a:graphicData>'
         f"<wps:wsp><wps:txbx>{content}</wps:txbx></wps:wsp>"
         "</a:graphicData></a:graphic></wp:anchor></w:drawing></mc:Choice>"
         f"<mc:Fallback><w:pict><v:shape><v:textbox>{content}</v:textbox></v:shape></w:pict></mc:Fallback>"
@@ -170,8 +176,7 @@ def _textbox_run(paragraphs: str) -> str:
 
 def _footnote_run(note_id: int) -> str:
     return (
-        f'<w:r {NS}><w:rPr><w:rStyle w:val="FootnoteReference"/></w:rPr>'
-        f'<w:footnoteReference w:id="{note_id}"/></w:r>'
+        f'<w:r {NS}><w:rPr><w:rStyle w:val="FootnoteReference"/></w:rPr><w:footnoteReference w:id="{note_id}"/></w:r>'
     )
 
 
@@ -182,7 +187,7 @@ def _add_footnotes(doc, notes: dict[int, str]) -> None:
         for i, text in notes.items()
     )
     xml = (
-        f'<w:footnotes {NS}>'
+        f"<w:footnotes {NS}>"
         '<w:footnote w:type="separator" w:id="-1"><w:p><w:r><w:separator/></w:r></w:p></w:footnote>'
         '<w:footnote w:type="continuationSeparator" w:id="0"><w:p><w:r><w:continuationSeparator/></w:r></w:p></w:footnote>'
         f"{body}</w:footnotes>"

@@ -17,25 +17,30 @@ LINKEDIN_OUT = "input/parsed-documents/linkedin.md"
 
 
 def status(linkedin: str | None = LINKEDIN_PATH) -> str:
-    return json.dumps({
-        "init": {"status": "completed"},
-        "documents": {
-            # parsed once before CV versions: the first run migrates it into the first version without asking
-            "cv": {"status": "found", "path": CV_PATH, "parsed": {"parsed_at": "2026-09-20T08:30:00+00:00"}},
-            "linkedin": {"status": "found" if linkedin else "skipped", "path": linkedin},
-        },
-    })
+    return json.dumps(
+        {
+            "init": {"status": "completed"},
+            "documents": {
+                # parsed once before CV versions: the first run migrates it into the first version without asking
+                "cv": {"status": "found", "path": CV_PATH, "parsed": {"parsed_at": "2026-09-20T08:30:00+00:00"}},
+                "linkedin": {"status": "found" if linkedin else "skipped", "path": linkedin},
+            },
+        }
+    )
 
 
 @pytest.fixture
 def repo(tmp_path: Path) -> Path:
     root = tmp_path / "repo"
     write_files(root, TRACKED)
-    write_files(root, {
-        "db/system_status.json": status(),
-        CV_PATH: "Jordan Example\nEngineer\n",
-        LINKEDIN_PATH: "# Jordan Example\n\nEngineering Manager\n",
-    })
+    write_files(
+        root,
+        {
+            "db/system_status.json": status(),
+            CV_PATH: "Jordan Example\nEngineer\n",
+            LINKEDIN_PATH: "# Jordan Example\n\nEngineering Manager\n",
+        },
+    )
     return root
 
 

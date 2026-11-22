@@ -36,7 +36,9 @@ def is_runnable(root: Path, module: str) -> bool:
     if path.is_dir():
         return (path / "__main__.py").is_file()
     file = path.with_suffix(".py")
-    return file.is_file() and re.search(r"^if __name__ == [\"']__main__[\"']:", file.read_text(), re.MULTILINE) is not None
+    return (
+        file.is_file() and re.search(r"^if __name__ == [\"']__main__[\"']:", file.read_text(), re.MULTILINE) is not None
+    )
 
 
 def problems(root: Path) -> list[str]:
@@ -52,6 +54,7 @@ def problems(root: Path) -> list[str]:
                 if not is_runnable(root, match.group(1)):
                     found.append(f"{where}: `python -m {match.group(1)}`: not a runnable module")
     return found
+
 
 PYPROJECT = """\
 [project]
@@ -110,9 +113,15 @@ def test_a_module_that_cannot_run_is_reported(tmp_path: Path):
 
 
 def test_placeholders_are_not_commands(tmp_path: Path):
-    root = fake_repo(tmp_path, {"AGENTS.md": "A doc may name `uv run <name>`, `python -m ieakaso.<module>` or `python -m ieakaso.tracker.<x>`.\n"})
+    root = fake_repo(
+        tmp_path,
+        {
+            "AGENTS.md": "A doc may name `uv run <name>`, `python -m ieakaso.<module>` or `python -m ieakaso.tracker.<x>`.\n"
+        },
+    )
 
     assert problems(root) == []
+
 
 def test_every_command_the_docs_name_exists():
     assert problems(REPO) == []

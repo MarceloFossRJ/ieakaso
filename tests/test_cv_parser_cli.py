@@ -514,7 +514,9 @@ def test_a_hand_edited_parsed_cv_is_not_overwritten(repo: Path, capsys):
     assert "-My own note" in out
     assert "+Staff Engineer" in out
     assert "--force" in out
-    assert len(versions(repo)) == 2  # the new version is captured already; only input/parsed-documents/cv.md waits for the answer
+    assert (
+        len(versions(repo)) == 2
+    )  # the new version is captured already; only input/parsed-documents/cv.md waits for the answer
 
 
 def test_force_overwrites_a_hand_edited_parsed_cv(repo: Path):

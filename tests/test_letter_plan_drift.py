@@ -53,4 +53,3 @@ def test_the_run_clears_the_rounds_folder_before_the_plan_is_written_not_after()
 
 def test_the_letter_plan_states_the_language_rule_the_recruiter_cannot_read_elsewhere():
     assert "C1" in section(RECRUITER, "THE LETTER PLAN")
-

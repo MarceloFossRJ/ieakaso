@@ -68,7 +68,9 @@ def test_root_beats_the_current_folder_and_the_remembered_repo(
     assert launch.roots == [other_repo.resolve()]
 
 
-def test_no_repo_found_is_an_error_not_an_empty_table(elsewhere: Path, config_dir: Path, launch: Launcher, streams: Streams):
+def test_no_repo_found_is_an_error_not_an_empty_table(
+    elsewhere: Path, config_dir: Path, launch: Launcher, streams: Streams
+):
     assert view(elsewhere, config_dir, launch, streams=streams) == 2
 
     assert launch.roots == []
@@ -87,8 +89,7 @@ def test_a_remembered_repo_that_is_gone_is_an_error(
     assert launch.roots == []
     assert (config_dir / "repo.toml").read_text() == before
     assert (
-        f"the remembered repo {gone} is gone: run /ieakaso init from the repo, or pass --root"
-        in streams.err.getvalue()
+        f"the remembered repo {gone} is gone: run /ieakaso init from the repo, or pass --root" in streams.err.getvalue()
     )
 
 

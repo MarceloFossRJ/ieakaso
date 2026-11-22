@@ -57,7 +57,9 @@ def test_agent_runs_are_attributed_by_tool_use_id_and_others_ignored(tmp_path):
     s.start("job-analyzer", "m1", inp=1)
     s.agent_call("m2", "toolu_A", inp=1)
     s.start("cv-parser", "m3", inp=1)
-    s.subagent("a1", "recruiter", "toolu_A", [("s1", "claude-sonnet-5-5", 4, 1, 9, 2), ("s2", "claude-sonnet-5-5", 1, 0, 1, 1)])
+    s.subagent(
+        "a1", "recruiter", "toolu_A", [("s1", "claude-sonnet-5-5", 4, 1, 9, 2), ("s2", "claude-sonnet-5-5", 1, 0, 1, 1)]
+    )
     s.subagent("a2", "general-purpose", "toolu_A", [("s3", "claude-sonnet-5-5", 500, 0, 0, 500)])
     first, second = runs_of(s)
     assert second.agent_runs == []
@@ -119,7 +121,11 @@ def test_a_quoted_marker_inside_a_chain_does_not_start_a_run(tmp_path):
     s = FakeSession(tmp_path)
     s.bash("m1", "echo 'x; uv run python -m ieakaso.usage start init'; ls", inp=1)
     s.bash("m2", 'git commit -m "fix; uv run python -m ieakaso.usage start init"', inp=1)
-    s.bash("m3", "gh issue create --body \"$(cat <<'EOF'\ncd x; uv run python -m ieakaso.usage start m; cat y\nEOF\n)\"", inp=1)
+    s.bash(
+        "m3",
+        "gh issue create --body \"$(cat <<'EOF'\ncd x; uv run python -m ieakaso.usage start m; cat y\nEOF\n)\"",
+        inp=1,
+    )
     s.bash("m4", "echo 'unbalanced; uv run python -m ieakaso.usage start init", inp=1)
     assert runs_of(s) == []
 
@@ -199,6 +205,8 @@ def test_agent_run_messages_are_estimated_too(tmp_path):
     s.agent_call("m2", "toolu_A", inp=1)
     s.subagent("a1", "applicant", "toolu_A", [])
     log = s.project / s.session_id / "subagents" / "agent-a1.jsonl"
-    s.assistant("s1", inp=3, out=26, blocks=[s.tool_use("t1", "SubagentHandback", report="x" * 4000)], final=False, path=log)
+    s.assistant(
+        "s1", inp=3, out=26, blocks=[s.tool_use("t1", "SubagentHandback", report="x" * 4000)], final=False, path=log
+    )
     (run,) = runs_of(s)
     assert run.agent_runs[0].usage.estimated and run.agent_runs[0].usage.out >= 1400

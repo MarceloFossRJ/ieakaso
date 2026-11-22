@@ -25,7 +25,7 @@ def default_config_dir() -> Path:
 def is_ieakaso_repo(path: Path) -> bool:
     try:
         project = tomllib.loads((path / "pyproject.toml").read_text())["project"]
-    except (OSError, tomllib.TOMLDecodeError, KeyError):
+    except OSError, tomllib.TOMLDecodeError, KeyError:
         return False
     return project.get("name") == "ieakaso" and (path / "ai/skills/ieakaso").is_dir()
 
@@ -42,7 +42,7 @@ def remembered_root(config_dir: Path) -> Path | None:
     """The repo in config_dir's repo.toml, resolved, or None when there is no usable file."""
     try:
         root = tomllib.loads((config_dir / REPO_FILE).read_text())["root"]
-    except (OSError, tomllib.TOMLDecodeError, KeyError):
+    except OSError, tomllib.TOMLDecodeError, KeyError:
         return None
     return Path(root).resolve() if isinstance(root, str) else None
 
@@ -69,7 +69,5 @@ def locate(root: Path | None, cwd: Path, config_dir: Path) -> Path:
     if remembered is None:
         raise RepoNotFound("can't find the Ieakaso repo: run it from the repo or pass --root")
     if not is_ieakaso_repo(remembered):
-        raise RepoNotFound(
-            f"the remembered repo {remembered} is gone: run /ieakaso init from the repo, or pass --root"
-        )
+        raise RepoNotFound(f"the remembered repo {remembered} is gone: run /ieakaso init from the repo, or pass --root")
     return remembered

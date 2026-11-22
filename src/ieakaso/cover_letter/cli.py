@@ -44,14 +44,19 @@ def main(
     build.add_argument("--exit", required=True, dest="exit_name", help="the header's Exit")
     build.add_argument("--reason", required=True, help="the Exit reason section, one line")
     build.add_argument(
-        "--motivation", required=True, choices=("used", "none"), help="whether a Personal motivation was passed to the agents"
+        "--motivation",
+        required=True,
+        choices=("used", "none"),
+        help="whether a Personal motivation was passed to the agents",
     )
     args = parser.parse_args(argv)
 
     root = (args.root or find_root(Path.cwd()) or Path.cwd()).resolve()
     today = today or date.today()  # noqa: DTZ011 - the candidate's local day
     try:
-        outcome = Outcome(args.rounds, args.final, tuple(args.requested), args.exit_name, args.reason, args.motivation == "used")
+        outcome = Outcome(
+            args.rounds, args.final, tuple(args.requested), args.exit_name, args.reason, args.motivation == "used"
+        )
         letter = assemble(root, args.id, outcome, today)
     except CoverLetterError as error:
         print(error, file=err)

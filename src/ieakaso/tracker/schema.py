@@ -144,7 +144,11 @@ def problems(record: Any) -> list[str]:
         out.append("notes must be text")
     if "cv_version" in record and get("cv_version") is not None and not _is_text(get("cv_version")):
         out.append("cv_version must be a CV version ID or null")
-    if "personal_motivation" in record and get("personal_motivation") is not None and not _is_text(get("personal_motivation")):
+    if (
+        "personal_motivation" in record
+        and get("personal_motivation") is not None
+        and not _is_text(get("personal_motivation"))
+    ):
         out.append("personal_motivation must be non-empty text or null")
     for key in ("cover_letter", "company_research", "evidence_bank", "screening_prep"):
         if key in record and get(key) is not None and not _is_path(get(key)):

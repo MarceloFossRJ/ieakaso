@@ -27,10 +27,7 @@ def claude_entries() -> dict[str, Path]:
 
 
 def opencode_entries() -> dict[str, Path]:
-    return {
-        path.stem.removeprefix("ieakaso-"): path
-        for path in OPENCODE_ENTRIES.glob("ieakaso-*.md")
-    }
+    return {path.stem.removeprefix("ieakaso-"): path for path in OPENCODE_ENTRIES.glob("ieakaso-*.md")}
 
 
 def frontmatter(path: Path) -> dict:
@@ -56,9 +53,7 @@ def test_every_entry_routes_to_its_own_mode():
 def test_every_entry_is_described_by_its_row():
     modes = router_modes()
     for mode, path in [*claude_entries().items(), *opencode_entries().items()]:
-        assert (
-            frontmatter(path)["description"] == f"Ieakaso {mode}: {modes[mode][1]}"
-        ), path
+        assert frontmatter(path)["description"] == f"Ieakaso {mode}: {modes[mode][1]}", path
 
 
 def test_claude_entries_match_their_row_and_only_the_user_starts_them():
@@ -67,7 +62,5 @@ def test_claude_entries_match_their_row_and_only_the_user_starts_them():
         meta = frontmatter(path)
         arguments = modes[mode][0]
         assert meta["name"] == mode, path
-        assert meta.get("argument-hint") == (
-            None if arguments == NO_ARGUMENTS else arguments
-        ), path
+        assert meta.get("argument-hint") == (None if arguments == NO_ARGUMENTS else arguments), path
         assert meta["disable-model-invocation"] is True, path

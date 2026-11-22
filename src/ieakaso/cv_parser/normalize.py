@@ -4,15 +4,17 @@ import re
 import unicodedata
 
 # Typographic ligatures: one glyph drawn for several letters, not content of its own.
-LIGATURES = str.maketrans({
-    "ﬀ": "ff",
-    "ﬁ": "fi",
-    "ﬂ": "fl",
-    "ﬃ": "ffi",
-    "ﬄ": "ffl",
-    "ﬅ": "st",
-    "ﬆ": "st",
-})
+LIGATURES = str.maketrans(
+    {
+        "ﬀ": "ff",
+        "ﬁ": "fi",
+        "ﬂ": "fl",
+        "ﬃ": "ffi",
+        "ﬄ": "ffl",
+        "ﬅ": "st",
+        "ﬆ": "st",
+    }
+)
 
 
 def normalize(text: str) -> str:

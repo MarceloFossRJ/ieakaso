@@ -122,7 +122,11 @@ def test_changed_returns_true_only_when_the_file_differs_from_what_was_read(db_p
 
 def v1(rec: dict) -> dict:
     """The record as schema_version 1 stored it: no company_research."""
-    return {key: value for key, value in rec.items() if key not in ("company_research", "cv_version", "personal_motivation", "evidence_bank", "screening_prep")}
+    return {
+        key: value
+        for key, value in rec.items()
+        if key not in ("company_research", "cv_version", "personal_motivation", "evidence_bank", "screening_prep")
+    }
 
 
 def test_a_version_1_file_is_migrated_on_load_and_written_as_version_5_on_save(db_path: Path):
@@ -212,12 +216,18 @@ def test_an_invalid_version_1_record_is_still_an_error(db_path: Path):
 
 def v2(rec: dict) -> dict:
     """The record as schema_version 2 stored it: no cv_version."""
-    return {key: value for key, value in rec.items() if key not in ("cv_version", "personal_motivation", "evidence_bank", "screening_prep")}
+    return {
+        key: value
+        for key, value in rec.items()
+        if key not in ("cv_version", "personal_motivation", "evidence_bank", "screening_prep")
+    }
 
 
 def test_a_version_2_file_gets_no_cv_versions_and_a_null_cv_version_on_every_record(db_path: Path):
     db_path.parent.mkdir(parents=True)
-    db_path.write_text(json.dumps({"meta": {"schema_version": 2}, "records": [v2(record()), v2(lead(id="b_c_2026-10-11"))]}))
+    db_path.write_text(
+        json.dumps({"meta": {"schema_version": 2}, "records": [v2(record()), v2(lead(id="b_c_2026-10-11"))]})
+    )
 
     db = load(db_path)
 
@@ -278,7 +288,11 @@ def test_a_record_cv_version_must_be_text_or_null(db_path: Path):
 
 def v3(rec: dict) -> dict:
     """The record as schema_version 3 stored it: no personal_motivation."""
-    return {key: value for key, value in rec.items() if key not in ("personal_motivation", "evidence_bank", "screening_prep")}
+    return {
+        key: value
+        for key, value in rec.items()
+        if key not in ("personal_motivation", "evidence_bank", "screening_prep")
+    }
 
 
 def test_a_version_3_file_gets_a_null_personal_motivation_on_every_record(db_path: Path):
