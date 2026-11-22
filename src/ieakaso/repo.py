@@ -1,9 +1,9 @@
-"""Finding the ieakaso repository root, and remembering it for `ieakaso-view` (ADR 0013).
+"""Finding the Ieakaso repository root, and remembering it for `ieakaso-view` (ADR 0013).
 
 `uv run python -m ieakaso.repo remember [--replace]` writes the repo it is run from to `repo.toml` in the
 config folder (`$XDG_CONFIG_HOME/ieakaso`, or `~/.config/ieakaso`) and prints `remembered <root> in <file>`.
 Exit codes: 0 written or already the same (a remembered repo that is gone is overwritten), 1 the file can't be
-written, 2 not run inside an ieakaso repo, 4 a different repo that still exists is remembered (left alone;
+written, 2 not run inside an Ieakaso repo, 4 a different repo that still exists is remembered (left alone;
 `--replace` overwrites). The message for exits 1, 2 and 4 goes to stderr.
 """
 
@@ -18,7 +18,7 @@ REPO_FILE = "repo.toml"
 
 
 class RepoNotFound(Exception):
-    """No ieakaso repo to open; the message says why and what to do."""
+    """No Ieakaso repo to open; the message says why and what to do."""
 
 
 def default_config_dir() -> Path:
@@ -36,7 +36,7 @@ def is_ieakaso_repo(path: Path) -> bool:
 
 
 def find_root(start: Path) -> Path | None:
-    """The nearest ieakaso repo at or above start."""
+    """The nearest Ieakaso repo at or above start."""
     for path in [start, *start.parents]:
         if is_ieakaso_repo(path):
             return path
@@ -63,6 +63,7 @@ def remember_root(config_dir: Path, root: Path) -> Path:
 def locate(root: Path | None, cwd: Path, config_dir: Path) -> Path:
     """The repo ieakaso-view opens: root if given, else the repo at or above cwd, else the remembered one."""
     if root is not None:
+        root = cwd / root  # a relative --root is read from cwd
         if not is_ieakaso_repo(root):
             raise RepoNotFound(f"{root} is not an Ieakaso repo")
         return root.resolve()
@@ -93,17 +94,18 @@ def main(argv: list[str] | None = None, *, cwd: Path | None = None, config_dir: 
         print(f"{cwd} is not inside an Ieakaso repo; nothing written", file=sys.stderr)
         return 2
     root = found.resolve()
+    file = config_dir / REPO_FILE
     current = remembered_root(config_dir)
     if current == root:
-        print(f"remembered {root} in {config_dir / REPO_FILE}")
+        print(f"remembered {root} in {file}")
         return 0
     if current is not None and is_ieakaso_repo(current) and not args.replace:
         print(f"ieakaso-view opens {current}; pass --replace to switch it to {root}", file=sys.stderr)
         return 4
     try:
-        file = remember_root(config_dir, root)
+        remember_root(config_dir, root)
     except OSError as error:
-        print(f"Can't write {config_dir / REPO_FILE}: {error.strerror}", file=sys.stderr)
+        print(f"Can't write {file}: {error.strerror}", file=sys.stderr)
         return 1
     print(f"remembered {root} in {file}")
     return 0

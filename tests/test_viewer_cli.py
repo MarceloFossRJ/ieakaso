@@ -95,3 +95,9 @@ def test_a_root_that_is_not_a_repo_is_an_error(elsewhere: Path, config_dir: Path
 
     assert launch.roots == []
     assert f"{elsewhere} is not an Ieakaso repo" in capsys.readouterr().err
+
+
+def test_a_relative_root_is_read_from_the_current_folder(repo: Path, config_dir: Path, launch: Launcher):
+    assert view(repo.parent, config_dir, launch, "--root", repo.name) == 0
+
+    assert launch.roots == [repo.resolve()]

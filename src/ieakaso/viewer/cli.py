@@ -37,7 +37,11 @@ def main(
         prog="ieakaso-view",
         description="View and edit the Applications in db/ieakaso_db.json. Needs a real terminal.",
     )
-    parser.add_argument("--root", type=Path, help="repo root (default: found from the current folder)")
+    parser.add_argument(
+        "--root",
+        type=Path,
+        help="repo root (default: the repo at or above the current folder, else the one /ieakaso init remembered)",
+    )
     args = parser.parse_args(argv)
     try:
         root = locate(args.root, cwd or Path.cwd(), config_dir or default_config_dir())

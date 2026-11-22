@@ -1,6 +1,6 @@
 # The repo is remembered in a file outside the repo
 
-`ieakaso-view` opens the viewer in the terminal it is typed in, from any folder. To find the repo from outside it, it reads `root` from `$XDG_CONFIG_HOME/ieakaso/repo.toml` (`~/.config/ieakaso/repo.toml` when the variable is unset, macOS included). That file is written by code, `uv run python -m ieakaso.repo remember`, which `/ieakaso init` runs on every run. It is the first file Ieakaso writes outside the repo. The lookup order is `--root`, then the current folder and its parents, then `repo.toml`, then an error (exit 2). The viewer never opens on a folder that isn't an Ieakaso repo.
+`ieakaso-view` opens the viewer in the terminal it is typed in, from any folder. To find the repo from outside it, it reads `root` from `$XDG_CONFIG_HOME/ieakaso/repo.toml` (`~/.config/ieakaso/repo.toml` when the variable is unset, macOS included). That file is written by code, `uv run python -m ieakaso.repo remember`, which `/ieakaso init` runs on every run. It is the first file the product writes outside the repo (the development cleaner's backups aside). The lookup order is `--root`, then the current folder and its parents, then `repo.toml`, then an error (exit 2). The viewer never opens on a folder that isn't an Ieakaso repo.
 
 ## Considered Options
 
