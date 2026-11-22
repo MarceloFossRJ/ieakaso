@@ -117,7 +117,7 @@ Then remember this repo for `ieakaso-view`, the command that opens the viewer fr
 
 - **Exit 0:** nothing to say.
 - **Exit 4** (stderr names the other repo): ask the candidate "`ieakaso-view` opens `<other path>`. Switch it to this repo?". On yes, run it again with `--replace`. On no, leave it.
-- **Exit 1 or 2:** one warning line, e.g. "Couldn't remember this repo for `ieakaso-view` (<reason from stderr>); run it from the repo or pass `--root`", and carry on.
+- **Exit 1 or 2:** one warning line, e.g. "Couldn't remember this repo for `ieakaso-view` (<reason from stderr>); from another folder, run `ieakaso-view --root <repo-root>`", and carry on.
 
 This step is not a setup item: it never changes `init.status` and is not recorded in `db/system_status.json`.
 
@@ -127,7 +127,7 @@ Then show a short summary:
 - Config: confirmed, with any skipped optional fields
 - Only facts: everything in `input/` and `config.yml` is the candidate's Personal knowledge base (terms in `CONTEXT.md`). Ieakaso uses all of it as fact and never checks it, so it must hold only what is true.
 - What's next: `/ieakaso job-analyzer <job-url or job-ad text>` to score the CV against a job ad and get a verdict
-- The viewer: open it from any terminal with `ieakaso-view` (install once: `uv tool install --editable .`, from the repo)
+- Open the viewer from any terminal with `ieakaso-view` (install once: `uv tool install --editable .`)
 
 Then run Step 5. Its chat part comes after this summary, as the last thing init shows.
 

@@ -1,15 +1,7 @@
 import tomllib
 from pathlib import Path
 
-import pytest
-from conftest import TRACKED, write_files
-
-from ieakaso.repo import main
-
-
-@pytest.fixture
-def config_dir(tmp_path: Path) -> Path:
-    return tmp_path / "config" / "ieakaso"
+from ieakaso.repo import main, remember_root
 
 
 def remember(cwd: Path, config_dir: Path, *args: str) -> int:
@@ -25,13 +17,6 @@ def test_remember_writes_the_repo_root_when_there_is_no_file(repo: Path, config_
 
     assert remembered(config_dir) == str(repo.resolve())
     assert capsys.readouterr().out == f"remembered {repo.resolve()} in {config_dir / 'repo.toml'}\n"
-
-
-@pytest.fixture
-def other_repo(tmp_path: Path) -> Path:
-    root = tmp_path / "other-clone"
-    write_files(root, TRACKED)
-    return root
 
 
 def test_remember_leaves_a_different_live_repo_alone(repo: Path, other_repo: Path, config_dir: Path, capsys):
@@ -54,8 +39,7 @@ def test_remember_replace_switches_to_this_repo(repo: Path, other_repo: Path, co
 
 
 def test_remember_overwrites_a_remembered_repo_that_is_gone(repo: Path, tmp_path: Path, config_dir: Path):
-    config_dir.mkdir(parents=True)
-    (config_dir / "repo.toml").write_text(f'root = "{tmp_path / "moved-away"}"\n')
+    remember_root(config_dir, tmp_path / "moved-away")
 
     assert remember(repo, config_dir) == 0
 
@@ -74,7 +58,7 @@ def test_remember_outside_a_repo_writes_nothing(tmp_path: Path, config_dir: Path
     assert remember(tmp_path, config_dir) == 2
 
     assert not config_dir.exists()
-    assert "not inside the ieakaso repo" in capsys.readouterr().err
+    assert "is not inside an Ieakaso repo" in capsys.readouterr().err
 
 
 def test_remember_reports_a_file_it_cannot_write(repo: Path, tmp_path: Path, capsys):
@@ -83,4 +67,12 @@ def test_remember_reports_a_file_it_cannot_write(repo: Path, tmp_path: Path, cap
 
     assert remember(repo, blocker / "ieakaso") == 1
 
-    assert "can't write" in capsys.readouterr().err
+    assert "Can't write" in capsys.readouterr().err
+
+
+def test_remember_sees_a_symlinked_path_to_this_repo_as_the_same(repo: Path, tmp_path: Path, config_dir: Path):
+    link = tmp_path / "link-to-repo"
+    link.symlink_to(repo)
+    remember_root(config_dir, link)
+
+    assert remember(repo, config_dir) == 0

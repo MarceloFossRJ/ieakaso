@@ -1,4 +1,10 @@
-"""`ieakaso-view` (or `python -m ieakaso.viewer`): opens the applications viewer in this terminal, from any folder."""
+"""`ieakaso-view` (or `python -m ieakaso.viewer`): opens the applications viewer in this terminal, from any folder.
+
+It opens `--root`, else the repo at or above the current folder, else the repo remembered in `repo.toml`
+(`ieakaso.repo.locate`, ADR 0013). Exit codes: 0 the viewer ran, 2 no Ieakaso repo to open (`--root` isn't
+one, none found, or the remembered one is gone; `repo.toml` is never changed). The message for exit 2 goes
+to stderr.
+"""
 
 import argparse
 import subprocess
@@ -6,7 +12,7 @@ import sys
 from collections.abc import Callable
 from pathlib import Path
 
-from ieakaso.repo import default_config_dir, find_root, is_ieakaso_repo, remembered_root
+from ieakaso.repo import RepoNotFound, default_config_dir, locate
 from ieakaso.viewer.app import ViewerApp
 
 
@@ -33,20 +39,10 @@ def main(
     )
     parser.add_argument("--root", type=Path, help="repo root (default: found from the current folder)")
     args = parser.parse_args(argv)
-    cwd = cwd or Path.cwd()
-    config_dir = config_dir or default_config_dir()
-    root = args.root or find_root(cwd)
-    if root is None:
-        remembered = remembered_root(config_dir)
-        if remembered is None:
-            print("Can't find the Ieakaso repo: run it from the repo or pass --root", file=sys.stderr)
-            return 2
-        if not is_ieakaso_repo(remembered):
-            print(
-                f"The remembered repo {remembered} is gone: run /ieakaso init from the repo, or pass --root",
-                file=sys.stderr,
-            )
-            return 2
-        root = remembered
-    launch(root.resolve())
+    try:
+        root = locate(args.root, cwd or Path.cwd(), config_dir or default_config_dir())
+    except RepoNotFound as error:
+        print(error, file=sys.stderr)
+        return 2
+    launch(root)
     return 0

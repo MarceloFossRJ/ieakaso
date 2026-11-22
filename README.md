@@ -56,7 +56,7 @@ On first launch it asks for your memory, in chat. Nothing to configure by hand:
 - your most important projects
 - your biggest achievements
 
-You run Ieakaso as `/ieakaso <mode>`. You can also pick the mode from the `/` menu: type `/ieakaso:` in Claude Code or `/ieakaso-` in OpenCode. In Claude Code, start it from the repo root. To open the viewer straight from a terminal, see [The viewer](#the-viewer). Plain `/ieakaso` asks which mode to run.
+You run Ieakaso as `/ieakaso <mode>`. You can also pick the mode from the `/` menu: type `/ieakaso:` in Claude Code or `/ieakaso-` in OpenCode. In Claude Code, start it from the repo root. Plain `/ieakaso` asks which mode to run.
 
 To set up, put your CV in `input/candidate/documents/cv/` and run:
 
@@ -67,6 +67,8 @@ To set up, put your CV in `input/candidate/documents/cv/` and run:
 It checks your documents, strongly recommends your LinkedIn "Save to PDF" export (`input/candidate/documents/linkedin/`), points you to `input/candidate/professional-experience-extended.md` for facts your CV leaves out (a team size, a project's result), and asks you to confirm your details, target positions, and search location. It saves them in `config.yml`. Run it again any time to review or update them. Other modes run it for you if setup is incomplete.
 
 At the end, init compares your LinkedIn profile and `config.yml` with your CV, and lists where they disagree: a different title, date, number or language level, each rated High, Medium or Low by how likely a recruiter is to notice. Your CV counts as the right version. Only two statements that can't both be true are conflicts: one employer on the CV and two on LinkedIn, or different wording, are listed apart as presented differently. If you made a difference on purpose (say, a number kept off your public profile), add a line to `input/candidate/deliberate-differences.md` with the document, what differs and why (for example `- LinkedIn profile: the team budget is left out. Why: it is private.`); init then lists it with your reason, never as a conflict, and suggests the line to add when it finds a new contradiction. Ieakaso only reads that file. Each run saves a new report in `output/conflict-reports/`, named with its date and time, and keeps the older ones. Fix the document that disagrees, put it back in its folder, and run init again to check.
+
+To open the applications viewer from any terminal, without a coding assistant, install its command once, from the repo: `uv tool install --editable .`. Then type `ieakaso-view` anywhere (see [The viewer](#the-viewer)).
 
 Init also turns your CV into `input/parsed-documents/cv.md`, word for word: nothing reworded, added, or left out. When you have a new CV, save the file in `input/candidate/documents/cv/`; the next mode you run captures it, or run it yourself:
 
