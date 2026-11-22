@@ -2,6 +2,9 @@
 
 Never exposed to the candidate: not an `ieakaso` command, not a `/ieakaso` mode.
 
+It always backs up what it deletes to `~/.ieakaso-backups/`, in a timestamped folder, first. There is no restore:
+copy files back by hand.
+
 Exit codes: 0 cleaned (or, with `--dry-run`, shown), 2 the root isn't the ieakaso repo or an argument is invalid;
 nothing is changed on 2. The message for exit 2 goes to stderr.
 """
