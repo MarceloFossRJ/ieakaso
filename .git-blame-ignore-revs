@@ -1,0 +1,5 @@
+# Commits git blame skips: formatter-only changes, no authored lines.
+# GitHub reads this file; locally: git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# Reformat with ruff format (#92)
+fd3d38eb8ad196fef9801b844ee298dc3ea6da97
