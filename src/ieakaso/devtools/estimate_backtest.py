@@ -9,6 +9,8 @@ error is small.
 Never exposed to the candidate: not an `ieakaso` command, not a `/ieakaso` mode.
 
     uv run python -m ieakaso.devtools.estimate_backtest [SESSION_ID | TRANSCRIPT.jsonl ...] [--all]
+
+Exit codes: 0 the report was printed (a weak estimate is a result, not a failure), 2 an argument is invalid.
 """
 
 import argparse

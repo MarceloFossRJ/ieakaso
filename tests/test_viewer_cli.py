@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pytest
+from conftest import Streams
 
 from ieakaso.repo import remember_root
 from ieakaso.viewer.cli import main
@@ -21,8 +22,9 @@ def launch() -> Launcher:
     return Launcher()
 
 
-def view(cwd: Path, config_dir: Path, launch: Launcher, *args: str) -> int:
-    return main(list(args), cwd=cwd, config_dir=config_dir, launch=launch)
+def view(cwd: Path, config_dir: Path, launch: Launcher, *args: str, streams: Streams | None = None) -> int:
+    streams = streams or Streams()
+    return main(list(args), cwd=cwd, config_dir=config_dir, launch=launch, err=streams.err)
 
 
 def test_opens_the_repo_it_is_run_from(repo: Path, config_dir: Path, launch: Launcher):
@@ -66,35 +68,35 @@ def test_root_beats_the_current_folder_and_the_remembered_repo(
     assert launch.roots == [other_repo.resolve()]
 
 
-def test_no_repo_found_is_an_error_not_an_empty_table(elsewhere: Path, config_dir: Path, launch: Launcher, capsys):
-    assert view(elsewhere, config_dir, launch) == 2
+def test_no_repo_found_is_an_error_not_an_empty_table(elsewhere: Path, config_dir: Path, launch: Launcher, streams: Streams):
+    assert view(elsewhere, config_dir, launch, streams=streams) == 2
 
     assert launch.roots == []
-    assert "Can't find the Ieakaso repo: run it from the repo or pass --root" in capsys.readouterr().err
+    assert "can't find the Ieakaso repo: run it from the repo or pass --root" in streams.err.getvalue()
 
 
 def test_a_remembered_repo_that_is_gone_is_an_error(
-    tmp_path: Path, elsewhere: Path, config_dir: Path, launch: Launcher, capsys
+    tmp_path: Path, elsewhere: Path, config_dir: Path, launch: Launcher, streams: Streams
 ):
     gone = tmp_path / "moved-away"
     remember_root(config_dir, gone)
     before = (config_dir / "repo.toml").read_text()
 
-    assert view(elsewhere, config_dir, launch) == 2
+    assert view(elsewhere, config_dir, launch, streams=streams) == 2
 
     assert launch.roots == []
     assert (config_dir / "repo.toml").read_text() == before
     assert (
-        f"The remembered repo {gone} is gone: run /ieakaso init from the repo, or pass --root"
-        in capsys.readouterr().err
+        f"the remembered repo {gone} is gone: run /ieakaso init from the repo, or pass --root"
+        in streams.err.getvalue()
     )
 
 
-def test_a_root_that_is_not_a_repo_is_an_error(elsewhere: Path, config_dir: Path, launch: Launcher, capsys):
-    assert view(elsewhere, config_dir, launch, "--root", str(elsewhere)) == 2
+def test_a_root_that_is_not_a_repo_is_an_error(elsewhere: Path, config_dir: Path, launch: Launcher, streams: Streams):
+    assert view(elsewhere, config_dir, launch, "--root", str(elsewhere), streams=streams) == 2
 
     assert launch.roots == []
-    assert f"{elsewhere} is not an Ieakaso repo" in capsys.readouterr().err
+    assert f"{elsewhere} is not an Ieakaso repo" in streams.err.getvalue()
 
 
 def test_a_relative_root_is_read_from_the_current_folder(repo: Path, config_dir: Path, launch: Launcher):

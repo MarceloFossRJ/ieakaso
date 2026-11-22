@@ -1,6 +1,9 @@
 """Development-only cleaner: returns the repo to a fresh state (no user data), or the Set-up state (no Applications).
 
 Never exposed to the candidate: not an `ieakaso` command, not a `/ieakaso` mode.
+
+Exit codes: 0 cleaned (or, with `--dry-run`, shown), 2 the root isn't the ieakaso repo or an argument is invalid;
+nothing is changed on 2. The message for exit 2 goes to stderr.
 """
 
 import argparse
