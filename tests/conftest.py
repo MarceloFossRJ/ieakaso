@@ -1,3 +1,4 @@
+import io
 from pathlib import Path
 
 import pytest
@@ -87,3 +88,15 @@ def other_repo(tmp_path: Path) -> Path:
     root = tmp_path / "other-clone"
     write_files(root, TRACKED)
     return root
+
+
+class Streams:
+    """The out and err a CLI's main writes to (CODING_STANDARDS.md: injected, never sys.stdout)."""
+
+    def __init__(self) -> None:
+        self.out, self.err = io.StringIO(), io.StringIO()
+
+
+@pytest.fixture
+def streams() -> Streams:
+    return Streams()

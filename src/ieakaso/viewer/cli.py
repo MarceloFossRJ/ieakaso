@@ -11,6 +11,7 @@ import subprocess
 import sys
 from collections.abc import Callable
 from pathlib import Path
+from typing import TextIO
 
 from ieakaso.repo import RepoNotFound, default_config_dir, locate
 from ieakaso.viewer.app import ViewerApp
@@ -31,7 +32,8 @@ def main(
     *,
     cwd: Path | None = None,
     config_dir: Path | None = None,
-    launch: Callable[[Path], None] = run_viewer,
+    launch: Callable[[Path], None] | None = None,
+    err: TextIO | None = None,
 ) -> int:
     parser = argparse.ArgumentParser(
         prog="ieakaso-view",
@@ -46,7 +48,7 @@ def main(
     try:
         root = locate(args.root, cwd or Path.cwd(), config_dir or default_config_dir())
     except RepoNotFound as error:
-        print(error, file=sys.stderr)
+        print(error, file=err or sys.stderr)
         return 2
-    launch(root)
+    (launch or run_viewer)(root)
     return 0

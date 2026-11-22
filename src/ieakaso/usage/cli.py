@@ -3,6 +3,8 @@
 start: the Run start marker; the command appearing in the transcript is what begins a Run.
 summary: the Run summary for the current Session. statusline: one line for the Claude Code status line,
 fed the host's JSON on stdin. Neither ever fails: a missing transcript is a notice, exit 0.
+
+Exit codes: 0 always for a valid command, 2 an unknown command or argument (argparse).
 """
 
 import argparse
