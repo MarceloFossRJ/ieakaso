@@ -1,5 +1,5 @@
 """The cover_letter echoes command: the draft sentences most like a Job ad sentence, as smells for the agents. Fake repo
-only; the examples are the ones in issue #96."""
+only; the ad and the letters are synthetic, shaped like the Echoes issue #96 describes."""
 
 import io
 from pathlib import Path
@@ -15,9 +15,9 @@ AD = """# Job ad: Engineering Manager @ Acme
 > **Job ad:** https://jobs.acme.example/1 | **Date read:** 2026-11-23 | **Read by:** WebFetch
 
 ## About the role
-You will lead the Customer Experience domain, with several subteams.
-The team is growing, and you will shape both what it builds and how it works.
-You stay close to the technology, because in a field that changes this quickly, good leadership decisions depend on understanding the technical details.
+You will lead the Checkout domain, with several subteams.
+The platform is expanding, and you will decide both what it ships and how it runs.
+You stay near the code, because in a market that moves this fast, sound product calls rest on knowing the engineering trade-offs.
 """
 
 
@@ -27,6 +27,10 @@ def root(tmp_path: Path) -> Path:
     (folder / "rounds").mkdir(parents=True)
     (folder / f"{ID}_job-ad.md").write_text(AD)
     return tmp_path / "repo"
+
+
+def write_ad(root: Path, text: str):
+    (root / "output" / "applications" / ID / f"{ID}_job-ad.md").write_text(text)
 
 
 def write_draft(root: Path, body: str, n: int = 1):
@@ -43,35 +47,72 @@ def run(root: Path, *argv: str) -> tuple[int, str, str]:
 
 
 def test_flags_an_ad_sentence_handed_back_with_the_pronouns_swapped(root: Path):
-    write_draft(root, "Your team is growing, and its lead will shape both what it builds and how it works.")
+    write_draft(root, "Your platform is expanding, and its lead will decide both what it ships and how it runs.")
 
     code, out, _ = run(root, ID, "1")
 
     assert code == 0
-    assert "letter: Your team is growing, and its lead will shape both what it builds and how it works." in out
-    assert "ad: The team is growing, and you will shape both what it builds and how it works." in out
+    assert "letter: Your platform is expanding, and its lead will decide both what it ships and how it runs." in out
+    assert "ad: The platform is expanding, and you will decide both what it ships and how it runs." in out
 
 
 def test_flags_an_ad_sentence_restated_as_the_candidates_own_thought(root: Path):
     write_draft(
         root,
-        "The role also keeps me close to the technology; in a field that changes this quickly, good leadership "
-        "decisions depend on the technical details.",
+        "The role also keeps me near the code; in a market that moves this fast, sound product calls rest on the "
+        "engineering trade-offs.",
     )
 
     _, out, _ = run(root, ID, "1")
 
     assert "possible Echoes in round 1: 1" in out
-    assert "ad: You stay close to the technology, because in a field that changes this quickly" in out
+    assert "ad: You stay near the code, because in a market that moves this fast" in out
+
+
+def test_a_hard_wrapped_ad_sentence_is_read_whole(root: Path):
+    write_ad(
+        root, AD + "Our merchants want payouts\nthe same day, so you will own\nthe settlement pipeline end to end.\n"
+    )
+    write_draft(root, "Your merchants want same-day payouts, and owning the settlement pipeline end to end is the job.")
+
+    _, out, _ = run(root, ID, "1")
+
+    assert "ad: Our merchants want payouts the same day, so you will own the settlement pipeline end to end.\n" in out
+
+
+def test_a_draft_without_echoes_prints_none(root: Path):
+    write_draft(root, "At my last company I grew a team from 4 to 11 engineers and cut release time from 18 days to 6.")
+
+    code, out, err = run(root, ID, "1")
+
+    assert (code, out, err) == (0, "no possible Echoes in round 1\n", "")
 
 
 def test_a_sentence_that_only_reuses_the_ads_terms_is_not_an_echo(root: Path):
-    write_draft(root, "I led the Customer Experience domain's mobile work.")
+    write_draft(root, "I led the Checkout domain's mobile work.")
 
     code, out, _ = run(root, ID, "1")
 
     assert code == 0
     assert out == "no possible Echoes in round 1\n"
+
+
+def test_the_letters_header_lines_are_not_echoes(root: Path):
+    write_ad(root, AD + "Job title:** Engineering Manager – Checkout Platform (m/f/d)\n")
+    write_draft(root, "**Application: Engineering Manager – Checkout Platform (m/f/d)**\n\nI build teams.")
+
+    _, out, _ = run(root, ID, "1")
+
+    assert out == "no possible Echoes in round 1\n"
+
+
+def test_an_ad_sentence_ending_in_a_quote_is_its_own_sentence(root: Path):
+    write_ad(root, AD + '"Build the checkout customers trust with their money." The domain owns the app and the API.\n')
+    write_draft(root, "I want to build the checkout customers trust with their money.")
+
+    _, out, _ = run(root, ID, "1")
+
+    assert 'ad: "Build the checkout customers trust with their money."\n' in out
 
 
 def test_a_missing_draft_exits_1(root: Path):
@@ -105,25 +146,3 @@ def test_a_missing_application_folder_exits_3(root: Path):
 
     assert code == 3
     assert "no Application folder" in err
-
-
-def test_the_letters_header_lines_are_not_echoes(root: Path):
-    ad = root / "output" / "applications" / ID / f"{ID}_job-ad.md"
-    ad.write_text(AD + "Job title:** Engineering Manager – Customer Experience (m/f/d)\n")
-    write_draft(root, "**Application: Engineering Manager – Customer Experience (m/f/d)**\n\nI build teams.")
-
-    _, out, _ = run(root, ID, "1")
-
-    assert out == "no possible Echoes in round 1\n"
-
-
-def test_an_ad_sentence_ending_in_a_quote_is_its_own_sentence(root: Path):
-    ad = root / "output" / "applications" / ID / f"{ID}_job-ad.md"
-    ad.write_text(
-        AD + '"Lead the team that decides how customers meet the product." The domain owns the app and the assistant.\n'
-    )
-    write_draft(root, "I want to lead the team that decides how customers meet the product.")
-
-    _, out, _ = run(root, ID, "1")
-
-    assert 'ad: "Lead the team that decides how customers meet the product."\n' in out

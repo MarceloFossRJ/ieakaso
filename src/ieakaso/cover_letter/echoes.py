@@ -7,10 +7,10 @@ compared lowercased, without stopwords, after stripping a few English suffixes, 
 import re
 from dataclasses import dataclass
 from pathlib import Path
+from typing import NamedTuple
 
-from ieakaso.cover_letter.assemble import NOTES
-from ieakaso.cover_letter.errors import ApplicationError, RoundFileError
-from ieakaso.layout import APPLICATIONS
+from ieakaso.cover_letter.errors import ApplicationError
+from ieakaso.cover_letter.files import application_folder, read, split_draft
 
 # A draft sentence is a possible Echo when one ad sentence covers this share of its content words…
 THRESHOLD = 0.5
@@ -19,136 +19,19 @@ THRESHOLD = 0.5
 MIN_SHARED = 4
 
 STOPWORDS = frozenset(
-    [
-        "a",
-        "about",
-        "above",
-        "after",
-        "again",
-        "against",
-        "all",
-        "also",
-        "am",
-        "an",
-        "and",
-        "any",
-        "are",
-        "as",
-        "at",
-        "be",
-        "because",
-        "been",
-        "before",
-        "being",
-        "below",
-        "between",
-        "both",
-        "but",
-        "by",
-        "can",
-        "could",
-        "did",
-        "do",
-        "does",
-        "doing",
-        "down",
-        "during",
-        "each",
-        "few",
-        "for",
-        "from",
-        "further",
-        "had",
-        "has",
-        "have",
-        "having",
-        "he",
-        "her",
-        "here",
-        "hers",
-        "him",
-        "his",
-        "how",
-        "i",
-        "if",
-        "in",
-        "into",
-        "is",
-        "it",
-        "its",
-        "itself",
-        "just",
-        "me",
-        "more",
-        "most",
-        "my",
-        "no",
-        "nor",
-        "not",
-        "now",
-        "of",
-        "off",
-        "on",
-        "once",
-        "only",
-        "or",
-        "other",
-        "our",
-        "ours",
-        "out",
-        "over",
-        "own",
-        "same",
-        "she",
-        "should",
-        "so",
-        "some",
-        "such",
-        "than",
-        "that",
-        "the",
-        "their",
-        "theirs",
-        "them",
-        "then",
-        "there",
-        "these",
-        "they",
-        "this",
-        "those",
-        "through",
-        "to",
-        "too",
-        "under",
-        "until",
-        "up",
-        "very",
-        "was",
-        "we",
-        "were",
-        "what",
-        "when",
-        "where",
-        "which",
-        "while",
-        "who",
-        "whom",
-        "why",
-        "will",
-        "with",
-        "would",
-        "you",
-        "your",
-        "yours",
-        "us",
-        "let",
-        "lets",
-    ]
+    """a about above after again against all also am an and any are as at be because been before being below between
+    both but by can could did do does doing down during each few for from further had has have having he her here hers
+    him his how i if in into is it its itself just me more most my no nor not now of off on once only or other our ours
+    out over own same she should so some such than that the their theirs them then there these they this those through
+    to too under until up very was we were what when where which while who whom why will with would you your yours
+    us let lets""".split()  # noqa: SIM905 - a word list reads better as text
 )
 SUFFIXES = ("ing", "ed", "es", "ly", "s")
 SENTENCE = re.compile(r"(?<=[.!?])\s+|(?<=[.!?][\"”’)])\s+|\n+")
 # An ad's lists are often one line joined with semicolons; each item is a sentence of its own.
 AD_SENTENCE = re.compile(SENTENCE.pattern + r"|;\s+")
+# A line that starts a block of its own, never joined to the line before: a heading, a quote, a list item, a table row.
+BLOCK_START = re.compile(r"\s*(?:#|>|[-*•+] |\d+[.)] |\|)")
 # A letter sentence ends like one: its header lines (the subject line, the company's address) are not checked.
 ENDS = re.compile(r"[.!?][\"”’)]?$")
 WORD = re.compile(r"[a-z0-9]+(?:'[a-z]+)?")
@@ -173,50 +56,55 @@ def content_words(sentence: str) -> set[str]:
     return {_stem(word) for word in WORD.findall(sentence.lower()) if word not in STOPWORDS}
 
 
+def _unwrap(text: str) -> str:
+    """Join the lines a hard-wrapped sentence was broken into: a line that goes on in lowercase. A blank line, a heading,
+    a list item, a table row or a Markdown hard break (two trailing spaces) still ends a line, and so does a line before
+    one that starts with a capital, as the items of a list without markers do."""
+    lines: list[str] = []
+    for line in text.splitlines():
+        joins = lines and lines[-1].strip() and not lines[-1].endswith("  ") and line.strip()[:1].islower()
+        if joins and not BLOCK_START.match(line) and not BLOCK_START.match(lines[-1]):
+            lines[-1] = f"{lines[-1].rstrip()} {line.strip()}"
+        else:
+            lines.append(line)
+    return "\n".join(lines)
+
+
 def sentences(text: str, pattern: re.Pattern[str] = SENTENCE) -> list[str]:
     found = []
-    for line in pattern.split(text):
+    for line in pattern.split(_unwrap(text)):
         line = line.strip().lstrip("#>-*• ").rstrip("*").strip()
         if line:
             found.append(line)
     return found
 
 
-def _read(path: Path, error: type[Exception], what: str) -> str:
-    try:
-        return path.read_text()
-    except OSError:
-        raise error(f"{what} missing or unreadable: {path}") from None
-
-
 def _ad_text(folder: Path, application_id: str) -> str:
     """The Job ad file without its `# Job ad:` title and its `>` header line."""
-    text = _read(folder / f"{application_id}_job-ad.md", ApplicationError, "Job ad file")
+    text = read(folder / f"{application_id}_job-ad.md", ApplicationError, "Job ad file")
     return "\n".join(line for line in text.splitlines() if not line.startswith(("# Job ad:", ">")))
 
 
-def _draft_text(folder: Path, round_number: int) -> str:
-    """The Draft section of the Round's draft file: the letter alone, without the notes for the Assistant."""
-    path = folder / "rounds" / f"round-{round_number}_draft.md"
-    head, found, _ = _read(path, RoundFileError, "Round file").partition(NOTES)
-    if not found or not head.startswith("## Draft"):
-        raise RoundFileError(f"{path}: not a draft ('## Draft' then '{NOTES}')")
-    return head.removeprefix("## Draft")
+class AdSentence(NamedTuple):
+    text: str
+    words: set[str]
 
 
 def find_echoes(root: Path, application_id: str, round_number: int) -> list[Echo]:
     """The draft's possible Echoes, each with its closest ad sentence, in the draft's order."""
-    folder = root / APPLICATIONS / application_id
-    if not folder.is_dir():
-        raise ApplicationError(f"no Application folder: {folder}")
-    ad = [(sentence, content_words(sentence)) for sentence in sentences(_ad_text(folder, application_id), AD_SENTENCE)]
+    folder = application_folder(root, application_id)
+    ad = [AdSentence(text, content_words(text)) for text in sentences(_ad_text(folder, application_id), AD_SENTENCE)]
+    draft, _ = split_draft(folder / "rounds" / f"round-{round_number}_draft.md")
+    if not ad:
+        return []
     echoes = []
-    for sentence in sentences(_draft_text(folder, round_number)):
+    for sentence in sentences(draft):
         words = content_words(sentence)
-        if not ad or not ENDS.search(sentence) or len(words) < MIN_SHARED:
+        if not ENDS.search(sentence) or len(words) < MIN_SHARED:
             continue
-        best, shared = max(((ad_sentence, len(words & ad_words)) for ad_sentence, ad_words in ad), key=lambda p: p[1])
+        closest = max(ad, key=lambda candidate: len(words & candidate.words))
+        shared = len(words & closest.words)
         score = shared / len(words)
         if shared >= MIN_SHARED and score >= THRESHOLD:
-            echoes.append(Echo(sentence, best, round(score, 2)))
+            echoes.append(Echo(sentence, closest.text, round(score, 2)))
     return echoes
