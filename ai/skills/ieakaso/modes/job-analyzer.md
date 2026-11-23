@@ -152,6 +152,14 @@ Round to a whole number. Show the arithmetic in the scorecard.
 
 Pick the 3-5 strongest points of this candidate for this ad, and the 3-5 weakest. Each is one bullet citing the evidence (requirement, dimension, or risk) and its source file. Weaknesses include 🟡 under-sold requirements: the reader should see that the CV, not the candidate, is what is missing.
 
+### Step 8: Letter coaching
+
+Everything above is for the candidate, and stays candid. **Letter coaching** is the one section written for the cover-letter agents instead (terms in `CONTEXT.md`; decision in `docs/adr/0014-letter-context-carries-coaching.md`): they read it, never the Weaknesses, Screener risks or Gaps to close. Write it as a coach for a candidate who has decided to apply, whatever the Verdict, so the letter can get the interview:
+
+- **Strengths to amplify:** the strengths the letter should lead with, strongest for this ad first, each with the evidence to lead with and its source file.
+- **Weaknesses, framed positively:** for each weakness a reader would weigh, the closest evidence, the capability it shows in the ad's terms (e.g. MLOps pipelines that other engineers ship models through, as internal platform work), and **mention** or **don't mention**. Mention only what a screener will certainly notice, and never as a statement of what the candidate lacks. Frame only with facts the files state: a framing that needs a fact, number or result no file holds is not allowed, so leave that weakness at "don't mention". A weakness with no evidence close to it is "don't mention".
+- **Tone:** confident and specific; never hint at the Verdict or the score.
+
 ---
 
 ## OUTPUT
@@ -249,6 +257,14 @@ Where another file disagrees with `cv.md`. The CV's version counts; fix the othe
 ## Gaps to close
 
 1. [Gap] — [how to address it honestly: cover letter line, interview answer, or accept it]
+
+## Letter coaching
+
+For the cover-letter agents: how to make the strongest case, for a candidate who has decided to apply.
+
+- **Strengths to amplify:** [strongest first, each with the evidence to lead with and its source file]
+- **Weaknesses, framed positively:** [for each: the weakness, the closest evidence and source file, the capability it shows in the ad's terms, and mention / don't mention]
+- **Tone:** [confident and specific; anything particular to this ad's register]
 
 ## Confidence
 
@@ -443,3 +459,4 @@ It prints `company research set for <id>` and exits 0. Exit codes are the tracke
 7. **Draft only.** Never submit an application or contact anyone.
 8. **The Evidence bank carries facts, never makes them.** Every item names its source file; nothing in it is new, and it never changes the score or the Verdict.
 9. **The Company research is about the company.** It never reads the Personal knowledge base, never changes the score or the Verdict, and states only what its sources say.
+10. **Letter coaching coaches; the rest judges.** Letter coaching makes the strongest honest case for the letter and frames weaknesses positively, inside the evidence. It never softens the candid sections, the score or the Verdict, and they never leak into it.

@@ -8,9 +8,10 @@ from pathlib import Path
 from ieakaso.layout import APPLICATIONS
 from ieakaso.letter_context.errors import ApplicationError
 
-# The Job analysis sections the agents need: what to stress and what to address. The Requirement match is left out,
+# The Job analysis sections the agents need: what to stress and how to frame each weakness. Never the candid Weaknesses,
+# Screener risks or Gaps to close, which are written for the candidate (ADR 0014); the Requirement match is left out,
 # since the Evidence bank holds the evidence per requirement.
-ANALYSIS_SECTIONS = ("Strengths", "Weaknesses", "Screener risks", "CV under-sells", "Gaps to close")
+ANALYSIS_SECTIONS = ("Strengths", "Letter coaching", "CV under-sells")
 # The Company research sections that hold usable company facts. Never Summary, Employee reviews, Role impact, Red flags,
 # Sources or the Notes.
 COMPANY_SECTIONS = ("At a glance", "Domain and product", "Latest releases", "Financial moment", "Culture")

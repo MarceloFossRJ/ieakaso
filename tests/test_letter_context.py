@@ -56,6 +56,11 @@ ANALYSIS = """# Job analysis: Senior Backend Engineer @ Acme
 
 - Kafka: say what comes closest
 
+## Letter coaching
+
+- Strengths to amplify: lead with six years of Go
+- Kafka: frame the RabbitMQ work as event-driven delivery; don't mention
+
 ## Confidence
 
 High
@@ -139,21 +144,14 @@ Built by `ieakaso.letter_context build` from the Job analysis and the Company re
 
 - Six years of Go (`input/parsed-documents/cv.md`)
 
-### Weaknesses
+### Letter coaching
 
-- No Kafka in the CV
-
-### Screener risks
-
-- Two short stints
+- Strengths to amplify: lead with six years of Go
+- Kafka: frame the RabbitMQ work as event-driven delivery; don't mention
 
 ### CV under-sells
 
 - The payments migration (`input/candidate/professional-experience-extended.md`)
-
-### Gaps to close
-
-- Kafka: say what comes closest
 
 ## Company facts
 
@@ -289,18 +287,26 @@ def test_a_research_with_only_snippets_and_not_found_is_no_company_facts(root: P
     assert err.endswith(f"no company facts for {ID}: its Company research has no usable fact\n")
 
 
+def test_never_the_job_analysiss_candid_sections(root: Path):
+    run(root, "build", ID)
+
+    text = context(root)
+    for left_out in ("### Weaknesses", "### Screener risks", "### Gaps to close", "No Kafka", "short stints"):
+        assert left_out not in text
+
+
 def test_a_missing_section_is_a_warning_and_never_fails(root: Path):
-    write(root, "job-analysis", ANALYSIS.replace("## Screener risks\n\n- Two short stints\n\n", ""))
+    write(root, "job-analysis", ANALYSIS.replace("## Letter coaching\n\n", "## Coaching\n\n"))
     write(root, "company-research", RESEARCH.replace("## Culture\n", "## Culture and values\n"))
 
     code, _, err = run(root, "build", ID)
 
     assert code == 0
     assert err == (
-        "Warning: the Job analysis has no Screener risks section\n"
+        "Warning: the Job analysis has no Letter coaching section\n"
         "Warning: the Company research has no Culture section\n"
     )
-    assert "### Screener risks" not in context(root)
+    assert "### Letter coaching" not in context(root)
     assert "### Culture" not in context(root)
 
 
