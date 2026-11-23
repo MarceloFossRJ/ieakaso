@@ -24,8 +24,38 @@ def inputs_rows(path: Path) -> set[str]:
     return {line.split("|")[1].strip() for line in section(path, "INPUTS").splitlines() if line.startswith("| ")}
 
 
-def test_the_guidelines_hold_the_final_check_with_seven_checks():
-    assert len(re.findall(r"^\d+\. ", section(GUIDELINES, "Final check"), re.MULTILINE)) == 7
+def test_the_guidelines_hold_the_final_check_with_eleven_checks():
+    assert len(re.findall(r"^\d+\. ", section(GUIDELINES, "Final check"), re.MULTILINE)) == 11
+
+
+ECHOES = "uv run python -m ieakaso.cover_letter echoes"
+
+
+def test_the_final_check_runs_the_echoes_command_and_checks_deficit_openings_and_paragraphs():
+    final_check = section(GUIDELINES, "Final check")
+    for check in (ECHOES, "Deficit opening", "One job per paragraph", "Linked openings"):
+        assert check in final_check
+
+
+def test_the_guidelines_drop_the_gap_paragraph():
+    assert "a fourth only if a gap needs addressing" not in GUIDELINES.read_text()
+
+
+@pytest.mark.parametrize("agent", [APPLICANT, RECRUITER], ids=["applicant", "recruiter"])
+def test_both_agents_run_the_echoes_command(agent: Path):
+    assert ECHOES in agent.read_text()
+
+
+def test_the_recruiter_caps_a_confirmed_echo_and_a_deficit_opening_at_89():
+    review = section(RECRUITER, "THE REVIEW")
+    assert "A confirmed Echo: at most 89" in review
+    assert "A confirmed Deficit opening: at most 89" in review
+
+
+def test_the_plans_gap_slot_frames_the_gap_positively():
+    gap = section(RECRUITER, "THE LETTER PLAN").split("**Gap:**", 1)[1].split("\n7. ", 1)[0]
+    for part in ("closest evidence", "positive framing", "mention / don't mention"):
+        assert part in gap
 
 
 @pytest.mark.parametrize("label", ASSEMBLED_NOTES)
