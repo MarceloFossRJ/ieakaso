@@ -41,9 +41,13 @@ def test_the_guidelines_drop_the_gap_paragraph():
     assert "a fourth only if a gap needs addressing" not in GUIDELINES.read_text()
 
 
-@pytest.mark.parametrize("agent", [APPLICANT, RECRUITER], ids=["applicant", "recruiter"])
-def test_both_agents_run_the_echoes_command(agent: Path):
-    assert ECHOES in agent.read_text()
+def test_the_applicant_runs_the_echoes_command_with_the_final_check():
+    final_check = next(p for p in section(APPLICANT, "WRITING A COVER LETTER").split("\n\n") if "**Final check**" in p)
+    assert ECHOES in final_check
+
+
+def test_the_recruiter_runs_the_echoes_command_in_its_review():
+    assert ECHOES in section(RECRUITER, "THE REVIEW")
 
 
 def test_the_recruiter_caps_a_confirmed_echo_and_a_deficit_opening_at_89():

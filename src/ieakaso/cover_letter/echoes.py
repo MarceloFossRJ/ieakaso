@@ -1,16 +1,15 @@
 """Possible Echoes: the sentences of a Round's draft that share most of their content words with one Job ad sentence.
 
-A smell, not a verdict: the Applicant Agent and the Seasoned Recruiter judge each hit (`CONTEXT.md`, Echo). Words are
+A smell for the agents to judge: the Applicant Agent and the Seasoned Recruiter decide whether each hit is an Echo (`CONTEXT.md`, Echo). Words are
 compared lowercased, without stopwords, as light English stems, so "growing" meets "grow" and "shaping" meets "shape".
 """
 
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import NamedTuple
 
 from ieakaso.cover_letter.errors import ApplicationError
-from ieakaso.cover_letter.files import application_folder, read, split_draft
+from ieakaso.cover_letter.files import application_folder, draft_path, job_ad_path, read, split_draft
 
 # A draft sentence is a possible Echo when one ad sentence covers this share of its content words…
 THRESHOLD = 0.5
@@ -44,7 +43,13 @@ WORD = re.compile(r"[a-z0-9]+(?:'[a-z]+)?")
 class Echo:
     letter: str
     ad: str
-    score: float
+    score: float  # the share of the letter sentence's content words the ad sentence holds, 0 to 1
+
+
+@dataclass(frozen=True)
+class AdSentence:
+    text: str
+    words: set[str]
 
 
 def _stem(word: str) -> str:
@@ -59,6 +64,7 @@ def _stem(word: str) -> str:
             break
     if word.endswith("e") and len(word) > MIN_STEM:
         word = word[:-1]
+    # "planned" -> "plann" -> "plan"; vowels, "l" and "s" stay doubled, as in "feel", "skill" and "process".
     if len(word) > MIN_STEM and word[-1] == word[-2] and word[-1] not in "aeiouls":
         word = word[:-1]
     return word
@@ -93,22 +99,17 @@ def sentences(text: str, pattern: re.Pattern[str] = SENTENCE) -> list[str]:
 
 def _ad_text(folder: Path, application_id: str) -> str:
     """The Job ad file without its `# Job ad:` title and its `>` header line."""
-    text = read(folder / f"{application_id}_job-ad.md", ApplicationError, "Job ad file")
+    text = read(job_ad_path(folder, application_id), ApplicationError, "Job ad file")
     return "\n".join(line for line in text.splitlines() if not line.startswith(("# Job ad:", ">")))
-
-
-class AdSentence(NamedTuple):
-    text: str
-    words: set[str]
 
 
 def find_echoes(root: Path, application_id: str, round_number: int) -> list[Echo]:
     """The draft's possible Echoes, each with its closest ad sentence, in the draft's order."""
     folder = application_folder(root, application_id)
     ad = [AdSentence(text, content_words(text)) for text in sentences(_ad_text(folder, application_id), AD_SENTENCE)]
-    draft, _ = split_draft(folder / "rounds" / f"round-{round_number}_draft.md")
     if not ad:
-        return []
+        raise ApplicationError(f"the Job ad file has no text to compare: {job_ad_path(folder, application_id)}")
+    draft, _ = split_draft(draft_path(folder, round_number))
     echoes = []
     for sentence in sentences(draft):
         words = content_words(sentence)
@@ -118,5 +119,5 @@ def find_echoes(root: Path, application_id: str, round_number: int) -> list[Echo
         shared = len(words & closest.words)
         score = shared / len(words)
         if shared >= MIN_SHARED and score >= THRESHOLD:
-            echoes.append(Echo(sentence, closest.text, round(score, 2)))
+            echoes.append(Echo(sentence, closest.text, score))
     return echoes

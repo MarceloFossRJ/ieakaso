@@ -22,6 +22,14 @@ def application_folder(root: Path, application_id: str) -> Path:
     return folder
 
 
+def job_ad_path(folder: Path, application_id: str) -> Path:
+    return folder / f"{application_id}_job-ad.md"
+
+
+def draft_path(folder: Path, round_number: int) -> Path:
+    return folder / "rounds" / f"round-{round_number}_draft.md"
+
+
 def split_draft(path: Path) -> tuple[str, str]:
     """A Round's draft file as its Draft section (the letter, without the heading) and its notes for the Assistant."""
     head, found, notes = read(path, RoundFileError, "Round file").partition(NOTES)

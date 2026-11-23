@@ -39,4 +39,11 @@ def test_cover_letter_writes_a_missing_letter_coaching_before_it_builds_the_lett
     step = COVER_LETTER.read_text().split("### Step 2f", 1)[1].split("\n### ", 1)[0]
     before_the_build = step.split("uv run python -m ieakaso.letter_context build", 1)[0]
     assert "has no Letter coaching section" in before_the_build
-    assert "Step 8" in before_the_build
+    assert "Step B3" in before_the_build
+
+
+def test_letter_coaching_is_written_after_the_evidence_bank_it_draws_from():
+    text = JOB_ANALYZER.read_text()
+    bank = text.split("## EVIDENCE BANK", 1)[1].split("\n## COMPANY RESEARCH", 1)[0]
+    assert bank.index("### Step B2") < bank.index("### Step B3: Write the Letter coaching")
+    assert "### Step 8" not in text

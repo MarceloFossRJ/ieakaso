@@ -11,7 +11,7 @@ from datetime import date
 from pathlib import Path
 
 from ieakaso.cover_letter.errors import ApplicationError, ArgumentError, RoundFileError
-from ieakaso.cover_letter.files import application_folder, read, split_draft
+from ieakaso.cover_letter.files import application_folder, draft_path, job_ad_path, read, split_draft
 
 PLAN = "plan.md"
 # The Applicant's notes fields every Round must have; Language is read too, but only the final Round needs it.
@@ -68,8 +68,8 @@ def _field(notes: str, label: str) -> str | None:
 
 
 def read_round(rounds: Path, number: int) -> Round:
-    draft_path, review_path = rounds / f"round-{number}_draft.md", rounds / f"round-{number}_review.md"
-    draft, notes = split_draft(draft_path)
+    draft_file, review_path = draft_path(rounds.parent, number), rounds / f"round-{number}_review.md"
+    draft, notes = split_draft(draft_file)
     review = read(review_path, RoundFileError, "Round file")
     score = SCORE.search(review)
     if not score:
@@ -78,7 +78,7 @@ def read_round(rounds: Path, number: int) -> Round:
     for label in NOTE_FIELDS:
         required[label] = _field(notes, label)
         if required[label] is None:
-            raise RoundFileError(f"{draft_path}: no '{label}' in the notes for the Assistant")
+            raise RoundFileError(f"{draft_file}: no '{label}' in the notes for the Assistant")
     return Round(
         number=number,
         draft=draft.strip("\n"),
@@ -88,7 +88,7 @@ def read_round(rounds: Path, number: int) -> Round:
         adapted=required["Adapted for voice"],
         departures=required["Plan departures"],
         language=_field(notes, "Language"),
-        path=draft_path,
+        path=draft_file,
     )
 
 
@@ -103,7 +103,7 @@ def read_plan(rounds: Path) -> str:
 
 def _job_ad(folder: Path, application_id: str) -> tuple[str, str]:
     """The `[Position] @ [Company]` title and the `**Job ad:**` value of the Application's Job ad file."""
-    path = folder / f"{application_id}_job-ad.md"
+    path = job_ad_path(folder, application_id)
     text = read(path, ApplicationError, "Job ad file")
     title = re.search(r"^# Job ad: (.+)$", text, re.MULTILINE)
     url = re.search(r"\*\*Job ad:\*\* (.+?)\s*(?:\||$)", text, re.MULTILINE)

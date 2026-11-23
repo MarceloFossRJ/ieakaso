@@ -182,7 +182,7 @@ The Applicant runs these checks on every draft before returning it, and fixes wh
 5. **No repeats, no unclear references.** No content word twice within two sentences, unless it is the ad's own term. Every "it", "this" and "that" points to one clear thing.
 6. **No overlong sentences.** No sentence over about 30 words.
 7. **Read it aloud** against `input/candidate/writing-style.md`. Anything that doesn't sound like the candidate is rewritten.
-8. **No Echo.** Run `uv run python -m ieakaso.cover_letter echoes <id> <round>` on the draft. It lists the sentences that share most of their content words with one ad sentence: smells, not verdicts. Judge each one: an Echo is rewritten as evidence in the candidate's own sentence; a short phrase marked as the ad's, used once to set up evidence, stays. A sentence the command doesn't list can still be an Echo.
+8. **No Echo.** Run `uv run python -m ieakaso.cover_letter echoes <id> <round>` on the draft. It lists the sentences that share most of their content words with one ad sentence: smells for you to judge. Judge each one: an Echo is rewritten as evidence in the candidate's own sentence; a short phrase marked as the ad's, used once to set up evidence, stays. A sentence the command doesn't list can still be an Echo.
 9. **No Deficit opening.** No sentence or paragraph opens with what the candidate has not done; a gap appears only when the Letter plan says to mention it, after the evidence.
 10. **One job per paragraph.** Each paragraph does the one job of its line in the paragraph map.
 11. **Linked openings.** Each body paragraph's first sentence connects to the paragraph before it or to the role's core problem.

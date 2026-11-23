@@ -58,8 +58,9 @@ ANALYSIS = """# Job analysis: Senior Backend Engineer @ Acme
 
 ## Letter coaching
 
-- Strengths to amplify: lead with six years of Go
-- Kafka: frame the RabbitMQ work as event-driven delivery; don't mention
+- **Strengths to amplify:** six years of Go (`input/parsed-documents/cv.md`)
+- **Weaknesses, framed positively:** Kafka: the RabbitMQ work as event-driven delivery; don't mention
+- **Tone:** confident and specific
 
 ## Confidence
 
@@ -146,8 +147,9 @@ Built by `ieakaso.letter_context build` from the Job analysis and the Company re
 
 ### Letter coaching
 
-- Strengths to amplify: lead with six years of Go
-- Kafka: frame the RabbitMQ work as event-driven delivery; don't mention
+- **Strengths to amplify:** six years of Go (`input/parsed-documents/cv.md`)
+- **Weaknesses, framed positively:** Kafka: the RabbitMQ work as event-driven delivery; don't mention
+- **Tone:** confident and specific
 
 ### CV under-sells
 

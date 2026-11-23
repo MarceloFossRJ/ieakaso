@@ -13,13 +13,17 @@ and 3 goes to stderr. The command never sends data anywhere.
 
 `uv run python -m ieakaso.cover_letter echoes <id> <round>`: lists the possible Echoes (`CONTEXT.md`) in Round <round>'s
 draft, for the Applicant Agent and the Seasoned Recruiter to judge. Reads the Draft section of
-`output/applications/<id>/rounds/round-<round>_draft.md` and `<id>_job-ad.md`, and writes nothing. A draft sentence is
-a possible Echo when one ad sentence shares at least half of its content words, and at least 4 of them. Prints
+`output/applications/<id>/rounds/round-<round>_draft.md` and `<id>_job-ad.md`, and writes nothing. Both are split into
+sentences, with hard-wrapped lines joined; a draft line that doesn't end like a sentence (the contact block, the subject
+line) is never checked. Words are compared without stopwords, as light English stems ("shaping" meets "shape"). A
+draft sentence is a possible Echo when one ad sentence shares at least half of its content words, and at least 4 of
+them. Prints
 `possible Echoes in round <round>: <n>`, then for each one its score and two lines, `letter: <sentence>` and
 `ad: <sentence>`; or `no possible Echoes in round <round>`.
 
-Exit codes: 0 the list (or none) printed, 1 the Round's draft file is missing or not a draft, 3 the Application's
-folder or Job ad file is missing. The message for exits 1 and 3 goes to stderr.
+Exit codes: 0 the list (or none) printed, 1 the Round's draft file is missing, unreadable or not a draft, 3 the
+Application's folder is missing, or its Job ad file is missing, unreadable or has no text to compare. The message for
+exits 1 and 3 goes to stderr.
 """
 
 import argparse

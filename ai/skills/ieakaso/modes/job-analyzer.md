@@ -152,14 +152,6 @@ Round to a whole number. Show the arithmetic in the scorecard.
 
 Pick the 3-5 strongest points of this candidate for this ad, and the 3-5 weakest. Each is one bullet citing the evidence (requirement, dimension, or risk) and its source file. Weaknesses include 🟡 under-sold requirements: the reader should see that the CV, not the candidate, is what is missing.
 
-### Step 8: Letter coaching
-
-Everything above is for the candidate, and stays candid. **Letter coaching** is the one section written for the cover-letter agents instead (terms in `CONTEXT.md`; decision in `docs/adr/0014-letter-context-carries-coaching.md`): they read it, never the Weaknesses, Screener risks or Gaps to close. Write it as a coach for a candidate who has decided to apply, whatever the Verdict, so the letter can get the interview:
-
-- **Strengths to amplify:** the strengths the letter should lead with, strongest for this ad first, each with the evidence to lead with and its source file.
-- **Weaknesses, framed positively:** for each weakness a reader would weigh, the closest evidence, the capability it shows in the ad's terms (e.g. a deployment pipeline that other teams release through, as internal platform work), and **mention** or **don't mention**. Mention only what a screener will certainly notice, and never as a statement of what the candidate lacks. Frame only with facts the files state: a framing that needs a fact, number or result no file holds is not allowed, so leave that weakness at "don't mention". A weakness with no evidence close to it is "don't mention".
-- **Tone:** confident and specific; never hint at the Verdict or the score.
-
 ---
 
 ## OUTPUT
@@ -260,10 +252,10 @@ Where another file disagrees with `cv.md`. The CV's version counts; fix the othe
 
 ## Letter coaching
 
-For the cover-letter agents: how to make the strongest case, for a candidate who has decided to apply.
+[Written in Step B3, after the Evidence bank.] For the cover-letter agents: how to make the strongest case, for a candidate who has decided to apply.
 
-- **Strengths to amplify:** [strongest first, each with the evidence to lead with and its source file]
-- **Weaknesses, framed positively:** [for each: the weakness, the closest evidence and source file, the capability it shows in the ad's terms, and mention / don't mention]
+- **Strengths to amplify:** [strongest first, each with the bank item to lead with and its source file]
+- **Weaknesses, framed positively:** [for each: the weakness, the closest bank item and its source file, the capability it shows in the ad's terms, and mention / don't mention]
 - **Tone:** [confident and specific; anything particular to this ad's register]
 
 ## Confidence
@@ -300,7 +292,7 @@ JSON
 - Use the same call for a new Application and a joined one. The tracker decides: it creates a new record as Lead, and on an existing record it updates the analysis and fills fields still empty, never changing a value already there (the status, stages, contacts, notes and the rest are the candidate's).
 - It prints `created <id>` or `updated <id>` and exits 0. Any other exit means nothing was tracked: show the message from stderr (exit 1: a field is wrong, fix it and run again; exit 2: `db/ieakaso_db.json` is not valid JSON and was left alone, tell the candidate; exit 3: the file changed while the command ran, run it again) and still go on with the Evidence bank (without `set-evidence-bank`) and the Company research, and show the chat summary below, saying the Application was not tracked.
 
-**4. The Evidence bank:** `<id>_evidence-bank.md`. Follow EVIDENCE BANK below, after the tracker record. It never changes the Job analysis.
+**4. The Evidence bank and the Letter coaching:** `<id>_evidence-bank.md`. Follow EVIDENCE BANK below, after the tracker record. Its last step adds the Letter coaching to the Job analysis; nothing else in it changes the Job analysis.
 
 **5. The Company research:** `<id>_company-research.md`. Follow COMPANY RESEARCH below, after the Evidence bank. It never changes the score or the Verdict, and nothing in it ever stops or undoes the Job analysis.
 
@@ -358,6 +350,16 @@ uv run python -m ieakaso.tracker set-evidence-bank <application-id> output/appli
 ```
 
 `stamp` writes the bank's Sources section: every Personal knowledge base file it is built from, with its SHA-256, so cover-letter can tell when the bank is out of date. Never write or edit that section yourself. It prints `evidence bank stamped for <id>: <n> source files` and exits 0; exit 2 means the bank file is missing (write it again), exit 3 that the Application's folder is missing. `set-evidence-bank` prints `evidence bank set for <id>` and exits 0; its other exits are the tracker's (step 3 of OUTPUT): show the message from stderr and say in the chat summary that the bank was not recorded in the tracker (the file itself is still there).
+
+### Step B3: Write the Letter coaching
+
+Everything in the Job analysis is for the candidate, and stays candid, except **Letter coaching**: the one section written for the cover-letter agents (terms in `CONTEXT.md`; decision in `docs/adr/0014-letter-context-carries-coaching.md`). They read it through the Letter context, never the Weaknesses, Screener risks or Gaps to close. Write it after the bank, from the bank: every fact it uses is an item of the Evidence bank you just wrote, so the letter can use every framing it suggests. Add it to the Job analysis between Gaps to close and Confidence, in the template's format, and change nothing else there. Write it as a coach for a candidate who has decided to apply, whatever the Verdict, so the letter can get the interview:
+
+- **Strengths to amplify:** the strengths the letter should lead with, strongest for this ad first, each with the bank item to lead with and the source file it names.
+- **Weaknesses, framed positively:** for each weakness a reader would weigh, the closest bank item, the capability it shows in the ad's terms (e.g. a deployment pipeline that other teams release through, as internal platform work), and **mention** or **don't mention**. Mention only what a screener will certainly notice, and never as a statement of what the candidate lacks. A framing that needs a fact, number or result the bank doesn't hold is not allowed: leave that weakness at "don't mention". So is a weakness with no bank item close to it.
+- **Tone:** confident and specific; never hint at the Verdict or the score.
+
+cover-letter runs this step alone, inside its own Run, for a Job analysis written before Letter coaching existed (its Step 2f).
 
 ---
 

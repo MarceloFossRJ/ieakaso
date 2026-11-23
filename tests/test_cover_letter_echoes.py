@@ -175,3 +175,13 @@ def test_inflected_forms_of_the_ads_words_still_match(root: Path):
     _, out, _ = run(root, ID, "1")
 
     assert "ad: You will shape strategy, decide priorities, manage stakeholders and drive delivery.\n" in out
+
+
+def test_a_job_ad_with_no_text_to_compare_exits_3(root: Path):
+    write_ad(root, "# Job ad: Engineering Manager @ Acme\n\n> **Job ad:** https://jobs.acme.example/1\n")
+    write_draft(root, "Your platform is expanding, and its lead will decide both what it ships and how it runs.")
+
+    code, out, err = run(root, ID, "1")
+
+    assert (code, out) == (3, "")
+    assert "no text to compare" in err
