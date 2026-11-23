@@ -1,8 +1,8 @@
 """`uv run python -m ieakaso.letter_context build <id>`: the Letter context of an Application.
 
 Reads `output/applications/<id>/<id>_job-analysis.md` and `<id>_company-research.md` and writes
-`<id>_letter-context.md`, overwriting an old one: the Job analysis's Strengths, Weaknesses, Screener risks, CV
-under-sells and Gaps to close, and the Company research's usable company facts (At a glance, Domain and product, Latest
+`<id>_letter-context.md`, overwriting an old one: the Job analysis's Strengths, Letter coaching and CV under-sells
+(never its Weaknesses, Screener risks or Gaps to close), and the Company research's usable company facts (At a glance, Domain and product, Latest
 releases, Financial moment and Culture, without items from a search snippet or Not found), each fact tagged when its
 newest date is more than 6 months before today, or when it has none. Prints
 `letter context written for <id>: <path>`; a missing section prints a `Warning:` line to stderr and never fails.

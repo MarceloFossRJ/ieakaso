@@ -16,7 +16,7 @@ A good letter is a clear, honest conversation with the hiring manager. **Clarity
 
 ## Structure: hook, book, took
 
-Three moves, in this order, one short paragraph each (a fourth only if a gap needs addressing):
+Three moves, in this order, one short paragraph each:
 
 1. **Hook**: who the candidate is and the strongest reason to read on, aimed at what this role needs. The busy reader may stop after this paragraph, so put the most important information first: the position, the candidate's identity in one line, and the two or three strengths that matter most to this ad.
 2. **Book**: the argument for hiring. Two or three of the ad's needs, each answered with **evidence** from the Personal knowledge base: a specific situation, what they did, the result (with a number when the Personal knowledge base has one), and why it is relevant to this role. That last step is the R in STARR, and it is the one most often missing.
@@ -35,6 +35,8 @@ Three moves, in this order, one short paragraph each (a fourth only if a gap nee
 ### Speak their dialect
 
 - Use the ad's own terms for tools, methods and outcomes ("CRM", not "customer database"; their name for the role, the team, the product). This is clarity, and it also helps any screening software.
+- **Their terms, never their sentences.** An **Echo** is a sentence that hands an ad sentence back as the candidate's own thought, its idea and its shape, whatever the wording: the ad's "The platform is expanding, and you will decide both what it ships and how it runs" returned as "Your platform is expanding, and its lead will decide both what it ships and how it runs". It tells the reader nothing they didn't write themselves. The ad's sentences are needs to answer with evidence, never content to restate.
+- For emphasis, one short phrase may be quoted as the ad's ("your ad asks for …"), once, to set up the evidence that answers it.
 - Mirror the ad's register: a startup ad written in "you" and first names gets a warmer letter than a corporate ad.
 
 ### Why this company: real or nothing
@@ -57,10 +59,20 @@ Work out the role function from the Job ad, then stress what readers of that fun
 - **Product Manager**: one outcome metric (activation, retention, revenue) with its size and timeline in the first two sentences, tied to the company's product problem. Senior PMs open with a short thesis on the product or market. PM is a writing role, so the letter is also a writing sample.
 - **Head of Engineering, Director or VP**: business outcomes over implementation (revenue, cost, reliability, time to market), the size of the organisation led, and experience with the company's stage (e.g. scaling from 20 to 80 engineers, or a platform rebuild). Motivation matters most at this level: say why this company, now. These roles are often filled through a short positioning note instead of a letter; Ieakaso writes only the A4 letter, so make these points there.
 
-### Gaps, honestly
+### Strengths first, never a Deficit opening
 
-- A missing requirement does not have to be hidden or apologised for. If it matters, name what the candidate has done that comes closest (adjacent experience, a project, recent learning) and keep it to one or two sentences.
+The candidate has decided to apply, and the letter exists to get the interview. A **Deficit opening** (a sentence or paragraph that opens with what the candidate has not done: "Enterprise clients were never our main market…", "Logistics would be a new domain for me…") tells the reader the candidate is not a full fit before saying what they have done.
+
+- Mention a missing requirement only when the Letter plan says to, and at most once in the letter.
+- Lead with the closest evidence, framed as the capability the ad asks for: a deployment pipeline that five other teams release through is internal platform work, even if no one called it a platform. If the lack still needs saying, it follows in a short clause, stated plainly and never as an excuse.
+- Never open a sentence or a paragraph with the lack.
+- The framing stays inside the evidence. A positive framing that needs a fact, number or result the sources don't hold is an unsupported claim; then leave the gap unmentioned.
 - Show understanding of the job. A letter that shows the candidate understands the work can outweigh a missing year of experience.
+
+### One argument, linked
+
+- **One job per paragraph.** Each paragraph does the one job the Letter plan's paragraph map gives it. Two unrelated stories in one paragraph read as a list: split them, or cut one.
+- **Linked openings.** Each body paragraph's first sentence connects to the paragraph before it or to the role's core problem, so the letter reads as one argument. A paragraph never opens cold on a new topic.
 
 ### Voice
 
@@ -111,6 +123,9 @@ Each of these marks a letter as generic. The Recruiter flags them; the Applicant
 | AI-flavoured filler | "passion for innovation and excellence", "valuable addition to your team", "drive continued success" | Plain words the candidate would say aloud |
 | AI tells | "delve", "pivotal", "underscore", "not just X, but Y", "strategy, execution and people", bold in the body | Plain sentences; one example instead of three |
 | Bullet list in the body | "I've previously:" followed by bullets | The same evidence in one or two sentences |
+| Echo | "Your platform is expanding, and its lead will decide both what it ships and how it runs." (the ad's sentence, pronouns swapped) | Answer the need with evidence, in the candidate's own sentence |
+| Deficit opening | "Logistics would be a new domain for me, but…" | The closest evidence first, framed as the capability the ad asks for |
+| Disconnected paragraphs | A paragraph on mentoring a junior engineer, then a hiring count, then an outage story | One job per paragraph, each opening linked to the one before |
 
 ### The generic letter, whole
 
@@ -167,6 +182,10 @@ The Applicant runs these checks on every draft before returning it, and fixes wh
 5. **No repeats, no unclear references.** No content word twice within two sentences, unless it is the ad's own term. Every "it", "this" and "that" points to one clear thing.
 6. **No overlong sentences.** No sentence over about 30 words.
 7. **Read it aloud** against `input/candidate/writing-style.md`. Anything that doesn't sound like the candidate is rewritten.
+8. **No Echo.** Run `uv run python -m ieakaso.cover_letter echoes <id> <round>` on the draft. It lists the sentences that share most of their content words with one ad sentence: smells for you to judge. Judge each one: an Echo is rewritten as evidence in the candidate's own sentence; a short phrase marked as the ad's, used once to set up evidence, stays. A sentence the command doesn't list can still be an Echo.
+9. **No Deficit opening.** No sentence or paragraph opens with what the candidate has not done; a gap appears only when the Letter plan says to mention it, after the evidence.
+10. **One job per paragraph.** Each paragraph does the one job of its line in the paragraph map.
+11. **Linked openings.** Each body paragraph's first sentence connects to the paragraph before it or to the role's core problem.
 
 ---
 

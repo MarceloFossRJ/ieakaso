@@ -153,8 +153,12 @@ The facts from the Personal knowledge base that one Application's Job ad can use
 _Avoid_: brief, coaching brief, fact sheet, candidate summary
 
 **Letter context**:
-The parts of one Application's Job analysis and Company research that the Applicant Agent and the Seasoned Recruiter need, so they read neither in full: the Job analysis's strengths, weaknesses, screener risks, what the CV under-sells and the gaps to close, and the usable company facts, each dated fact marked when it is too old to call recent. It never holds red flags, employee reviews, the Role impact or facts known only from a search snippet. It is made again at the start of every cover-letter Run, so it is never out of date. Like the Evidence bank it is an extract, never a source.
+The parts of one Application's Job analysis and Company research that the Applicant Agent and the Seasoned Recruiter need, so they read neither in full: the Job analysis's strengths, its Letter coaching and what the CV under-sells, and the usable company facts, each dated fact marked when it is too old to call recent. It never holds red flags, employee reviews, the Role impact or facts known only from a search snippet. It is made again at the start of every cover-letter Run, so it is never out of date. Like the Evidence bank it is an extract, never a source.
 _Avoid_: brief, summary, digest, Company facts
+
+**Letter coaching**:
+The Job analysis section written for the Applicant Agent and the Seasoned Recruiter: the strengths to amplify, and each weakness framed positively, inside the Evidence bank's facts. It holds what to stress, which the Evidence bank leaves out. Unlike the rest of the Job analysis, it coaches and never judges the candidate's chances: that is the Verdict's job.
+_Avoid_: advice, gap handling, letter strategy
 
 **Conflict report**:
 The list of places where the LinkedIn profile or `config.yml` contradicts the Parsed CV (two statements that can't both be true), each rated High, Medium or Low by how likely a recruiter is to notice it, plus the facts only one side holds, what is only presented differently (wording, grouping, level of detail) and the Deliberate differences. Init writes a new one on every run, as `output/conflict-reports/<yyyy-mm-dd>T<hh-mm>_conflicts.md`, and never overwrites an older one. The Parsed CV is the reference: the report tells the candidate which other document to fix. It never blocks init and never changes a document.
@@ -211,6 +215,14 @@ _Avoid_: draft file, output file
 **Letter plan**:
 The Seasoned Recruiter's plan for one Application's Cover letter, written once before Round 1: the needs to answer, the evidence for each in the Evidence bank's words, the motive, the gap and a word budget. The Applicant Agent drafts from it and the Recruiter reviews against it; it is never rewritten during a Run, and later Reviews carry its changes.
 _Avoid_: brief, outline, strategy
+
+**Echo**:
+A sentence of a Cover letter that restates a sentence of the Job ad, its idea and its shape, as if it were the candidate's own thought, whatever the wording. The Job ad's terms are not Echoes, nor is a short phrase marked as the Job ad's and used once to set up the evidence that answers it.
+_Avoid_: copy, plagiarism, mirroring
+
+**Deficit opening**:
+A sentence or paragraph of a Cover letter that opens with what the candidate has not done or does not have.
+_Avoid_: apology, gap statement
 
 **Plateau**:
 The Seasoned Recruiter's judgment that no change backed by the Evidence bank would raise a draft's Review score.

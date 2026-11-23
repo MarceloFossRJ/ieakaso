@@ -11,9 +11,8 @@ from datetime import date
 from pathlib import Path
 
 from ieakaso.cover_letter.errors import ApplicationError, ArgumentError, RoundFileError
-from ieakaso.layout import APPLICATIONS
+from ieakaso.cover_letter.files import application_folder, draft_path, job_ad_path, read, split_draft
 
-NOTES = "## Notes for the Assistant"
 PLAN = "plan.md"
 # The Applicant's notes fields every Round must have; Language is read too, but only the final Round needs it.
 NOTE_FIELDS = ("Refused suggestions", "Adapted for voice", "Plan departures")
@@ -60,13 +59,6 @@ class Round:
     path: Path
 
 
-def _read(path: Path, error: type[Exception], what: str) -> str:
-    try:
-        return path.read_text()
-    except OSError:
-        raise error(f"{what} missing or unreadable: {path}") from None
-
-
 def _field(notes: str, label: str) -> str | None:
     """The value of a `- **<label>:**` bullet of the Applicant's notes, with its continuation lines."""
     match = re.search(rf"^- \*\*{re.escape(label)}:\*\*(.*?)(?=^- \*\*|\Z)", notes, re.MULTILINE | re.DOTALL)
@@ -76,11 +68,9 @@ def _field(notes: str, label: str) -> str | None:
 
 
 def read_round(rounds: Path, number: int) -> Round:
-    draft_path, review_path = rounds / f"round-{number}_draft.md", rounds / f"round-{number}_review.md"
-    text, review = _read(draft_path, RoundFileError, "Round file"), _read(review_path, RoundFileError, "Round file")
-    head, found, notes = text.partition(NOTES)
-    if not found or not head.startswith("## Draft"):
-        raise RoundFileError(f"{draft_path}: not a draft ('## Draft' then '{NOTES}')")
+    draft_file, review_path = draft_path(rounds.parent, number), rounds / f"round-{number}_review.md"
+    draft, notes = split_draft(draft_file)
+    review = read(review_path, RoundFileError, "Round file")
     score = SCORE.search(review)
     if not score:
         raise RoundFileError(f"{review_path}: no '## Review score: <n>/100' line")
@@ -88,24 +78,24 @@ def read_round(rounds: Path, number: int) -> Round:
     for label in NOTE_FIELDS:
         required[label] = _field(notes, label)
         if required[label] is None:
-            raise RoundFileError(f"{draft_path}: no '{label}' in the notes for the Assistant")
+            raise RoundFileError(f"{draft_file}: no '{label}' in the notes for the Assistant")
     return Round(
         number=number,
-        draft=head.removeprefix("## Draft").strip("\n"),
+        draft=draft.strip("\n"),
         review=review.strip("\n"),
         score=int(score.group(1)),
         refused=required["Refused suggestions"],
         adapted=required["Adapted for voice"],
         departures=required["Plan departures"],
         language=_field(notes, "Language"),
-        path=draft_path,
+        path=draft_file,
     )
 
 
 def read_plan(rounds: Path) -> str:
     """The Letter plan the Seasoned Recruiter wrote before Round 1, as written."""
     path = rounds / PLAN
-    plan = _read(path, RoundFileError, "Letter plan").strip()
+    plan = read(path, RoundFileError, "Letter plan").strip()
     if not plan:
         raise RoundFileError(f"Letter plan is empty: {path}")
     return plan
@@ -113,8 +103,8 @@ def read_plan(rounds: Path) -> str:
 
 def _job_ad(folder: Path, application_id: str) -> tuple[str, str]:
     """The `[Position] @ [Company]` title and the `**Job ad:**` value of the Application's Job ad file."""
-    path = folder / f"{application_id}_job-ad.md"
-    text = _read(path, ApplicationError, "Job ad file")
+    path = job_ad_path(folder, application_id)
+    text = read(path, ApplicationError, "Job ad file")
     title = re.search(r"^# Job ad: (.+)$", text, re.MULTILINE)
     url = re.search(r"\*\*Job ad:\*\* (.+?)\s*(?:\||$)", text, re.MULTILINE)
     if not title or not url:
@@ -126,7 +116,7 @@ def _research_date(folder: Path, application_id: str) -> str:
     path = folder / f"{application_id}_company-research.md"
     if not path.is_file():
         return "none"
-    text = _read(path, ApplicationError, "Company research file")
+    text = read(path, ApplicationError, "Company research file")
     found = re.search(r"\*\*Date researched:\*\* (\d{4}-\d{2}-\d{2})", text)
     return found.group(1) if found else "none"
 
@@ -191,9 +181,7 @@ def review_log(
 
 def assemble(root: Path, application_id: str, outcome: Outcome, today: date) -> str:
     """Write both files into the Application's folder and return the final letter."""
-    folder = root / APPLICATIONS / application_id
-    if not folder.is_dir():
-        raise ApplicationError(f"No such Application folder: {folder}")
+    folder = application_folder(root, application_id)
     outcome.validate()
     title, url = _job_ad(folder, application_id)
     plan = read_plan(folder / "rounds")

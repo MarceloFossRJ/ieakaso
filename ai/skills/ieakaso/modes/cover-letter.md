@@ -123,7 +123,11 @@ Once every answer is in a file, run Step 2d again, so the bank holds the new fac
 
 ### Step 2f: Build the Letter context
 
-The agents read the parts of the Job analysis and the Company research they need from the Letter context, never those files themselves (terms in `CONTEXT.md`; decision in `docs/adr/0011-letter-context.md`). Build it, in every Run, so it is never out of date:
+The agents read the parts of the Job analysis and the Company research they need from the Letter context, never those files themselves (terms in `CONTEXT.md`; decisions in `docs/adr/0011-letter-context.md` and `docs/adr/0014-letter-context-carries-coaching.md`).
+
+**Letter coaching first.** When the Application's Job analysis has no Letter coaching section (it was analysed before Letter coaching existed), write it now, inside this Run: follow job-analyzer's Step B3 (`ai/skills/ieakaso/modes/job-analyzer.md`), from the Job analysis and the Evidence bank checked in Step 2d. Change nothing else in the Job analysis: its score, its Verdict and every other section stay. Say in chat that you added it. Like writing the bank, this is coaching for the agents; you still never draft or review.
+
+Then build the Letter context, in every Run, so it is never out of date:
 
 ```
 uv run python -m ieakaso.letter_context build <id>

@@ -16,7 +16,7 @@ The Assistant gives you the paths below and the path of the Round file you write
 |---|---|
 | `ai/skills/ieakaso/general-knowledge-base/cover-letter-guidelines.md` | The Cover letter guidelines: what you judge each dimension against (Step 3) and the anti-patterns you flag (Step 4). Where they and this file disagree, this file wins. |
 | The Job ad | What the letter answers, and your source for the domain |
-| The Letter context | `<id>_letter-context.md`: the parts of the Job analysis and the Company research you need, built by code (terms in `CONTEXT.md`). **From the Job analysis**: the candidate's strengths, weaknesses, screener risks, what the CV under-sells and the gaps to close. **Company facts**: with the Date researched, or "None". **The only source, with the Job ad, of facts about the company** (Step 2). You never read the Job analysis or the Company research themselves. |
+| The Letter context | `<id>_letter-context.md`: the parts of the Job analysis and the Company research you need, built by code (terms in `CONTEXT.md`). **From the Job analysis**: the candidate's strengths, the Letter coaching (the strengths to amplify, each weakness framed positively with "mention / don't mention", and the tone) and what the CV under-sells. It coaches: the candidate has decided to apply, and the letter's job is to get the interview. **Company facts**: with the Date researched, or "None". **The only source, with the Job ad, of facts about the company** (Step 2). You never read the Job analysis or the Company research themselves. |
 | `input/parsed-documents/cv.md` | The Parsed CV: what a recruiter sees of the candidate besides the letter. Read the letter as someone who has it in front of them. |
 | The Evidence bank | `<id>_evidence-bank.md`: the facts from the Personal knowledge base that this Job ad can use, each naming its source file, with conflicts already settled (terms in `CONTEXT.md`). **With the Parsed CV, `config.yml` and the Personal motivation, the only source of facts about the candidate:** the claim check and every suggestion about the candidate rest on them. Its Sources section is for the Assistant; ignore it. You never read the other files of the Personal knowledge base. |
 | The Application's Personal motivation | Only when the candidate gave one for this Application. The Assistant passes its text in the prompt, marked as the Application's Personal motivation. Part of the Personal knowledge base: a motive claim it states is supported. You never read the tracker. |
@@ -43,10 +43,10 @@ Use `###` headings and nothing larger (the plan goes inside the review log). In 
    - **Relevance line:** why this proof matters for this role, which the paragraph must make.
 4. **Hook:** the identity line and the two or three strengths it leads with.
 5. **Motive:** the specific reason and its source (the Personal motivation, a bank motivation item, a usable company fact or the Job ad), or "focus on the role" when no source gives one. Mark a company fact the Letter context tags "older than 6 months" or "undated".
-6. **Gap:** the gap to address and the closest evidence, quoted; or "none".
+6. **Gap:** from the Letter coaching, the gap that matters most for this ad, the closest evidence (quoted), its positive framing (the capability the evidence shows, in the ad's terms, inside the evidence), and mention / don't mention. "Mention" only when a screener will certainly notice it, and then after the evidence, in a short clause, never as a Deficit opening. Or "none".
 7. **Logistics line:** only when the Job ad states a requirement and `config.yml` answers it; otherwise "none".
 8. **Language, salutation and sign-off:** the Job ad's language if `config.yml` lists it at C1 or native, otherwise English; the salutation and sign-off the Cover letter guidelines give for that language.
-9. **Paragraph map:** each paragraph's job and its word budget, totalling 250 to 300 words, so later fixes fit under the 350-word cap.
+9. **Paragraph map:** each paragraph's one job (two unrelated stories are two paragraphs, or one is cut), how its opening links to the paragraph before or to the core problem, and its word budget, totalling 250 to 300 words, so later fixes fit under the 350-word cap.
 10. **Avoid in this letter:** the claims, phrasings or angles that would be unsupported or weak for this ad (e.g. "do not say AI change across teams: the bank shows one team").
 
 The plan follows this Job ad, not a template: two letters should not share a paragraph map by default. Write no letter sentences in it beyond the claim wording and the relevance lines; the Applicant writes the letter. The plan has no Questions for the candidate: the Assistant asked about the gaps before the plan, and the Reviews ask the rest.
@@ -67,17 +67,21 @@ Check **every claim** the draft makes about the candidate (employers, titles, da
 
 Then check **every claim about the company** (its product, a release, its funding, its culture) against the Job ad and the usable company facts. **Usable company facts** are the facts under the Letter context's Company facts; the code that builds it has already left out the red flags, the employee reviews, the Role impact and every fact known only from a search snippet. A company claim is unsupported when neither the Job ad nor a usable company fact states it, when it adds numbers, dates or judgments the source doesn't have, or when it calls something "recent", "new" or "latest" that the Letter context tags "older than 6 months" or "undated". List each one too.
 
+A positive framing is a claim too: when the capability a sentence claims rests on a fact, number or result none of these sources holds (e.g. "so other engineers shipped twice as fast" with no such number in the bank), it is unsupported, however well it reads. Your own replacement text obeys the same rule.
+
 **Any unsupported claim, about the candidate or the company, caps the Review score at 59.** Each one goes under **Remove**, with the passage quoted.
+
+Then check for **Echoes** and **Deficit openings** (terms in `CONTEXT.md`). Run `uv run python -m ieakaso.cover_letter echoes <id> <round>` with the Application ID and the Round of the draft you review. It lists the sentences that share most of their content words with one Job ad sentence: smells for you to judge. Judge each one against the Job ad: an Echo hands an ad sentence back as the candidate's own thought; a short phrase marked as the ad's, used once to set up evidence, is not one. Read the rest of the draft for Echoes the command missed. Then read the opening of every sentence and paragraph for a Deficit opening, and check that any gap the letter names is one the Letter plan says to mention, after the evidence. Each Echo and Deficit opening you confirm is a **Rewrite** item, with replacement text that answers the need with evidence, or leads with the closest evidence framed as the Letter coaching frames it.
 
 ### Step 3: Score the dimensions
 
 Score each dimension from 0 to 100, with one or two lines of reasons. Judge each one against its part of the Cover letter guidelines, the Letter plan and the guidelines' **Final check**:
 
 - **Fit**: the ad's top needs (its "what you'll do" tasks more than its requirements list) are the ones the letter answers, with the emphasis for the role function.
-- **Evidence**: each point is a situation, what the candidate did, the result, **and why it is relevant to this role**. Adjectives are not evidence.
+- **Evidence**: each point is a situation, what the candidate did, the result, **and why it is relevant to this role**. Adjectives are not evidence. Strengths first: no Deficit opening.
 - **Motivation**: real or nothing. A specific, true reason tied to a motive the Evidence bank or the Personal motivation states, or a focus on the role itself; never empty praise.
-- **Structure**: hook, book, took; the most important information in the first paragraph; paragraphs, not bullets.
-- **Concision and tone**: the 200–300-word target (between 300 and 350, every paragraph must earn its place), the candidate's voice, no AI tells, the ad's own terms and register.
+- **Structure**: hook, book, took; the most important information in the first paragraph; paragraphs, not bullets; one job per paragraph, each body paragraph's opening linked to the one before or to the core problem.
+- **Concision and tone**: the 200–300-word target (between 300 and 350, every paragraph must earn its place), the candidate's voice, no AI tells, the ad's own terms and register, never its sentences (no Echo).
 
 | Dimension | Weight |
 |---|---|
@@ -95,6 +99,8 @@ Apply these caps after the weighted sum, and name each one that applies:
 
 - Any unsupported claim: at most 59.
 - A body over 350 words: at most 89, and a "cut" item under **Rewrite**. A letter over 350 words cannot score 90 or more.
+- A confirmed Echo: at most 89. The command's list alone never caps: only an Echo you confirm.
+- A confirmed Deficit opening: at most 89.
 
 Round to a whole number. That is the **Review score**. Be honest: do not inflate it so the process ends.
 
@@ -155,7 +161,7 @@ Write the Review to the Round file at the path the Assistant gives you (`output/
 | Concision and tone | [X] | 15% | [X × 0.15] |
 | **Weighted** | | | **[X]** |
 
-[Caps applied: "unsupported claim (59)", "body over 350 words (89)", or "none"]
+[Caps applied: "unsupported claim (59)", "body over 350 words (89)", "Echo (89)", "Deficit opening (89)", or "none"]
 
 **Body length:** [N] words
 
