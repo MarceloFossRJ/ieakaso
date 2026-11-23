@@ -157,7 +157,7 @@ Pick the 3-5 strongest points of this candidate for this ad, and the 3-5 weakest
 Everything above is for the candidate, and stays candid. **Letter coaching** is the one section written for the cover-letter agents instead (terms in `CONTEXT.md`; decision in `docs/adr/0014-letter-context-carries-coaching.md`): they read it, never the Weaknesses, Screener risks or Gaps to close. Write it as a coach for a candidate who has decided to apply, whatever the Verdict, so the letter can get the interview:
 
 - **Strengths to amplify:** the strengths the letter should lead with, strongest for this ad first, each with the evidence to lead with and its source file.
-- **Weaknesses, framed positively:** for each weakness a reader would weigh, the closest evidence, the capability it shows in the ad's terms (e.g. MLOps pipelines that other engineers ship models through, as internal platform work), and **mention** or **don't mention**. Mention only what a screener will certainly notice, and never as a statement of what the candidate lacks. Frame only with facts the files state: a framing that needs a fact, number or result no file holds is not allowed, so leave that weakness at "don't mention". A weakness with no evidence close to it is "don't mention".
+- **Weaknesses, framed positively:** for each weakness a reader would weigh, the closest evidence, the capability it shows in the ad's terms (e.g. a deployment pipeline that other teams release through, as internal platform work), and **mention** or **don't mention**. Mention only what a screener will certainly notice, and never as a statement of what the candidate lacks. Frame only with facts the files state: a framing that needs a fact, number or result no file holds is not allowed, so leave that weakness at "don't mention". A weakness with no evidence close to it is "don't mention".
 - **Tone:** confident and specific; never hint at the Verdict or the score.
 
 ---
@@ -256,7 +256,7 @@ Where another file disagrees with `cv.md`. The CV's version counts; fix the othe
 
 ## Gaps to close
 
-1. [Gap] — [how to address it honestly: cover letter line, interview answer, or accept it]
+1. [Gap] — [how to address it honestly: an interview answer, a CV change, or accept it. How the letter frames it goes in Letter coaching]
 
 ## Letter coaching
 

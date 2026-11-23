@@ -35,7 +35,7 @@ Three moves, in this order, one short paragraph each:
 ### Speak their dialect
 
 - Use the ad's own terms for tools, methods and outcomes ("CRM", not "customer database"; their name for the role, the team, the product). This is clarity, and it also helps any screening software.
-- **Their terms, never their sentences.** An **Echo** is a sentence that hands an ad sentence back as the candidate's own thought, its idea and its shape, whatever the wording: the ad's "The team is growing, and you will shape both what it builds and how it works" returned as "Your team is growing, and its lead will shape both what it builds and how it works". It tells the reader nothing they didn't write themselves. The ad's sentences are needs to answer with evidence, never content to restate.
+- **Their terms, never their sentences.** An **Echo** is a sentence that hands an ad sentence back as the candidate's own thought, its idea and its shape, whatever the wording: the ad's "The platform is expanding, and you will decide both what it ships and how it runs" returned as "Your platform is expanding, and its lead will decide both what it ships and how it runs". It tells the reader nothing they didn't write themselves. The ad's sentences are needs to answer with evidence, never content to restate.
 - For emphasis, one short phrase may be quoted as the ad's ("your ad asks for …"), once, to set up the evidence that answers it.
 - Mirror the ad's register: a startup ad written in "you" and first names gets a warmer letter than a corporate ad.
 
@@ -61,10 +61,10 @@ Work out the role function from the Job ad, then stress what readers of that fun
 
 ### Strengths first, never a Deficit opening
 
-The candidate has decided to apply, and the letter exists to get the interview. A **Deficit opening** (a sentence or paragraph that opens with what the candidate has not done: "Internal customers were never our main focus…", "Fintech would be a new domain for me…") tells the reader the candidate is not a full fit before saying what they have done.
+The candidate has decided to apply, and the letter exists to get the interview. A **Deficit opening** (a sentence or paragraph that opens with what the candidate has not done: "Enterprise clients were never our main market…", "Logistics would be a new domain for me…") tells the reader the candidate is not a full fit before saying what they have done.
 
 - Mention a missing requirement only when the Letter plan says to, and at most once in the letter.
-- Lead with the closest evidence, framed as the capability the ad asks for: MLOps pipelines that other engineers ship models through are internal platform work, whoever the customer was. If the lack still needs saying, it follows in a short clause, without an apology.
+- Lead with the closest evidence, framed as the capability the ad asks for: a deployment pipeline that five other teams release through is internal platform work, even if no one called it a platform. If the lack still needs saying, it follows in a short clause, stated plainly and never as an excuse.
 - Never open a sentence or a paragraph with the lack.
 - The framing stays inside the evidence. A positive framing that needs a fact, number or result the sources don't hold is an unsupported claim; then leave the gap unmentioned.
 - Show understanding of the job. A letter that shows the candidate understands the work can outweigh a missing year of experience.
@@ -123,9 +123,9 @@ Each of these marks a letter as generic. The Recruiter flags them; the Applicant
 | AI-flavoured filler | "passion for innovation and excellence", "valuable addition to your team", "drive continued success" | Plain words the candidate would say aloud |
 | AI tells | "delve", "pivotal", "underscore", "not just X, but Y", "strategy, execution and people", bold in the body | Plain sentences; one example instead of three |
 | Bullet list in the body | "I've previously:" followed by bullets | The same evidence in one or two sentences |
-| Echo | "Your team is growing, and its lead will shape both what it builds and how it works." (the ad's sentence, pronouns swapped) | Answer the need with evidence, in the candidate's own sentence |
-| Deficit opening | "Fintech would be a new domain for me, but…" | The closest evidence first, framed as the capability the ad asks for |
-| Disconnected paragraphs | A paragraph on growing an engineer, then a hiring count, then a GDPR crisis story | One job per paragraph, each opening linked to the one before |
+| Echo | "Your platform is expanding, and its lead will decide both what it ships and how it runs." (the ad's sentence, pronouns swapped) | Answer the need with evidence, in the candidate's own sentence |
+| Deficit opening | "Logistics would be a new domain for me, but…" | The closest evidence first, framed as the capability the ad asks for |
+| Disconnected paragraphs | A paragraph on mentoring a junior engineer, then a hiring count, then an outage story | One job per paragraph, each opening linked to the one before |
 
 ### The generic letter, whole
 

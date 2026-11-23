@@ -157,7 +157,7 @@ The parts of one Application's Job analysis and Company research that the Applic
 _Avoid_: brief, summary, digest, Company facts
 
 **Letter coaching**:
-The Job analysis section written for the Applicant Agent and the Seasoned Recruiter: the strengths to amplify, and each weakness framed positively, inside the Evidence bank's facts. It is where the letter's strategy lives, which the Evidence bank leaves out. Unlike the rest of the Job analysis, it coaches and never judges the candidate's chances: that is the Verdict's job.
+The Job analysis section written for the Applicant Agent and the Seasoned Recruiter: the strengths to amplify, and each weakness framed positively, inside the Evidence bank's facts. It holds what to stress, which the Evidence bank leaves out. Unlike the rest of the Job analysis, it coaches and never judges the candidate's chances: that is the Verdict's job.
 _Avoid_: advice, gap handling, letter strategy
 
 **Conflict report**:
