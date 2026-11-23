@@ -37,6 +37,7 @@ from ieakaso.repo import find_root
 def main(
     argv: list[str] | None = None,
     today: date | None = None,
+    cwd: Path | None = None,
     out: TextIO | None = None,
     err: TextIO | None = None,
 ) -> int:
@@ -65,7 +66,8 @@ def main(
     echoes.add_argument("round", type=int, help="the Round whose draft to check")
     args = parser.parse_args(argv)
 
-    root = (args.root or find_root(Path.cwd()) or Path.cwd()).resolve()
+    cwd = cwd or Path.cwd()
+    root = (cwd / args.root if args.root else find_root(cwd) or cwd).resolve()
     if args.command == "echoes":
         return _echoes(root, args.id, args.round, out, err)
     today = today or date.today()  # noqa: DTZ011 - the candidate's local day

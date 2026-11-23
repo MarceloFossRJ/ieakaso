@@ -146,3 +146,32 @@ def test_a_missing_application_folder_exits_3(root: Path):
 
     assert code == 3
     assert "no Application folder" in err
+
+
+def test_a_relative_root_resolves_against_the_current_folder(root: Path):
+    write_draft(root, "I build teams.")
+    out, err = io.StringIO(), io.StringIO()
+
+    code = cli.main(["--root", "repo", "echoes", ID, "1"], cwd=root.parent, out=out, err=err)
+
+    assert (code, out.getvalue()) == (0, "no possible Echoes in round 1\n")
+
+
+def test_without_a_root_it_finds_the_repo_from_the_current_folder(root: Path):
+    (root / "ai" / "skills" / "ieakaso").mkdir(parents=True)
+    (root / "pyproject.toml").write_text('[project]\nname = "ieakaso"\n')
+    write_draft(root, "I build teams.")
+    out, err = io.StringIO(), io.StringIO()
+
+    code = cli.main(["echoes", ID, "1"], cwd=root / "output", out=out, err=err)
+
+    assert (code, out.getvalue(), err.getvalue()) == (0, "no possible Echoes in round 1\n", "")
+
+
+def test_inflected_forms_of_the_ads_words_still_match(root: Path):
+    write_ad(root, AD + "You will shape strategy, decide priorities, manage stakeholders and drive delivery.\n")
+    write_draft(root, "Shaping strategy, deciding priorities, managing stakeholders and driving delivery is my job.")
+
+    _, out, _ = run(root, ID, "1")
+
+    assert "ad: You will shape strategy, decide priorities, manage stakeholders and drive delivery.\n" in out

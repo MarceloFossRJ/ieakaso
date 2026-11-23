@@ -1,7 +1,7 @@
 """Possible Echoes: the sentences of a Round's draft that share most of their content words with one Job ad sentence.
 
 A smell, not a verdict: the Applicant Agent and the Seasoned Recruiter judge each hit (`CONTEXT.md`, Echo). Words are
-compared lowercased, without stopwords, after stripping a few English suffixes, so "growing" meets "grow".
+compared lowercased, without stopwords, as light English stems, so "growing" meets "grow" and "shaping" meets "shape".
 """
 
 import re
@@ -26,7 +26,10 @@ STOPWORDS = frozenset(
     to too under until up very was we were what when where which while who whom why will with would you your yours
     us let lets""".split()  # noqa: SIM905 - a word list reads better as text
 )
-SUFFIXES = ("ing", "ed", "es", "ly", "s")
+# Longest first. "-ies" and "-ied" become "-y" (priorities, priority); the rest are cut.
+SUFFIXES = ("ingly", "edly", "ings", "ing", "ies", "ied", "es", "ed", "ly", "s")
+# A stem shorter than this is left whole: "uses" stays a word, not "us".
+MIN_STEM = 3
 SENTENCE = re.compile(r"(?<=[.!?])\s+|(?<=[.!?][\"”’)])\s+|\n+")
 # An ad's lists are often one line joined with semicolons; each item is a sentence of its own.
 AD_SENTENCE = re.compile(SENTENCE.pattern + r"|;\s+")
@@ -45,10 +48,19 @@ class Echo:
 
 
 def _stem(word: str) -> str:
+    """A light English stem: the suffix cut, then a final silent "e" dropped and a doubled final consonant undoubled,
+    so a word's forms meet ("shape", "shaping"; "plan", "planned"; "decide", "deciding")."""
     word = word.removesuffix("'s")
     for suffix in SUFFIXES:
-        if word.endswith(suffix) and len(word) - len(suffix) >= 3:
-            return word[: -len(suffix)]
+        if suffix == "s" and word.endswith(("ss", "us", "is")):
+            continue  # process, status, analysis: no plural to cut
+        if word.endswith(suffix) and len(word) - len(suffix) >= MIN_STEM:
+            word = word[: -len(suffix)] + ("y" if suffix in ("ies", "ied") else "")
+            break
+    if word.endswith("e") and len(word) > MIN_STEM:
+        word = word[:-1]
+    if len(word) > MIN_STEM and word[-1] == word[-2] and word[-1] not in "aeiouls":
+        word = word[:-1]
     return word
 
 
