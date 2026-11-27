@@ -1,6 +1,7 @@
 """The viewer's main screen: the table of Applications, and every write to the db."""
 
 from collections.abc import Callable
+from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 from typing import ClassVar
@@ -14,6 +15,7 @@ from textual.widgets import DataTable, Footer, Header, Static
 from ieakaso.tracker import (
     CLOSED_STATUSES,
     DB_PATH,
+    STATUS_LIFECYCLE,
     ConflictError,
     Db,
     InvalidRecordError,
@@ -37,7 +39,6 @@ STATUS_STYLES = {
     "not_selected": "red",
 }
 VERDICT_STYLES = {"Top applicant": "bold green", "Apply": "green", "Stretch": "yellow", "Don't apply": "red"}
-COLUMNS = ("Company", "Position", "Status", "Stage", "Verdict / score", "Location", "Analysed", "Applied", "CV")
 DOCUMENTS = {  # key -> (what the candidate sees, where the path is in the record)
     "ad": ("Job ad", lambda record: record["source"]["job_ad"]),
     "analysis": ("Job analysis", lambda record: record["analysis"]["doc"]),
@@ -45,14 +46,70 @@ DOCUMENTS = {  # key -> (what the candidate sees, where the path is in the recor
     "research": ("Company research", lambda record: record["company_research"]),
     "screening": ("Screening prep", lambda record: record["screening_prep"]),
 }
-FIRST_DESCENDING = {"Verdict / score", "Analysed", "Applied"}  # best score and newest date first
-LIFECYCLE = ("lead", "applied", "no_answer", "interviewing", "offer", "not_selected", "desisted")
 UNSORTED, ASCENDING, DESCENDING = "↕", "▲", "▼"
 NO_FILE_HINT = "No Applications yet. Run `/ieakaso job-analyzer <job ad>` in your coding assistant to track one."
 
 
 def location_label(record: dict) -> str:
     return ", ".join(part for part in (record["location"]["city"], record["location"]["country"]) if part)
+
+
+def stage_label(record: dict) -> str:
+    stages = record["stages"]
+    stage = f"{record['stage']}/{len(stages)}" if stages else "-"
+    if 0 < record["stage"] <= len(stages):
+        stage += f" {stages[record['stage'] - 1]['name']}"
+    return stage
+
+
+@dataclass(frozen=True)
+class Column:
+    """One column of the table: its header, what its cell shows, and how it sorts.
+
+    `sort_key` returns None for an empty value, which always sorts last. `starts_descending` is the
+    direction of the first sort: best score and newest date first.
+    """
+
+    name: str
+    cell: Callable[[ViewerApp, dict], Text | str]
+    sort_key: Callable[[ViewerApp, dict], object]
+    starts_descending: bool = False
+
+
+@dataclass(frozen=True)
+class Sort:
+    column: int
+    descending: bool
+
+
+COLUMNS = (
+    Column("Company", lambda app, r: r["company"], lambda app, r: r["company"].casefold()),
+    Column("Position", lambda app, r: r["position"], lambda app, r: r["position"].casefold()),
+    Column(
+        "Status",
+        lambda app, r: Text(label(r["status"]), style=STATUS_STYLES[r["status"]]),
+        lambda app, r: STATUS_LIFECYCLE.index(r["status"]),
+    ),
+    Column("Stage", lambda app, r: stage_label(r), lambda app, r: r["stage"] if r["stages"] else None),
+    Column(
+        "Verdict / score",
+        lambda app, r: Text(
+            f"{r['analysis']['verdict']} {r['analysis']['score']}", style=VERDICT_STYLES[r["analysis"]["verdict"]]
+        ),
+        lambda app, r: r["analysis"]["score"],
+        starts_descending=True,
+    ),
+    Column("Location", lambda app, r: location_label(r), lambda app, r: location_label(r).casefold() or None),
+    Column("Analysed", lambda app, r: r["analysis"]["on"], lambda app, r: r["analysis"]["on"], starts_descending=True),
+    Column(
+        "Applied", lambda app, r: r["applied_on"] or "", lambda app, r: r["applied_on"] or None, starts_descending=True
+    ),
+    Column(
+        "CV",
+        lambda app, r: app.cv_label(r["cv_version"]),
+        lambda app, r: app.cv_label(r["cv_version"]).casefold() or None,
+    ),
+)
 
 
 class ViewerApp(App):
@@ -89,8 +146,7 @@ class ViewerApp(App):
         self.opener = opener or (lambda path: None)
         self.poll_interval = poll_interval
         self.hide_closed = False
-        self.sort_column: int | None = None
-        self.sort_descending = False
+        self.sort: Sort | None = None  # None: newest created first
         self.tracker_db: Db = Db(root / DB_PATH)
 
     def compose(self) -> ComposeResult:
@@ -128,32 +184,20 @@ class ViewerApp(App):
         records = sorted(self.tracker_db.records, key=lambda r: (r["created_at"], r["id"]), reverse=True)
         if self.hide_closed:
             records = [r for r in records if r["status"] not in CLOSED_STATUSES]
-        if self.sort_column is None:
+        if self.sort is None:
             return records
-        sort_key = self.sort_keys()[self.sort_column]
-        present = [r for r in records if sort_key(r) is not None]
-        empty = [r for r in records if sort_key(r) is None]
-        return sorted(present, key=sort_key, reverse=self.sort_descending) + empty
-
-    def sort_keys(self) -> list[Callable[[dict], object]]:
-        """What each column sorts by, in COLUMNS order; None is an empty value, always last."""
-        return [
-            lambda r: r["company"].casefold(),
-            lambda r: r["position"].casefold(),
-            lambda r: LIFECYCLE.index(r["status"]),
-            lambda r: r["stage"] if r["stages"] else None,
-            lambda r: r["analysis"]["score"],
-            lambda r: location_label(r).casefold() or None,
-            lambda r: r["analysis"]["on"],
-            lambda r: r["applied_on"] or None,
-            lambda r: self.cv_label(r["cv_version"]).casefold() or None,
-        ]
+        keys = {r["id"]: COLUMNS[self.sort.column].sort_key(self, r) for r in records}
+        present = [r for r in records if keys[r["id"]] is not None]
+        empty = [r for r in records if keys[r["id"]] is None]
+        return sorted(present, key=lambda r: keys[r["id"]], reverse=self.sort.descending) + empty
 
     def header_labels(self) -> list[str]:
-        icons = [UNSORTED] * len(COLUMNS)
-        if self.sort_column is not None:
-            icons[self.sort_column] = DESCENDING if self.sort_descending else ASCENDING
-        return [f"{name} {icon}" for name, icon in zip(COLUMNS, icons, strict=True)]
+        def icon(index: int) -> str:
+            if self.sort is None or self.sort.column != index:
+                return UNSORTED
+            return DESCENDING if self.sort.descending else ASCENDING
+
+        return [f"{column.name} {icon(index)}" for index, column in enumerate(COLUMNS)]
 
     def refresh_table(self) -> None:
         selected = self.selected_id()
@@ -162,27 +206,10 @@ class ViewerApp(App):
             column.label = Text(header)
         records = self.visible_records()
         for record in records:
-            self.table.add_row(*self._cells(record), key=record["id"])
+            self.table.add_row(*(column.cell(self, record) for column in COLUMNS), key=record["id"])
         if selected in {r["id"] for r in records}:
             self.table.move_cursor(row=self.table.get_row_index(selected))
         self._set_hint(bool(records))
-
-    def _cells(self, record: dict) -> list[Text | str]:
-        stages, analysis = record["stages"], record["analysis"]
-        stage = f"{record['stage']}/{len(stages)}" if stages else "-"
-        if 0 < record["stage"] <= len(stages):
-            stage += f" {stages[record['stage'] - 1]['name']}"
-        return [
-            record["company"],
-            record["position"],
-            Text(label(record["status"]), style=STATUS_STYLES[record["status"]]),
-            stage,
-            Text(f"{analysis['verdict']} {analysis['score']}", style=VERDICT_STYLES[analysis["verdict"]]),
-            location_label(record),
-            analysis["on"],
-            record["applied_on"] or "",
-            self.cv_label(record["cv_version"]),
-        ]
 
     def cv_label(self, version_id: str | None) -> str:
         """The label of a CV version, or nothing for an Application without one."""
@@ -256,35 +283,33 @@ class ViewerApp(App):
     def _open_detail(self, event: DataTable.RowSelected) -> None:
         self.push_screen(DetailScreen(event.row_key.value))
 
-    def sort_by(self, index: int | None, descending: bool | None = None) -> None:
-        """Sort by a column (in its first direction unless told otherwise), or None for newest first."""
-        self.sort_column = index
-        if index is not None:
-            self.sort_descending = COLUMNS[index] in FIRST_DESCENDING if descending is None else descending
+    def sort_by(self, sort: Sort | None) -> None:
+        self.sort = sort
         self.refresh_table()
+
+    def first_sort(self, index: int) -> Sort:
+        """A column sorted in its first direction."""
+        return Sort(index, COLUMNS[index].starts_descending)
 
     @on(DataTable.HeaderSelected)
     def _sort_by_header(self, event: DataTable.HeaderSelected) -> None:
         """A header click goes through its column's first direction, the other one, and back to newest first."""
-        index = event.column_index
-        first = COLUMNS[index] in FIRST_DESCENDING
-        if self.sort_column != index:
-            self.sort_by(index)
-        elif self.sort_descending == first:
-            self.sort_by(index, descending=not first)
+        first = self.first_sort(event.column_index)
+        if self.sort is None or self.sort.column != first.column:
+            self.sort_by(first)
+        elif self.sort == first:
+            self.sort_by(Sort(first.column, not first.descending))
         else:
             self.sort_by(None)
 
     def action_sort_next(self) -> None:
         """Sort by the next column to the right; after the last one, back to newest first."""
-        if self.sort_column is None:
-            self.sort_by(0)
-        else:
-            self.sort_by(self.sort_column + 1 if self.sort_column + 1 < len(COLUMNS) else None)
+        following = 0 if self.sort is None else self.sort.column + 1
+        self.sort_by(self.first_sort(following) if following < len(COLUMNS) else None)
 
     def action_flip_sort(self) -> None:
-        if self.sort_column is not None:
-            self.sort_by(self.sort_column, descending=not self.sort_descending)
+        if self.sort is not None:
+            self.sort_by(Sort(self.sort.column, not self.sort.descending))
 
     def action_cv_versions(self) -> None:
         if len(self.screen_stack) == 1 and not self.tracker_db.error:

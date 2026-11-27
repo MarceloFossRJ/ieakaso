@@ -6,12 +6,16 @@ from pathlib import Path
 import pytest
 from tracker_fakes import ID, cv_version, lead, record
 
-from ieakaso.tracker import STATUSES, InvalidRecordError, load, problems, validate
+from ieakaso.tracker import STATUS_LIFECYCLE, STATUSES, InvalidRecordError, load, problems, validate
 
 REPO = Path(__file__).resolve().parents[1]
 EXAMPLE_MOTIVATION = (
     "I have run payment systems for years and want to build them for a company whose product is the payment itself."
 )
+
+
+def test_the_status_lifecycle_lists_every_status_once():
+    assert sorted(STATUS_LIFECYCLE) == sorted(STATUSES)
 
 
 def test_the_example_record_and_the_lead_record_are_valid():
