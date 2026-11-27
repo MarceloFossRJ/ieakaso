@@ -78,8 +78,13 @@ class Column:
 
 @dataclass(frozen=True)
 class Sort:
-    column: int
+    column: int  # an index into COLUMNS
     descending: bool
+
+    @classmethod
+    def first(cls, column: int) -> Sort:
+        """A column sorted in its first direction."""
+        return cls(column, COLUMNS[column].starts_descending)
 
 
 COLUMNS = (
@@ -287,14 +292,10 @@ class ViewerApp(App):
         self.sort = sort
         self.refresh_table()
 
-    def first_sort(self, index: int) -> Sort:
-        """A column sorted in its first direction."""
-        return Sort(index, COLUMNS[index].starts_descending)
-
     @on(DataTable.HeaderSelected)
     def _sort_by_header(self, event: DataTable.HeaderSelected) -> None:
         """A header click goes through its column's first direction, the other one, and back to newest first."""
-        first = self.first_sort(event.column_index)
+        first = Sort.first(event.column_index)
         if self.sort is None or self.sort.column != first.column:
             self.sort_by(first)
         elif self.sort == first:
@@ -305,7 +306,7 @@ class ViewerApp(App):
     def action_sort_next(self) -> None:
         """Sort by the next column to the right; after the last one, back to newest first."""
         following = 0 if self.sort is None else self.sort.column + 1
-        self.sort_by(self.first_sort(following) if following < len(COLUMNS) else None)
+        self.sort_by(Sort.first(following) if following < len(COLUMNS) else None)
 
     def action_flip_sort(self) -> None:
         if self.sort is not None:
