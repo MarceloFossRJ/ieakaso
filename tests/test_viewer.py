@@ -7,8 +7,9 @@ import pytest
 from textual.widgets import Button, DataTable, Input, Select, SelectionList, Static
 from tracker_fakes import ID, TODAY, cv_version, lead, record, write_db
 
-from ieakaso.tracker import DB_PATH
+from ieakaso.tracker import DB_PATH, STATUSES
 from ieakaso.viewer import ViewerApp
+from ieakaso.viewer.app import LIFECYCLE
 from ieakaso.viewer.screens import CvVersionsScreen, DetailScreen, NoAnswerScreen
 
 SIZE = (200, 60)
@@ -136,6 +137,300 @@ async def test_a_file_that_appears_is_picked_up(root: Path):
         write_db(db_file(root), lead())
         await pilot.pause(0.3)
         assert ids(pilot.app) == [ID]
+
+
+# sorting
+
+
+def headers(app: ViewerApp) -> list[str]:
+    return [str(column.label) for column in app.query_one(DataTable).ordered_columns]
+
+
+async def test_every_header_shows_it_can_be_sorted(root: Path):
+    two_records(root)
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        assert headers(pilot.app) == [
+            "Company ↕",
+            "Position ↕",
+            "Status ↕",
+            "Stage ↕",
+            "Verdict / score ↕",
+            "Location ↕",
+            "Analysed ↕",
+            "Applied ↕",
+            "CV ↕",
+        ]
+
+
+async def click_header(pilot, name: str) -> None:
+    table = pilot.app.query_one(DataTable)
+    columns = table.ordered_columns
+    index = [str(c.label).rsplit(" ", 1)[0] for c in columns].index(name)
+    x = sum(c.get_render_width(table) for c in columns[:index]) + 1
+    await pilot.click(DataTable, offset=(x, 0))
+    await pilot.pause()
+
+
+def three_companies(root: Path):
+    write_db(
+        db_file(root),
+        lead(id="b", company="beta", created_at="2026-10-01"),
+        lead(id="a", company="Alpha", created_at="2026-10-02"),
+        lead(id="g", company="Gamma", created_at="2026-10-03"),
+    )
+
+
+async def test_clicking_a_header_cycles_its_sort_and_back_to_newest_first(root: Path):
+    three_companies(root)
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        assert ids(pilot.app) == ["g", "a", "b"]
+
+        await click_header(pilot, "Company")
+        assert ids(pilot.app) == ["a", "b", "g"]
+        assert headers(pilot.app)[:2] == ["Company ▲", "Position ↕"]
+
+        await click_header(pilot, "Company")
+        assert ids(pilot.app) == ["g", "b", "a"]
+        assert headers(pilot.app)[0] == "Company ▼"
+
+        await click_header(pilot, "Company")
+        assert ids(pilot.app) == ["g", "a", "b"]
+        assert headers(pilot.app)[0] == "Company ↕"
+
+
+async def test_status_sorts_in_lifecycle_order_from_lead(root: Path):
+    write_db(
+        db_file(root),
+        record(id="o", created_at="2026-10-01", status="offer"),
+        lead(id="l", created_at="2026-10-02"),
+        lead(id="d", created_at="2026-10-03", status="desisted"),
+        record(id="n", created_at="2026-10-04", status="no_answer"),
+        record(id="s", created_at="2026-10-05", status="not_selected"),
+        record(id="a", created_at="2026-10-06"),
+        record(id="i", created_at="2026-10-07", status="interviewing"),
+    )
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await click_header(pilot, "Status")
+        assert ids(pilot.app) == ["l", "a", "n", "i", "o", "s", "d"]
+        assert headers(pilot.app)[2] == "Status ▲"
+
+
+def analysis(score: int, verdict: str, on: str = "2026-10-01") -> dict:
+    return {"on": on, "doc": "output/x.md", "score": score, "verdict": verdict}
+
+
+async def test_the_score_sorts_highest_first(root: Path):
+    write_db(
+        db_file(root),
+        lead(id="mid", created_at="2026-10-01", analysis=analysis(84, "Apply")),
+        lead(id="top", created_at="2026-10-02", analysis=analysis(92, "Top applicant")),
+        lead(id="low", created_at="2026-10-03", analysis=analysis(70, "Stretch")),
+    )
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await click_header(pilot, "Verdict / score")
+        assert ids(pilot.app) == ["top", "mid", "low"]
+        assert headers(pilot.app)[4] == "Verdict / score ▼"
+        await click_header(pilot, "Verdict / score")
+        assert ids(pilot.app) == ["low", "mid", "top"]
+        assert headers(pilot.app)[4] == "Verdict / score ▲"
+        await click_header(pilot, "Verdict / score")
+        assert ids(pilot.app) == ["low", "top", "mid"]
+        assert headers(pilot.app)[4] == "Verdict / score ↕"
+
+
+async def test_dates_sort_newest_first_and_empty_ones_stay_last(root: Path):
+    write_db(
+        db_file(root),
+        lead(id="none", created_at="2026-10-04"),
+        record(id="early", created_at="2026-10-01", applied_on="2026-10-02"),
+        record(id="late", created_at="2026-10-02", applied_on="2026-10-09"),
+    )
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await click_header(pilot, "Applied")
+        assert ids(pilot.app) == ["late", "early", "none"]
+        await click_header(pilot, "Applied")
+        assert ids(pilot.app) == ["early", "late", "none"]
+
+
+async def test_the_analysis_date_sorts_newest_first(root: Path):
+    write_db(
+        db_file(root),
+        lead(id="mid", created_at="2026-10-03", analysis=analysis(84, "Apply", on="2026-10-05")),
+        lead(id="new", created_at="2026-10-01", analysis=analysis(84, "Apply", on="2026-10-09")),
+        lead(id="old", created_at="2026-10-02", analysis=analysis(84, "Apply", on="2026-10-01")),
+    )
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await click_header(pilot, "Analysed")
+        assert ids(pilot.app) == ["new", "mid", "old"]
+        assert headers(pilot.app)[6] == "Analysed ▼"
+        await click_header(pilot, "Analysed")
+        assert ids(pilot.app) == ["old", "mid", "new"]
+
+
+async def test_ties_keep_newest_created_first_in_both_directions(root: Path):
+    write_db(
+        db_file(root),
+        lead(id="same_old", company="Same", created_at="2026-10-01"),
+        lead(id="other", company="Other", created_at="2026-10-02"),
+        lead(id="same_new", company="Same", created_at="2026-10-03"),
+    )
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await click_header(pilot, "Company")
+        assert ids(pilot.app) == ["other", "same_new", "same_old"]
+        await click_header(pilot, "Company")
+        assert ids(pilot.app) == ["same_new", "same_old", "other"]
+
+
+async def test_the_stage_sorts_by_number_and_no_stages_stay_last(root: Path):
+    write_db(
+        db_file(root),
+        record(id="second", created_at="2026-10-01", stage=2),
+        lead(id="none", created_at="2026-10-02"),
+        record(id="first", created_at="2026-10-03", stage=1),
+    )
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await click_header(pilot, "Stage")
+        assert ids(pilot.app) == ["first", "second", "none"]
+        await click_header(pilot, "Stage")
+        assert ids(pilot.app) == ["second", "first", "none"]
+
+
+async def test_the_cv_sorts_by_label_and_no_version_stays_last(root: Path):
+    with_versions(
+        root,
+        record(id="en_334", created_at="2026-10-01", cv_version=NEWER),
+        lead(id="none", created_at="2026-10-02"),
+        record(id="en_333", created_at="2026-10-03", cv_version=MAIN),
+    )
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await click_header(pilot, "CV")
+        assert ids(pilot.app) == ["en_333", "en_334", "none"]
+        await click_header(pilot, "CV")
+        assert ids(pilot.app) == ["en_334", "en_333", "none"]
+
+
+async def test_o_steps_the_sort_through_the_columns_and_shift_o_flips_it(root: Path):
+    three_companies(root)
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        app = pilot.app
+        await pilot.press("O")
+        assert ids(app) == ["g", "a", "b"]
+        assert all(header.endswith("↕") for header in headers(app))
+
+        await pilot.press("o")
+        assert ids(app) == ["a", "b", "g"]
+        assert headers(app)[0] == "Company ▲"
+        await pilot.press("O")
+        assert ids(app) == ["g", "b", "a"]
+        assert headers(app)[0] == "Company ▼"
+
+        await pilot.press("o")
+        assert headers(app)[:2] == ["Company ↕", "Position ▲"]
+        await pilot.press(*"ooo")
+        assert headers(app)[4] == "Verdict / score ▼"
+
+        await pilot.press(*"oooo")
+        assert headers(app)[8] == "CV ▲"
+        await pilot.press("o")
+        assert ids(app) == ["g", "a", "b"]
+        assert all(header.endswith("↕") for header in headers(app))
+
+
+async def test_the_sort_and_the_cursor_survive_hiding_and_reloading(root: Path):
+    closed = lead(id="z", company="Zeta", created_at="2026-10-04", status="desisted")
+    write_db(
+        db_file(root),
+        lead(id="b", company="beta", created_at="2026-10-01"),
+        closed,
+        lead(id="a", company="Alpha", created_at="2026-10-02"),
+    )
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        app = pilot.app
+        assert app.selected_id() == "z"
+        await pilot.press("o")
+        assert ids(app) == ["a", "b", "z"]
+        assert app.selected_id() == "z"
+        await pilot.press("up")
+        assert app.selected_id() == "b"
+
+        await pilot.press("h")
+        assert ids(app) == ["a", "b"]
+        assert app.selected_id() == "b"
+
+        write_db(
+            db_file(root),
+            lead(id="b", company="beta", created_at="2026-10-01"),
+            closed,
+            lead(id="a", company="Alpha", created_at="2026-10-02"),
+            lead(id="c", company="Casa", created_at="2026-10-05"),
+        )
+        await pilot.pause(0.3)
+        assert ids(app) == ["a", "b", "c"]
+        assert headers(app)[0] == "Company ▲"
+        assert app.selected_id() == "b"
+
+
+def test_the_status_sort_order_covers_every_status():
+    assert sorted(LIFECYCLE) == sorted(STATUSES)
+
+
+async def test_position_and_location_sort_alphabetically_and_no_location_stays_last(root: Path):
+    write_db(
+        db_file(root),
+        lead(id="z", created_at="2026-10-01", position="zeta Engineer", location={"city": "Zurich", "country": "CH"}),
+        lead(id="n", created_at="2026-10-02", position="Beta Lead", location={"city": None, "country": None}),
+        lead(
+            id="a", created_at="2026-10-03", position="alpha Manager", location={"city": "amsterdam", "country": "NL"}
+        ),
+    )
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await click_header(pilot, "Position")
+        assert ids(pilot.app) == ["a", "n", "z"]
+        await click_header(pilot, "Location")
+        assert ids(pilot.app) == ["a", "z", "n"]
+        await click_header(pilot, "Location")
+        assert ids(pilot.app) == ["z", "a", "n"]
+
+
+async def test_the_sort_survives_an_edit_in_the_detail_screen(root: Path):
+    three_companies(root)
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await pilot.press("o")
+        assert ids(pilot.app) == ["a", "b", "g"]
+        assert pilot.app.selected_id() == "g"
+        await open_detail(pilot)
+        await type_into(pilot, "company", "Beaver")
+        await pilot.press("escape")
+        await pilot.pause()
+        assert ids(pilot.app) == ["a", "g", "b"]
+        assert headers(pilot.app)[0] == "Company ▲"
+        assert pilot.app.selected_id() == "g"
 
 
 # the detail screen
@@ -589,9 +884,7 @@ async def test_the_cv_column_shows_the_label_of_the_version_sent(root: Path):
 
     async with make_app(root).run_test(size=SIZE) as pilot:
         await pilot.pause()
-        assert pilot.app.query_one(DataTable).columns and "CV" in [
-            str(c.label) for c in pilot.app.query_one(DataTable).columns.values()
-        ]
+        assert headers(pilot.app)[-1] == "CV ↕"
         assert [row[-1] for row in rows(pilot.app)] == ["cv_en_334", ""]
 
 
