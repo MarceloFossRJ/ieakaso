@@ -45,6 +45,9 @@ DOCUMENTS = {  # key -> (what the candidate sees, where the path is in the recor
     "research": ("Company research", lambda record: record["company_research"]),
     "screening": ("Screening prep", lambda record: record["screening_prep"]),
 }
+FIRST_DESCENDING = {"Verdict / score", "Analysed", "Applied"}  # best score and newest date first
+LIFECYCLE = ("lead", "applied", "no_answer", "interviewing", "offer", "not_selected", "desisted")
+UNSORTED, ASCENDING, DESCENDING = "↕", "▲", "▼"
 NO_FILE_HINT = "No Applications yet. Run `/ieakaso job-analyzer <job ad>` in your coding assistant to track one."
 
 
@@ -61,6 +64,8 @@ class ViewerApp(App):
     """
     BINDINGS: ClassVar[list] = [
         Binding("h", "toggle_closed", "Hide/show closed"),
+        Binding("o", "sort_next", "Sort"),
+        Binding("O", "flip_sort", "Flip sort", show=False),
         Binding("a", "open_document('ad')", "Job ad"),
         Binding("j", "open_document('analysis')", "Job analysis"),
         Binding("c", "open_document('letter')", "Cover letter"),
@@ -84,6 +89,8 @@ class ViewerApp(App):
         self.opener = opener or (lambda path: None)
         self.poll_interval = poll_interval
         self.hide_closed = False
+        self.sort_column: int | None = None
+        self.sort_descending = False
         self.tracker_db: Db = Db(root / DB_PATH)
 
     def compose(self) -> ComposeResult:
@@ -95,7 +102,7 @@ class ViewerApp(App):
     def on_mount(self) -> None:
         self.table = self.query_one("#applications", DataTable)
         self.hint = self.query_one("#hint", Static)
-        self.table.add_columns(*COLUMNS)
+        self.table.add_columns(*self.header_labels())
         self.reload()
         self.set_interval(self.poll_interval, self._poll)
         found = no_answer_suggestions(self.tracker_db, self.today()) if not self.tracker_db.error else []
@@ -121,11 +128,38 @@ class ViewerApp(App):
         records = sorted(self.tracker_db.records, key=lambda r: (r["created_at"], r["id"]), reverse=True)
         if self.hide_closed:
             records = [r for r in records if r["status"] not in CLOSED_STATUSES]
-        return records
+        if self.sort_column is None:
+            return records
+        sort_key = self.sort_keys()[self.sort_column]
+        present = [r for r in records if sort_key(r) is not None]
+        empty = [r for r in records if sort_key(r) is None]
+        return sorted(present, key=sort_key, reverse=self.sort_descending) + empty
+
+    def sort_keys(self) -> list[Callable[[dict], object]]:
+        """What each column sorts by, in COLUMNS order; None is an empty value, always last."""
+        return [
+            lambda r: r["company"].casefold(),
+            lambda r: r["position"].casefold(),
+            lambda r: LIFECYCLE.index(r["status"]),
+            lambda r: r["stage"] if r["stages"] else None,
+            lambda r: r["analysis"]["score"],
+            lambda r: location_label(r).casefold() or None,
+            lambda r: r["analysis"]["on"],
+            lambda r: r["applied_on"] or None,
+            lambda r: self.cv_label(r["cv_version"]).casefold() or None,
+        ]
+
+    def header_labels(self) -> list[str]:
+        icons = [UNSORTED] * len(COLUMNS)
+        if self.sort_column is not None:
+            icons[self.sort_column] = DESCENDING if self.sort_descending else ASCENDING
+        return [f"{name} {icon}" for name, icon in zip(COLUMNS, icons, strict=True)]
 
     def refresh_table(self) -> None:
         selected = self.selected_id()
         self.table.clear()
+        for column, header in zip(self.table.ordered_columns, self.header_labels(), strict=True):
+            column.label = Text(header)
         records = self.visible_records()
         for record in records:
             self.table.add_row(*self._cells(record), key=record["id"])
@@ -221,6 +255,36 @@ class ViewerApp(App):
     @on(DataTable.RowSelected)
     def _open_detail(self, event: DataTable.RowSelected) -> None:
         self.push_screen(DetailScreen(event.row_key.value))
+
+    def sort_by(self, index: int | None, descending: bool | None = None) -> None:
+        """Sort by a column (in its first direction unless told otherwise), or None for newest first."""
+        self.sort_column = index
+        if index is not None:
+            self.sort_descending = COLUMNS[index] in FIRST_DESCENDING if descending is None else descending
+        self.refresh_table()
+
+    @on(DataTable.HeaderSelected)
+    def _sort_by_header(self, event: DataTable.HeaderSelected) -> None:
+        """A header click goes through its column's first direction, the other one, and back to newest first."""
+        index = event.column_index
+        first = COLUMNS[index] in FIRST_DESCENDING
+        if self.sort_column != index:
+            self.sort_by(index)
+        elif self.sort_descending == first:
+            self.sort_by(index, descending=not first)
+        else:
+            self.sort_by(None)
+
+    def action_sort_next(self) -> None:
+        """Sort by the next column to the right; after the last one, back to newest first."""
+        if self.sort_column is None:
+            self.sort_by(0)
+        else:
+            self.sort_by(self.sort_column + 1 if self.sort_column + 1 < len(COLUMNS) else None)
+
+    def action_flip_sort(self) -> None:
+        if self.sort_column is not None:
+            self.sort_by(self.sort_column, descending=not self.sort_descending)
 
     def action_cv_versions(self) -> None:
         if len(self.screen_stack) == 1 and not self.tracker_db.error:
