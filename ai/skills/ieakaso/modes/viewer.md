@@ -36,7 +36,7 @@ uv run ieakaso-view
 
 In chat, in a few lines:
 - that the viewer is open in a new terminal window (or the command to run, from Step 2)
-- the keys: Enter opens an Application, clicking a column header sorts by it (again reverses, a third time goes back to newest first), `o` moves the sort to the next column and `O` reverses it, `h` hides or shows Desisted and Not selected, `a`, `j`, `c`, `r` and `s` open the Job ad, the Job analysis, the Cover letter, the Company research and the Screening prep, `v` lists the CV versions so their labels can be edited, `q` quits
+- the keys: Enter opens an Application, clicking a column header sorts by it (again reverses, a third time goes back to newest first), `o` moves the sort to the next column and `O` reverses it, the filter bar above the table filters by status, stage, verdict, country and city (click a filter, or `f` then the arrows and Enter, and tick the values to keep; Escape goes back to the table), `x` clears every filter, `h` hides or shows Desisted and Not selected in the status filter, `a`, `j`, `c`, `r` and `s` open the Job ad, the Job analysis, the Cover letter, the Company research and the Screening prep, `v` lists the CV versions so their labels can be edited, `q` quits
 - that edits are saved at once, and that the viewer only edits: new Applications come from `/ieakaso job-analyzer`
 
 If `db/ieakaso_db.json` does not exist, add that the table is empty until a Job analysis has been run.

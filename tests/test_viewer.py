@@ -7,8 +7,9 @@ import pytest
 from textual.widgets import Button, DataTable, Input, Select, SelectionList, Static
 from tracker_fakes import ID, TODAY, cv_version, lead, record, write_db
 
-from ieakaso.tracker import DB_PATH
+from ieakaso.tracker import DB_PATH, STATUS_LIFECYCLE, VERDICTS
 from ieakaso.viewer import ViewerApp
+from ieakaso.viewer.filters import FILTERS, Filters, FilterScreen
 from ieakaso.viewer.screens import CvVersionsScreen, DetailScreen, NoAnswerScreen
 
 SIZE = (200, 60)
@@ -977,3 +978,230 @@ async def test_the_personal_motivation_with_brackets_is_shown_literally(root: Pa
         await open_detail(pilot)
         text = " ".join(str(w.render()) for w in pilot.app.screen.query(Static))
         assert "Personal motivation: I want [payments] work [/] and [bold]more[/bold]." in text
+
+
+# filters
+
+
+def located(city, country) -> dict:
+    return {"city": city, "country": country}
+
+
+def staged(stage: int, *names: str) -> dict:
+    return {"stage": stage, "stages": [{"name": name, "description": ""} for name in names]}
+
+
+def test_status_and_verdict_offer_every_value_in_order():
+    filters = Filters()
+    assert [k for k, _ in filters.choices(FILTERS[0], [])] == list(STATUS_LIFECYCLE)
+    assert filters.choices(FILTERS[2], []) == [(v, v) for v in VERDICTS]
+    assert filters.choices(FILTERS[0], [])[5] == ("not_selected", "Not selected")
+
+
+def test_stage_country_and_city_offer_what_the_db_holds_with_the_empty_choice_last():
+    records = [
+        record(id="a", **staged(1, "Recruiter  screening", "x"), location=located("berlin", "DE")),
+        record(id="b", **staged(2, "intro", "recruiter screening"), location=located(None, "AT")),
+        lead(id="c", location=located("Amsterdam", None)),
+        record(id="d", **staged(1, "Coding test")),
+    ]
+    filters = Filters()
+    stage, country, city = FILTERS[1], FILTERS[3], FILTERS[4]
+    assert filters.choices(stage, records) == [
+        ("coding test", "Coding test"),
+        ("recruiter screening", "Recruiter screening"),
+        ("", "Not started"),
+    ]
+    assert filters.choices(country, records) == [("AT", "AT"), ("DE", "DE"), ("", "(none)")]
+    assert filters.choices(city, records) == [
+        ("Amsterdam", "Amsterdam"),
+        ("berlin", "berlin"),
+        ("Berlin", "Berlin"),
+        ("", "(none)"),
+    ]
+
+
+def test_ticks_combine_with_or_inside_a_filter_and_and_across_filters():
+    filters = Filters()
+    applied_apply = record(id="a")
+    lead_apply = lead(id="b")
+    applied_stretch = record(id="c", analysis={**record()["analysis"], "verdict": "Stretch"})
+    filters.set(FILTERS[0], {"lead": "Lead", "applied": "Applied"})
+    assert all(filters.keeps(r) for r in (applied_apply, lead_apply, applied_stretch))
+    filters.set(FILTERS[2], {"Apply": "Apply"})
+    assert [filters.keeps(r) for r in (applied_apply, lead_apply, applied_stretch)] == [True, True, False]
+    filters.set(FILTERS[0], {})
+    assert not filters.ticked["Status"] and filters.active
+
+
+def test_a_ticked_value_gone_from_the_db_is_still_offered_ticked():
+    filters = Filters()
+    filters.set(FILTERS[4], {"Lisbon": "Lisbon"})
+    assert filters.choices(FILTERS[4], [record()]) == [("Berlin", "Berlin"), ("Lisbon", "Lisbon")]
+
+
+def test_the_button_summarises_what_is_ticked():
+    filters = Filters()
+    assert filters.summary(FILTERS[0]) == "Status: all"
+    filters.set(FILTERS[0], {"lead": "Lead", "applied": "Applied"})
+    assert filters.summary(FILTERS[0]) == "Status: Lead, Applied"
+    filters.set(FILTERS[2], {"Top applicant": "Top applicant", "Apply": "Apply", "Stretch": "Stretch"})
+    assert filters.summary(FILTERS[2]) == "Verdict: 3 selected"
+
+
+def test_h_unticks_the_closed_statuses_and_ticks_them_back():
+    filters = Filters()
+    assert filters.toggle_closed() is True
+    assert set(filters.ticked["Status"]) == {"lead", "applied", "no_answer", "interviewing", "offer"}
+    assert filters.toggle_closed() is False
+    assert filters.ticked["Status"] == {}
+
+    filters.set(FILTERS[0], {"lead": "Lead", "desisted": "Desisted"})
+    assert filters.toggle_closed() is True
+    assert filters.ticked["Status"] == {"lead": "Lead"}
+    assert filters.toggle_closed() is False
+    assert set(filters.ticked["Status"]) == {"lead", "desisted", "not_selected"}
+
+
+def mixed_records(root: Path):
+    write_db(
+        db_file(root),
+        lead(id="a", company="Alpha", created_at="2026-10-01", location=located("Lisbon", "PT")),
+        record(id="b", company="Beta", created_at="2026-10-02"),
+        record(
+            id="c",
+            company="Gamma",
+            created_at="2026-10-03",
+            status="interviewing",
+            analysis={**record()["analysis"], "verdict": "Stretch", "score": 60},
+        ),
+    )
+
+
+async def choose(pilot, name: str, *keys: str) -> None:
+    await pilot.click(f"#filter-{name}")
+    await pilot.pause()
+    selection = pilot.app.screen.query_one(SelectionList)
+    selection.deselect_all()
+    for key in keys:
+        selection.select(key)
+    await pilot.click("#apply")
+    await pilot.pause()
+
+
+async def test_the_filter_bar_sits_above_the_table_and_starts_with_everything(root: Path):
+    mixed_records(root)
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        app = pilot.app
+        buttons = [str(b.label) for b in app.query("#filters Button").results(Button)]
+        assert buttons == ["Status: all", "Stage: all", "Verdict: all", "Country: all", "City: all"]
+        assert app.query_one("#filters").region.y < app.query_one(DataTable).region.y
+        assert len(ids(app)) == 3
+        assert hint(app) == ""
+
+
+async def test_ticking_values_in_the_popup_filters_the_table(root: Path):
+    mixed_records(root)
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        app = pilot.app
+        await choose(pilot, "status", "lead", "interviewing")
+        assert ids(app) == ["c", "a"]
+        assert str(app.query_one("#filter-status", Button).label) == "Status: Lead, Interviewing"
+        assert hint(app) == "Showing 2 of 3 Applications (filtered). x clears the filters."
+
+        await choose(pilot, "country", "PT")
+        assert ids(app) == ["a"]
+
+        await choose(pilot, "verdict", "Stretch")
+        assert ids(app) == []
+        assert hint(app) == "No Application matches the filters. Press x to clear them."
+
+        await pilot.press("x")
+        assert len(ids(app)) == 3
+        assert str(app.query_one("#filter-verdict", Button).label) == "Verdict: all"
+
+
+async def test_cancel_and_escape_leave_the_filter_as_it_was(root: Path):
+    mixed_records(root)
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await pilot.click("#filter-status")
+        await pilot.pause()
+        pilot.app.screen.query_one(SelectionList).select("lead")
+        await pilot.click("#cancel")
+        await pilot.pause()
+        assert len(ids(pilot.app)) == 3
+        await pilot.click("#filter-status")
+        await pilot.pause()
+        await pilot.press("escape")
+        await pilot.pause()
+        assert len(ids(pilot.app)) == 3
+        assert pilot.app.filters.active is False
+
+
+async def test_f_focuses_the_filters_arrows_move_and_escape_goes_back(root: Path):
+    mixed_records(root)
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        app = pilot.app
+        await pilot.press("f")
+        assert app.focused.id == "filter-status"
+        await pilot.press("left")
+        assert app.focused.id == "filter-status"
+        await pilot.press("right", "right")
+        assert app.focused.id == "filter-verdict"
+        await pilot.press("enter")
+        await pilot.pause()
+        assert isinstance(app.screen, FilterScreen)
+        await pilot.press("escape")
+        await pilot.pause()
+        await pilot.press("escape")
+        assert isinstance(app.focused, DataTable)
+
+
+async def test_h_changes_the_status_filter(root: Path):
+    write_db(db_file(root), lead(id="a", created_at="2026-10-01"), lead(id="b", status="desisted"))
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        app = pilot.app
+        await pilot.press("h")
+        assert ids(app) == ["a"]
+        status = app.query_one("#filter-status", Button)
+        assert str(status.label) == "Status: 5 selected"
+        await pilot.pause()
+        assert status.region.width >= len("Status: 5 selected")
+        assert hint(app) == "Showing 1 of 2 Applications (filtered). x clears the filters."
+        await pilot.press("h")
+        assert str(app.query_one("#filter-status", Button).label) == "Status: all"
+
+
+async def test_an_edit_that_leaves_the_filter_takes_the_row_away(root: Path):
+    mixed_records(root)
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        app = pilot.app
+        await choose(pilot, "status", "lead")
+        assert ids(app) == ["a"]
+        assert app.apply("a", {"status": "applied"})
+        assert ids(app) == []
+
+
+async def test_filters_survive_a_reload(root: Path):
+    mixed_records(root)
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        app = pilot.app
+        await choose(pilot, "city", "Lisbon")
+        write_db(db_file(root), record(id="b"))
+        await pilot.pause(0.3)
+        assert ids(app) == []
+        assert app.filters.choices(FILTERS[4], app.tracker_db.records) == [("Berlin", "Berlin"), ("Lisbon", "Lisbon")]
