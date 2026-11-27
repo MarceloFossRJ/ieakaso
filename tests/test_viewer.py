@@ -7,8 +7,9 @@ import pytest
 from textual.widgets import Button, DataTable, Input, Select, SelectionList, Static
 from tracker_fakes import ID, TODAY, cv_version, lead, record, write_db
 
-from ieakaso.tracker import DB_PATH
+from ieakaso.tracker import DB_PATH, STATUSES
 from ieakaso.viewer import ViewerApp
+from ieakaso.viewer.app import LIFECYCLE
 from ieakaso.viewer.screens import CvVersionsScreen, DetailScreen, NoAnswerScreen
 
 SIZE = (200, 60)
@@ -353,6 +354,47 @@ async def test_the_sort_and_the_cursor_survive_hiding_and_reloading(root: Path):
         assert ids(app) == ["a", "b", "c"]
         assert headers(app)[0] == "Company ▲"
         assert app.selected_id() == "b"
+
+
+def test_the_status_sort_order_covers_every_status():
+    assert sorted(LIFECYCLE) == sorted(STATUSES)
+
+
+async def test_position_and_location_sort_alphabetically_and_no_location_stays_last(root: Path):
+    write_db(
+        db_file(root),
+        lead(id="z", created_at="2026-10-01", position="zeta Engineer", location={"city": "Zurich", "country": "CH"}),
+        lead(id="n", created_at="2026-10-02", position="Beta Lead", location={"city": None, "country": None}),
+        lead(
+            id="a", created_at="2026-10-03", position="alpha Manager", location={"city": "amsterdam", "country": "NL"}
+        ),
+    )
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await click_header(pilot, "Position")
+        assert ids(pilot.app) == ["a", "n", "z"]
+        await click_header(pilot, "Location")
+        assert ids(pilot.app) == ["a", "z", "n"]
+        await click_header(pilot, "Location")
+        assert ids(pilot.app) == ["z", "a", "n"]
+
+
+async def test_the_sort_survives_an_edit_in_the_detail_screen(root: Path):
+    three_companies(root)
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await pilot.press("o")
+        assert ids(pilot.app) == ["a", "b", "g"]
+        assert pilot.app.selected_id() == "g"
+        await open_detail(pilot)
+        await type_into(pilot, "company", "Beaver")
+        await pilot.press("escape")
+        await pilot.pause()
+        assert ids(pilot.app) == ["a", "g", "b"]
+        assert headers(pilot.app)[0] == "Company ▲"
+        assert pilot.app.selected_id() == "g"
 
 
 # the detail screen
