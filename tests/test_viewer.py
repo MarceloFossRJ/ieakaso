@@ -241,6 +241,9 @@ async def test_the_score_sorts_highest_first(root: Path):
         await click_header(pilot, "Verdict / score")
         assert ids(pilot.app) == ["low", "mid", "top"]
         assert headers(pilot.app)[4] == "Verdict / score ▲"
+        await click_header(pilot, "Verdict / score")
+        assert ids(pilot.app) == ["low", "top", "mid"]
+        assert headers(pilot.app)[4] == "Verdict / score ↕"
 
 
 async def test_dates_sort_newest_first_and_empty_ones_stay_last(root: Path):
@@ -257,6 +260,39 @@ async def test_dates_sort_newest_first_and_empty_ones_stay_last(root: Path):
         assert ids(pilot.app) == ["late", "early", "none"]
         await click_header(pilot, "Applied")
         assert ids(pilot.app) == ["early", "late", "none"]
+
+
+async def test_the_analysis_date_sorts_newest_first(root: Path):
+    write_db(
+        db_file(root),
+        lead(id="mid", created_at="2026-10-03", analysis=analysis(84, "Apply", on="2026-10-05")),
+        lead(id="new", created_at="2026-10-01", analysis=analysis(84, "Apply", on="2026-10-09")),
+        lead(id="old", created_at="2026-10-02", analysis=analysis(84, "Apply", on="2026-10-01")),
+    )
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await click_header(pilot, "Analysed")
+        assert ids(pilot.app) == ["new", "mid", "old"]
+        assert headers(pilot.app)[6] == "Analysed ▼"
+        await click_header(pilot, "Analysed")
+        assert ids(pilot.app) == ["old", "mid", "new"]
+
+
+async def test_ties_keep_newest_created_first_in_both_directions(root: Path):
+    write_db(
+        db_file(root),
+        lead(id="same_old", company="Same", created_at="2026-10-01"),
+        lead(id="other", company="Other", created_at="2026-10-02"),
+        lead(id="same_new", company="Same", created_at="2026-10-03"),
+    )
+
+    async with make_app(root).run_test(size=SIZE) as pilot:
+        await pilot.pause()
+        await click_header(pilot, "Company")
+        assert ids(pilot.app) == ["other", "same_new", "same_old"]
+        await click_header(pilot, "Company")
+        assert ids(pilot.app) == ["same_new", "same_old", "other"]
 
 
 async def test_the_stage_sorts_by_number_and_no_stages_stay_last(root: Path):
