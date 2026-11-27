@@ -10,10 +10,9 @@ from rich.text import Text
 from textual import on
 from textual.app import App, ComposeResult
 from textual.binding import Binding
-from textual.widgets import DataTable, Footer, Header, Static
+from textual.widgets import Button, DataTable, Footer, Header, Static
 
 from ieakaso.tracker import (
-    CLOSED_STATUSES,
     DB_PATH,
     STATUS_LIFECYCLE,
     ConflictError,
@@ -27,6 +26,7 @@ from ieakaso.tracker import (
     set_status,
     update_record,
 )
+from ieakaso.viewer.filters import FILTERS, Filter, FilterBar, Filters, FilterScreen
 from ieakaso.viewer.screens import CvVersionsScreen, DetailScreen, NoAnswerScreen, label
 
 STATUS_STYLES = {
@@ -48,6 +48,10 @@ DOCUMENTS = {  # key -> (what the candidate sees, where the path is in the recor
 }
 UNSORTED, ASCENDING, DESCENDING = "↕", "▲", "▼"
 NO_FILE_HINT = "No Applications yet. Run `/ieakaso job-analyzer <job ad>` in your coding assistant to track one."
+
+
+def filter_id(flt: Filter) -> str:
+    return f"filter-{flt.name.casefold()}"
 
 
 def location_label(record: dict) -> str:
@@ -123,8 +127,12 @@ class ViewerApp(App):
     #hint { padding: 0 1; height: auto; }
     #hint.error { color: $error; text-style: bold; }
     #hint.empty { display: none; }
+    #filters { height: auto; padding: 0 1; }
+    #filters Button { width: auto; min-width: 12; margin-right: 1; }
     """
     BINDINGS: ClassVar[list] = [
+        Binding("f", "focus_filters", "Filters"),
+        Binding("x", "clear_filters", "Clear filters"),
         Binding("h", "toggle_closed", "Hide/show closed"),
         Binding("o", "sort_next", "Sort"),
         Binding("O", "flip_sort", "Flip sort", show=False),
@@ -150,12 +158,15 @@ class ViewerApp(App):
         self.today = today
         self.opener = opener or (lambda path: None)
         self.poll_interval = poll_interval
-        self.hide_closed = False
+        self.filters = Filters()
         self.sort: Sort | None = None  # None: newest created first
         self.tracker_db: Db = Db(root / DB_PATH)
 
     def compose(self) -> ComposeResult:
         yield Header()
+        with FilterBar(id="filters"):
+            for flt in FILTERS:
+                yield Button(self.filters.summary(flt), id=filter_id(flt), compact=True)
         yield Static("", id="hint")
         yield DataTable(id="applications", cursor_type="row", zebra_stripes=True)
         yield Footer()
@@ -187,8 +198,7 @@ class ViewerApp(App):
 
     def visible_records(self) -> list[dict]:
         records = sorted(self.tracker_db.records, key=lambda r: (r["created_at"], r["id"]), reverse=True)
-        if self.hide_closed:
-            records = [r for r in records if r["status"] not in CLOSED_STATUSES]
+        records = [r for r in records if self.filters.keeps(r)]
         if self.sort is None:
             return records
         keys = {r["id"]: COLUMNS[self.sort.column].sort_key(self, r) for r in records}
@@ -214,21 +224,27 @@ class ViewerApp(App):
             self.table.add_row(*(column.cell(self, record) for column in COLUMNS), key=record["id"])
         if selected in {r["id"] for r in records}:
             self.table.move_cursor(row=self.table.get_row_index(selected))
-        self._set_hint(bool(records))
+        for flt in FILTERS:
+            button = self.query_one(f"#{filter_id(flt)}", Button)
+            button.label = self.filters.summary(flt)
+            button.refresh(layout=True)  # its width follows the label
+        self._set_hint(len(records))
 
     def cv_label(self, version_id: str | None) -> str:
         """The label of a CV version, or nothing for an Application without one."""
         version = self.tracker_db.find_cv_version(version_id) if version_id else None
         return version["label"] if version else ""
 
-    def _set_hint(self, has_rows: bool) -> None:
+    def _set_hint(self, shown: int) -> None:
         db = self.tracker_db
         if db.error:
             text, kind = f"{db.error}\nNothing can be saved until the file is fixed or removed.", "error"
         elif not db.records:
             text, kind = NO_FILE_HINT, ""
-        elif not has_rows:
-            text, kind = "Every Application is closed (Desisted or Not selected). Press h to show them.", ""
+        elif not shown:
+            text, kind = "No Application matches the filters. Press x to clear them.", ""
+        elif self.filters.active:
+            text, kind = f"Showing {shown} of {len(db.records)} Applications (filtered). x clears the filters.", ""
         else:
             text, kind = "", "empty"
         self.hint.update(text)
@@ -317,9 +333,35 @@ class ViewerApp(App):
             self.push_screen(CvVersionsScreen())
 
     def action_toggle_closed(self) -> None:
-        self.hide_closed = not self.hide_closed
+        hidden = self.filters.toggle_closed()
         self.refresh_table()
-        self.notify("Hiding Desisted and Not selected." if self.hide_closed else "Showing all Applications.")
+        self.notify("Hiding Desisted and Not selected." if hidden else "Showing Desisted and Not selected.")
+
+    # filters
+
+    @on(Button.Pressed, "#filters Button")
+    def _open_filter(self, event: Button.Pressed) -> None:
+        flt = next(f for f in FILTERS if filter_id(f) == event.button.id)
+        choices = self.filters.choices(flt, self.tracker_db.records)
+        self.push_screen(FilterScreen(flt.name, choices, self.filters.ticked[flt.name]), self._filter_chosen(flt))
+
+    def _filter_chosen(self, flt: Filter) -> Callable[[dict[str, str] | None], None]:
+        def chosen(ticked: dict[str, str] | None) -> None:
+            if ticked is not None:
+                self.filters.set(flt, ticked)
+                self.refresh_table()
+
+        return chosen
+
+    def action_focus_filters(self) -> None:
+        if len(self.screen_stack) == 1:
+            self.query_one(f"#{filter_id(FILTERS[0])}", Button).focus()
+
+    def action_clear_filters(self) -> None:
+        if self.filters.active:
+            self.filters.clear()
+            self.refresh_table()
+            self.notify("Filters cleared.")
 
     def action_open_document(self, kind: str) -> None:
         screen = self.screen
