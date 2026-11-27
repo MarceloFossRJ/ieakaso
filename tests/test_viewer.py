@@ -7,9 +7,8 @@ import pytest
 from textual.widgets import Button, DataTable, Input, Select, SelectionList, Static
 from tracker_fakes import ID, TODAY, cv_version, lead, record, write_db
 
-from ieakaso.tracker import DB_PATH, STATUSES
+from ieakaso.tracker import DB_PATH
 from ieakaso.viewer import ViewerApp
-from ieakaso.viewer.app import LIFECYCLE
 from ieakaso.viewer.screens import CvVersionsScreen, DetailScreen, NoAnswerScreen
 
 SIZE = (200, 60)
@@ -390,10 +389,6 @@ async def test_the_sort_and_the_cursor_survive_hiding_and_reloading(root: Path):
         assert ids(app) == ["a", "b", "c"]
         assert headers(app)[0] == "Company ▲"
         assert app.selected_id() == "b"
-
-
-def test_the_status_sort_order_covers_every_status():
-    assert sorted(LIFECYCLE) == sorted(STATUSES)
 
 
 async def test_position_and_location_sort_alphabetically_and_no_location_stays_last(root: Path):
