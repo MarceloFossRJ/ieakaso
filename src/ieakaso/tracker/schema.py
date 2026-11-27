@@ -9,7 +9,8 @@ from ieakaso.tracker.errors import InvalidRecordError
 SCHEMA_VERSION = 6
 STATUSES = ("lead", "desisted", "applied", "no_answer", "interviewing", "offer", "not_selected")
 CLOSED_STATUSES = ("desisted", "not_selected")
-# The order an Application moves through: open statuses first, then the closed ones.
+# The display order of the statuses: open ones in their usual sequence, then the closed ones.
+# Not a rule on changes: any status can follow any other (docs/database.md).
 STATUS_LIFECYCLE = ("lead", "applied", "no_answer", "interviewing", "offer", "not_selected", "desisted")
 VERDICTS = ("Top applicant", "Apply", "Stretch", "Don't apply")
 CONTACT_TYPES = ("recruiter", "hiring_manager", "referral", "other")

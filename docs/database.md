@@ -184,6 +184,8 @@ Only job-analyzer writes it, on every run.
 
 The usual path is `lead` → `applied` or `desisted`, then `applied` → `no_answer`, `interviewing` or `not_selected`, then `interviewing` → `offer`, `not_selected` or `desisted`. These paths are guidance only: the viewer allows any change, so mistakes can be corrected.
 
+Where statuses are listed in order (the viewer sorts its Status column this way), the order is `STATUS_LIFECYCLE` in `src/ieakaso/tracker/schema.py`: `lead`, `applied`, `no_answer`, `interviewing`, `offer`, `not_selected`, `desisted`. It is a display order, not a rule on which change can follow which.
+
 ## Schema versions
 
 | Version | Change |
